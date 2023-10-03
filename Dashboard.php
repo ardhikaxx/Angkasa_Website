@@ -383,6 +383,7 @@
             place-items: center;
             height: 100%;
             width: 100vh;
+            margin-left: 300px;
         }
 
         .carousel {
@@ -395,6 +396,8 @@
             padding-block-end: max(24px, calc(29px + var(--font-size-md)));
             perspective: 100px;
             width: 100%;
+            justify-content: center;
+            align-items: center;
         }
 
         @media (max-width: 568px) {
