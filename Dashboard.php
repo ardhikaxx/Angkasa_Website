@@ -55,6 +55,51 @@
             font-weight: bolder;
         }
 
+        .container_mouse {
+            position: fixed;
+            justify-content: bottom;
+            align-items: bottom;
+            z-index: 99;
+            bottom: 25px;
+            right: 30px;
+        }
+
+        .mouse-btn {
+            margin: 10px auto;
+            width: 20px;
+            height: 40px;
+            border: 3px solid #000;
+            border-radius: 20px;
+            display: flex;
+        }
+
+        .mouse-scroll {
+            display: block;
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            margin: auto;
+            animation: scrolling13 1s linear infinite;
+        }
+
+        .title-mouse {
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+        }
+
+        @keyframes scrolling13 {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(20px);
+            }
+        }
+
         .dashboard {
             display: flex;
             justify-content: space-between;
@@ -67,6 +112,9 @@
             flex: 1;
             text-align: left;
             padding-left: 50px;
+            width: 50%;
+            animation: slideInLeft 1s ease;
+            transition: transform 0.5s ease;
         }
 
         .dashboard-title {
@@ -99,6 +147,29 @@
             text-align: right;
             margin-top: 20px;
             padding-right: 50px;
+            width: 50%;
+            animation: slideInRight 1s ease;
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
         }
 
         .contohfoto {
@@ -417,7 +488,7 @@
 
         .carousel .item {
             position: absolute;
-            max-width: 418px;
+            max-width: 100%;
             height: 100%;
             margin-inline: var(--container-padding-horizontal);
             opacity: 0;
@@ -790,6 +861,13 @@
             <li><a href="Tentang.php">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
+    </div>
+
+    <div class="container_mouse">
+        <span class="mouse-btn">
+            <span class="mouse-scroll"></span>
+        </span>
+        <span class="title-mouse">Scroll Down</span>
     </div>
 
     <div class="dashboard">
