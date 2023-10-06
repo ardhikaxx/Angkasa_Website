@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Angkasa | Login Admin Page</title>
     <style>
         body {
             padding: 0;
@@ -13,49 +14,6 @@
             display: flex;
             flex-direction: row;
             height: 100vh;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 5px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar-logo img {
-            max-height: 65px;
-        }
-
-        .navbar-menu {
-            list-style: none;
-            font-family: "Poppins", sans-serif;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            font-weight: bold;
-        }
-
-        .navbar-menu li a {
-            color: #000;
-            text-decoration: none;
-        }
-
-        .navbar-menu li a:hover {
-            text-decoration: underline;
-        }
-
-        .admin-link {
-            color: #000;
-            font-family: "Poppins", sans-serif;
-            text-decoration: none;
-            font-weight: bolder;
         }
 
         .left-side {
@@ -79,15 +37,46 @@
             font-family: "Poppins", sans-serif;
         }
 
+        .dashboard-button {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .dashboard-button:hover {
+            background-color: black;
+            color: white;
+            border: 2px solid white;
+            transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
+        }
+
         .login-box {
             text-align: center;
             padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .login-box:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
         }
 
         .left-side h1,
         .right-side h1 {
             margin-top: 0;
-            font-weight: 800;
+            font-weight: 750;
         }
 
         input[type="text"] {
@@ -120,12 +109,13 @@
         #username {
             width: 300px;
             padding: 5px;
-            
+
             margin: 5px 0;
             border: none;
             outline: none;
             background-color: transparent;
         }
+
         .password-container {
             max-width: 300px;
             border-radius: 50px;
@@ -142,6 +132,7 @@
             outline: none;
             background-color: transparent;
         }
+
         #showPassword {
             cursor: pointer;
             position: relative;
@@ -162,33 +153,40 @@
             margin-top: 5px;
         }
 
+        .forgot-password-link {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+
         .login-button {
             background-color: black;
+            color: white;
+            border: 2px solid black;
+            transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
             font-weight: 800;
             font-size: 15px;
-            color: white;
-            border: none;
             padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
             width: 300px;
         }
+
+        .login-button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
+        }
     </style>
 </head>
 
 <body>
-    <div class="navbar">
-        <a class="navbar-logo" href="#"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
-        <ul class="navbar-menu">
-            <li><a href="Dashboard.php">Home</a></li>
-            <li><a href="Pemesanan.php">Pemesanan</a></li>
-            <li><a href="Ourpackage.php">Our Package</a></li>
-            <li><a href="Gallery.php">Gallery</a></li>
-            <li><a href="Tentang.php">Tentang Kami</a></li>
-        </ul>
-        <a class="admin-link" href="Login.php">Anda Admin?</a>
-    </div>
-
     <div class="left-side">
         <div class="login-box">
             <h1>LOGIN</h1>
@@ -197,28 +195,33 @@
             </div><br>
             <div class="password-container">
                 <input type="password" placeholder="Password" id="password">
-                <span id="showPassword" onclick="togglePasswordVisibility()">&#128065;</span>
+                <span id="showPassword" onclick="togglePasswordVisibility()">
+                    <i id="passwordIcon" class="fas fa-eye"></i>
+                </span>
             </div><br><br>
-            <a href="#">Lupa Password?</a><br><br>
+            <a href="#" class="forgot-password-link" id="forgotPasswordLink">Lupa Password?</a><br><br>
             <button class="login-button">Login</button>
         </div>
     </div>
     <div class="right-side">
         <h1>Hallo, Admin!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.</p>
+        <p>Selamat datang Admin! Kami senang Anda ingin login ke akun Admin Anda.</p>
+        <a href="dashboard.php" class="dashboard-button">Dashboard</a>
     </div>
 
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById("password");
-            const showPasswordIcon = document.getElementById("showPassword");
+            const showPasswordIcon = document.getElementById("passwordIcon");
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                showPasswordIcon.innerHTML = "&#128064;";
+                showPasswordIcon.classList.remove("fa-eye");
+                showPasswordIcon.classList.add("fa-eye-slash");
             } else {
                 passwordInput.type = "password";
-                showPasswordIcon.innerHTML = "&#128065;";
+                showPasswordIcon.classList.remove("fa-eye-slash");
+                showPasswordIcon.classList.add("fa-eye");
             }
         }
     </script>

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angkasa | Gallery Page</title>
+    <title>Angkasa | Sponsor Page</title>
     <style>
         body {
             padding: 0;
@@ -133,9 +132,8 @@
         }
     </style>
 </head>
-
 <body>
-    <div class="navbar">
+<div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
             <li><a href="dashboard.php">Home</a></li>
@@ -156,10 +154,9 @@
 
     <div class="pack">
         <div class="pack-title">
-            <h1>Gallery</h1>
+            <h1>Sponsor</h1>
             <p>ingpokan penjual terang bulan terdekat</p>
         </div>
     </div>
 </body>
-
 </html>

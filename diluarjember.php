@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angkasa | Gallery Page</title>
+    <title>Angkasa | Pemesanan Page</title>
     <style>
         body {
             padding: 0;
@@ -111,6 +111,12 @@
             display: block;
         }
 
+        .header{
+            margin-top: 100px;
+            justify-content: center;
+            align-items: center;
+        }
+
         .pack {
             width: 100%;
             text-align: center;
@@ -153,10 +159,9 @@
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
-
     <div class="pack">
         <div class="pack-title">
-            <h1>Gallery</h1>
+            <h1>Pemesanan Diluar Daerah Jember</h1>
             <p>ingpokan penjual terang bulan terdekat</p>
         </div>
     </div>

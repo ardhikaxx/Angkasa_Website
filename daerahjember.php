@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angkasa | Gallery Page</title>
+    <title>Angkasa | Pemesanan Page</title>
     <style>
         body {
             padding: 0;
@@ -111,6 +111,12 @@
             display: block;
         }
 
+        .header {
+            margin-top: 100px;
+            justify-content: center;
+            align-items: center;
+        }
+
         .pack {
             width: 100%;
             text-align: center;
@@ -131,12 +137,97 @@
             font-family: "Poppins", sans-serif;
             font-weight: bold;
         }
+
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+input:checked + .slider + #sponsorContent {
+    display: block;
+}
+
+input:checked + .slider + #weddingContent {
+    display: block;
+}
+
+.content-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    display: none;
+    text-align: center;
+}
     </style>
 </head>
 
 <body>
     <div class="navbar">
-        <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
+        <a class="navbar-logo" href="#"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
             <li><a href="dashboard.php">Home</a></li>
             <li class="dropdown">
@@ -153,11 +244,25 @@
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
-
     <div class="pack">
         <div class="pack-title">
-            <h1>Gallery</h1>
+            <h1>Pemesanan Didaerah Jember</h1>
             <p>ingpokan penjual terang bulan terdekat</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <label class="switch">
+            <input type="checkbox" id="toggleBtn">
+            <span class="slider round"></span>
+        </label>
+        <div class="content" id="weddingContent">
+            <!-- Isi konten Wedding di sini -->
+            <h1>Wedding Content</h1>
+        </div>
+        <div class="content" id="sponsorContent">
+            <!-- Isi konten Sponsor di sini -->
+            <h1>Sponsor Content</h1>
         </div>
     </div>
 </body>
