@@ -477,7 +477,7 @@
             font-family: "Poppins", sans-serif;
             font-weight: bold;
         }
-        
+
         @-webkit-keyframes carousel-animate {
             0% {
                 visibility: hidden;
@@ -770,7 +770,6 @@
             stroke-width: 2;
         }
 
->>>>>>> 66f66c02f368cd0c55b03887ebd8a6e824d8bc66
         .pack-peta {
             max-width: 1500px;
             flex-direction: column;
