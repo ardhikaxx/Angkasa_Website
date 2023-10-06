@@ -251,20 +251,7 @@ input:checked + .slider + #weddingContent {
         </div>
     </div>
 
-    <div class="container">
-        <label class="switch">
-            <input type="checkbox" id="toggleBtn">
-            <span class="slider round"></span>
-        </label>
-        <div class="content" id="weddingContent">
-            <!-- Isi konten Wedding di sini -->
-            <h1>Wedding Content</h1>
-        </div>
-        <div class="content" id="sponsorContent">
-            <!-- Isi konten Sponsor di sini -->
-            <h1>Sponsor Content</h1>
-        </div>
-    </div>
+    <div class="pack-jember"></div>
 </body>
 
 </html>
