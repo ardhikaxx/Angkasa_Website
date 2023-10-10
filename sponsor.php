@@ -22,7 +22,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
         }
 
         .navbar-logo img {
