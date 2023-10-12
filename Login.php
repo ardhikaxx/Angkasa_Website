@@ -1,3 +1,33 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", " ", "angkasa");
+if (isset($_POST['submit'])) {
+    $username = $_POST['txt_username'];
+    $password = $_POST['txt_pass'];
+    if (!empty(trim($username)) && !empty(trim($password))) {
+        $query = "SELECT * FROM  user WHERE password ='$password'";
+        $result = mysqli_query($koneksi, $query);
+        $num = mysqli_num_rows($result);
+        while ($row = mysqli_fetch_array($result)) {
+            $userVal = $row['username'];
+            $passVal = $row['password'];
+        }
+        if ($num != 0) {
+            if ($userVal == $username && $passVal == $password) {
+                header('Location:admin/dashboard-admin.php');
+            } else {
+                $error = "username / password salah";
+                echo $error;
+            }
+        } else {
+            $error = "username/password tidak ditemukan";
+            echo $error;
+        }
+    } else {
+        $error = 'Silahkan input username dan password';
+        echo $error;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +35,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:500,700&amp;display=swap'><link rel="stylesheet" href="./style.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:500,700&amp;display=swap'>
+    <link rel="stylesheet" href="./style.css">
     <title>Angkasa | Login Admin Page</title>
     <style>
         body {
@@ -656,17 +687,19 @@
     <div class="left-side">
         <div class="login-box">
             <h1>LOGIN</h1>
-            <div class="username-container">
-                <input type="text" id="Username" placeholder="Username">
-            </div><br>
-            <div class="password-container">
-                <input type="password" placeholder="Password" id="password">
-                <span id="showPassword" onclick="togglePasswordVisibility()">
-                    <i id="passwordIcon" class="fas fa-eye"></i>
-                </span>
-            </div><br><br>
-            <a href="#" class="forgot-password-link" id="forgotPasswordLink">Lupa Password?</a><br><br>
-            <button class="login-button">Login</button>
+            <form action="Login.php" method="POST">
+                <div class="username-container">
+                    <input type="text" id="username" name="txt_username" placeholder="Username">
+                </div><br>
+                <div class="password-container">
+                    <input type="password" name="txt_pass" placeholder="Password" id="password">
+                    <span id="showPassword" onclick="togglePasswordVisibility()">
+                        <i id="passwordIcon" class="fas fa-eye"></i>
+                    </span>
+                </div><br><br>
+                <a href="#" class="forgot-password-link" id="forgotPasswordLink">Lupa Password?</a><br><br>
+                <button type="submit" name="submit" class="login-button">Login</button>
+            </form>
         </div>
     </div>
     <div class="right-side">
