@@ -1,3 +1,32 @@
+<?php
+$koneksi = mysqli_connect("localhost","root"," ","angkasa");
+if (isset($_POST['register'])){
+    $fullname=$_POST['txt_nama'];
+    $nohp=$_POST['txt_phone'];
+    $userName=$_POST['txt_username'];
+    $pass=$_POST['txt_pass'];
+    if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))){
+    $query="INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
+    $result =mysqli_query($koneksi, $query);
+    header('Location: Dashboard-admin.php');
+    }elseif(!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))){
+        $error='Silahkan input fullname';
+        echo $error;
+    }elseif(!empty(trim($fullname)) && !empty(trim($userName)) && !empty(trim($pass))){
+        $error='Silahkan input no hp';
+        echo $error;
+    }elseif(!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass))){
+        $error='Silahkan input username';
+        echo $error;
+    }elseif(!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))){
+        $error='Silahkan input pasword';
+        echo $error;
+    }else{
+        $error='Silahkan input fullname,no hp, username,pasword';
+        echo $error;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -2104,21 +2133,21 @@
 
 
     <div class="register-box">
-        <form class="register-container">
+        <form action="register.php" method="POST" class="register-container">
             <div class="segment">
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap">
+                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama">
             </label>
             <label class="Username">
-                <input type="text" placeholder="Masukkan Username">
+                <input type="text" placeholder="Masukkan Username" name="txt_username">
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" pattern="[0-9]+" title="Harap masukkan hanya angka">
+                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" pattern="[0-9]{10,15}">
             </label>
             <label class="password">
-                <input type="password" id="password" placeholder="Masukkan Password">
+                <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass">
                 <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
                     <i id="passwordIcon" class="fas fa-eye"></i>
                 </span>
@@ -2130,7 +2159,7 @@
                     <i id="repeatPasswordIcon" class="fas fa-eye"></i>
                 </span>
             </label>
-            <button class="btn-register" type="button">Register</button>
+            <button class="btn-register" type="submit" name="register">Register</button>
         </form>
     </div>
 
