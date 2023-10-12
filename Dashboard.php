@@ -206,7 +206,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            margin-top: 90px;
+            margin-top: 100px;
         }
 
         .left-content {
@@ -215,6 +215,7 @@
             width: 50%;
             animation: slideInLeft 1s ease;
             transition: transform 0.5s ease;
+            margin-top: 2px;
         }
 
         .dashboard-title {
@@ -255,11 +256,11 @@
         .right-content {
             flex: 1;
             text-align: right;
-            margin-top: 20px;
             padding-right: 50px;
             width: 50%;
             animation: slideInRight 1s ease;
             transition: transform 0.5s ease;
+            margin-top: 20px;
         }
 
         @keyframes slideInLeft {
@@ -424,36 +425,20 @@
             color: #fff;
             text-decoration: none;
             padding: 8px 16px;
+            border: none;
             border-radius: 4px;
             display: inline-block;
             font-size: 1rem;
             margin: 15px 0 10px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #816124;
-        }
-
-        .promo {
-            width: 100%;
-            text-align: center;
-            height: auto;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 150px;
-        }
-
-        .promo-title p {
-            margin-top: 5px;
-            font-family: "Poppins", sans-serif;
-        }
-
-        .promo-title h1 {
-            margin-bottom: 5px;
-            font-family: "Poppins", sans-serif;
-            font-weight: bold;
+            background-color: #fff;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .gallery {
@@ -514,7 +499,7 @@
         .map-info {
             display: flex;
             align-items: center;
-            max-width: 750px;
+            width: 800px;
         }
 
         .map {
@@ -527,8 +512,8 @@
         }
 
         .detail-map {
-            flex: 2;
-            padding: 20px;
+            flex: 1;
+            margin-bottom: 100px;
         }
 
         .detail-map h2 {
@@ -548,7 +533,9 @@
 
         .detail-map li {
             font-size: 16px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            text-align: left;
         }
 
         .detail-map h1 {
@@ -561,9 +548,7 @@
         }
 
         footer {
-            bottom: 0;
             background-color: #000;
-            min-width: 300px;
             width: 100%;
             bottom: 0px;
             display: flex;
@@ -599,6 +584,11 @@
             margin: 0 auto;
         }
 
+        .menu-footer {
+            justify-content: end;
+            align-items: flex-end;
+        }
+
         .footer-coloumns ul {
             list-style-type: none;
             padding: 0;
@@ -606,12 +596,33 @@
         }
 
         .footer-coloumns ul a {
-            color: #fff;
+            color: #333;
             text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-coloumns ul a::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
         }
 
         .footer-coloumns ul a:hover {
-            text-decoration: underline;
+            color: #fff;
+        }
+
+        .footer-coloumns ul a:hover::before {
+            transform: scaleX(1);
+            /* Munculkan garis bawah saat hover */
+            transform-origin: bottom left;
         }
 
         .footer-coloumns ul li {
@@ -639,13 +650,13 @@
             align-items: start;
             justify-content: start;
             gap: 16px;
-            margin-bottom: 60px;
         }
 
         .footer-logo img {
             width: 100px;
             height: 100px;
         }
+
 
         .footer-bottom {
             text-align: center;
@@ -662,7 +673,6 @@
 
         .footer-bottom>small {
             font-size: 16px;
-            font-weight: bold;
             margin: 0 4px;
         }
 
@@ -1148,6 +1158,40 @@
                 opacity: 0.6;
             }
         }
+
+        .promo {
+            width: 100%;
+            text-align: center;
+            height: auto;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 150px;
+        }
+
+        .promo-title p {
+            margin-top: 5px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .promo-title h1 {
+            margin-bottom: 5px;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+        }
+
+        .content {
+            width: 900px;
+            margin: 0 auto;
+            background-color: #EBECF0 0.5;
+            backdrop-filter: blur(5px);
+            font-family: "Poppins", sans-serif;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -1161,9 +1205,9 @@
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
+                    <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="sponsor.php">Sponsor</a></li>
             <li><a href="ourpackage.php">Our Package</a></li>
             <li><a href="gallery.php">Gallery</a></li>
             <li><a href="tentang.php">Tentang Kami</a></li>
@@ -1264,28 +1308,28 @@
             <p class="card-title">Card title</p>
             <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
                 tristique, non lobortis.</p>
-            <a href="paket1.html" class="btn">Read More</a>
+            <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
             <p class="card-title">Card title</p>
             <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
                 tristique, non lobortis.</p>
-            <a href="paket1.html" class="btn">Read More</a>
+            <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
             <p class="card-title">Card title</p>
             <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
                 tristique, non lobortis.</p>
-            <a href="paket1.html" class="btn">Read More</a>
+            <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
             <p class="card-title">Card title</p>
             <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
                 tristique, non lobortis.</p>
-            <a href="paket1.html" class="btn">Read More</a>
+            <a href="ourpackage.php" class="btn">Read More</a>
         </div>
     </div>
 
@@ -1294,6 +1338,10 @@
             <h1>Promo</h1>
             <p>Jangan sampai ketinggalan promonya!</p>
         </div>
+    </div>
+
+    <div class="content">
+
     </div>
 
     <div class="gallery">
@@ -1332,7 +1380,7 @@
             </div>
             <div class="detail-map">
                 <h2>Contact Us</h2>
-                <p>Apabila mengalami kesusahan bisa menghubungi kami</p>
+                <p>kalau anda ada kesulitan, anda dapat bisa menghubungi kontak yang tersedia.</p>
                 <ul>
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -1369,7 +1417,7 @@
                 <section class="footer-logo">
                     <img src="assets/Logo Angkasa Photobooth.png" alt="Logo footer">
                 </section>
-                <section>
+                <section class="menu-footer">
                     <h3>Menu</h3>
                     <ul>
                         <li>
@@ -1389,7 +1437,7 @@
                         </li>
                     </ul>
                 </section>
-                <section>
+                <sectio class="menu-footer">
                     <h3>Pemesanan</h3>
                     <ul>
                         <li>
@@ -1400,7 +1448,7 @@
                                 Jember</a>
                         </li>
                     </ul>
-                </section>
+                </sectio>
             </div>
             <div class="footer-bottom">
                 <div class="social-links">

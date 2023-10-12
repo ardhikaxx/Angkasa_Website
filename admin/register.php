@@ -30,6 +30,8 @@
             padding: 1rem 0;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
             height: calc(100vh - 4rem);
+            z-index: 1;
+            font-family: "Poppins", sans-serif;
         }
 
         .navbar img {
@@ -1529,7 +1531,7 @@
         .register-box {
             text-align: center;
             max-width: 320px;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
             border-radius: 10px;
@@ -1557,17 +1559,15 @@
         .segment {
             text-align: center;
             overflow: hidden;
-            white-space: nowrap;
             max-width: 200px;
             margin: 0 auto;
-            padding: 25px 0;
+            padding: 20px 0;
         }
 
         .segment h1 {
-            font-size: 24px;
-            margin: 0;
-            text-overflow: ellipsis;
-            overflow: hidden;
+            font-size: 35px;
+            margin-bottom: 5px;
+            font-weight: 800;
         }
 
 
@@ -2090,19 +2090,18 @@
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="#" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
             </li>
             <li class="navbar__item">
-                <a href="#" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
+                <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="#" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
         </ul>
     </nav>
 
-    
+
 
     <div class="register-box">
         <form class="register-container">
@@ -2110,22 +2109,22 @@
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Nama Lengkap">
+                <input type="text" placeholder="Masukkan Nama Lengkap">
             </label>
             <label class="Username">
-                <input type="text" placeholder="Username">
+                <input type="text" placeholder="Masukkan Username">
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Nomer Telefon">
+                <input type="text" placeholder="Masukan Nomor telepon" pattern="[0-9]+" title="Harap masukkan hanya angka">
             </label>
             <label class="password">
-                <input type="password" id="password" placeholder="Password">
+                <input type="password" id="password" placeholder="Masukkan Password">
                 <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
                     <i id="passwordIcon" class="fas fa-eye"></i>
                 </span>
             </label>
             <label class="repeat-password">
-                <input type="password" id="repeat-password" placeholder="Ulangi Password">
+                <input type="password" id="repeat-password" placeholder="Konfirmasi Password">
                 <span id="showRepeatPassword"
                     onclick="togglePasswordVisibility('repeat-password', 'repeatPasswordIcon')">
                     <i id="repeatPasswordIcon" class="fas fa-eye"></i>
