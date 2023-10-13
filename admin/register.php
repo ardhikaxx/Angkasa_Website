@@ -1,29 +1,17 @@
 <?php
-$koneksi = mysqli_connect("localhost","root"," ","angkasa");
-if (isset($_POST['register'])){
-    $fullname=$_POST['txt_nama'];
-    $nohp=$_POST['txt_phone'];
-    $userName=$_POST['txt_username'];
-    $pass=$_POST['txt_pass'];
-    if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))){
-    $query="INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
-    $result =mysqli_query($koneksi, $query);
-    header('Location: Dashboard-admin.php');
-    }elseif(!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))){
-        $error='Silahkan input fullname';
-        echo $error;
-    }elseif(!empty(trim($fullname)) && !empty(trim($userName)) && !empty(trim($pass))){
-        $error='Silahkan input no hp';
-        echo $error;
-    }elseif(!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass))){
-        $error='Silahkan input username';
-        echo $error;
-    }elseif(!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))){
-        $error='Silahkan input pasword';
-        echo $error;
-    }else{
-        $error='Silahkan input fullname,no hp, username,pasword';
-        echo $error;
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+if (isset($_POST['register'])) {
+    $fullname = $_POST['txt_nama'];
+    $nohp = $_POST['txt_phone'];
+    $userName = $_POST['txt_username'];
+    $pass = $_POST['txt_pass'];
+    if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
+        $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
+        $result = mysqli_query($koneksi, $query);
+        header('Location: Dashboard-admin.php');
     }
 }
 ?>
@@ -82,6 +70,7 @@ if (isset($_POST['register'])){
             width: 5.5rem;
             color: #ffffff;
             transition: 250ms ease all;
+            text-decoration: none;
         }
 
         .navbar__link span {
@@ -110,7 +99,7 @@ if (isset($_POST['register'])){
 
         .navbar__menu {
             position: relative;
-            margin-top: 250px;
+            margin-top: 200px;
         }
 
         .navbar__item:last-child:before {
@@ -2105,6 +2094,93 @@ if (isset($_POST['register'])){
                 opacity: 0.6;
             }
         }
+
+        #notification {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(55%, -50%);
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #notification-content {
+            font-size: 16px;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .modal {
+            background-color: #000;
+            font-family: "Poppins", sans-serif;
+            color: #fff;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+            padding: 20px;
+            width: 400px;
+        }
+
+        .btn-confirm,
+        .btn-cancel {
+            padding: 12px 24px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-confirm {
+            background-color: #fff;
+            border: 2px solid black;
+            color: black;
+        }
+
+        .btn-cancel {
+            background-color: #fff;
+            border: 2px solid black;
+            color: black;
+        }
+
+        .btn-confirm:hover,
+        .btn-cancel:hover {
+            background-color: black;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
     </style>
 </head>
 
@@ -2125,12 +2201,29 @@ if (isset($_POST['register'])){
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
+            </li>
+            <li class="navbar__item">
+                <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>
         </ul>
     </nav>
 
+    <div id="overlay" class="modal-overlay"></div>
 
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Anda akan logout. Apakah Anda yakin?</p>
+            <button id="confirmLogout" class="btn-confirm">Iya</button>
+            <button id="cancelLogout" class="btn-cancel">Tidak</button>
+        </div>
+    </div>
+
+    <div id="notification">
+        <span id="close-button" onclick="closeNotification()">&#10006;</span>
+        <div id="notification-content"></div>
+    </div>
 
     <div class="register-box">
         <form action="register.php" method="POST" class="register-container">
@@ -2150,13 +2243,6 @@ if (isset($_POST['register'])){
                 <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass">
                 <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
                     <i id="passwordIcon" class="fas fa-eye"></i>
-                </span>
-            </label>
-            <label class="repeat-password">
-                <input type="password" id="repeat-password" placeholder="Konfirmasi Password">
-                <span id="showRepeatPassword"
-                    onclick="togglePasswordVisibility('repeat-password', 'repeatPasswordIcon')">
-                    <i id="repeatPasswordIcon" class="fas fa-eye"></i>
                 </span>
             </label>
             <button class="btn-register" type="submit" name="register">Register</button>
@@ -2234,6 +2320,68 @@ if (isset($_POST['register'])){
             }
         }
     </script>
+
+    <script>
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            var notificationContent = document.getElementById('notification-content');
+
+            notificationContent.innerHTML = message;
+            notification.style.display = 'block';
+        }
+
+        function closeNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.display = 'none';
+        }
+
+        <?php
+        if (isset($_POST['register'])) {
+            $fullname = $_POST['txt_nama'];
+            $nohp = $_POST['txt_phone'];
+            $userName = $_POST['txt_username'];
+            $pass = $_POST['txt_pass'];
+            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
+                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
+                $result = mysqli_query($koneksi, $query);
+                header('window.location.href = "Dashboard-admin.php";');
+            } elseif (!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
+                echo 'showNotification("Silahkan input fullname")';
+            } elseif (!empty(trim($fullname)) && !empty(trim($userName)) && !empty(trim($pass))) {
+                echo 'showNotification("Silahkan input no hp")';
+            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass))) {
+                echo 'showNotification("Silahkan input username")';
+            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))) {
+                echo 'showNotification("Silahkan input pasword")';
+            } else {
+                echo 'showNotification("Silahkan input fullname,no hp, username,pasword");';
+            }
+        }
+        ?>
+    </script>
+    <script>
+        const logoutLink = document.getElementById('logout');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogoutBtn = document.getElementById('confirmLogout');
+        const cancelLogoutBtn = document.getElementById('cancelLogout');
+        const overlay = document.getElementById('overlay');
+
+        logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            logoutModal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        cancelLogoutBtn.addEventListener('click', function () {
+            logoutModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        confirmLogoutBtn.addEventListener('click', function () {
+            window.location.href = '/Angkasa_Website/logout.php';
+        });
+    </script>
+
 </body>
 
 </html>

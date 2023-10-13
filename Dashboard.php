@@ -596,7 +596,7 @@
         }
 
         .footer-coloumns ul a {
-            color: #333;
+            color: #F2F2F2;
             text-decoration: none;
             position: relative;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -621,7 +621,6 @@
 
         .footer-coloumns ul a:hover::before {
             transform: scaleX(1);
-            /* Munculkan garis bawah saat hover */
             transform-origin: bottom left;
         }
 
@@ -1280,7 +1279,7 @@
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
             <p class="dashboard-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
                 luctus nec ullamcorper mattis.</p>
-            <a href="Pemesanan.php" class="continue-button">Get Started</a>
+            <a href="ourpackage.php" class="continue-button">Get Started</a>
         </div>
         <div class="right-content">
             <div class="contohfoto">

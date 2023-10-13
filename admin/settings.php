@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #EBECF0;
@@ -45,6 +46,7 @@
             width: 5.5rem;
             color: #ffffff;
             transition: 250ms ease all;
+            text-decoration: none;
         }
 
         .navbar__link span {
@@ -73,7 +75,7 @@
 
         .navbar__menu {
             position: relative;
-            margin-top: 250px;
+            margin-top: 200px;
         }
 
         .navbar__item:last-child:before {
@@ -1971,6 +1973,64 @@
                 opacity: 0.6;
             }
         }
+
+        .modal {
+            background-color: #000;
+            font-family: "Poppins", sans-serif;
+            color: #fff;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+            padding: 20px;
+            width: 400px;
+        }
+
+        .btn-confirm,
+        .btn-cancel {
+            padding: 12px 24px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-confirm {
+            background-color: #fff;
+            border: 2px solid black;
+            color: black;
+        }
+
+        .btn-cancel {
+            background-color: #fff;
+            border: 2px solid black;
+            color: black;
+        }
+
+        .btn-confirm:hover,
+        .btn-cancel:hover {
+            background-color: black;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
     </style>
 </head>
 
@@ -1993,8 +2053,21 @@
             <li class="navbar__item">
                 <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
+            <li class="navbar__item">
+                <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+            </li>
         </ul>
     </nav>
+
+    <div id="overlay" class="modal-overlay"></div>
+
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Anda akan logout. Apakah Anda yakin?</p>
+            <button id="confirmLogout" class="btn-confirm">Iya</button>
+            <button id="cancelLogout" class="btn-cancel">Tidak</button>
+        </div>
+    </div>
 
     <div class="content">
     </div>
@@ -2053,6 +2126,29 @@
     </div>
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>
+
+    <script>
+        const logoutLink = document.getElementById('logout');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogoutBtn = document.getElementById('confirmLogout');
+        const cancelLogoutBtn = document.getElementById('cancelLogout');
+        const overlay = document.getElementById('overlay');
+
+        logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            logoutModal.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        cancelLogoutBtn.addEventListener('click', function () {
+            logoutModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        confirmLogoutBtn.addEventListener('click', function () {
+            window.location.href = '/Angkasa_Website/logout.php';
+        });
+    </script>
 </body>
 
 </html>

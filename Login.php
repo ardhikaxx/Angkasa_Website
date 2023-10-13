@@ -1,32 +1,6 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", " ", "angkasa");
-if (isset($_POST['submit'])) {
-    $username = $_POST['txt_username'];
-    $password = $_POST['txt_pass'];
-    if (!empty(trim($username)) && !empty(trim($password))) {
-        $query = "SELECT * FROM  user WHERE password ='$password'";
-        $result = mysqli_query($koneksi, $query);
-        $num = mysqli_num_rows($result);
-        while ($row = mysqli_fetch_array($result)) {
-            $userVal = $row['username'];
-            $passVal = $row['password'];
-        }
-        if ($num != 0) {
-            if ($userVal == $username && $passVal == $password) {
-                header('Location:admin/dashboard-admin.php');
-            } else {
-                $error = "username / password salah";
-                echo $error;
-            }
-        } else {
-            $error = "username/password tidak ditemukan";
-            echo $error;
-        }
-    } else {
-        $error = 'Silahkan input username dan password';
-        echo $error;
-    }
-}
+require('koneksi.php');
+$error = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,6 +130,7 @@ if (isset($_POST['submit'])) {
             margin: 5px 0;
             border: none;
             outline: none;
+            padding-left: 20px;
             background-color: transparent;
         }
 
@@ -232,7 +207,7 @@ if (isset($_POST['submit'])) {
             text-decoration: none;
             display: inline-block;
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 10px;
         }
 
         .login-button:hover {
@@ -680,10 +655,44 @@ if (isset($_POST['submit'])) {
                 opacity: 0.6;
             }
         }
+
+        #notification {
+            position: fixed;
+            top: 10%;
+            left: 25%;
+            transform: translate(-50%,-50%);
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        #notification-content {
+            font-size: 16px;
+            padding: 10px 20px 10px 20px;
+        }
     </style>
 </head>
 
 <body>
+    <div id="notification">
+        <span id="close-button" onclick="closeNotification()">&#10006;</span>
+        <div id="notification-content"></div>
+    </div>
+
     <div class="left-side">
         <div class="login-box">
             <h1>LOGIN</h1>
@@ -776,6 +785,51 @@ if (isset($_POST['submit'])) {
                 showPasswordIcon.classList.add("fa-eye");
             }
         }
+    </script>
+    <script>
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            var notificationContent = document.getElementById('notification-content');
+
+            notificationContent.innerHTML = message;
+            notification.style.display = 'block';
+        }
+
+        function closeNotification() {
+            var notification = document.getElementById('notification');
+            notification.style.display = 'none';
+        }
+
+        <?php
+        if (isset($_POST['submit'])) {
+            $username = $_POST['txt_username'];
+            $password = $_POST['txt_pass'];
+            if (!empty(trim($username)) && !empty(trim($password))) {
+                $query = "SELECT * FROM user WHERE password ='$password'";
+                $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+                $result = mysqli_query($koneksi, $query);
+                $num = mysqli_num_rows($result);
+                while ($row = mysqli_fetch_array($result)) {
+                    $userVal = $row['username'];
+                    $passVal = $row['password'];
+                }
+                if ($num != 0) {
+                    if ($userVal == $username && $passVal == $password) {
+
+                        echo 'window.location.href = "admin/dashboard-admin.php";';
+                    } else {
+                        // Show error message in notification
+                        echo 'showNotification("Username atau password salah.");';
+                    }
+                } else {
+                    // Show error message in notification
+                    echo 'showNotification("Username atau password tidak ditemukan.");';
+                }
+            } else {
+                echo 'showNotification("Silahkan input username dan password.");';
+            }
+        }
+        ?>
     </script>
 </body>
 
