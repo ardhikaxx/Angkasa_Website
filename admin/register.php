@@ -1548,7 +1548,8 @@ if (isset($_POST['register'])) {
 
         .register-box {
             text-align: center;
-            max-width: 320px;
+            width: 300px;
+            height: 470px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -1634,6 +1635,7 @@ if (isset($_POST['register'])) {
         }
 
         .btn-register {
+            margin-top: 5px;
             color: #61677C;
             font-weight: bold;
             box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
@@ -2095,33 +2097,21 @@ if (isset($_POST['register'])) {
             }
         }
 
-        #notification {
+        .notification {
+            display: none;
             position: fixed;
             top: 10%;
             left: 50%;
-            transform: translate(55%, -50%);
+            transform: translate(50%, -50%);
             background-color: #000;
             color: #fff;
+            text-align: center;
             padding: 20px;
             border-radius: 10px;
-            text-align: center;
-            display: none;
+            opacity: 0;
             z-index: 999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        #close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #fff;
-            font-size: 18px;
-        }
-
-        #notification-content {
-            font-size: 16px;
-            padding: 10px 20px 10px 20px;
+            transition: opacity 0.5s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .modal {
@@ -2137,37 +2127,49 @@ if (isset($_POST['register'])) {
             border-radius: 10px;
             z-index: 1000;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             width: 400px;
         }
 
         .btn-confirm,
         .btn-cancel {
-            padding: 12px 24px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 50px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-left: 10px;
+            color: white;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
         .btn-confirm {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
         .btn-cancel {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
-        .btn-confirm:hover,
+        .btn-confirm:hover {
+            background: linear-gradient(to right, #45a049, #4CAF50);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+        }
+
         .btn-cancel:hover {
-            background-color: black;
-            border: 2px solid #fff;
-            color: #fff;
+            background: linear-gradient(to right, #C43C2F, #E74C3C);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
         }
 
         .modal-overlay {
@@ -2180,6 +2182,16 @@ if (isset($_POST['register'])) {
             height: 100%;
             z-index: 999;
             display: none;
+        }
+
+        .notification-password {
+            color: red;
+            font-size: 10px;
+            font-weight: 800;
+            animation: fadeOut 5s ease-in-out;
+            text-align: center;
+            margin-right: -25px;
+            margin-top: 13px;
         }
     </style>
 </head>
@@ -2220,9 +2232,8 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 
-    <div id="notification">
-        <span id="close-button" onclick="closeNotification()">&#10006;</span>
-        <div id="notification-content"></div>
+    <div id="notification" class="notification">
+        <span id="notification-content"></span>
     </div>
 
     <div class="register-box">
@@ -2237,13 +2248,14 @@ if (isset($_POST['register'])) {
                 <input type="text" placeholder="Masukkan Username" name="txt_username">
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" pattern="[0-9]{10,15}">
+                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput">
             </label>
             <label class="password">
                 <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass">
                 <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
                     <i id="passwordIcon" class="fas fa-eye"></i>
                 </span>
+                <p id="passwordLengthError" class="notification-password"></p>
             </label>
             <button class="btn-register" type="submit" name="register">Register</button>
         </form>
@@ -2327,12 +2339,26 @@ if (isset($_POST['register'])) {
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
+            notification.style.opacity = 0;
             notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.style.opacity = 1;
+            }, 0);
+
+            setTimeout(function () {
+                closeNotification();
+            }, 3000);
         }
 
         function closeNotification() {
             var notification = document.getElementById('notification');
-            notification.style.display = 'none';
+
+            notification.style.opacity = 0;
+
+            setTimeout(function () {
+                notification.style.display = 'none';
+            }, 500);
         }
 
         <?php
@@ -2354,7 +2380,7 @@ if (isset($_POST['register'])) {
             } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))) {
                 echo 'showNotification("Silahkan input pasword")';
             } else {
-                echo 'showNotification("Silahkan input fullname,no hp, username,pasword");';
+                echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
             }
         }
         ?>
@@ -2381,6 +2407,32 @@ if (isset($_POST['register'])) {
             window.location.href = '/Angkasa_Website/logout.php';
         });
     </script>
+
+    <script>
+        const phoneInput = document.getElementById('phoneInput');
+
+        phoneInput.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const passwordLengthError = document.getElementById('passwordLengthError');
+    let errorTimeout;
+
+    passwordInput.addEventListener('input', function () {
+        const password = this.value;
+        if (password.length < 6) {
+            const missingChars = 6 - password.length;
+            passwordLengthError.textContent = `*Panjang password terdiri dari 6. Kurang ${missingChars} karakter.`;
+            passwordLengthError.style.display = 'block';
+        } else {
+            passwordLengthError.textContent = '';
+            passwordLengthError.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 

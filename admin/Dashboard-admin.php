@@ -2117,31 +2117,43 @@
 
         .btn-confirm,
         .btn-cancel {
-            padding: 12px 24px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 50px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-left: 10px;
+            color: white;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
         .btn-confirm {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
         .btn-cancel {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
-        .btn-confirm:hover,
+        .btn-confirm:hover {
+            background: linear-gradient(to right, #45a049, #4CAF50);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+        }
+
         .btn-cancel:hover {
-            background-color: black;
-            border: 2px solid #fff;
-            color: #fff;
+            background: linear-gradient(to right, #C43C2F, #E74C3C);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
         }
 
         .modal-overlay {
@@ -2154,6 +2166,28 @@
             height: 100%;
             z-index: 999;
             display: none;
+        }
+
+        .notification {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 53%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -2175,13 +2209,16 @@
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>
         </ul>
     </nav>
+
+    <div class="notification" id="notification"></div>
 
     <div id="overlay" class="modal-overlay"></div>
 
@@ -2478,6 +2515,31 @@
         confirmLogoutBtn.addEventListener('click', function () {
             window.location.href = '/Angkasa_Website/logout.php';
         });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMessage = urlParams.get('successMessage');
+
+        if (successMessage) {
+            const notification = document.getElementById('notification');
+            notification.innerText = successMessage;
+            notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(function () {
+                notification.classList.remove('show');
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 500);
+            }, 5000);
+        }
+    });
+
     </script>
 </body>
 

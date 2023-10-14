@@ -1993,31 +1993,43 @@
 
         .btn-confirm,
         .btn-cancel {
-            padding: 12px 24px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 50px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-left: 10px;
+            color: white;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            text-rendering: optimizeLegibility;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
 
         .btn-confirm {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
         .btn-cancel {
-            background-color: #fff;
-            border: 2px solid black;
-            color: black;
+            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
         }
 
-        .btn-confirm:hover,
+        .btn-confirm:hover {
+            background: linear-gradient(to right, #45a049, #4CAF50);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+        }
+
         .btn-cancel:hover {
-            background-color: black;
-            border: 2px solid #fff;
-            color: #fff;
+            background: linear-gradient(to right, #C43C2F, #E74C3C);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
         }
 
         .modal-overlay {

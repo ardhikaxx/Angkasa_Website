@@ -656,41 +656,28 @@ $error = "";
             }
         }
 
-        #notification {
+        .notification {
+            display: none;
             position: fixed;
             top: 10%;
             left: 25%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             background-color: #000;
             color: #fff;
+            text-align: center;
             padding: 20px;
             border-radius: 10px;
-            text-align: center;
-            display: none;
+            opacity: 0;
             z-index: 999;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        #close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #fff;
-            font-size: 18px;
-        }
-
-        #notification-content {
-            font-size: 16px;
-            padding: 10px 20px 10px 20px;
+            transition: opacity 0.5s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 
 <body>
-    <div id="notification">
-        <span id="close-button" onclick="closeNotification()">&#10006;</span>
-        <div id="notification-content"></div>
+    <div id="notification" class="notification">
+        <span id="notification-content"></span>
     </div>
 
     <div class="left-side">
@@ -792,12 +779,26 @@ $error = "";
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
+            notification.style.opacity = 0;
             notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.style.opacity = 1;
+            }, 0);
+
+            setTimeout(function () {
+                closeNotification();
+            }, 3000);
         }
 
         function closeNotification() {
             var notification = document.getElementById('notification');
-            notification.style.display = 'none';
+
+            notification.style.opacity = 0;
+
+            setTimeout(function () {
+                notification.style.display = 'none';
+            }, 500);
         }
 
         <?php
@@ -815,14 +816,11 @@ $error = "";
                 }
                 if ($num != 0) {
                     if ($userVal == $username && $passVal == $password) {
-
-                        echo 'window.location.href = "admin/dashboard-admin.php";';
+                        echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
                     } else {
-                        // Show error message in notification
                         echo 'showNotification("Username atau password salah.");';
                     }
                 } else {
-                    // Show error message in notification
                     echo 'showNotification("Username atau password tidak ditemukan.");';
                 }
             } else {
