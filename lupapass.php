@@ -181,10 +181,11 @@
             padding: 10px 20px;
             cursor: pointer;
             background-color: #EBECF0;
+            font-size: 16px;
             color: black;
             border: 2px solid black;
             transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
-            border-radius: 4px;
+            border-radius: 50px;
         }
 
         .btn-yes:hover,

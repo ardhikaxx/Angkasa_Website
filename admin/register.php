@@ -2056,7 +2056,7 @@ if (!$koneksi) {
 
         @keyframes fall {
             to {
-                transform: translate3d(-30em, 0, 0);
+                transform: translate3d(-100em, 0, 0);
             }
         }
 

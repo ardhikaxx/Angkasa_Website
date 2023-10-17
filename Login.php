@@ -177,8 +177,10 @@ $error = "";
         .right-side p {
             text-align: center;
             text-align: center;
-            margin: 10px 20PX;
+            margin: 10px 20px;
             color: #EBECF0;
+            margin-top: -10px;
+            margin-bottom: 25px;
         }
 
         .login-box a {
@@ -256,10 +258,10 @@ $error = "";
 
         .star {
             --star-color: #000;
-            --star-tail-length: 6em;
+            --star-tail-length: 8em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
-            --fall-duration: 9s;
+            --fall-duration: 15s;
             --tail-fade-duration: var(--fall-duration);
             position: absolute;
             top: var(--top-offset);
@@ -654,7 +656,7 @@ $error = "";
 
         @keyframes fall {
             to {
-                transform: translate3d(-10em, 0, 0);
+                transform: translate3d(-100em, -30em, 0);
             }
         }
 
