@@ -55,7 +55,7 @@ $error = "";
             text-decoration: none;
             display: inline-block;
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 15px 25px;
         }
 
         .dashboard-button:hover {
@@ -86,6 +86,11 @@ $error = "";
         .right-side h1 {
             margin-top: 0;
             font-weight: 750;
+        }
+
+        .right-side p {
+            padding-left: 50px;
+            padding-right: 50px;
         }
 
         input[type="text"] {
@@ -149,6 +154,7 @@ $error = "";
             transition: all 0.2s ease-in-out;
             appearance: none;
             -webkit-appearance: none;
+            margin-bottom: -20px;
         }
 
         #password {
@@ -182,14 +188,34 @@ $error = "";
         }
 
         .forgot-password-link {
-            color: #000;
+            color: #898989;
             text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
             font-weight: bold;
             cursor: pointer;
         }
 
+        .forgot-password-link::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #000;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
         .forgot-password-link:hover {
-            text-decoration: underline;
+            color: #000;
+        }
+
+        .forgot-password-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
 
         .login-button {
@@ -207,7 +233,8 @@ $error = "";
             text-decoration: none;
             display: inline-block;
             border-radius: 50px;
-            padding: 10px;
+            padding: 15px;
+            margin-top: -5px;
         }
 
         .login-button:hover {
@@ -608,6 +635,7 @@ $error = "";
             position: absolute;
             content: "";
             top: 0;
+            margin-left: 0;
             left: calc(var(--star-width) / -2);
             width: var(--star-width);
             height: 100%;
@@ -626,7 +654,7 @@ $error = "";
 
         @keyframes fall {
             to {
-                transform: translate3d(-30em, 0, 0);
+                transform: translate3d(-10em, 0, 0);
             }
         }
 
@@ -672,10 +700,36 @@ $error = "";
             transition: opacity 0.5s;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        #notification-success {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #notification-success.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
+    <div id="notification-success" style="display: none;">
+        <p id="successMessage"></p>
+    </div>
+
     <div id="notification" class="notification">
         <span id="notification-content"></span>
     </div>
@@ -685,7 +739,7 @@ $error = "";
             <h1>LOGIN</h1>
             <form action="Login.php" method="POST">
                 <div class="username-container">
-                    <input type="text" id="username" name="txt_username" placeholder="Username">
+                    <input type="text" id="username" name="txt_username" placeholder="Username" autocomplete="off">
                 </div><br>
                 <div class="password-container">
                     <input type="password" name="txt_pass" placeholder="Password" id="password">
@@ -693,14 +747,14 @@ $error = "";
                         <i id="passwordIcon" class="fas fa-eye"></i>
                     </span>
                 </div><br><br>
-                <a href="#" class="forgot-password-link" id="forgotPasswordLink">Lupa Password?</a><br><br>
+                <a href="lupapass.php" class="forgot-password-link" id="forgotPasswordLink">Lupa Password?</a><br><br>
                 <button type="submit" name="submit" class="login-button">Login</button>
             </form>
         </div>
     </div>
     <div class="right-side">
         <h1>Hallo, Admin!</h1>
-        <p>Selamat datang Admin! Kami senang Anda ingin login ke akun Admin Anda.</p>
+        <p>Selamat datang Admin!<br> Kami senang Anda ingin login ke akun Admin Anda.</p>
         <a href="dashboard.php" class="dashboard-button">Dashboard</a>
     </div>
 
@@ -806,28 +860,54 @@ $error = "";
             $username = $_POST['txt_username'];
             $password = $_POST['txt_pass'];
             if (!empty(trim($username)) && !empty(trim($password))) {
-                $query = "SELECT * FROM user WHERE password ='$password'";
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $result = mysqli_query($koneksi, $query);
-                $num = mysqli_num_rows($result);
-                while ($row = mysqli_fetch_array($result)) {
-                    $userVal = $row['username'];
-                    $passVal = $row['password'];
-                }
-                if ($num != 0) {
-                    if ($userVal == $username && $passVal == $password) {
-                        echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
-                    } else {
-                        echo 'showNotification("Username atau password salah.");';
-                    }
+
+                $query = "SELECT * FROM user WHERE username = ? AND password = ?";
+                $stmt = mysqli_prepare($koneksi, $query);
+                mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
+                mysqli_stmt_execute($stmt);
+
+                $result = mysqli_stmt_get_result($stmt);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
                 } else {
-                    echo 'showNotification("Username atau password tidak ditemukan.");';
+                    echo 'showNotification("Username atau password salah.");';
                 }
+
+                mysqli_stmt_close($stmt);
+                mysqli_close($koneksi);
             } else {
                 echo 'showNotification("Silahkan input username dan password.");';
             }
         }
         ?>
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
+
+            if (successMessage) {
+                const notification = document.getElementById('notification-success');
+                const successMessageElement = document.getElementById('successMessage');
+                successMessageElement.innerText = successMessage;
+
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 

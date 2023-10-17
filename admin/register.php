@@ -3,17 +3,6 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-if (isset($_POST['register'])) {
-    $fullname = $_POST['txt_nama'];
-    $nohp = $_POST['txt_phone'];
-    $userName = $_POST['txt_username'];
-    $pass = $_POST['txt_pass'];
-    if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-        $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
-        $result = mysqli_query($koneksi, $query);
-        header('Location: Dashboard-admin.php');
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1635,7 +1624,7 @@ if (isset($_POST['register'])) {
         }
 
         .btn-register {
-            margin-top: 5px;
+            margin-top: -8px;
             color: #61677C;
             font-weight: bold;
             box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
@@ -2101,7 +2090,7 @@ if (isset($_POST['register'])) {
             display: none;
             position: fixed;
             top: 10%;
-            left: 50%;
+            left: 51%;
             transform: translate(50%, -50%);
             background-color: #000;
             color: #fff;
@@ -2186,8 +2175,7 @@ if (isset($_POST['register'])) {
 
         .notification-password {
             color: red;
-            font-size: 10px;
-            font-weight: 800;
+            font-size: 12px;
             animation: fadeOut 5s ease-in-out;
             text-align: center;
             margin-right: -25px;
@@ -2242,16 +2230,17 @@ if (isset($_POST['register'])) {
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama">
+                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
             </label>
             <label class="Username">
-                <input type="text" placeholder="Masukkan Username" name="txt_username">
+                <input type="text" placeholder="Masukkan Username" name="txt_username" autocomplete="off">
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput">
+                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput" autocomplete="off">
             </label>
             <label class="password">
-                <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass">
+                <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass"
+                    oninput="validatePassword(this)">
                 <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
                     <i id="passwordIcon" class="fas fa-eye"></i>
                 </span>
@@ -2416,23 +2405,32 @@ if (isset($_POST['register'])) {
         });
     </script>
 
-<script>
-    const passwordInput = document.getElementById('password');
-    const passwordLengthError = document.getElementById('passwordLengthError');
-    let errorTimeout;
-
-    passwordInput.addEventListener('input', function () {
-        const password = this.value;
-        if (password.length < 6) {
-            const missingChars = 6 - password.length;
-            passwordLengthError.textContent = `*Panjang password terdiri dari 6. Kurang ${missingChars} karakter.`;
-            passwordLengthError.style.display = 'block';
-        } else {
-            passwordLengthError.textContent = '';
-            passwordLengthError.style.display = 'none';
+    <script>
+        function validatePassword(input) {
+            input.value = input.value.replace(/[^a-zA-Z0-9]/g, '');
         }
-    });
-</script>
+    </script>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordLengthError = document.getElementById('passwordLengthError');
+
+        passwordInput.addEventListener('input', function () {
+            const password = this.value;
+            if (password.length < 6) {
+                const missingChars = 6 - password.length;
+                passwordLengthError.textContent = `*Panjang password terdiri dari 6-8 karakter. Kurang ${missingChars} karakter.`;
+                passwordLengthError.style.display = 'block';
+            } else if (password.length > 8) {
+                passwordLengthError.textContent = `*Password terlalu panjang. Maksimal 8 karakter.`;
+                passwordLengthError.style.display = 'block';
+                this.value = password.slice(0, 8);
+            } else {
+                passwordLengthError.textContent = '';
+                passwordLengthError.style.display = 'none';
+            }
+        });
+    </script>
 
 </body>
 

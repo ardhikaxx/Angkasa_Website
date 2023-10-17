@@ -1971,7 +1971,7 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            margin-top: 50px;
+            margin-top: 40px;
             margin-left: 200px;
         }
 
@@ -1987,7 +1987,7 @@
             font-family: "Poppins", sans-serif;
             color: #000;
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 35px;
             font-weight: 800;
         }
 
@@ -2234,7 +2234,7 @@
         <div class="table-container">
             <h1>Dashboard Admin Photobooth</h1>
             <div class="filter-section">
-                <input type="text" id="search" placeholder="Cari Nama Pemesan / Tanggal">
+                <input type="text" id="search" placeholder="Cari Nama Pemesan / Tanggal" autocomplete="off">
                 <button id="search-button"><i class="fa fa-search"></i> Cari</button>
                 <select id="filter">
                     <option value="all">Semua</option>

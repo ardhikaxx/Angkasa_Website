@@ -402,6 +402,7 @@
             font-weight: 600;
             color: #fff;
             margin: 15px 0 0 10px;
+            font-family: "Poppins", sans-serif;
         }
 
         .card-image {
@@ -417,6 +418,7 @@
             margin: 13px 0 0 10px;
             color: rgb(184, 184, 184);
             font-size: 15px;
+            font-family: "Poppins", sans-serif;
         }
 
         .btn {
@@ -536,6 +538,22 @@
             margin-bottom: 10px;
             margin-top: 10px;
             text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-map svg {
+            margin-right: 10px;
+        }
+
+        .detail-map .bi-phone {
+            stroke: black;
+            stroke-width: 0.4;
+        }
+
+        .detail-map .bi-geo-alt {
+            stroke: black;
+            stroke-width: 0.4;
         }
 
         .detail-map h1 {
@@ -589,6 +607,10 @@
             align-items: flex-end;
         }
 
+        .menu-footer li::before {
+            content: "⭐";
+        }
+
         .footer-coloumns ul {
             list-style-type: none;
             padding: 0;
@@ -596,7 +618,7 @@
         }
 
         .footer-coloumns ul a {
-            color: #F2F2F2;
+            color: #B1B1B1;
             text-decoration: none;
             position: relative;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -671,7 +693,7 @@
         }
 
         .footer-bottom>small {
-            font-size: 16px;
+            font-size: 14px;
             margin: 0 4px;
         }
 
@@ -1298,36 +1320,32 @@
     <div class="pack">
         <div class="pack-title">
             <h1>Our Package</h1>
-            <p>ingpokan penjual terang bulan terdekat</p>
+            <p>Choose the Package You Want</p>
         </div>
     </div>
     <div class="pack-card">
         <div class="card">
             <div class="card-image"></div>
-            <p class="card-title">Card title</p>
-            <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
-                tristique, non lobortis.</p>
+            <p class="card-title">Self Photobox</p>
+            <p class="card-body">Take a booth with automatic touchscreen screen (Only Landscape)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
-            <p class="card-title">Card title</p>
-            <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
-                tristique, non lobortis.</p>
+            <p class="card-title">Self Photo</p>
+            <p class="card-body">Self Photo with Remote Shuter (Landscape & Portrait)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
-            <p class="card-title">Card title</p>
-            <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
-                tristique, non lobortis.</p>
+            <p class="card-title">Manual Photobooth</p>
+            <p class="card-body">Take a photo manual with photographer (Landscape & portrait)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
         <div class="card">
             <div class="card-image"></div>
-            <p class="card-title">Card title</p>
-            <p class="card-body">Nullam ac tristique nulla, at convallis quam. Integer consectetur mi nec magna
-                tristique, non lobortis.</p>
+            <p class="card-title">360 Videobooth</p>
+            <p class="card-body">Take a Video with our equipment (Only portrait)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
     </div>
@@ -1350,18 +1368,13 @@
         </div>
     </div>
 
-    <div class="pack-gallery">
-        <div class="gallery-item">
-            <img src="assets/Gallery/foto1.jpg" alt="foto 1" class="gallery-image">
-        </div>
-        <div class="gallery-item">
-            <img src="assets/Gallery/foto2.jpg" alt="foto 2" class="gallery-image">
-        </div>
-        <div class="gallery-item">
-            <img src="assets/Gallery/foto3.jpg" alt="foto 3" class="gallery-image">
-        </div>
-        <div class="gallery-item">
-            <img src="assets/Gallery/foto4.jpg" alt="foto 4" class="gallery-image">
+    <div class="carousel-wrapper">
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="image-one"></div>
+                <div class="image-two"></div>
+                <div class="image-three"></div>
+            </div>
         </div>
     </div>
 
@@ -1382,12 +1395,12 @@
                 <p>kalau anda ada kesulitan, anda dapat bisa menghubungi kontak yang tersedia.</p>
                 <ul>
                     <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor"
                             class="bi bi-phone" viewBox="0 0 16 16">
                             <path
                                 d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />
                             <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                        </svg> +62 877-5287-4282
+                        </svg> 0877-5287-4282
                     </li>
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -1397,7 +1410,7 @@
                         </svg> @angkasa_photo
                     </li>
                     <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="25" fill="currentColor"
                             class="bi bi-geo-alt" viewBox="0 0 16 16">
                             <path
                                 d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />

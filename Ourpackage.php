@@ -220,6 +220,7 @@
             flex-direction: column;
             border-radius: 1rem;
             background-color: black;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             margin-top: 85px;
             margin-left: 75px;
         }
@@ -260,28 +261,6 @@
             font-weight: 300;
             line-height: 1.5;
             color: #fff;
-        }
-
-        .btn-detail {
-            padding: 0.75rem 1.5rem;
-            margin-top: 1rem;
-            border-radius: 50px;
-            background-color: #fff;
-            font-family: "Poppins", sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #000;
-            border: 2px solid black;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .btn-detail:hover {
-            background-color: #000;
-            color: #fff;
-            border-color: white;
-            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
 
         .stars {
@@ -722,6 +701,126 @@
                 opacity: 0.6;
             }
         }
+
+        .price-list {
+            width: 100%;
+            text-align: center;
+            height: auto;
+            background-color: transparent;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .title-price p {
+            margin-top: 5px;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .title-price h1 {
+            margin-bottom: 5px;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+        }
+
+        .content-layout {
+            width: 900px;
+            margin: 0 auto;
+            background-color: #EBECF0 0.5;
+            backdrop-filter: blur(5px);
+            font-family: "Poppins", sans-serif;
+            padding: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .price-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: calc(50% - 20px);
+            margin-right: 5px;
+        }
+
+        .product {
+            background-color: #000;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+            color: #333;
+            margin-bottom: 20px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product h2 {
+            font-size: 21px;
+            margin-bottom: 10px;
+            text-align: start;
+            color: #fff;
+
+        }
+
+        .options {
+            text-align: left;
+        }
+
+        .option {
+            margin-bottom: 20px;
+        }
+
+        .product h3 {
+            font-size: 17px;
+            color: #ccc;
+            margin-top: 20px;
+            margin-bottom: -15px;
+        }
+
+        .option ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option li {
+            font-size: 15px;
+            margin: 5px 0;
+            color: #999;
+            border-bottom: 1px solid #ccc;
+            padding-top: 10px;
+            padding-bottom: 15px;
+        }
+
+        .option li strong {
+            margin-right: 207px;
+            margin-left: 10px;
+        }
+
+        .options-note li {
+            font-size: 13px;
+            color: #ccc;
+            margin-left: -25px;
+            text-align: start;
+        }
     </style>
 </head>
 
@@ -754,7 +853,7 @@
     <div class="pack">
         <div class="pack-title">
             <h1>Choose a Package</h1>
-            <p>ingpokan penjual terang bulan terdekat</p>
+            <p>Choose the Package You Want</p>
         </div>
     </div>
 
@@ -769,7 +868,6 @@
                     touchscreen screen
                     (Only Landscape)
                 </p>
-                <button class="btn-detail">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -782,7 +880,6 @@
                     Shuter
                     (Landscape & Portrait)
                 </p>
-                <button class="btn-detail">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -795,7 +892,6 @@
                     photographer
                     (Landscape & portrait)
                 </p>
-                <button class="btn-detail">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -808,7 +904,6 @@
                     our equipment
                     (Only portrait)
                 </p>
-                <button class="btn-detail">Detail</button>
             </div>
         </div>
     </div>
@@ -816,13 +911,184 @@
     <div class="pack-layout">
         <div class="title-layout">
             <h1>Photo Layout Option</h1>
-            <p>ingpokan penjual terang bulan terdekat</p>
+            <p>Choose the Layout You Want</p>
         </div>
     </div>
 
-    <div class="container-layout">
-        <div class="layout-2R"></div>
-        <div class="layout-4R"></div>
+    <div class="price-list">
+        <div class="title-price">
+            <h1>Price List</h1>
+            <p>Explore Our Photobooth Packages</p>
+        </div>
+    </div>
+
+    <div class="content-layout">
+        <div class="price-container">
+            <div class="row">
+                <div class="column">
+                    <div class="product">
+                        <h2>PaperFrame 4R</h2>
+                        <div class="options">
+                            <div class="option">
+                                <h3>Quota</h3>
+                                <ul>
+                                    <li><strong>100 Pcs</strong> Rp 750.000</li>
+                                    <li><strong>150 Pcs</strong> Rp 1.000.000</li>
+                                    <li><strong>200 Pcs</strong> Rp 1.250.000</li>
+                                    <li><strong>300 Pcs</strong> Rp 1.700.000</li>
+                                </ul>
+                            </div>
+                            <div class="option">
+                                <h3>Unlimited</h3>
+                                <ul>
+                                    <li><strong>2 Hour</strong> Rp 1.200.000</li>
+                                    <li><strong>3 Hour</strong> Rp 1.500.000</li>
+                                    <li><strong>4 Hour</strong> Rp 1.800.000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="product">
+                        <h2>PaperFrame strip 2R</h2>
+                        <div class="options">
+                            <div class="option">
+                                <h3>Quota</h3>
+                                <ul>
+                                    <li><strong>200 Pcs</strong> Rp 750.000</li>
+                                    <li><strong>300 Pcs</strong> Rp 1.000.000</li>
+                                    <li><strong>400 Pcs</strong> Rp 1.250.000</li>
+                                    <li><strong>600 Pcs</strong> Rp 1.700.000</li>
+                                </ul>
+                            </div>
+                            <div class="option">
+                                <h3>Unlimited</h3>
+                                <ul>
+                                    <li><strong>2 Hour</strong> Rp 1.000.000</li>
+                                    <li><strong>3 Hour</strong> Rp 1.300.000</li>
+                                    <li><strong>4 Hour</strong> Rp 1.600.000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="product">
+                        <h2>360 Videobooth</h2>
+                        <div class="options">
+                            <div class="option">
+                                <h3>Unlimited</h3>
+                                <ul>
+                                    <li><strong>2 Hour</strong> Rp 1.500.000</li>
+                                    <li><strong>3 Hour</strong> Rp 2.000.000</li>
+                                    <li><strong>4 Hour</strong> Rp 2.300.000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="product">
+                        <h2>Note</h2>
+                        <div class="options-note">
+                            <ul>
+                                <li>Extra paper per 50 lembar 4R = Rp 400.000,-</li>
+                                <li>Extra unlimited paper dan video, per 1 jam = Rp 500.000,-</li>
+                                <li>Free Simple Fabric gliter / Background Photo</li>
+                                <li>High Speed Printer 15 Detik / Photo</li>
+                                <li>Include 2 Crew</li>
+                                <li>4 Hours Per quota Package</li>
+                                <li>Softcopy Flashdisk + Online Google Drive</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="price-container">
+            <div class="column">
+                <div class="product">
+                    <h2>PaperFrame 4R</h2>
+                    <div class="options">
+                        <div class="option">
+                            <h3>Quota</h3>
+                            <ul>
+                                <li><strong>100 Pcs</strong> Rp 750.000</li>
+                                <li><strong>150 Pcs</strong> Rp 1.000.000</li>
+                                <li><strong>200 Pcs</strong> Rp 1.250.000</li>
+                                <li><strong>300 Pcs</strong> Rp 1.700.000</li>
+                            </ul>
+                        </div>
+                        <div class="option">
+                            <h3>Unlimited</h3>
+                            <ul>
+                                <li><strong>2 Hour</strong> Rp 1.200.000</li>
+                                <li><strong>3 Hour</strong> Rp 1.500.000</li>
+                                <li><strong>4 Hour</strong> Rp 1.800.000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="product">
+                    <h2>PaperFrame strip 2R</h2>
+                    <div class="options">
+                        <div class="option">
+                            <h3>Quota</h3>
+                            <ul>
+                                <li><strong>200 Pcs</strong> Rp 750.000</li>
+                                <li><strong>300 Pcs</strong> Rp 1.000.000</li>
+                                <li><strong>400 Pcs</strong> Rp 1.250.000</li>
+                                <li><strong>600 Pcs</strong> Rp 1.700.000</li>
+                            </ul>
+                        </div>
+                        <div class="option">
+                            <h3>Unlimited</h3>
+                            <ul>
+                                <li><strong>2 Hour</strong> Rp 1.000.000</li>
+                                <li><strong>3 Hour</strong> Rp 1.300.000</li>
+                                <li><strong>4 Hour</strong> Rp 1.600.000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="product">
+                    <h2>360 Videobooth</h2>
+                    <div class="options">
+                        <div class="option">
+                            <h3>Unlimited</h3>
+                            <ul>
+                                <li><strong>2 Hour</strong> Rp 1.500.000</li>
+                                <li><strong>3 Hour</strong> Rp 2.000.000</li>
+                                <li><strong>4 Hour</strong> Rp 2.300.000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="product">
+                    <h2>Note</h2>
+                    <div class="options">
+                        <ul>
+                            <li>Extra paper per 50 lembar 4R = Rp 400.000,-</li>
+                            <li>Extra unlimited paper dan video, per 1 jam = Rp 500.000,-</li>
+                            <li>Free Simple Fabric gliter / Background Photo</li>
+                            <li>High Speed Printer 15 Detik / Photo</li>
+                            <li>Include 2 Crew</li>
+                            <li>4 Hours Per quota Package</li>
+                            <li>Softcopy Flashdisk + Online Google Drive</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
 
     <div class="stars">

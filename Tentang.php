@@ -230,6 +230,13 @@
         .tujuan-paragraph {
             font-size: 1.125rem;
             text-align: left;
+            list-style: none;
+        }
+
+        .tujuan-paragraph::before {
+            content: "⭐";
+            font-weight: bold;
+            margin-right: 5px;
         }
 
         .feedback-section {
@@ -266,6 +273,13 @@
             text-align: left;
             margin-left: 35px;
             align-items: center;
+            list-style: none;
+        }
+
+        .feedback-paragraph::before {
+            content: "⭐";
+            font-weight: bold;
+            margin-right: 5px;
         }
 
         .stars {
