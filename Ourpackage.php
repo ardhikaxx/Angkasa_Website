@@ -220,7 +220,7 @@
             flex-direction: column;
             border-radius: 1rem;
             background-color: black;
-            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
             margin-top: 85px;
             margin-left: 75px;
         }
@@ -261,6 +261,119 @@
             font-weight: 300;
             line-height: 1.5;
             color: #fff;
+        }
+
+        .btn-detail {
+            padding: 12px 20px;
+            margin-top: 1rem;
+            border-radius: 1rem;
+            background-color: #fff;
+            font-family: "Poppins", sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            border: 2px solid black;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .btn-detail:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: white;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 500px;
+            background-image: linear-gradient(to right, #2996f0, #165487);
+            color: #fff;
+            border-radius: 10px;
+            padding: 45px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+
+        .popup-content:hover {
+            border: 2px solid #fff;
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .popup-content {
+            transition: border 0.1s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1.2px solid #ccc;
+        }
+
+        .popup-header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .popup-close {
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: #ffffff;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 5px 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .popup-close:hover {
+            color: #000000;
+            background-color: #ffffff;
+        }
+
+        .popup-content p {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin-top: 10px;
+            margin-bottom: -10px;
+            text-align: justify;
+        }
+
+        .popup-close:focus {
+            outline: none;
+        }
+
+        .popup.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup.show .popup-content {
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .stars {
@@ -857,6 +970,7 @@
         </div>
     </div>
 
+
     <div class="pack-card">
         <div class="card">
             <div class="header">
@@ -868,6 +982,7 @@
                     touchscreen screen
                     (Only Landscape)
                 </p>
+                <button class="btn-detail" id="self-photobox">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -880,6 +995,7 @@
                     Shuter
                     (Landscape & Portrait)
                 </p>
+                <button class="btn-detail" id="self-photo">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -892,6 +1008,7 @@
                     photographer
                     (Landscape & portrait)
                 </p>
+                <button class="btn-detail" id="manual-photobooth">Detail</button>
             </div>
         </div>
         <div class="card">
@@ -904,7 +1021,18 @@
                     our equipment
                     (Only portrait)
                 </p>
+                <button class="btn-detail" id="360-videobooth">Detail</button>
             </div>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h1 id="popup-title">Detail Title</h1>
+                <span class="popup-close" id="popup-close">&times;</span>
+            </div>
+            <p id="popup-description">Detail Description</p>
         </div>
     </div>
 
@@ -1143,6 +1271,53 @@
         <div class="star"></div>
         <div class="star"></div>
     </div>
+
+
+    <script>
+        const popup = document.getElementById("popup");
+        const popupTitle = document.getElementById("popup-title");
+        const popupDescription = document.getElementById("popup-description");
+        const popupClose = document.getElementById("popup-close");
+
+        const buttons = document.querySelectorAll(".btn-detail");
+
+        buttons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                const cardID = button.getAttribute("id");
+
+                let title, description;
+
+                if (cardID === "self-photobox") {
+                    title = "Self Photobox";
+                    description = "Self Photobox adalah fasilitas fotografi interaktif yang modern dan unik. Dengan booth otomatis dan layar sentuh, pengguna dapat memilih latar belakang, filter, dan cetak foto. Self Photobox juga bisa berbagi foto ke media sosial dengan pencahayaan bagus. Self Photobox bisa disesuaikan untuk berbagai acara, cocok untuk mengabadikan momen spesial atau menambahkan hiburan interaktif.";
+                } else if (cardID === "self-photo") {
+                    title = "Self Photo";
+                    description = "Self Photo adalah fasilitas fotografi mandiri yang praktis dan inovatif. Dengan remote shutter, Self Photo bisa digunakan dalam landscape atau portrait, memberikan fleksibilitas dalam foto. Self Photo memungkinkan pengguna untuk menciptakan kenangan sesuai dengan estetika mereka. Self Photo adalah solusi efektif untuk foto pribadi berkualitas tanpa bantuan orang lain, sehingga memudahkan pengguna untuk menjelajahi kreativitas fotografi.";
+                } else if (cardID === "manual-photobooth") {
+                    title = "Manual Photobooth";
+                    description = "Manual Photobooth adalah fasilitas fotografi yang memberikan pengalaman berbeda dengan fotografer profesional. Dengan bantuan fotografer, pengguna dapat mengambil foto berkualitas tinggi dengan sentuhan pribadi. Manual Photobooth memungkinkan pengguna untuk berkolaborasi dengan fotografer untuk hasil sesuai estetika mereka. Manual Photobooth adalah pilihan sempurna untuk acara yang membutuhkan profesional. Manual Photobooth memberikan kemungkinan untuk menciptakan kenangan istimewa.";
+                } else if (cardID === "360-videobooth") {
+                    title = "360 Videobooth";
+                    description = "360 Videobooth adalah fasilitas unik yang membuat video 360 derajat yang menarik dan berbeda. Dengan orientasi portrait, fasilitas ini menggunakan peralatan canggih untuk merekam momen berharga dalam video. Pengguna dapat eksplorasi interaktif dengan video 360 derajat yang mengesankan. Dengan 360 Videobooth, pengguna dapat memberikan pengalaman visual yang menakjubkan dan inovatif dalam acara khusus, pesta, dan lainnya, membagikan momen berkesan dalam video yang memikat.";
+                }
+
+                popupTitle.textContent = title;
+                popupDescription.textContent = description;
+
+                popup.style.display = "block";
+                setTimeout(() => {
+                    popup.style.opacity = 1;
+                }, 10);
+            });
+        });
+
+        popupClose.addEventListener("click", () => {
+            popup.style.opacity = 0;
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 500);
+        });
+    </script>
 </body>
 
 </html>
