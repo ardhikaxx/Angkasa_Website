@@ -195,11 +195,35 @@
             border: 2px solid #EBECF0;
             transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
         }
+
+        #notification-success {
+            position: fixed;
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            width: 400px;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 10px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #notification-success.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
-<div class="forgot-container">
+    <div class="forgot-container">
         <form id="captcha-form" method="post" action="check_username.php">
             <h1>Verifikasi Lupa Password</h1>
             <div class="input-field user_input">
@@ -224,6 +248,10 @@
         </form>
     </div>
 
+    <div id="notification-success" style="display: none;">
+        <p id="successMessage"></p>
+    </div>
+
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <p>Apakah Anda yakin ingin membatalkan pembuatan password baru?</p>
@@ -246,7 +274,7 @@
         });
     </script>
 
-<script>
+    <script>
         const captchaTextBox = document.querySelector("#captcha");
         const refreshButton = document.querySelector(".refresh-button");
         const captchaInputBox = document.querySelector("#captcha-input");
@@ -313,7 +341,33 @@
         submitButton.addEventListener("click", submitBtnClick);
 
         generateCaptcha();
-</script>
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
+
+            if (successMessage) {
+                const notification = document.getElementById('notification-success');
+                const successMessageElement = document.getElementById('successMessage');
+                successMessageElement.innerText = successMessage;
+
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
 </body>
 
 </html>

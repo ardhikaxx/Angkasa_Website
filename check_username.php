@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        echo '<script>window.location.href = "editpass.php?successMessage=Selamat+anda+telah+berhasil+diverifikasi!";</script>';
+        echo '<script>window.location.href = "editpass.php?successMessage=Selamat, Anda berhasil diverifikasi!";</script>';
     } else {
-        echo "Username tidak valid. Silakan coba lagi atau daftar jika Anda belum memiliki akun.";
-    }
+        echo '<script>window.location.href = "lupapass.php?successMessage=Username tidak valid. Silakan coba lagi atau daftar jika Anda belum memiliki akun.";</script>';
+    }    
 } else {
     echo "Metode permintaan tidak valid.";
 }
