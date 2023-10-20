@@ -2401,30 +2401,7 @@ if (!$koneksi) {
                 echo 'window.location.href = "dashboard-admin.php";';
             } else {
                 echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
-            $email = $_POST['txt_email'];
-            $pass = $_POST['txt_pass'];
-            $jeniskelamin=$_POST['txt_gender'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";            $gender = $_POST['txt_gender'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass','$gender')";
-                $result = mysqli_query($koneksi, $query);
-                header('window.location.href = "Dashboard-admin.php";');
-            } elseif (!empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input fullname")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input no hp")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input email")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input pasword")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass))){
-                echo 'showNotification("Silahkan input jenis kelamin")';
-            }else {
-                echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
             }
-            }
-        }
         }
         ?>
     </script>
