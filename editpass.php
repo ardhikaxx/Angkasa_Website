@@ -189,7 +189,7 @@
         <h1>Edit Password</h1>
         <form method="post" action="update_password.php">
             <label class="username">
-                <input type="text" id="username" placeholder="Masukkan Username Anda" name="username" required>
+                <input type="text" id="email" placeholder="Masukkan Email Anda" name="email" required>
             </label>
             <label class="password">
                 <input type="password" id="newPassword" placeholder="Masukkan Password Baru" name="new_password" required>

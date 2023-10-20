@@ -227,7 +227,7 @@
         <form id="captcha-form" method="post" action="check_username.php">
             <h1>Verifikasi Lupa Password</h1>
             <div class="input-field user_input">
-                <input type="text" id="username" name="username" placeholder="Masukkan Username Anda..."
+                <input type="text" id="email" name="email" placeholder="Masukkan Email Anda..."
                     autocomplete="off">
             </div>
             <div class="captcha-container">
