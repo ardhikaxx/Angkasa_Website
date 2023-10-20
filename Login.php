@@ -713,7 +713,7 @@ $error = "";
             background-color: #4CAF50;
             color: #fff;
             padding: 15px 20px;
-            border-radius: 50px;
+            border-radius: 10px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;
