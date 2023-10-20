@@ -2353,23 +2353,17 @@ if (!$koneksi) {
         <?php
         if (isset($_POST['register'])) {
             $fullname = $_POST['txt_nama'];
+            $email = $_POST['txt_email'];
             $nohp = $_POST['txt_phone'];
-            $userName = $_POST['txt_username'];
+            $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
+
+            if (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($nohp)) && !empty(trim($jeniskelamin)) && !empty(trim($pass))) {
+                $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass')";
                 $result = mysqli_query($koneksi, $query);
-                header('window.location.href = "Dashboard-admin.php";');
-            } elseif (!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                echo 'showNotification("Silahkan input fullname")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                echo 'showNotification("Silahkan input no hp")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass))) {
-                echo 'showNotification("Silahkan input username")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))) {
-                echo 'showNotification("Silahkan input pasword")';
+                echo 'window.location.href = "dashboard-admin.php";';
             } else {
-                echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
+                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
             }
         }
         ?>
