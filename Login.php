@@ -112,7 +112,7 @@ $error = "";
             background-color: transparent;
         }
 
-        .username-container {
+        .email-container {
             max-width: 300px;
             border-radius: 50px;
             border: none;
@@ -129,7 +129,7 @@ $error = "";
             -webkit-appearance: none;
         }
 
-        #username {
+        #email {
             width: 300px;
             padding: 10px;
             margin: 5px 0;
@@ -740,8 +740,8 @@ $error = "";
         <div class="login-box">
             <h1>LOGIN</h1>
             <form action="Login.php" method="POST">
-                <div class="username-container">
-                    <input type="text" id="email" name="txt_email" placeholder="email" autocomplete="off">
+                <div class="email-container">
+                    <input type="text" id="email" name="txt_email" placeholder="Email" autocomplete="off">
                 </div><br>
                 <div class="password-container">
                     <input type="password" name="txt_pass" placeholder="Password" id="password">

@@ -224,7 +224,7 @@
 
 <body>
     <div class="forgot-container">
-        <form id="captcha-form" method="post" action="check_username.php">
+        <form id="captcha-form" method="post" action="check_email.php">
             <h1>Verifikasi Lupa Password</h1>
             <div class="input-field user_input">
                 <input type="text" id="email" name="email" placeholder="Masukkan Email Anda..."
@@ -279,7 +279,7 @@
         const refreshButton = document.querySelector(".refresh-button");
         const captchaInputBox = document.querySelector("#captcha-input");
         const submitButton = document.querySelector("#submit-button");
-        const usernameInput = document.querySelector("#username");
+        const emailInput = document.querySelector("#email");
 
         let captchaText = null;
 
@@ -301,9 +301,9 @@
 
         const captchaKeyUpValidate = () => {
             const isCaptchaCorrect = captchaInputBox.value === captchaText;
-            const isUsernameFilled = usernameInput.value.trim() !== "";
+            const isEmailFilled = emailInput.value.trim() !== "";
 
-            if (isCaptchaCorrect && isUsernameFilled) {
+            if (isCaptchaCorrect && isEmailFilled) {
                 submitButton.disabled = false;
             } else {
                 submitButton.disabled = true;
