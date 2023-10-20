@@ -39,7 +39,7 @@
             margin-top: -5px;
         }
 
-        .editpass-container .username,
+        .editpass-container .email,
         .editpass-container .password,
         .editpass-container .repeat-password {
             margin-bottom: 15px;
@@ -70,17 +70,6 @@
             -webkit-appearance: none;
         }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
         .editpass-container {
             width: 100%;
             max-width: 400px;
@@ -93,13 +82,6 @@
             transition: transform 0.2s;
             justify-content: center;
             align-items: center;
-        }
-
-        .editpass-container h1 {
-            color: #000;
-            font-weight: 800;
-            font-size: 24px;
-            margin-top: -5px;
         }
 
         .editpass-container .email,
@@ -186,7 +168,7 @@
         <p id="successMessage"></p>
     </div>
     <div class="editpass-container">
-        <h1>Edit Password</h1>
+        <h1>Edit Password Baru</h1>
         <form method="post" action="update_password.php">
             <label class="email">
                 <input type="text" id="email" placeholder="Masukkan Email Anda" name="email" required>

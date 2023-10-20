@@ -2120,16 +2120,15 @@
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             margin-top: 20px;
             margin-left: 10px;
             color: white;
             transition: all 0.4s ease;
-            text-transform: uppercase;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
-
+        
         .btn-confirm {
             background: linear-gradient(to right, #4CAF50, #45a049);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);

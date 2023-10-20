@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        echo '<script>window.location.href = "editpass.php?successMessage=Selamat, Anda berhasil diverifikasi!";</script>';
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $namaLengkap = $row['nama_lengkap'];
+        echo '<script>window.location.href = "editpass.php?successMessage=Selamat, ' . $namaLengkap . ', Anda berhasil diverifikasi!";</script>';
     } else {
         echo '<script>window.location.href = "lupapass.php?successMessage=Username tidak valid. Silakan coba lagi atau daftar jika Anda belum memiliki akun.";</script>';
     }    

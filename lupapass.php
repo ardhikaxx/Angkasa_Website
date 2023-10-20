@@ -180,20 +180,37 @@
             margin: 5px;
             padding: 10px 20px;
             cursor: pointer;
-            background-color: #EBECF0;
             font-size: 16px;
-            color: black;
-            border: 2px solid black;
-            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+            color: #fff;
+            border: none;
             border-radius: 50px;
+            transition: all 0.4s ease;
         }
 
-        .btn-yes:hover,
+        .btn-yes {
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
+        }
+
+        .btn-no {
+            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
+        }
+
+        .btn-yes:hover {
+            background: linear-gradient(to right, #45a049, #4CAF50);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+        }
+
         .btn-no:hover {
-            background-color: black;
-            color: #EBECF0;
-            border: 2px solid #EBECF0;
-            transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
+            background: linear-gradient(to right, #C43C2F, #E74C3C);
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 1;
         }
 
         #notification-success {
@@ -255,7 +272,7 @@
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <p>Apakah Anda yakin ingin membatalkan pembuatan password baru?</p>
-            <button id="confirm-yes" class="btn-yes">Ya</button>
+            <button id="confirm-yes" class="btn-yes">Iya</button>
             <button id="confirm-no" class="btn-no">Tidak</button>
         </div>
     </div>

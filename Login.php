@@ -872,7 +872,10 @@ $error = "";
                 $result = mysqli_stmt_get_result($stmt);
 
                 if (mysqli_num_rows($result) > 0) {
-                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
+                    $userRow = mysqli_fetch_assoc($result);
+                    $namaLengkap = $userRow['nama_lengkap'];
+                    $redirectMessage = 'Login+berhasil!+Selamat+datang,+' . urlencode($namaLengkap) . '!';
+                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=' . $redirectMessage . '";';
                 } else {
                     echo 'showNotification("email atau password salah.");';
                 }

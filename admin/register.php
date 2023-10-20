@@ -1606,20 +1606,15 @@ if (!$koneksi) {
         }
 
         .password {
-            margin-right: 20px;
+            margin-right: 10.7px;
         }
 
-        .repeat-password {
-            margin-right: 20px;
-        }
-
-        #showPassword,
-        #showRepeatPassword {
+        #showPassword {
             cursor: pointer;
             position: relative;
             overflow: hidden;
             z-index: 2;
-            margin-left: -50px;
+            margin-left: -40px;
         }
 
         .btn-register {
@@ -2124,12 +2119,11 @@ if (!$koneksi) {
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             margin-top: 20px;
             margin-left: 10px;
             color: white;
             transition: all 0.4s ease;
-            text-transform: uppercase;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
@@ -2183,7 +2177,7 @@ if (!$koneksi) {
 
         .gender-select {
             width: 100%;
-            padding: 15px 10px;
+            padding: 15px 15px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
@@ -2195,23 +2189,23 @@ if (!$koneksi) {
             transition: border-color 0.3s;
             text-align: left;
             color: #61677C;
-            padding-right: 30px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             background: transparent;
-            padding-right: 30px;
         }
 
-        .gender-select::after {
-            content: '\f183';
-            /* Ganti ini dengan kode ikon Font Awesome yang sesuai */
-            font-family: 'Font Awesome 6 Free';
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
             position: absolute;
-            right: 5px;
-            /* Sesuaikan jarak ikon dengan kanan */
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
+            pointer-events: none;
+            color: #61677C;
         }
     </style>
 </head>
@@ -2272,10 +2266,16 @@ if (!$koneksi) {
                     autocomplete="off">
             </label>
             <label class="gender">
-                <select name="txt_gender" id="txt_gender" class="gender-select">
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
+                <div class="select-wrapper">
+                    <select name="txt_gender" id="txt_gender" class="gender-select">
+                        <option value="" disabled selected>Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                    <div class="select-icon">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
             </label>
             <label class="password">
                 <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass"
