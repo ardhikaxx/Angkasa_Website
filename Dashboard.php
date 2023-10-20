@@ -618,7 +618,7 @@
         }
 
         .footer-coloumns ul a {
-            color: #B1B1B1;
+            color: #9C9C9C;
             text-decoration: none;
             position: relative;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -1466,7 +1466,7 @@
                 <div class="social-links">
                     <ul>
                         <li>
-                            <a href="#" title="Instagram">
+                            <a href="https://www.instagram.com/angkasa_photo/" title="Instagram" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
                                     class="bi bi-instagram" viewBox="0 0 16 16">
                                     <path

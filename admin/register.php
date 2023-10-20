@@ -1538,7 +1538,7 @@ if (!$koneksi) {
         .register-box {
             text-align: center;
             width: 300px;
-            height: 470px;
+            height: 485px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -1560,22 +1560,21 @@ if (!$koneksi) {
             font-family: "Montserrat", sans-serif;
             letter-spacing: -0.2px;
             font-size: 16px;
-            color: #000;
             text-shadow: 1px 1px 1px #FFF;
         }
 
         .segment {
             text-align: center;
-            overflow: hidden;
             max-width: 200px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 10px 0;
         }
 
         .segment h1 {
             font-size: 35px;
             margin-bottom: 5px;
             font-weight: 800;
+            margin-top: -30px;
         }
 
 
@@ -1669,7 +1668,7 @@ if (!$koneksi) {
             left: 0;
             width: var(--star-tail-length);
             height: var(--star-tail-height);
-            color: #000;
+            color: var(--star-color);
             background: linear-gradient(45deg, currentColor, transparent);
             border-radius: 50%;
             filter: drop-shadow(0 0 6px currentColor);
@@ -2096,7 +2095,7 @@ if (!$koneksi) {
             color: #fff;
             text-align: center;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 50px;
             opacity: 0;
             z-index: 999;
             transition: opacity 0.5s;
@@ -2181,6 +2180,37 @@ if (!$koneksi) {
             margin-right: -25px;
             margin-top: 13px;
         }
+
+        .gender-select {
+            width: 100%;
+            padding: 15px 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            outline: none;
+            border-radius: 50px;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            transition: border-color 0.3s;
+            text-align: left;
+            color: #61677C;
+            padding-right: 30px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            padding-right: 30px;
+        }
+
+        .gender-select::after {
+            content: '\f183'; /* Ganti ini dengan kode ikon Font Awesome yang sesuai */
+            font-family: 'Font Awesome 6 Free';
+            position: absolute;
+            right: 5px; /* Sesuaikan jarak ikon dengan kanan */
+            top: 50%;
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 
@@ -2236,7 +2266,14 @@ if (!$koneksi) {
                 <input type="text" placeholder="Masukkan Username" name="txt_username" autocomplete="off">
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput" autocomplete="off">
+                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput"
+                    autocomplete="off">
+            </label>
+            <label class="gender">
+                <select name="txt_gender" id="txt_gender" class="gender-select">
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
             </label>
             <label class="password">
                 <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass"
@@ -2356,8 +2393,9 @@ if (!$koneksi) {
             $nohp = $_POST['txt_phone'];
             $userName = $_POST['txt_username'];
             $pass = $_POST['txt_pass'];
+            $gender = $_POST['txt_gender'];
             if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
+                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass','$gender')";
                 $result = mysqli_query($koneksi, $query);
                 header('window.location.href = "Dashboard-admin.php";');
             } elseif (!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
