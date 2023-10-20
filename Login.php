@@ -741,7 +741,7 @@ $error = "";
             <h1>LOGIN</h1>
             <form action="Login.php" method="POST">
                 <div class="username-container">
-                    <input type="text" id="username" name="txt_username" placeholder="Username" autocomplete="off">
+                    <input type="text" id="email" name="txt_email" placeholder="email" autocomplete="off">
                 </div><br>
                 <div class="password-container">
                     <input type="password" name="txt_pass" placeholder="Password" id="password">
@@ -859,14 +859,14 @@ $error = "";
 
         <?php
         if (isset($_POST['submit'])) {
-            $username = $_POST['txt_username'];
+            $email = $_POST['txt_email'];
             $password = $_POST['txt_pass'];
-            if (!empty(trim($username)) && !empty(trim($password))) {
+            if (!empty(trim($email)) && !empty(trim($password))) {
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
 
-                $query = "SELECT * FROM user WHERE username = ? AND password = ?";
+                $query = "SELECT * FROM user WHERE email = ? AND password = ?";
                 $stmt = mysqli_prepare($koneksi, $query);
-                mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
+                mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
                 mysqli_stmt_execute($stmt);
 
                 $result = mysqli_stmt_get_result($stmt);
@@ -874,13 +874,13 @@ $error = "";
                 if (mysqli_num_rows($result) > 0) {
                     echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
                 } else {
-                    echo 'showNotification("Username atau password salah.");';
+                    echo 'showNotification("email atau password salah.");';
                 }
 
                 mysqli_stmt_close($stmt);
                 mysqli_close($koneksi);
             } else {
-                echo 'showNotification("Silahkan input username dan password.");';
+                echo 'showNotification("Silahkan input email dan password.");';
             }
         }
         ?>

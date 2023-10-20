@@ -2232,8 +2232,8 @@ if (!$koneksi) {
             <label class="nama-lengkap">
                 <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
             </label>
-            <label class="Username">
-                <input type="text" placeholder="Masukkan Username" name="txt_username" autocomplete="off">
+            <label class="email">
+                <input type="text" placeholder="Masukkan email" name="txt_email" autocomplete="off">
             </label>
             <label class="nomer-telp">
                 <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput" autocomplete="off">
@@ -2354,21 +2354,24 @@ if (!$koneksi) {
         if (isset($_POST['register'])) {
             $fullname = $_POST['txt_nama'];
             $nohp = $_POST['txt_phone'];
-            $userName = $_POST['txt_username'];
+            $email = $_POST['txt_email'];
             $pass = $_POST['txt_pass'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
+            $jeniskelamin=$_POST['txt_gender'];
+            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
                 $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
                 $result = mysqli_query($koneksi, $query);
                 header('window.location.href = "Dashboard-admin.php";');
-            } elseif (!empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
+            } elseif (!empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
                 echo 'showNotification("Silahkan input fullname")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($userName)) && !empty(trim($pass))) {
+            } elseif (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
                 echo 'showNotification("Silahkan input no hp")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass))) {
-                echo 'showNotification("Silahkan input username")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName))) {
+            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
+                echo 'showNotification("Silahkan input email")';
+            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($jeniskelamin))) {
                 echo 'showNotification("Silahkan input pasword")';
-            } else {
+            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass))){
+                echo 'showNotification("Silahkan input jenis kelamin")';
+            }else {
                 echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
             }
         }
