@@ -2393,15 +2393,11 @@ if (!$koneksi) {
             $nohp = $_POST['txt_phone'];
             $email = $_POST['txt_email'];
             $pass = $_POST['txt_pass'];
-<<<<<<< HEAD
             $jeniskelamin=$_POST['txt_gender'];
             if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";
-=======
-            $gender = $_POST['txt_gender'];
+                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";            $gender = $_POST['txt_gender'];
             if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
                 $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass','$gender')";
->>>>>>> 5c191b136cd7ea71da44d4651bf15807c298a733
                 $result = mysqli_query($koneksi, $query);
                 header('window.location.href = "Dashboard-admin.php";');
             } elseif (!empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
@@ -2417,6 +2413,7 @@ if (!$koneksi) {
             }else {
                 echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
             }
+        }
         }
         ?>
     </script>
