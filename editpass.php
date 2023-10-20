@@ -102,7 +102,7 @@
             margin-top: -5px;
         }
 
-        .editpass-container .username,
+        .editpass-container .email,
         .editpass-container .password,
         .editpass-container .repeat-password {
             margin-bottom: 15px;
@@ -123,7 +123,7 @@
             transform: translateY(-50%);
         }
 
-        .editpass-container .password span i,
+        .editpass-container .email span i,
         .editpass-container .repeat-password span i {
             z-index: 2;
         }
@@ -188,8 +188,8 @@
     <div class="editpass-container">
         <h1>Edit Password</h1>
         <form method="post" action="update_password.php">
-            <label class="username">
-                <input type="text" id="username" placeholder="Masukkan Username Anda" name="username" required>
+            <label class="email">
+                <input type="text" id="email" placeholder="Masukkan Email Anda" name="email" required>
             </label>
             <label class="password">
                 <input type="password" id="newPassword" placeholder="Masukkan Password Baru" name="new_password" required>
@@ -208,7 +208,7 @@
     </div>
 
     <script>
-        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
         const newPasswordInput = document.getElementById('newPassword');
         const confirmPasswordInput = document.getElementById('confirmPassword');
         const passwordIcon1 = document.getElementById('passwordIcon1');
@@ -231,14 +231,14 @@
         }
 
         function checkInputs() {
-            if (usernameInput.value !== '' && newPasswordInput.value !== '' && confirmPasswordInput.value !== '') {
+            if (emailInput.value !== '' && newPasswordInput.value !== '' && confirmPasswordInput.value !== '') {
                 submitButton.removeAttribute('disabled');
             } else {
                 submitButton.setAttribute('disabled', 'disabled');
             }
         }
 
-        usernameInput.addEventListener('input', checkInputs);
+        emailInput.addEventListener('input', checkInputs);
         newPasswordInput.addEventListener('input', checkInputs);
         confirmPasswordInput.addEventListener('input', checkInputs);
     </script>

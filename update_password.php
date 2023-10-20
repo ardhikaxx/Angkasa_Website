@@ -4,8 +4,8 @@ require('koneksi.php');
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['username']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
-        $username = $_POST['username'];
+    if (isset($_POST['email']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
+        $email = $_POST['email'];
         $newPassword = $_POST['new_password'];
         $confirmPassword = $_POST['confirm_password'];
 
@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = new koneksi();
             $conn = $db->getKoneksi();
 
-            $query = "UPDATE user SET password = :password WHERE username = :username";
+            $query = "UPDATE user SET password = :password WHERE email = :email";
 
             $stmt = $conn->prepare($query);
             $stmt->bindParam(":password", $hashedPassword);
-            $stmt->bindParam(":username", $username);
+            $stmt->bindParam(":email", $email);
 
             if ($stmt->execute()) {
                 echo '<script>window.location.href = "Login.php?successMessage=Password+baru+telah+berhasil+disimpan!";</script>';

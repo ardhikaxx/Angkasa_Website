@@ -3,11 +3,11 @@ require('koneksi.php');
 
 $koneksi = new koneksi();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
+    $email = $_POST['email'];
 
-    $query = "SELECT * FROM user WHERE username = :username";
+    $query = "SELECT * FROM user WHERE email = :email";
     $stmt = $koneksi->getKoneksi()->prepare($query);
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
