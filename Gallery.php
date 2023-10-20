@@ -596,7 +596,7 @@
     <div class="pack">
         <div class="pack-title">
             <h1>Gallery</h1>
-            <p>ingpokan penjual terang bulan terdekat</p>
+            <p>Here's an example of the results from our photos</p>
         </div>
     </div>
 

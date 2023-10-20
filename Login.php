@@ -695,7 +695,7 @@ $error = "";
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 50px;
             opacity: 0;
             z-index: 999;

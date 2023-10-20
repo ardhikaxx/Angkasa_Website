@@ -2089,12 +2089,12 @@ if (!$koneksi) {
             display: none;
             position: fixed;
             top: 10%;
-            left: 51%;
+            left: 55%;
             transform: translate(50%, -50%);
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 50px;
             opacity: 0;
             z-index: 999;
@@ -2204,10 +2204,12 @@ if (!$koneksi) {
         }
 
         .gender-select::after {
-            content: '\f183'; /* Ganti ini dengan kode ikon Font Awesome yang sesuai */
+            content: '\f183';
+            /* Ganti ini dengan kode ikon Font Awesome yang sesuai */
             font-family: 'Font Awesome 6 Free';
             position: absolute;
-            right: 5px; /* Sesuaikan jarak ikon dengan kanan */
+            right: 5px;
+            /* Sesuaikan jarak ikon dengan kanan */
             top: 50%;
             transform: translateY(-50%);
         }
@@ -2390,30 +2392,18 @@ if (!$koneksi) {
         <?php
         if (isset($_POST['register'])) {
             $fullname = $_POST['txt_nama'];
-            $nohp = $_POST['txt_phone'];
             $email = $_POST['txt_email'];
+            $nohp = $_POST['txt_phone'];
+            $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
-            $jeniskelamin=$_POST['txt_gender'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass')";            $gender = $_POST['txt_gender'];
-            if (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($userName)) && !empty(trim($pass))) {
-                $query = "INSERT INTO user VALUES ('','$fullname','$nohp','$userName','$pass','$gender')";
+
+            if (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($nohp)) && !empty(trim($jeniskelamin)) && !empty(trim($pass))) {
+                $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass')";
                 $result = mysqli_query($koneksi, $query);
-                header('window.location.href = "Dashboard-admin.php";');
-            } elseif (!empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input fullname")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input no hp")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($pass)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input email")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($jeniskelamin))) {
-                echo 'showNotification("Silahkan input pasword")';
-            } elseif (!empty(trim($fullname)) && !empty(trim($nohp)) && !empty(trim($email)) && !empty(trim($pass))){
-                echo 'showNotification("Silahkan input jenis kelamin")';
-            }else {
-                echo 'showNotification("Silahkan input fullname, no hp, username, dan pasword");';
+                echo 'window.location.href = "dashboard-admin.php";';
+            } else {
+                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
             }
-        }
         }
         ?>
     </script>
