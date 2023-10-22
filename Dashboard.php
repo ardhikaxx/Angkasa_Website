@@ -205,6 +205,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            place-items: center;
+            place-content: center;
             padding: 10px;
             margin-top: 100px;
         }
@@ -261,6 +264,7 @@
             animation: slideInRight 1s ease;
             transition: transform 0.5s ease;
             margin-top: 20px;
+            margin-right: 40px;
         }
 
         @keyframes slideInLeft {
@@ -316,7 +320,7 @@
             display: flex;
             align-items: center;
             border: 0;
-            border-radius: 10px;
+            border-radius: 15px;
             justify-content: center;
             transform: rotateY(0deg);
         }
@@ -324,7 +328,7 @@
         .contohfoto-front img {
             width: 450px;
             height: 300px;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .contohfoto-back {
@@ -509,8 +513,9 @@
             padding: 20px;
         }
 
-        .map img {
+        .map iframe {
             max-width: 100%;
+            border-radius: 15px;
         }
 
         .detail-map {
@@ -608,7 +613,7 @@
         }
 
         .menu-footer li::before {
-            content: "⭐";
+            content: "🌠";
         }
 
         .footer-coloumns ul {

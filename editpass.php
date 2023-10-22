@@ -24,7 +24,7 @@
             padding: 25px;
             background-color: #EBECF0;
             backdrop-filter: blur(5px);
-            border-radius: 25px;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             text-align: center;
             transition: transform 0.2s;
@@ -149,7 +149,7 @@
             background-color: #4CAF50;
             color: #fff;
             padding: 15px 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;

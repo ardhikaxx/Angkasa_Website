@@ -2085,7 +2085,7 @@ if (!$koneksi) {
             position: fixed;
             top: 10%;
             left: 55%;
-            transform: translate(50%, -50%);
+            transform: translate(50%, -50%) scale(0.2);
             background-color: #000;
             color: #fff;
             text-align: center;
@@ -2093,8 +2093,32 @@ if (!$koneksi) {
             border-radius: 50px;
             opacity: 0;
             z-index: 999;
-            transition: opacity 0.5s;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                transform: translate(50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notificationFadeOut {
+            0% {
+                transform: translate(50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(50%, -50%) scale(0.2);
+                opacity: 0;
+            }
         }
 
         .modal {
@@ -2107,10 +2131,10 @@ if (!$koneksi) {
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             width: 400px;
         }
 
@@ -2251,7 +2275,7 @@ if (!$koneksi) {
     </div>
 
     <div class="register-box">
-        <form action="register.php" method="POST" class="register-container">
+        <form action="register.php" method="POST" class="register-container" onsubmit="return validateForm();">
             <div class="segment">
                 <h1>Register</h1>
             </div>
@@ -2259,7 +2283,7 @@ if (!$koneksi) {
                 <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
             </label>
             <label class="email">
-                <input type="text" placeholder="Masukkan email" name="txt_email" autocomplete="off">
+                <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">
             </label>
             <label class="nomer-telp">
                 <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput"
@@ -2285,7 +2309,7 @@ if (!$koneksi) {
                 </span>
                 <p id="passwordLengthError" class="notification-password"></p>
             </label>
-            <button class="btn-register" type="submit" name="register">Register</button>
+            <button class="btn-register" type="submit" name="register" value="Register">Register</button>
         </form>
     </div>
 
@@ -2367,12 +2391,7 @@ if (!$koneksi) {
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
-            notification.style.opacity = 0;
             notification.style.display = 'block';
-
-            setTimeout(function () {
-                notification.style.opacity = 1;
-            }, 0);
 
             setTimeout(function () {
                 closeNotification();
@@ -2381,12 +2400,32 @@ if (!$koneksi) {
 
         function closeNotification() {
             var notification = document.getElementById('notification');
-
-            notification.style.opacity = 0;
+            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
 
             setTimeout(function () {
                 notification.style.display = 'none';
+                notification.style.animation = '';
+
+                document.getElementsByName('txt_nama')[0].value = '';
+                document.getElementsByName('txt_email')[0].value = '';
+                document.getElementsByName('txt_phone')[0].value = '';
+                document.getElementById('txt_gender').value = '';
+                document.getElementsByName('txt_pass')[0].value = '';
             }, 500);
+        }
+
+        function validateForm() {
+            var fullname = document.getElementsByName('txt_nama')[0].value;
+            var email = document.getElementsByName('txt_email')[0].value;
+            var nohp = document.getElementsByName('txt_phone')[0].value;
+            var jeniskelamin = document.getElementById('txt_gender').value;
+            var pass = document.getElementsByName('txt_pass')[0].value;
+
+            if (fullname === '' || email === '' || nohp === '' || jeniskelamin === '' || pass === '') {
+                showNotification("Silahkan input semua informasi yang diperlukan");
+                return false;
+            }
+            return true;
         }
 
         <?php
@@ -2397,16 +2436,37 @@ if (!$koneksi) {
             $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
 
-            if (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($nohp)) && !empty(trim($jeniskelamin)) && !empty(trim($pass))) {
+            // Periksa apakah data yang akan disimpan sudah ada di database
+            $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
+            $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
+
+            $queryEmail = "SELECT * FROM user WHERE email = '$email'";
+            $resultEmail = mysqli_query($koneksi, $queryEmail);
+
+            $queryNoHP = "SELECT * FROM user WHERE nomor_telepon = '$nohp'";
+            $resultNoHP = mysqli_query($koneksi, $queryNoHP);
+
+            if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
+                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
+            } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
+                echo 'showNotification("Nama lengkap sudah terdaftar.");';
+            } elseif (mysqli_num_rows($resultEmail) > 0) {
+                echo 'showNotification("Alamat email sudah terdaftar.");';
+            } elseif (mysqli_num_rows($resultNoHP) > 0) {
+                echo 'showNotification("Nomor telepon sudah terdaftar.");';
+            } else {
                 $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass')";
                 $result = mysqli_query($koneksi, $query);
-                echo 'window.location.href = "dashboard-admin.php";';
-            } else {
-                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
+                if ($result) {
+                    echo 'window.location.href = "dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.";';
+                } else {
+                    echo 'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
+                }
             }
         }
         ?>
     </script>
+
     <script>
         const logoutLink = document.getElementById('logout');
         const logoutModal = document.getElementById('logoutModal');

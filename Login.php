@@ -691,7 +691,7 @@ $error = "";
             position: fixed;
             top: 10%;
             left: 25%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.2);
             background-color: #000;
             color: #fff;
             text-align: center;
@@ -699,8 +699,32 @@ $error = "";
             border-radius: 50px;
             opacity: 0;
             z-index: 999;
-            transition: opacity 0.5s;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notificationFadeOut {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
         }
 
         #notification-success {
@@ -835,12 +859,7 @@ $error = "";
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
-            notification.style.opacity = 0;
             notification.style.display = 'block';
-
-            setTimeout(function () {
-                notification.style.opacity = 1;
-            }, 0);
 
             setTimeout(function () {
                 closeNotification();
@@ -850,10 +869,11 @@ $error = "";
         function closeNotification() {
             var notification = document.getElementById('notification');
 
-            notification.style.opacity = 0;
+            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
 
             setTimeout(function () {
                 notification.style.display = 'none';
+                notification.style.animation = '';
             }, 500);
         }
 

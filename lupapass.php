@@ -168,7 +168,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-family: "Poppins", sans-serif;
-            padding: 20px;
+            padding: 10px 10px;
             border-radius: 15px;
             text-align: center;
             width: 400px;
@@ -225,7 +225,7 @@
             background-color: #4CAF50;
             color: #fff;
             padding: 15px 10px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;

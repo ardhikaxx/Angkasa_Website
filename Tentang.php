@@ -195,11 +195,14 @@
 
         .latarbelakang-paragraph {
             font-size: 1.125rem;
+            margin-top: -10px;
+            padding: 25px;
             text-align: center;
+            text-align: justify;
         }
 
         .tujuan-section {
-            padding: 0.1rem;
+            padding: 25px;
         }
 
         .tujuan-container {
@@ -240,7 +243,7 @@
         }
 
         .feedback-section {
-            padding: 2rem;
+            padding: 25px;
         }
 
         .feedback-container {

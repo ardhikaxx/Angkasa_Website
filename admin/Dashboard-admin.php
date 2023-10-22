@@ -2108,7 +2108,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
             text-align: center;
             padding: 20px;
@@ -2177,7 +2177,7 @@
             background-color: #4CAF50;
             color: #fff;
             padding: 15px 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;
