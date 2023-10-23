@@ -199,18 +199,6 @@
         }
 
         .pack-card {
-            /* display: grid;
-            place-items: center;
-            place-content: center;
-            grid-template-columns: repeat(2, 1fr);
-            width: 100%;
-            height: auto;
-            background-color: transparent;
-            gap: 5px;
-            justify-content: center;
-            align-items: center;
-            max-width: 700px;
-            margin: 0px 250px 50px; */
             display: grid;
             place-items: center;
             place-content: center;
@@ -390,7 +378,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);

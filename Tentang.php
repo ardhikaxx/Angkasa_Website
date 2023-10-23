@@ -135,7 +135,7 @@
         .about-row {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
 
         .about-image {
@@ -145,6 +145,7 @@
         .about-image img {
             max-width: 100%;
             border-radius: 15px;
+            height: 250px
         }
 
         .about-content {
@@ -154,6 +155,7 @@
         .about-title {
             font-size: 2.5rem;
             font-weight: bold;
+            margin-top: -30px;
         }
 
         .about-subtitle {
@@ -296,7 +298,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
@@ -751,7 +753,7 @@
             <div class="about-container">
                 <div class="about-row">
                     <div class="about-column about-image">
-                        <img src="https://freefrontend.dev/assets/square.png" alt="Square Image">
+                        <img src="assets/Gallery/fotoTentang.jpg" alt="Square Image">
                     </div>
                     <div class="about-column about-content">
                         <h2 class="about-title">About Us</h2>
@@ -759,8 +761,6 @@
                         <p class="about-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
                             nostrud.</p>
-                        <p class="about-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                     </div>
                 </div>
             </div>

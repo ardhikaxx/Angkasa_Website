@@ -1,3 +1,43 @@
+<?php
+// require('../koneksi.php');
+// $host = 'localhost';
+// $username = 'root';
+// $password = '';
+// $database = 'angkasa';
+
+function cari_nama($koneksi, $nama_cari) {
+    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%'";
+    $result = mysqli_query($koneksi, $query);
+
+    $no = 1;
+
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id']) ? $row['id'] : '';
+        $email = isset($row['email']) ? $row['email'] : '';
+        $fullname = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+        $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
+        ?>
+        <tr>
+            <td><?php echo $no; ?></td>
+            <td><?php echo $email; ?></td>
+            <td><?php echo $fullname; ?></td>
+            <td><?php echo $nohp; ?></td>
+            <td>
+                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
+                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+            </td>
+        </tr>
+        <?php
+        $no++;
+    }
+}
+
+// $koneksi = mysqli_connect($host, $username, $password, $database);
+
+// if (!$koneksi) {
+//     die("Koneksi database gagal: " . mysqli_connect_error());
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1522,7 +1562,7 @@
             }
         }
 
-        .content {
+        .content-settings {
             width: 900px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
@@ -1533,6 +1573,89 @@
             border-radius: 10px;
             margin-top: 50px;
             margin-left: 200px;
+        }
+
+        .content-settings h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
+            color: #007bff;
+            font-weight: 800;
+        }
+
+        .content-settings table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .content-settings th,.content-settings td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabel-akun tr {
+            margin-top: 20px;
+        }
+
+        .content-settings th {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            text-decoration: none;
+        }
+
+        .btn-edit:hover, .btn-delete:hover {
+            opacity: 0.9;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 250px;
+            padding: 11px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        button {
+            background-color: #0074d9;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-icon {
+            margin-right: 5px;
         }
 
         .stars {
@@ -1546,7 +1669,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
@@ -2080,7 +2203,31 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content-settings">
+        <h1>Welcome</h1>
+        <form method="GET">
+            <label for="search">Cari Nama:</label>
+            <input type="text" name="search" id="search">
+            <button type="submit">
+                <i class="fas fa-search search-icon"></i> Cari
+            </button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Email</th>
+                    <th>Nama</th>
+                    <th>No Telepon</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="tabel-akun">
+            <?php
+                
+            ?>
+            </tbody>
+        </table>
     </div>
 
     <div class="stars">

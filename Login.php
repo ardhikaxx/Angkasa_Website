@@ -196,6 +196,7 @@ $error = "";
             transition: color 0.3s ease, transform 0.3s ease;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 30px;
         }
 
         .forgot-password-link::before {
@@ -257,11 +258,11 @@ $error = "";
         }
 
         .star {
-            --star-color: #000;
-            --star-tail-length: 8em;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
+            --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
-            --fall-duration: 15s;
+            --fall-duration: 9s;
             --tail-fade-duration: var(--fall-duration);
             position: absolute;
             top: var(--top-offset);
@@ -692,7 +693,7 @@ $error = "";
             top: 10%;
             left: 25%;
             transform: translate(-50%, -50%) scale(0.2);
-            background-color: #000;
+            background: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             color: #fff;
             text-align: center;
             padding: 15px 20px;
@@ -765,7 +766,7 @@ $error = "";
             <h1>LOGIN</h1>
             <form action="Login.php" method="POST">
                 <div class="email-container">
-                    <input type="text" id="email" name="txt_email" placeholder="Email" autocomplete="off">
+                    <input type="text" id="email" name="txt_email" placeholder="Email" autocomplete="on">
                 </div><br>
                 <div class="password-container">
                     <input type="password" name="txt_pass" placeholder="Password" id="password">
@@ -853,6 +854,7 @@ $error = "";
             }
         }
     </script>
+
     <script>
         function showNotification(message) {
             var notification = document.getElementById('notification');
