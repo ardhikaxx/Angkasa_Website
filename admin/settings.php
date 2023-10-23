@@ -1,9 +1,9 @@
 <?php
-// require('../koneksi.php');
-// $host = 'localhost';
-// $username = 'root';
-// $password = '';
-// $database = 'angkasa';
+require('../koneksi.php');
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'angkasa';
 
 function cari_nama($koneksi, $nama_cari) {
     $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%'";
@@ -12,7 +12,7 @@ function cari_nama($koneksi, $nama_cari) {
     $no = 1;
 
     while ($row = mysqli_fetch_array($result)) {
-        $id = isset($row['id']) ? $row['id'] : '';
+        $id = isset($row['id_user']) ? $row['id_user'] : '';
         $email = isset($row['email']) ? $row['email'] : '';
         $fullname = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
         $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
@@ -32,11 +32,11 @@ function cari_nama($koneksi, $nama_cari) {
     }
 }
 
-// $koneksi = mysqli_connect($host, $username, $password, $database);
+$koneksi = mysqli_connect($host, $username, $password, $database);
 
-// if (!$koneksi) {
-//     die("Koneksi database gagal: " . mysqli_connect_error());
-// }
+if (!$koneksi) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -2204,10 +2204,10 @@ function cari_nama($koneksi, $nama_cari) {
     </div>
 
     <div class="content-settings">
-        <h1>Welcome</h1>
+    <h1>Pengaturan Admin Photobooth</h1>
         <form method="GET">
             <label for="search">Cari Nama:</label>
-            <input type="text" name="search" id="search">
+            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user" autocomplete="off">
             <button type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
@@ -2216,17 +2216,43 @@ function cari_nama($koneksi, $nama_cari) {
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Nama Lengkap</th>
                     <th>Email</th>
-                    <th>Nama</th>
                     <th>No Telepon</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">
             <?php
-                
-            ?>
+            if (isset($_GET['search'])){
+                $searchquery=$_GET ['search'];
+                cari_nama($koneksi,$searchquery,);
+            }else{
+               $query="SELECT * FROM user";
+               $result=mysqli_query($koneksi,$query);
+               $no=1;
+               while ($row=mysqli_fetch_array($result)){
+                $id=isset($row['id_user'])?$row['id_user']:'';
+                $usernamalengkap=isset ($row['nama_lengkap'])?$row['nama_lengkap']:'';
+                $useremail=isset ($row['email'])?$row['email']:'';
+                $usertelepon=isset($row['no_hp'])?$row['no_hp']:'';
+                ?>
+            <tr>
+                <td><?php echo $no;?></td>
+                <td><?php echo $usernamalengkap;?></td>
+                <td><?php echo $useremail;?></td>
+                <td><?php echo $usertelepon;?></td>
+                <td>
+                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
+                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+                </td>
+            </tr>
             </tbody>
+            <?php
+            $no++;
+               }
+            }
+            ?>
         </table>
     </div>
 

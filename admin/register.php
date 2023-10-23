@@ -2443,7 +2443,7 @@ if (!$koneksi) {
             $queryEmail = "SELECT * FROM user WHERE email = '$email'";
             $resultEmail = mysqli_query($koneksi, $queryEmail);
 
-            $queryNoHP = "SELECT * FROM user WHERE nomor_telepon = '$nohp'";
+            $queryNoHP = "SELECT * FROM user WHERE no_hp = '$nohp'";
             $resultNoHP = mysqli_query($koneksi, $queryNoHP);
 
             if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
