@@ -2042,9 +2042,6 @@
 
         table {
             width: 100%;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         thead {
@@ -2055,17 +2052,13 @@
 
         th,
         td {
-            border: 1px solid #ccc;
+            border-bottom: 1px solid #dee2e6;
             padding: 15px;
             text-align: left;
         }
 
         th {
             border: none;
-        }
-
-        #booking-list tr:nth-child(even) {
-            background-color: #f5f5f5;
         }
 
         td:last-child {

@@ -5,7 +5,8 @@ $username = 'root';
 $password = '';
 $database = 'angkasa';
 
-function cari_nama($koneksi, $nama_cari) {
+function cari_nama($koneksi, $nama_cari)
+{
     $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%'";
     $result = mysqli_query($koneksi, $query);
 
@@ -18,10 +19,18 @@ function cari_nama($koneksi, $nama_cari) {
         $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
         ?>
         <tr>
-            <td><?php echo $no; ?></td>
-            <td><?php echo $email; ?></td>
-            <td><?php echo $fullname; ?></td>
-            <td><?php echo $nohp; ?></td>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $email; ?>
+            </td>
+            <td>
+                <?php echo $fullname; ?>
+            </td>
+            <td>
+                <?php echo $nohp; ?>
+            </td>
             <td>
                 <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
                 <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
@@ -53,7 +62,7 @@ if (!$koneksi) {
         body {
             background-color: #EBECF0;
         }
-        
+
         .navbar {
             position: fixed;
             top: 1rem;
@@ -1588,7 +1597,8 @@ if (!$koneksi) {
             margin-top: 20px;
         }
 
-        .content-settings th,.content-settings td {
+        .content-settings th,
+        .content-settings td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
@@ -1607,7 +1617,7 @@ if (!$koneksi) {
             background-color: #007bff;
             color: #fff;
             border-radius: 10px;
-            padding: 10px 15px;
+            padding: 5px 10px;
             margin-right: 10px;
             text-decoration: none;
         }
@@ -1616,18 +1626,15 @@ if (!$koneksi) {
             background-color: #dc3545;
             color: #fff;
             border-radius: 10px;
-            padding: 10px 15px;
+            padding: 5px 10px;
             text-decoration: none;
         }
 
-        .btn-edit:hover, .btn-delete:hover {
+        .btn-edit:hover,
+        .btn-delete:hover {
             opacity: 0.9;
         }
 
-        label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
         input[type="text"] {
             width: 250px;
             padding: 11px;
@@ -1636,20 +1643,22 @@ if (!$koneksi) {
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            border-radius: 5px;
+            border-radius: 15px;
             border: none;
             outline: none;
         }
+
         button {
             background-color: #0074d9;
             color: #fff;
             border: none;
             padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
             margin-bottom: 20px;
             margin-left: 10px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
@@ -2185,7 +2194,8 @@ if (!$koneksi) {
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2204,10 +2214,10 @@ if (!$koneksi) {
     </div>
 
     <div class="content-settings">
-    <h1>Pengaturan Admin Photobooth</h1>
+        <h1>Pengaturan Admin Photobooth</h1>
         <form method="GET">
-            <label for="search">Cari Nama:</label>
-            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user" autocomplete="off">
+            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user"
+                autocomplete="off">
             <button type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
@@ -2223,36 +2233,44 @@ if (!$koneksi) {
                 </tr>
             </thead>
             <tbody class="tabel-akun">
-            <?php
-            if (isset($_GET['search'])){
-                $searchquery=$_GET ['search'];
-                cari_nama($koneksi,$searchquery,);
-            }else{
-               $query="SELECT * FROM user";
-               $result=mysqli_query($koneksi,$query);
-               $no=1;
-               while ($row=mysqli_fetch_array($result)){
-                $id=isset($row['id_user'])?$row['id_user']:'';
-                $usernamalengkap=isset ($row['nama_lengkap'])?$row['nama_lengkap']:'';
-                $useremail=isset ($row['email'])?$row['email']:'';
-                $usertelepon=isset($row['no_hp'])?$row['no_hp']:'';
+                <?php
+                if (isset($_GET['search'])) {
+                    $searchquery = $_GET['search'];
+                    cari_nama($koneksi, $searchquery, );
+                } else {
+                    $query = "SELECT * FROM user";
+                    $result = mysqli_query($koneksi, $query);
+                    $no = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_user']) ? $row['id_user'] : '';
+                        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+                        $useremail = isset($row['email']) ? $row['email'] : '';
+                        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $usernamalengkap; ?>
+                            </td>
+                            <td>
+                                <?php echo $useremail; ?>
+                            </td>
+                            <td>
+                                <?php echo $usertelepon; ?>
+                            </td>
+                            <td>
+                                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
+                                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <?php
+                    $no++;
+                    }
+                }
                 ?>
-            <tr>
-                <td><?php echo $no;?></td>
-                <td><?php echo $usernamalengkap;?></td>
-                <td><?php echo $useremail;?></td>
-                <td><?php echo $usertelepon;?></td>
-                <td>
-                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
-                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
-                </td>
-            </tr>
-            </tbody>
-            <?php
-            $no++;
-               }
-            }
-            ?>
         </table>
     </div>
 
