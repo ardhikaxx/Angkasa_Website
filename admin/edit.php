@@ -1,3 +1,9 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,17 +117,32 @@
         <form action="edit.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page</h1>
+                <?php 
+                if(isset($_POST['simpan'])){
+                        $userMail=$_POST['txt_email'];
+                        $userNohp=$_POST['txt_phone'];
+                        $userName=$_POST['txt_nama'];
+                        
+                        $query="UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
+                        $result=mysqli_query($koneksi,$query);
+                        header('Location:settings.php'); 
+                    }
+                $id = isset($_GET['id']) ? $_GET['id'] : null;
+                $query=mysqli_query($koneksi,"SELECT * FROM user where id_user='$id'");
+                $data=mysqli_fetch_array($query);
+                ?>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
+                <input type="text" name="txt_nama" autocomplete="off" value ="<?php echo $data ['nama_lengkap'];?>">
             </label>
             <label class="email">
-                <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">
+                <input type="email" name="txt_email" autocomplete="off" value ="<?php echo $data ['email'];?>" readonly>
             </label>
             <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput" autocomplete="off">
+                <input type="text" name="txt_phone" id="phoneInput" autocomplete="off" value ="<?php echo $data ['no_hp'];?>">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
+
         </form>
     </div>
 </body>
