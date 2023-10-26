@@ -1542,7 +1542,7 @@ if (!$koneksi) {
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: box-shadow 0.3s ease;
         }
@@ -2229,7 +2229,7 @@ if (!$koneksi) {
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
-            color: #61677C;
+            color: #000;
         }
     </style>
 </head>
@@ -2245,7 +2245,7 @@ if (!$koneksi) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip Sponsor</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
@@ -2280,7 +2280,7 @@ if (!$koneksi) {
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
+                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="on">
             </label>
             <label class="email">
                 <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">

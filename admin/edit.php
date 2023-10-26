@@ -6,6 +6,7 @@ if (!$koneksi) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,8 +64,7 @@ if (!$koneksi) {
             margin-top: -30px;
         }
 
-
-        button,
+        .btn-simpan,
         input {
             border: 0;
             outline: 0;
@@ -92,7 +92,6 @@ if (!$koneksi) {
         }
 
         .btn-simpan {
-            color: #61677C;
             font-weight: bold;
             box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
             transition: all 0.2s ease-in-out;
@@ -110,40 +109,80 @@ if (!$koneksi) {
         .btn-simpan:active {
             box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
         }
+
+        .btn-back {
+            font-weight: bold;
+            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            font-weight: 600;
+            display: block;
+            width: 250px;
+            margin-top: 25px;
+            padding: 10px;
+            color: #000000;
+            border-radius: 50px;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+        }
+
+        .btn-back-icon {
+            font-size: 20px;
+            margin-right: 5px;
+            font-weight: bold;
+            color: #000;
+        }
     </style>
 </head>
+
 <body>
-<div class="edit-box">
+    <div class="edit-box">
         <form action="edit.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page</h1>
-                <?php 
-                if(isset($_POST['simpan'])){
-                        $userMail=$_POST['txt_email'];
-                        $userNohp=$_POST['txt_phone'];
-                        $userName=$_POST['txt_nama'];
-                        
-                        $query="UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
-                        $result=mysqli_query($koneksi,$query);
-                        header('Location:settings.php'); 
-                    }
+                <?php
+                if (isset($_POST['simpan'])) {
+                    $userMail = $_POST['txt_email'];
+                    $userNohp = $_POST['txt_phone'];
+                    $userName = $_POST['txt_nama'];
+
+                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
+                    $result = mysqli_query($koneksi, $query);
+                    header('Location:settings.php');
+                }
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
-                $query=mysqli_query($koneksi,"SELECT * FROM user where id_user='$id'");
-                $data=mysqli_fetch_array($query);
+                $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
+                $data = mysqli_fetch_array($query);
                 ?>
             </div>
             <label class="nama-lengkap">
-                <input type="text" name="txt_nama" autocomplete="off" value ="<?php echo $data ['nama_lengkap'];?>">
+                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_lengkap']; ?>">
             </label>
             <label class="email">
-                <input type="email" name="txt_email" autocomplete="off" value ="<?php echo $data ['email'];?>" readonly>
+                <input type="email" name="txt_email" autocomplete="off" value="<?php echo $data['email']; ?>" readonly>
             </label>
             <label class="nomer-telp">
-                <input type="text" name="txt_phone" id="phoneInput" autocomplete="off" value ="<?php echo $data ['no_hp'];?>">
+                <input type="text" name="txt_phone" id="phoneInput" autocomplete="off"
+                    value="<?php echo $data['no_hp']; ?>">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
-
+            <a class="btn-back" href="settings.php">
+                <span class="btn-back-icon">&#x21A9;</span>
+                <span>Back to Settings</span>
+            </a>
         </form>
     </div>
+
+    <script>
+        const phoneInput = document.getElementById('phoneInput');
+
+        phoneInput.addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
 </body>
+
 </html>

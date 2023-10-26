@@ -245,7 +245,7 @@
             <h1>Verifikasi Lupa Password</h1>
             <div class="input-field user_input">
                 <input type="text" id="email" name="email" placeholder="Masukkan Email Anda..."
-                    autocomplete="off">
+                    autocomplete="on">
             </div>
             <div class="captcha-container">
                 <div class="captcha-box">
