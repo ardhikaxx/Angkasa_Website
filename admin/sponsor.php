@@ -2056,7 +2056,7 @@
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>

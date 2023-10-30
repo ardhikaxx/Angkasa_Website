@@ -70,7 +70,6 @@ $error = "";
             padding: 20px;
             max-width: 300px;
             margin: 0 auto;
-            padding: 20px;
             border-radius: 15px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -93,23 +92,33 @@ $error = "";
             padding-right: 50px;
         }
 
+
         input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin: 5px 0;
-            margin-left: 10px;
+            width: 100%;
+            padding: 15px;
             border: none;
             outline: none;
             background-color: transparent;
+            box-shadow: inset 2px 2px 10px #BABECC, inset -5px -5px 10px #FFF;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 50px;
         }
 
         input[type="password"] {
-            width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            width: 100%;
+            padding: 15px;
             border: none;
             outline: none;
             background-color: transparent;
+            box-shadow: inset 2px 2px 10px #BABECC, inset -5px -5px 10px #FFF;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 50px;
         }
 
         .email-container {
@@ -131,8 +140,8 @@ $error = "";
 
         #email {
             width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 15px;
+            margin: 0;
             border: none;
             outline: none;
             padding-left: 20px;
@@ -147,7 +156,6 @@ $error = "";
             background-color: rgba(0, 0, 0, 0.15);
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
-            margin-right: 8px;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
             width: 100%;
             box-sizing: border-box;
@@ -159,19 +167,22 @@ $error = "";
 
         #password {
             width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 15px;
+            margin: 0;
             border: none;
             outline: none;
             background-color: transparent;
         }
 
         #showPassword {
+            width: 300px;
+            padding: 15px;
+            margin: 2px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             z-index: 2;
-            margin-left: -60px;
+            margin-left: -57px;
         }
 
         .right-side p {
@@ -693,7 +704,7 @@ $error = "";
             top: 10%;
             left: 25%;
             transform: translate(-50%, -50%) scale(0.2);
-            background: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
+            background: #000;
             color: #fff;
             text-align: center;
             padding: 15px 20px;
@@ -839,6 +850,15 @@ $error = "";
     </div>
 
     <script>
+        const emailInput = document.getElementById('email');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+        emailInput.addEventListener('input', function () {
+            autocompleteList.style.width = emailInput.offsetWidth + 'px';
+        });
+    </script>
+
+    <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById("password");
             const showPasswordIcon = document.getElementById("passwordIcon");
@@ -896,7 +916,7 @@ $error = "";
                 if (mysqli_num_rows($result) > 0) {
                     $userRow = mysqli_fetch_assoc($result);
                     $namaLengkap = $userRow['nama_lengkap'];
-                    $redirectMessage = 'Login+berhasil!+Selamat+datang,+' . urlencode($namaLengkap) . '!';
+                    $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($namaLengkap) . '!';
                     echo 'window.location.href = "admin/dashboard-admin.php?successMessage=' . $redirectMessage . '";';
                 } else {
                     echo 'showNotification("email atau password salah.");';

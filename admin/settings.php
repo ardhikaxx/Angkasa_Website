@@ -23,10 +23,10 @@ function cari_nama($koneksi, $nama_cari)
                 <?php echo $no; ?>
             </td>
             <td>
-                <?php echo $email; ?>
+                <?php echo $fullname; ?>
             </td>
             <td>
-                <?php echo $fullname; ?>
+                <?php echo $email; ?>
             </td>
             <td>
                 <?php echo $nohp; ?>
@@ -1579,7 +1579,7 @@ if (!$koneksi) {
             font-family: "Poppins", sans-serif;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 50px;
             margin-left: 200px;
         }
@@ -1587,7 +1587,7 @@ if (!$koneksi) {
         .content-settings h1 {
             margin-bottom: 20px;
             font-size: 25px;
-            color: #007bff;
+            color: #000;
             font-weight: 800;
         }
 
@@ -1609,8 +1609,8 @@ if (!$koneksi) {
         }
 
         .content-settings th {
-            background-color: #f8f9fa;
-            color: #495057;
+            background-color: #000;
+            color: #fff;
         }
 
         .btn-edit {
@@ -1637,7 +1637,7 @@ if (!$koneksi) {
 
         input[type="text"] {
             width: 250px;
-            padding: 11px;
+            padding: 10px;
             border: 1px solid #ccc;
             background-color: rgba(0, 0, 0, 0.15);
             background-color: #EBECF0;
@@ -1646,21 +1646,21 @@ if (!$koneksi) {
             border-radius: 15px;
             border: none;
             outline: none;
+            margin: 10px;
         }
 
         button {
-            background-color: #0074d9;
+            background-color: #000;
             color: #fff;
             border: none;
             padding: 10px 15px;
             border-radius: 15px;
             cursor: pointer;
-            margin-bottom: 20px;
-            margin-left: 10px;
+            margin: 10px;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #333;
         }
 
         .search-icon {
@@ -2135,6 +2135,7 @@ if (!$koneksi) {
             transition: all 0.4s ease;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom: -5px;
         }
 
         .btn-confirm {
@@ -2174,6 +2175,134 @@ if (!$koneksi) {
             z-index: 999;
             display: none;
         }
+
+        .modal-edit {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .edit-content {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+            border: 0;
+            width: 350px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s;
+        }
+
+        .edit-content button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: -5px;
+        }
+
+        .edit-content button#confirmEditYes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-content button#confirmEditYes:hover {
+            background-color: #45a049;
+        }
+
+        .edit-content button#confirmEditNo {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .edit-content button#confirmEditNo:hover {
+            background-color: #da190b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-delete {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content-delete {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            font-family: "Poppins", sans-serif;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 0;
+            width: 350px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content-delete h2 {
+            margin: 0;
+        }
+
+        .modal-content-delete p {
+            margin: 10px 0;
+        }
+
+        .modal-content-delete button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .modal-content-delete button#confirmDeleteYes {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .modal-content-delete button#confirmDeleteYes:hover {
+            background-color: #da190b;
+        }
+
+        .modal-content-delete button#confirmDeleteNo {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .modal-content-delete button#confirmDeleteNo:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
@@ -2188,7 +2317,7 @@ if (!$koneksi) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
@@ -2261,8 +2390,8 @@ if (!$koneksi) {
                                 <?php echo $usertelepon; ?>
                             </td>
                             <td>
-                                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
-                                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
                             </td>
                         </tr>
                     </tbody>
@@ -2272,6 +2401,25 @@ if (!$koneksi) {
                 }
                 ?>
         </table>
+    </div>
+
+    <div id="myModal" class="modal-edit">
+        <div class="edit-content">
+            <h2>Konfirmasi Edit</h2>
+            <p>Apakah Anda yakin ingin mengedit data ini?</p>
+            <button id="confirmEditYes">Ya</button>
+            <button id="confirmEditNo">Tidak</button>
+            <input type="hidden" id="userIdToEdit">
+        </div>
+    </div>
+
+    <div class="modal-delete">
+        <div class="modal-content-delete">
+            <h2>Konfirmasi Hapus</h2>
+            <p>Apakah Anda yakin ingin menghapus data ini?</p>
+            <button id="confirmDeleteYes">Ya</button>
+            <button id="confirmDeleteNo">Tidak</button>
+        </div>
     </div>
 
     <div class="stars">
@@ -2350,6 +2498,65 @@ if (!$koneksi) {
         confirmLogoutBtn.addEventListener('click', function () {
             window.location.href = '/Angkasa_Website/logout.php';
         });
+    </script>
+
+    <script>
+        const editButtons = document.querySelectorAll(".btn-edit");
+        const modal = document.getElementById("myModal");
+        const confirmEditYes = document.getElementById("confirmEditYes");
+        const confirmEditNo = document.getElementById("confirmEditNo");
+
+        editButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const userId = this.getAttribute("data-id");
+                document.getElementById("userIdToEdit").value = userId;
+                modal.style.display = "block";
+            });
+        });
+
+        confirmEditYes.addEventListener("click", function () {
+            const userId = document.getElementById("userIdToEdit").value;
+            if (userId) {
+                window.location.href = "edit.php?id=" + userId;
+            }
+            modal.style.display = "none";
+        });
+
+        confirmEditNo.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    </script>
+
+    <script>
+        const deleteButtons = document.querySelectorAll(".btn-delete");
+        const modalDelete = document.querySelector(".modal-delete");
+        const confirmDeleteYes = document.getElementById("confirmDeleteYes");
+        const confirmDeleteNo = document.getElementById("confirmDeleteNo");
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const userId = this.getAttribute("data-id");
+                showModalDelete(userId);
+            });
+        });
+
+        function showModalDelete(userId) {
+            modalDelete.style.display = "block";
+
+            confirmDeleteYes.addEventListener("click", function () {
+                window.location.href = "hapus.php?id=" + userId;
+            });
+
+            confirmDeleteNo.addEventListener("click", function () {
+                closeModalDelete();
+            });
+        }
+
+        function closeModalDelete() {
+            modalDelete.style.display = "none";
+        }
     </script>
 </body>
 
