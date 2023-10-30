@@ -143,18 +143,6 @@ if (!$koneksi) {
         <form action="edit.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page</h1>
-<<<<<<< HEAD
-                <?php 
-                if(isset($_POST['simpan'])){
-                        $userid=$_POST['txt_id'];
-                        $userMail=$_POST['txt_email'];
-                        $userNohp=$_POST['txt_phone'];
-                        $userName=$_POST['txt_nama'];      
-                        $query="UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE id_user ='$userid'";
-                        $result=mysqli_query($koneksi,$query);
-                        header('Location:settings.php'); 
-                    }
-=======
                 <?php
                 if (isset($_POST['simpan'])) {
                     $userMail = $_POST['txt_email'];
@@ -163,27 +151,19 @@ if (!$koneksi) {
 
                     $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
                     $result = mysqli_query($koneksi, $query);
-                    header('Location:settings.php');
+                    header("Location: settings.php?successMessage=Pembaruan Data Telah selesai");
                 }
->>>>>>> 1a721835b4b499802f0c62b8b8c518a0d646ae68
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
                 $data = mysqli_fetch_array($query);
                 ?>
             </div>
             <label class="nama-lengkap">
-<<<<<<< HEAD
-                <input type="hidden" name ="txt_id" value="<?php echo $data['id_user']; ?>">
-                <input type="text" name="txt_nama" autocomplete="off" value ="<?php echo $data ['nama_lengkap'];?>">
-            </label>
-            <label class="email">
-                <input type="email" name="txt_email" autocomplete="off" value ="<?php echo $data ['email'];?>" >
-=======
+                <input type="hidden" name="txt_id" value="<?php echo $data['id_user']; ?>">
                 <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_lengkap']; ?>">
             </label>
             <label class="email">
-                <input type="email" name="txt_email" autocomplete="off" value="<?php echo $data['email']; ?>" readonly>
->>>>>>> 1a721835b4b499802f0c62b8b8c518a0d646ae68
+                <input type="email" name="txt_email" autocomplete="off" value="<?php echo $data['email']; ?>">
             </label>
             <label class="nomer-telp">
                 <input type="text" name="txt_phone" id="phoneInput" autocomplete="off"
