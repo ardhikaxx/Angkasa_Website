@@ -1,3 +1,52 @@
+<?php
+require('../koneksi.php');
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'angkasa';
+
+function cari_nama($koneksi, $nama_cari)
+{
+    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%'";
+    $result = mysqli_query($koneksi, $query);
+
+    $no = 1;
+
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id_user']) ? $row['id_user'] : '';
+        $email = isset($row['email']) ? $row['email'] : '';
+        $fullname = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+        $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
+        ?>
+        <tr>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $fullname; ?>
+            </td>
+            <td>
+                <?php echo $email; ?>
+            </td>
+            <td>
+                <?php echo $nohp; ?>
+            </td>
+            <td>
+                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
+                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+            </td>
+        </tr>
+        <?php
+        $no++;
+    }
+}
+
+$koneksi = mysqli_connect($host, $username, $password, $database);
+
+if (!$koneksi) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +62,7 @@
         body {
             background-color: #EBECF0;
         }
-        
+
         .navbar {
             position: fixed;
             top: 1rem;
@@ -1522,7 +1571,7 @@
             }
         }
 
-        .content {
+        .content-settings {
             width: 900px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
@@ -1530,9 +1579,92 @@
             font-family: "Poppins", sans-serif;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 50px;
             margin-left: 200px;
+        }
+
+        .content-settings h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
+            color: #000;
+            font-weight: 800;
+        }
+
+        .content-settings table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .content-settings th,
+        .content-settings td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabel-akun tr {
+            margin-top: 20px;
+        }
+
+        .content-settings th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 10px;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+
+        .btn-edit:hover,
+        .btn-delete:hover {
+            opacity: 0.9;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .search-icon {
+            margin-right: 5px;
         }
 
         .stars {
@@ -1546,7 +1678,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
@@ -1984,7 +2116,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
             text-align: center;
             padding: 20px;
@@ -1996,14 +2128,14 @@
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             margin-top: 20px;
             margin-left: 10px;
             color: white;
             transition: all 0.4s ease;
-            text-transform: uppercase;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+            margin-bottom: -5px;
         }
 
         .btn-confirm {
@@ -2043,6 +2175,156 @@
             z-index: 999;
             display: none;
         }
+
+        .modal-edit {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .edit-content {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+            border: 0;
+            width: 350px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s;
+        }
+
+        .edit-content button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: -5px;
+        }
+
+        .edit-content button#confirmEditYes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-content button#confirmEditYes:hover {
+            background-color: #45a049;
+        }
+
+        .edit-content button#confirmEditNo {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .edit-content button#confirmEditNo:hover {
+            background-color: #da190b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-delete {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content-delete {
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            font-family: "Poppins", sans-serif;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 0;
+            width: 350px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content-delete h2 {
+            margin: 0;
+        }
+
+        .modal-content-delete p {
+            margin: 10px 0;
+        }
+
+        .modal-content-delete button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .modal-content-delete button#confirmDeleteYes {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .modal-content-delete button#confirmDeleteYes:hover {
+            background-color: #da190b;
+        }
+
+        .modal-content-delete button#confirmDeleteNo {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .modal-content-delete button#confirmDeleteNo:hover {
+            background-color: #45a049;
+        }
+
+        .notification {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 53%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -2057,13 +2339,14 @@
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2081,7 +2364,86 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content-settings">
+        <h1>Pengaturan Admin Photobooth</h1>
+        <form method="GET">
+            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user"
+                autocomplete="off">
+            <button type="submit">
+                <i class="fas fa-search search-icon"></i> Cari
+            </button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Lengkap</th>
+                    <th>Email</th>
+                    <th>No Telepon</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="tabel-akun">
+                <?php
+                if (isset($_GET['search'])) {
+                    $searchquery = $_GET['search'];
+                    cari_nama($koneksi, $searchquery, );
+                } else {
+                    $query = "SELECT * FROM user";
+                    $result = mysqli_query($koneksi, $query);
+                    $no = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_user']) ? $row['id_user'] : '';
+                        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+                        $useremail = isset($row['email']) ? $row['email'] : '';
+                        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $usernamalengkap; ?>
+                            </td>
+                            <td>
+                                <?php echo $useremail; ?>
+                            </td>
+                            <td>
+                                <?php echo $usertelepon; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <?php
+                    $no++;
+                    }
+                }
+                ?>
+        </table>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <div id="myModal" class="modal-edit">
+        <div class="edit-content">
+            <h2>Konfirmasi Edit</h2>
+            <p>Apakah Anda yakin ingin mengedit data ini?</p>
+            <button id="confirmEditYes">Ya</button>
+            <button id="confirmEditNo">Tidak</button>
+            <input type="hidden" id="userIdToEdit">
+        </div>
+    </div>
+
+    <div class="modal-delete">
+        <div class="modal-content-delete">
+            <h2>Konfirmasi Hapus</h2>
+            <p>Apakah Anda yakin ingin menghapus data ini?</p>
+            <button id="confirmDeleteYes">Ya</button>
+            <button id="confirmDeleteNo">Tidak</button>
+        </div>
     </div>
 
     <div class="stars">
@@ -2160,6 +2522,89 @@
         confirmLogoutBtn.addEventListener('click', function () {
             window.location.href = '/Angkasa_Website/logout.php';
         });
+    </script>
+
+    <script>
+        const editButtons = document.querySelectorAll(".btn-edit");
+        const modal = document.getElementById("myModal");
+        const confirmEditYes = document.getElementById("confirmEditYes");
+        const confirmEditNo = document.getElementById("confirmEditNo");
+
+        editButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const userId = this.getAttribute("data-id");
+                document.getElementById("userIdToEdit").value = userId;
+                modal.style.display = "block";
+            });
+        });
+
+        confirmEditYes.addEventListener("click", function () {
+            const userId = document.getElementById("userIdToEdit").value;
+            if (userId) {
+                window.location.href = "edit.php?id=" + userId;
+            }
+            modal.style.display = "none";
+        });
+
+        confirmEditNo.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    </script>
+
+    <script>
+        const deleteButtons = document.querySelectorAll(".btn-delete");
+        const modalDelete = document.querySelector(".modal-delete");
+        const confirmDeleteYes = document.getElementById("confirmDeleteYes");
+        const confirmDeleteNo = document.getElementById("confirmDeleteNo");
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const userId = this.getAttribute("data-id");
+                showModalDelete(userId);
+            });
+        });
+
+        function showModalDelete(userId) {
+            modalDelete.style.display = "block";
+
+            confirmDeleteYes.addEventListener("click", function () {
+                window.location.href = "hapus.php?id=" + userId;
+            });
+
+            confirmDeleteNo.addEventListener("click", function () {
+                closeModalDelete();
+            });
+        }
+
+        function closeModalDelete() {
+            modalDelete.style.display = "none";
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMessage = urlParams.get('successMessage');
+
+        if (successMessage) {
+            const notification = document.getElementById('notification');
+            notification.innerText = successMessage;
+            notification.style.display = 'block';
+
+            setTimeout(function () {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(function () {
+                notification.classList.remove('show');
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 500);
+            }, 5000);
+        }
+    });
     </script>
 </body>
 

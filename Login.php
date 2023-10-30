@@ -70,7 +70,6 @@ $error = "";
             padding: 20px;
             max-width: 300px;
             margin: 0 auto;
-            padding: 20px;
             border-radius: 15px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -93,23 +92,33 @@ $error = "";
             padding-right: 50px;
         }
 
+
         input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin: 5px 0;
-            margin-left: 10px;
+            width: 100%;
+            padding: 15px;
             border: none;
             outline: none;
             background-color: transparent;
+            box-shadow: inset 2px 2px 10px #BABECC, inset -5px -5px 10px #FFF;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 50px;
         }
 
         input[type="password"] {
-            width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            width: 100%;
+            padding: 15px;
             border: none;
             outline: none;
             background-color: transparent;
+            box-shadow: inset 2px 2px 10px #BABECC, inset -5px -5px 10px #FFF;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 50px;
         }
 
         .email-container {
@@ -131,8 +140,8 @@ $error = "";
 
         #email {
             width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 15px;
+            margin: 0;
             border: none;
             outline: none;
             padding-left: 20px;
@@ -147,7 +156,6 @@ $error = "";
             background-color: rgba(0, 0, 0, 0.15);
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
-            margin-right: 8px;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
             width: 100%;
             box-sizing: border-box;
@@ -159,19 +167,22 @@ $error = "";
 
         #password {
             width: 300px;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 15px;
+            margin: 0;
             border: none;
             outline: none;
             background-color: transparent;
         }
 
         #showPassword {
+            width: 300px;
+            padding: 15px;
+            margin: 2px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             z-index: 2;
-            margin-left: -60px;
+            margin-left: -57px;
         }
 
         .right-side p {
@@ -196,6 +207,7 @@ $error = "";
             transition: color 0.3s ease, transform 0.3s ease;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 30px;
         }
 
         .forgot-password-link::before {
@@ -257,11 +269,11 @@ $error = "";
         }
 
         .star {
-            --star-color: #000;
-            --star-tail-length: 8em;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
+            --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
-            --fall-duration: 15s;
+            --fall-duration: 9s;
             --tail-fade-duration: var(--fall-duration);
             position: absolute;
             top: var(--top-offset);
@@ -691,16 +703,40 @@ $error = "";
             position: fixed;
             top: 10%;
             left: 25%;
-            transform: translate(-50%, -50%);
-            background-color: #000;
+            transform: translate(-50%, -50%) scale(0.2);
+            background: #000;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 50px;
             opacity: 0;
             z-index: 999;
-            transition: opacity 0.5s;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notificationFadeOut {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
         }
 
         #notification-success {
@@ -741,7 +777,7 @@ $error = "";
             <h1>LOGIN</h1>
             <form action="Login.php" method="POST">
                 <div class="email-container">
-                    <input type="text" id="email" name="txt_email" placeholder="Email" autocomplete="off">
+                    <input type="text" id="email" name="txt_email" placeholder="Email" autocomplete="on">
                 </div><br>
                 <div class="password-container">
                     <input type="password" name="txt_pass" placeholder="Password" id="password">
@@ -814,6 +850,15 @@ $error = "";
     </div>
 
     <script>
+        const emailInput = document.getElementById('email');
+        const autocompleteList = document.getElementById('autocomplete-list');
+
+        emailInput.addEventListener('input', function () {
+            autocompleteList.style.width = emailInput.offsetWidth + 'px';
+        });
+    </script>
+
+    <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById("password");
             const showPasswordIcon = document.getElementById("passwordIcon");
@@ -829,18 +874,14 @@ $error = "";
             }
         }
     </script>
+
     <script>
         function showNotification(message) {
             var notification = document.getElementById('notification');
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
-            notification.style.opacity = 0;
             notification.style.display = 'block';
-
-            setTimeout(function () {
-                notification.style.opacity = 1;
-            }, 0);
 
             setTimeout(function () {
                 closeNotification();
@@ -850,10 +891,11 @@ $error = "";
         function closeNotification() {
             var notification = document.getElementById('notification');
 
-            notification.style.opacity = 0;
+            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
 
             setTimeout(function () {
                 notification.style.display = 'none';
+                notification.style.animation = '';
             }, 500);
         }
 
@@ -872,7 +914,10 @@ $error = "";
                 $result = mysqli_stmt_get_result($stmt);
 
                 if (mysqli_num_rows($result) > 0) {
-                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=Login+berhasil!";';
+                    $userRow = mysqli_fetch_assoc($result);
+                    $namaLengkap = $userRow['nama_lengkap'];
+                    $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($namaLengkap) . '!';
+                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=' . $redirectMessage . '";';
                 } else {
                     echo 'showNotification("email atau password salah.");';
                 }

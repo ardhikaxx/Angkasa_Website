@@ -205,6 +205,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            place-items: center;
+            place-content: center;
             padding: 10px;
             margin-top: 100px;
         }
@@ -261,6 +264,7 @@
             animation: slideInRight 1s ease;
             transition: transform 0.5s ease;
             margin-top: 20px;
+            margin-right: 40px;
         }
 
         @keyframes slideInLeft {
@@ -316,7 +320,7 @@
             display: flex;
             align-items: center;
             border: 0;
-            border-radius: 10px;
+            border-radius: 15px;
             justify-content: center;
             transform: rotateY(0deg);
         }
@@ -324,7 +328,7 @@
         .contohfoto-front img {
             width: 450px;
             height: 300px;
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .contohfoto-back {
@@ -422,7 +426,7 @@
         }
 
         .btn {
-            background-color: #816124;
+            background: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             font-family: "Poppins", sans-serif;
             color: #fff;
             text-decoration: none;
@@ -433,14 +437,14 @@
             font-size: 1rem;
             margin: 15px 0 10px 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background 0.4s, transform 0.2s, box-shadow 0.4s, color 0.4s;
         }
 
         .btn:hover {
-            background-color: #fff;
-            color: #000;
+            background: linear-gradient(to bottom, #3600EE, #4500FF, #3600EE);
+            color: #fff;
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .gallery {
@@ -509,8 +513,10 @@
             padding: 20px;
         }
 
-        .map img {
+        .map iframe {
             max-width: 100%;
+            border-radius: 15px;
+            border: 2px solid linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
         }
 
         .detail-map {
@@ -608,7 +614,7 @@
         }
 
         .menu-footer li::before {
-            content: "⭐";
+            content: "🌠";
         }
 
         .footer-coloumns ul {
@@ -752,7 +758,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);

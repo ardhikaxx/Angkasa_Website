@@ -1542,7 +1542,7 @@ if (!$koneksi) {
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: box-shadow 0.3s ease;
         }
@@ -1606,20 +1606,15 @@ if (!$koneksi) {
         }
 
         .password {
-            margin-right: 20px;
+            margin-right: 10.7px;
         }
 
-        .repeat-password {
-            margin-right: 20px;
-        }
-
-        #showPassword,
-        #showRepeatPassword {
+        #showPassword {
             cursor: pointer;
             position: relative;
             overflow: hidden;
             z-index: 2;
-            margin-left: -50px;
+            margin-left: -40px;
         }
 
         .btn-register {
@@ -1657,7 +1652,7 @@ if (!$koneksi) {
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
@@ -2089,17 +2084,41 @@ if (!$koneksi) {
             display: none;
             position: fixed;
             top: 10%;
-            left: 51%;
-            transform: translate(50%, -50%);
+            left: 55%;
+            transform: translate(50%, -50%) scale(0.2);
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 50px;
             opacity: 0;
             z-index: 999;
-            transition: opacity 0.5s;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                transform: translate(50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notificationFadeOut {
+            0% {
+                transform: translate(50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(50%, -50%) scale(0.2);
+                opacity: 0;
+            }
         }
 
         .modal {
@@ -2112,10 +2131,10 @@ if (!$koneksi) {
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             width: 400px;
         }
 
@@ -2124,12 +2143,11 @@ if (!$koneksi) {
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             margin-top: 20px;
             margin-left: 10px;
             color: white;
             transition: all 0.4s ease;
-            text-transform: uppercase;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
@@ -2183,7 +2201,7 @@ if (!$koneksi) {
 
         .gender-select {
             width: 100%;
-            padding: 15px 10px;
+            padding: 15px 15px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
@@ -2195,21 +2213,23 @@ if (!$koneksi) {
             transition: border-color 0.3s;
             text-align: left;
             color: #61677C;
-            padding-right: 30px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             background: transparent;
-            padding-right: 30px;
         }
 
-        .gender-select::after {
-            content: '\f183'; /* Ganti ini dengan kode ikon Font Awesome yang sesuai */
-            font-family: 'Font Awesome 6 Free';
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
             position: absolute;
-            right: 5px; /* Sesuaikan jarak ikon dengan kanan */
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
+            pointer-events: none;
+            color: #000;
         }
     </style>
 </head>
@@ -2225,7 +2245,7 @@ if (!$koneksi) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
@@ -2255,25 +2275,31 @@ if (!$koneksi) {
     </div>
 
     <div class="register-box">
-        <form action="register.php" method="POST" class="register-container">
+        <form action="register.php" method="POST" class="register-container" onsubmit="return validateForm();">
             <div class="segment">
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
+                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="on">
             </label>
             <label class="email">
-                <input type="text" placeholder="Masukkan email" name="txt_email" autocomplete="off">
+                <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">
             </label>
             <label class="nomer-telp">
                 <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput"
                     autocomplete="off">
             </label>
             <label class="gender">
-                <select name="txt_gender" id="txt_gender" class="gender-select">
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
+                <div class="select-wrapper">
+                    <select name="txt_gender" id="txt_gender" class="gender-select">
+                        <option value="" disabled selected>Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                    <div class="select-icon">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
             </label>
             <label class="password">
                 <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass"
@@ -2283,7 +2309,7 @@ if (!$koneksi) {
                 </span>
                 <p id="passwordLengthError" class="notification-password"></p>
             </label>
-            <button class="btn-register" type="submit" name="register">Register</button>
+            <button class="btn-register" type="submit" name="register" value="Register">Register</button>
         </form>
     </div>
 
@@ -2365,12 +2391,7 @@ if (!$koneksi) {
             var notificationContent = document.getElementById('notification-content');
 
             notificationContent.innerHTML = message;
-            notification.style.opacity = 0;
             notification.style.display = 'block';
-
-            setTimeout(function () {
-                notification.style.opacity = 1;
-            }, 0);
 
             setTimeout(function () {
                 closeNotification();
@@ -2379,12 +2400,32 @@ if (!$koneksi) {
 
         function closeNotification() {
             var notification = document.getElementById('notification');
-
-            notification.style.opacity = 0;
+            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
 
             setTimeout(function () {
                 notification.style.display = 'none';
+                notification.style.animation = '';
+
+                document.getElementsByName('txt_nama')[0].value = '';
+                document.getElementsByName('txt_email')[0].value = '';
+                document.getElementsByName('txt_phone')[0].value = '';
+                document.getElementById('txt_gender').value = '';
+                document.getElementsByName('txt_pass')[0].value = '';
             }, 500);
+        }
+
+        function validateForm() {
+            var fullname = document.getElementsByName('txt_nama')[0].value;
+            var email = document.getElementsByName('txt_email')[0].value;
+            var nohp = document.getElementsByName('txt_phone')[0].value;
+            var jeniskelamin = document.getElementById('txt_gender').value;
+            var pass = document.getElementsByName('txt_pass')[0].value;
+
+            if (fullname === '' || email === '' || nohp === '' || jeniskelamin === '' || pass === '') {
+                showNotification("Silahkan input semua informasi yang diperlukan");
+                return false;
+            }
+            return true;
         }
 
         <?php
@@ -2395,16 +2436,37 @@ if (!$koneksi) {
             $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
 
-            if (!empty(trim($fullname)) && !empty(trim($email)) && !empty(trim($nohp)) && !empty(trim($jeniskelamin)) && !empty(trim($pass))) {
+            // Periksa apakah data yang akan disimpan sudah ada di database
+            $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
+            $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
+
+            $queryEmail = "SELECT * FROM user WHERE email = '$email'";
+            $resultEmail = mysqli_query($koneksi, $queryEmail);
+
+            $queryNoHP = "SELECT * FROM user WHERE no_hp = '$nohp'";
+            $resultNoHP = mysqli_query($koneksi, $queryNoHP);
+
+            if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
+                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
+            } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
+                echo 'showNotification("Nama lengkap sudah terdaftar.");';
+            } elseif (mysqli_num_rows($resultEmail) > 0) {
+                echo 'showNotification("Alamat email sudah terdaftar.");';
+            } elseif (mysqli_num_rows($resultNoHP) > 0) {
+                echo 'showNotification("Nomor telepon sudah terdaftar.");';
+            } else {
                 $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass')";
                 $result = mysqli_query($koneksi, $query);
-                echo 'window.location.href = "dashboard-admin.php";';
-            } else {
-                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
+                if ($result) {
+                    echo 'window.location.href = "dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.";';
+                } else {
+                    echo 'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
+                }
             }
         }
         ?>
     </script>
+
     <script>
         const logoutLink = document.getElementById('logout');
         const logoutModal = document.getElementById('logoutModal');
@@ -2462,7 +2524,6 @@ if (!$koneksi) {
             }
         });
     </script>
-
 </body>
 
 </html>

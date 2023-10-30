@@ -1546,7 +1546,7 @@
         }
 
         .star {
-            --star-color: #000;
+            --star-color: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             --star-tail-length: 6em;
             --star-tail-height: 2px;
             --star-width: calc(var(--star-tail-length) / 6);
@@ -1984,7 +1984,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 1000;
             text-align: center;
             padding: 20px;
@@ -1996,12 +1996,11 @@
             padding: 10px 20px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             margin-top: 20px;
             margin-left: 10px;
             color: white;
             transition: all 0.4s ease;
-            text-transform: uppercase;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
@@ -2057,7 +2056,7 @@
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="arsip.php" class="navbar__link"><i data-feather="folder"></i><span>Arsip</span></a>
+                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
