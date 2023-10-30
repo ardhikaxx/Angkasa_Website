@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angkasa | Lupa Pass Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: "Poppins", sans-serif;
@@ -244,15 +245,14 @@
         <form id="captcha-form" method="post" action="check_email.php">
             <h1>Verifikasi Lupa Password</h1>
             <div class="input-field user_input">
-                <input type="text" id="email" name="email" placeholder="Masukkan Email Anda..."
-                    autocomplete="on">
+                <input type="text" id="email" name="email" placeholder="Masukkan Email Anda..." autocomplete="on">
             </div>
             <div class="captcha-container">
                 <div class="captcha-box">
                     <input type="text" id="captcha" value=" " disabled>
                 </div>
                 <button class="refresh-button" type="button" id="refresh-button">
-                    <i class="fas fa-sync"></i> Refresh
+                    <i class="fa-solid fa-rotate-right"></i> Refresh
                 </button>
             </div>
             <div class="input-field captch_input">

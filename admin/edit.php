@@ -151,7 +151,7 @@ if (!$koneksi) {
 
                     $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
                     $result = mysqli_query($koneksi, $query);
-                    header("Location: settings.php?successMessage=Pembaruan Data Telah selesai");
+                    header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
                 }
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
