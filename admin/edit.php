@@ -123,7 +123,7 @@ if (!$koneksi) {
                         $userMail=$_POST['txt_email'];
                         $userNohp=$_POST['txt_phone'];
                         $userName=$_POST['txt_nama'];      
-                        $query="UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE id_user='$userid'";
+                        $query="UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE id_user ='$userid'";
                         $result=mysqli_query($koneksi,$query);
                         header('Location:settings.php'); 
                     }
