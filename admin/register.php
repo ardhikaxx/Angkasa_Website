@@ -2337,10 +2337,14 @@ if (!$koneksi) {
             </label>
             <label class="jabatan">
                 <div class="select-wrapper">
-                    <select name="txt_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option value="" disabled selected>Jabatan</option>
-                        <option value="Laki-laki">Admin</option>
-                        <option value="Perempuan">Karyawan</option>
+                    <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
+                        <option>Jabatan</option>
+                        <?php
+                        $query=mysqli_query($koneksi,"SELECT * FROM jabatan")or die (mysqli_error($koneksi));
+                        while ($data = mysqli_fetch_array($query)) {
+                            echo"<option value='".$data['id_jab'] ."'>".$data ['jabatan']."</option>";
+                        }
+                        ?>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -2481,6 +2485,7 @@ if (!$koneksi) {
             $nohp = $_POST['txt_phone'];
             $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
+            $jabatan=$_POST['id_jabatan'];
 
             $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
             $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
@@ -2500,7 +2505,7 @@ if (!$koneksi) {
             } elseif (mysqli_num_rows($resultNoHP) > 0) {
                 echo 'showNotification("Nomor telepon sudah terdaftar.");';
             } else {
-                $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass')";
+                $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
                 $result = mysqli_query($koneksi, $query);
                 if ($result) {
                     echo 'window.location.href = "dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.";';
