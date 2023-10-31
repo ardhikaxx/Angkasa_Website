@@ -14,26 +14,30 @@ function cari_nama($koneksi, $nama_cari)
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_user']) ? $row['id_user'] : '';
-        $email = isset($row['email']) ? $row['email'] : '';
-        $fullname = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
-        $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $useremail = isset($row['email']) ? $row['email'] : '';
+        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
         ?>
         <tr>
             <td>
                 <?php echo $no; ?>
             </td>
             <td>
-                <?php echo $fullname; ?>
+                <?php echo $usernamalengkap; ?>
             </td>
             <td>
-                <?php echo $email; ?>
+                <?php echo $useremail; ?>
             </td>
             <td>
-                <?php echo $nohp; ?>
+                <?php echo $usertelepon; ?>
             </td>
             <td>
-                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
-                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+                <?php echo $userjabatan; ?>
+            </td>
+            <td>
+                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
+                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
             </td>
         </tr>
         <?php
@@ -2422,7 +2426,7 @@ if (!$koneksi) {
                         $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
                         $useremail = isset($row['email']) ? $row['email'] : '';
                         $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
-                        $userjabatan=isset( $row['jabatan']) ? $row['jabatan'] : '';
+                        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
                         ?>
                         <tr>
                             <td>
@@ -2438,7 +2442,7 @@ if (!$koneksi) {
                                 <?php echo $usertelepon; ?>
                             </td>
                             <td>
-                                <?php echo $userjabatan;?>
+                                <?php echo $userjabatan; ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
