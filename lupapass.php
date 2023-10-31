@@ -7,6 +7,7 @@
     <title>Angkasa | Lupa Pass Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <style>
         body {
             font-family: "Poppins", sans-serif;

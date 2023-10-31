@@ -10,6 +10,7 @@ if (!$koneksi) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <title>Angkasa | Edit Page</title>
     <style>
         body {
@@ -149,10 +150,22 @@ if (!$koneksi) {
                     $userNohp = $_POST['txt_phone'];
                     $userName = $_POST['txt_nama'];
 
-                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail',no_hp='$userNohp' WHERE email ='$userMail'";
+                    $id = $_POST['txt_id'];
+
+                    $query = "SELECT * FROM user WHERE id_user = '$id'";
                     $result = mysqli_query($koneksi, $query);
-                    header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
+                    $existingData = mysqli_fetch_array($result);
+
+                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp) {
+                        header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
+                    } else {
+                        // Data telah berubah, lakukan pembaruan
+                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' WHERE id_user='$id'";
+                        $result = mysqli_query($koneksi, $query);
+                        header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
+                    }
                 }
+
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
                 $data = mysqli_fetch_array($query);

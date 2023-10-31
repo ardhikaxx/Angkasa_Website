@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
             background-color: #EBECF0;
@@ -2224,7 +2225,7 @@
 
     <div class="content">
         <div class="table-container">
-            <h1>Dashboard Admin Photobooth</h1>
+            <h1>Dashboard Admin</h1>
             <div class="filter-section">
                 <input type="text" id="search" placeholder="Cari Nama Pemesan / Tanggal" autocomplete="off">
                 <button id="search-button"><i class="fa fa-search"></i> Cari</button>

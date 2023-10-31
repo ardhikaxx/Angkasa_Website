@@ -16,6 +16,7 @@ if (!$koneksi) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap">
+    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
             background-color: #EBECF0;
@@ -1537,8 +1538,8 @@ if (!$koneksi) {
 
         .register-box {
             text-align: center;
-            width: 300px;
-            height: 485px;
+            width: 350px;
+            height: 540px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -1567,7 +1568,7 @@ if (!$koneksi) {
             text-align: center;
             max-width: 200px;
             margin: 0 auto;
-            padding: 10px 0;
+            padding: 5px 0;
         }
 
         .segment h1 {
@@ -2231,6 +2232,39 @@ if (!$koneksi) {
             pointer-events: none;
             color: #000;
         }
+
+        .jabatan-select {
+            width: 100%;
+            padding: 15px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            outline: none;
+            border-radius: 50px;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            transition: border-color 0.3s;
+            text-align: left;
+            color: #61677C;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #000;
+        }
     </style>
 </head>
 
@@ -2280,7 +2314,7 @@ if (!$koneksi) {
                 <h1>Register</h1>
             </div>
             <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="on">
+                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
             </label>
             <label class="email">
                 <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">
@@ -2295,6 +2329,18 @@ if (!$koneksi) {
                         <option value="" disabled selected>Jenis Kelamin</option>
                         <option value="Laki-laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
+                    </select>
+                    <div class="select-icon">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
+            </label>
+            <label class="jabatan">
+                <div class="select-wrapper">
+                    <select name="txt_jabatan" id="txt_jabatan" class="jabatan-select">
+                        <option value="" disabled selected>Jabatan</option>
+                        <option value="Laki-laki">Admin</option>
+                        <option value="Perempuan">Karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -2436,7 +2482,6 @@ if (!$koneksi) {
             $jeniskelamin = $_POST['txt_gender'];
             $pass = $_POST['txt_pass'];
 
-            // Periksa apakah data yang akan disimpan sudah ada di database
             $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
             $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
 

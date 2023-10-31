@@ -58,6 +58,7 @@ if (!$koneksi) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
             background-color: #EBECF0;
@@ -2325,6 +2326,28 @@ if (!$koneksi) {
         .notification.show {
             opacity: 1;
         }
+
+        .notification-noChange {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 53%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification-noChange.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -2365,7 +2388,7 @@ if (!$koneksi) {
     </div>
 
     <div class="content-settings">
-        <h1>Pengaturan Admin Photobooth</h1>
+        <h1>Pengaturan Admin</h1>
         <form method="GET">
             <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user"
                 autocomplete="off">
@@ -2426,6 +2449,7 @@ if (!$koneksi) {
     </div>
 
     <div class="notification" id="notification"></div>
+    <div class="notification-noChange" id="notification-noChange"></div>
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
@@ -2585,12 +2609,22 @@ if (!$koneksi) {
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const successMessage = urlParams.get('successMessage');
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
+            const noChangeMessage = urlParams.get('noChangeMessage');
 
-        if (successMessage) {
-            const notification = document.getElementById('notification');
-            notification.innerText = successMessage;
+            if (successMessage) {
+                displayNotification(successMessage, 'notification');
+            }
+
+            if (noChangeMessage) {
+                displayNotification(noChangeMessage, 'notification-noChange');
+            }
+        });
+
+        function displayNotification(message, elementId) {
+            const notification = document.getElementById(elementId);
+            notification.innerText = message;
             notification.style.display = 'block';
 
             setTimeout(function () {
@@ -2604,8 +2638,8 @@ if (!$koneksi) {
                 }, 500);
             }, 5000);
         }
-    });
     </script>
+
 </body>
 
 </html>

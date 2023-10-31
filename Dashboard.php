@@ -5,11 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angkasa | Dashboard Page</title>
+    <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <style>
         body {
             padding: 0;
             margin: 0;
             box-sizing: border-box;
+        }
+
+        link[rel="icon"] {
+            width: 50px;
+            height: 50px;
+            filter: brightness(150%);
         }
 
         .navbar {
@@ -426,7 +433,7 @@
         }
 
         .btn {
-            background: linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
+            background: linear-gradient(to right, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
             font-family: "Poppins", sans-serif;
             color: #fff;
             text-decoration: none;
