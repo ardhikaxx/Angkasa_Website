@@ -1,6 +1,37 @@
 <?php
 require('koneksi.php');
 $error = "";
+if (isset($_POST['submit'])) {
+    $email = $_POST['txt_email'];
+    $password = $_POST['txt_pass'];
+    if (!empty(trim($email)) && !empty(trim($password))) {
+        $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+
+        $query = "SELECT * FROM user WHERE email = ? AND password = ?";
+        $stmt = mysqli_prepare($koneksi, $query);
+        mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
+            $userRow = mysqli_fetch_assoc($result);
+            $namaLengkap = $userRow['nama_lengkap'];
+            session_start();
+            $_SESSION['user'] = $namaLengkap;
+            $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($namaLengkap) . '!';
+            header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
+            exit;
+        } else {
+            $error = '("email atau password salah.");';
+        }
+
+        mysqli_stmt_close($stmt);
+        mysqli_close($koneksi);
+    } else {
+        $error = '("Silahkan input email dan password.");';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -901,33 +932,8 @@ $error = "";
         }
 
         <?php
-        if (isset($_POST['submit'])) {
-            $email = $_POST['txt_email'];
-            $password = $_POST['txt_pass'];
-            if (!empty(trim($email)) && !empty(trim($password))) {
-                $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-
-                $query = "SELECT * FROM user WHERE email = ? AND password = ?";
-                $stmt = mysqli_prepare($koneksi, $query);
-                mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
-                mysqli_stmt_execute($stmt);
-
-                $result = mysqli_stmt_get_result($stmt);
-
-                if (mysqli_num_rows($result) > 0) {
-                    $userRow = mysqli_fetch_assoc($result);
-                    $namaLengkap = $userRow['nama_lengkap'];
-                    $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($namaLengkap) . '!';
-                    echo 'window.location.href = "admin/dashboard-admin.php?successMessage=' . $redirectMessage . '";';
-                } else {
-                    echo 'showNotification("email atau password salah.");';
-                }
-
-                mysqli_stmt_close($stmt);
-                mysqli_close($koneksi);
-            } else {
-                echo 'showNotification("Silahkan input email dan password.");';
-            }
+        if (!empty($error)) {
+            echo 'showNotification' . $error;
         }
         ?>
     </script>

@@ -1246,7 +1246,7 @@
             <li><a href="gallery.php">Gallery</a></li>
             <li><a href="tentang.php">Tentang Kami</a></li>
         </ul>
-        <a class="admin-link" href="Login.php">Anda Admin?</a>
+        <a class="admin-link" href="./admin/Login.php">Anda Admin?</a>
     </div>
 
     <div class="container_mouse">
