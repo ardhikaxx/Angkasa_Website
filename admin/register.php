@@ -34,7 +34,7 @@ if (isset($_POST['register'])) {
         if ($result) {
             header("Location:dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.");
         } else {
-            $error =  'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
+            $error = 'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
         }
     }
 }
@@ -2375,9 +2375,9 @@ if (isset($_POST['register'])) {
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
                         <option>Jabatan</option>
                         <?php
-                        $query=mysqli_query($koneksi,"SELECT * FROM jabatan")or die (mysqli_error($koneksi));
+                        $query = mysqli_query($koneksi, "SELECT * FROM jabatan") or die(mysqli_error($koneksi));
                         while ($data = mysqli_fetch_array($query)) {
-                            echo"<option value='".$data['id_jab'] ."'>".$data ['jabatan']."</option>";
+                            echo "<option value='" . $data['id_jab'] . "'>" . $data['jabatan'] . "</option>";
                         }
                         ?>
                     </select>
@@ -2514,45 +2514,43 @@ if (isset($_POST['register'])) {
         }
 
         <?php
-<<<<<<< HEAD
         if (!empty($error)) {
             echo 'showNotification' . $error;
-=======
-        if (isset($_POST['register'])) {
-            $fullname = $_POST['txt_nama'];
-            $email = $_POST['txt_email'];
-            $nohp = $_POST['txt_phone'];
-            $jeniskelamin = $_POST['txt_gender'];
-            $pass = $_POST['txt_pass'];
-            $jabatan=$_POST['id_jabatan'];
+            if (isset($_POST['register'])) {
+                $fullname = $_POST['txt_nama'];
+                $email = $_POST['txt_email'];
+                $nohp = $_POST['txt_phone'];
+                $jeniskelamin = $_POST['txt_gender'];
+                $pass = $_POST['txt_pass'];
+                $jabatan = $_POST['id_jabatan'];
 
-            $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
-            $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
+                $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
+                $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
 
-            $queryEmail = "SELECT * FROM user WHERE email = '$email'";
-            $resultEmail = mysqli_query($koneksi, $queryEmail);
+                $queryEmail = "SELECT * FROM user WHERE email = '$email'";
+                $resultEmail = mysqli_query($koneksi, $queryEmail);
 
-            $queryNoHP = "SELECT * FROM user WHERE no_hp = '$nohp'";
-            $resultNoHP = mysqli_query($koneksi, $queryNoHP);
+                $queryNoHP = "SELECT * FROM user WHERE no_hp = '$nohp'";
+                $resultNoHP = mysqli_query($koneksi, $queryNoHP);
 
-            if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
-                echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
-            } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
-                echo 'showNotification("Nama lengkap sudah terdaftar.");';
-            } elseif (mysqli_num_rows($resultEmail) > 0) {
-                echo 'showNotification("Alamat email sudah terdaftar.");';
-            } elseif (mysqli_num_rows($resultNoHP) > 0) {
-                echo 'showNotification("Nomor telepon sudah terdaftar.");';
-            } else {
-                $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
-                $result = mysqli_query($koneksi, $query);
-                if ($result) {
-                    echo 'window.location.href = "dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.";';
+                if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
+                    echo 'showNotification("Silahkan input semua informasi yang diperlukan");';
+                } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
+                    echo 'showNotification("Nama lengkap sudah terdaftar.");';
+                } elseif (mysqli_num_rows($resultEmail) > 0) {
+                    echo 'showNotification("Alamat email sudah terdaftar.");';
+                } elseif (mysqli_num_rows($resultNoHP) > 0) {
+                    echo 'showNotification("Nomor telepon sudah terdaftar.");';
                 } else {
-                    echo 'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
+                    $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
+                    $result = mysqli_query($koneksi, $query);
+                    if ($result) {
+                        echo 'window.location.href = "dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.";';
+                    } else {
+                        echo 'showNotification("Registrasi gagal. Silahkan coba lagi nanti.");';
+                    }
                 }
             }
->>>>>>> 9b0de68aa45de49c1e2ea82d881878790b967eb0
         }
         ?>
     </script>
