@@ -2402,7 +2402,8 @@ if (!$koneksi) {
                     <th>No</th>
                     <th>Nama Lengkap</th>
                     <th>Email</th>
-                    <th>No Telepon</th>
+                    <th>No Hp</th>
+                    <th>Jabatan</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -2412,7 +2413,8 @@ if (!$koneksi) {
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, );
                 } else {
-                    $query = "SELECT * FROM user";
+                    $query = "SELECT user.id_user, user.nama_lengkap, user.email, user.no_hp, jabatan.jabatan 
+                    FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -2420,6 +2422,7 @@ if (!$koneksi) {
                         $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
                         $useremail = isset($row['email']) ? $row['email'] : '';
                         $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        $userjabatan=isset( $row['jabatan']) ? $row['jabatan'] : '';
                         ?>
                         <tr>
                             <td>
@@ -2433,6 +2436,9 @@ if (!$koneksi) {
                             </td>
                             <td>
                                 <?php echo $usertelepon; ?>
+                            </td>
+                            <td>
+                                <?php echo $userjabatan;?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
