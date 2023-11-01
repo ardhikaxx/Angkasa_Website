@@ -44,7 +44,7 @@ function cari_nama($koneksi, $nama_cari)
         $no++;
     }
 }
-$koneksi=mysqli_connect ($host, $username, $password, $database);
+$koneksi = mysqli_connect($host, $username, $password, $database);
 
 if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());
@@ -2416,7 +2416,7 @@ if (!$koneksi) {
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, );
                 } else {
-                    $query = "SELECT nama_lengkap,email,no_hp,jenis_kelamin,jabatan FROM user where id_user";
+                    $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -2560,7 +2560,6 @@ if (!$koneksi) {
         const editButtons = document.querySelectorAll(".btn-edit");
         const modal = document.getElementById("myModal");
         const confirmEditYes = document.getElementById("confirmEditYes");
-        const confirmEditNo = document.getElementById("confirmEditNo");
 
         editButtons.forEach(button => {
             button.addEventListener("click", function (event) {
@@ -2576,10 +2575,6 @@ if (!$koneksi) {
             if (userId) {
                 window.location.href = "edit.php?id=" + userId;
             }
-            modal.style.display = "none";
-        });
-
-        confirmEditNo.addEventListener("click", function () {
             modal.style.display = "none";
         });
     </script>
