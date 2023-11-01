@@ -2372,16 +2372,8 @@ if (isset($_POST['register'])) {
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
                         <option value="" disabled selected>Jabatan</option>
-                        <!-- <option >Admin</option>
-                        <option >Karyawan</option> -->
-                        <?php
-                        $query=mysqli_query($koneksi,"SELECT * FROM jabatan")or die (mysqli_error($koneksi));
-                        while ($data = mysqli_fetch_array($query)) {
-                            echo"<option value='".$data['id_jab'] ."'>".$data ['jabatan']."</option>";
-                        }
-                        ?>
-                        <option >admin</option>
-                        <option >karyawan</option>
+                        <option >Admin</option>
+                        <option >Karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
