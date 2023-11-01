@@ -219,7 +219,7 @@ if (!$koneksi) {
                     $userjenis = $_POST['txt_gender'];
                     $userjabatan=$_POST['id_jabatan'];
 
-                    $id = $_POST['txt_id'];
+                    $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
 
                     $query = "SELECT * FROM user WHERE id_user = '$id'";
                     $result = mysqli_query($koneksi, $query);
@@ -227,7 +227,7 @@ if (!$koneksi) {
                     if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jenis_kelamin']==$userjenis && $existingData['id_jab']==$userjabatan) {
                         header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
                     } else {
-                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',id_jab='$userjabatan' WHERE id_user='$id'";
+                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',jabatan='$userjabatan' WHERE id_user='$id'";
                         $result = mysqli_query($koneksi, $query);
                         header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
                     }
@@ -252,8 +252,8 @@ if (!$koneksi) {
                 <div class="select-wrapper">
                     <select name="txt_gender" id="txt_gender" class="gender-select">
                         <option value="" disabled selected>Jenis Kelamin</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                        <option >Laki-laki</option>
+                        <option >Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -263,13 +263,9 @@ if (!$koneksi) {
             <label class="jabatan">
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option>Jabatan</option>
-                        <?php
-                        $query = mysqli_query($koneksi, "SELECT * FROM jabatan") or die(mysqli_error($koneksi));
-                        while ($data = mysqli_fetch_array($query)) {
-                            echo "<option value='" . $data['id_jab'] . "'>" . $data['jabatan'] . "</option>";
-                        }
-                        ?>
+                    <option value="" disabled selected>Jabatan</option>
+                        <option >admin</option>
+                        <option >karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>

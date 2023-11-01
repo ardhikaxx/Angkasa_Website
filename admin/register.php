@@ -2360,8 +2360,8 @@ if (isset($_POST['register'])) {
                 <div class="select-wrapper">
                     <select name="txt_gender" id="txt_gender" class="gender-select">
                         <option value="" disabled selected>Jenis Kelamin</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                        <option >Laki-laki</option>
+                        <option >Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -2371,13 +2371,9 @@ if (isset($_POST['register'])) {
             <label class="jabatan">
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option>Jabatan</option>
-                        <?php
-                        $query = mysqli_query($koneksi, "SELECT * FROM jabatan") or die(mysqli_error($koneksi));
-                        while ($data = mysqli_fetch_array($query)) {
-                            echo "<option value='" . $data['id_jab'] . "'>" . $data['jabatan'] . "</option>";
-                        }
-                        ?>
+                        <option value="" disabled selected>Jabatan</option>
+                        <option >admin</option>
+                        <option >karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>

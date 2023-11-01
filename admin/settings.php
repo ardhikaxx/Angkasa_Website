@@ -44,8 +44,7 @@ function cari_nama($koneksi, $nama_cari)
         $no++;
     }
 }
-
-$koneksi = mysqli_connect($host, $username, $password, $database);
+$koneksi=mysqli_connect ($host, $username, $password, $database);
 
 if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());
@@ -2417,8 +2416,7 @@ if (!$koneksi) {
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, );
                 } else {
-                    $query = "SELECT user.id_user, user.nama_lengkap, user.email, user.no_hp, jabatan.jabatan 
-                    FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab";
+                    $query = "SELECT nama_lengkap,email,no_hp,jenis_kelamin,jabatan FROM user where id_user";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
