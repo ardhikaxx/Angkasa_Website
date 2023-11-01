@@ -2414,7 +2414,7 @@ if (!$koneksi) {
                     cari_nama($koneksi, $searchquery, );
                 } else {
                     $query = "SELECT user.id_user, user.nama_lengkap, user.email, user.no_hp, jabatan.jabatan 
-                    FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab";
+                    FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab where user.id_user";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {

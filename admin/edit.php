@@ -162,7 +162,7 @@ if (!$koneksi) {
                         header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
                     } else {
                         // Data telah berubah, lakukan pembaruan
-                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',id_jab='$userjabatan' WHERE id_user='$id'";
+                        $query = "UPDATE user join jabatan on user.id_jab=jabatan.id_jab SET user.nama_lengkap='$userName', user.email='$userMail', user.no_hp='$userNohp' ,user.jenis_kelamin='$userjenis',jabatan.jabatan='$userjabatan' WHERE user.id_user='$id'";
                         $result = mysqli_query($koneksi, $query);
                         header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
                     }
@@ -199,13 +199,15 @@ if (!$koneksi) {
             <label class="jabatan">
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option>Jabatan</option>
-                        <?php
+                        <option value="" disabled selected>Jabatan</option>
+                        <option >Admin</option>
+                        <option >Karyawan</option>
+                        <!-- <?php
                         $query=mysqli_query($koneksi,"SELECT * FROM jabatan")or die (mysqli_error($koneksi));
                         while ($data = mysqli_fetch_array($query)) {
                             echo"<option value='".$data['id_jab'] ."'>".$data ['jabatan']."</option>";
                         }
-                        ?>
+                        ?> -->
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
