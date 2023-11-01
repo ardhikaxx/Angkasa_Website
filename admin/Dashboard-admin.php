@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: /Angkasa_Website/login.php");
+    exit;
+}
+
+$namaLengkap = $_SESSION['user'];
+
+if (isset($_GET['successMessage'])) {
+    $successMessage = urldecode($_GET['successMessage']);
+} else {
+    $successMessage = "";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -2122,7 +2138,7 @@
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         }
-        
+
         .btn-confirm {
             background: linear-gradient(to right, #4CAF50, #45a049);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -2225,6 +2241,7 @@
 
     <div class="content">
         <div class="table-container">
+            <h1>Selamat datang, <?php echo $namaLengkap; ?>!</h1>
             <h1>Dashboard Admin</h1>
             <div class="filter-section">
                 <input type="text" id="search" placeholder="Cari Nama Pemesan / Tanggal" autocomplete="off">
@@ -2512,26 +2529,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const successMessage = urlParams.get('successMessage');
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
 
-        if (successMessage) {
-            const notification = document.getElementById('notification');
-            notification.innerText = successMessage;
-            notification.style.display = 'block';
+            if (successMessage) {
+                const notification = document.getElementById('notification');
+                notification.innerText = successMessage;
+                notification.style.display = 'block';
 
-            setTimeout(function () {
-                notification.classList.add('show');
-            }, 100);
-
-            setTimeout(function () {
-                notification.classList.remove('show');
                 setTimeout(function () {
-                    notification.style.display = 'none';
-                }, 500);
-            }, 5000);
-        }
-    });
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 

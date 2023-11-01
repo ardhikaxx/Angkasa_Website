@@ -10,6 +10,7 @@ if (!$koneksi) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <title>Angkasa | Edit Page</title>
     <style>
@@ -26,7 +27,7 @@ if (!$koneksi) {
         .edit-box {
             text-align: center;
             width: 300px;
-            height: auto;
+            height: 545px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -44,7 +45,7 @@ if (!$koneksi) {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 10px;
             font-family: "Poppins", sans-serif;
             letter-spacing: -0.2px;
             font-size: 16px;
@@ -136,6 +137,72 @@ if (!$koneksi) {
             font-weight: bold;
             color: #000;
         }
+
+        .gender-select {
+            width: 100%;
+            padding: 15px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            outline: none;
+            border-radius: 50px;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            transition: border-color 0.3s;
+            text-align: left;
+            color: #61677C;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #000;
+        }
+
+        .jabatan-select {
+            width: 100%;
+            padding: 15px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            outline: none;
+            border-radius: 50px;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            transition: border-color 0.3s;
+            text-align: left;
+            color: #61677C;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #000;
+        }
     </style>
 </head>
 
@@ -152,22 +219,20 @@ if (!$koneksi) {
                     $userjenis = $_POST['txt_gender'];
                     $userjabatan=$_POST['id_jabatan'];
 
-                    $id = $_POST['txt_id'];
+                    $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
 
                     $query = "SELECT * FROM user WHERE id_user = '$id'";
                     $result = mysqli_query($koneksi, $query);
                     $existingData = mysqli_fetch_array($result);
-
                     if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jenis_kelamin']==$userjenis && $existingData['id_jab']==$userjabatan) {
                         header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
                     } else {
                         // Data telah berubah, lakukan pembaruan
-                        $query = "UPDATE user join jabatan on user.id_jab=jabatan.id_jab SET user.nama_lengkap='$userName', user.email='$userMail', user.no_hp='$userNohp' ,user.jenis_kelamin='$userjenis',jabatan.jabatan='$userjabatan' WHERE user.id_user='$id'";
+                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',jabatan='$userjabatan' WHERE id_user='$id'";
                         $result = mysqli_query($koneksi, $query);
                         header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
                     }
                 }
-
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
                 $data = mysqli_fetch_array($query);
@@ -187,9 +252,9 @@ if (!$koneksi) {
             <label class="gender">
                 <div class="select-wrapper">
                     <select name="txt_gender" id="txt_gender" class="gender-select">
-                        <option value="" disabled selected>Jenis Kelamin</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                        <option value="" disabled selected>Jenis kelamin</option>
+                        <option >Laki-laki</option>
+                        <option >Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -199,6 +264,7 @@ if (!$koneksi) {
             <label class="jabatan">
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
+<<<<<<< HEAD
                         <option value="" disabled selected>Jabatan</option>
                         <option >Admin</option>
                         <option >Karyawan</option>
@@ -208,6 +274,11 @@ if (!$koneksi) {
                             echo"<option value='".$data['id_jab'] ."'>".$data ['jabatan']."</option>";
                         }
                         ?> -->
+=======
+                    <option value="" disabled selected>Jabatan</option>
+                        <option >admin</option>
+                        <option >karyawan</option>
+>>>>>>> 248f45fdd9afda9214b2e21c06fc2d3ea037810f
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>

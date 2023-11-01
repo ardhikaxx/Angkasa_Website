@@ -14,33 +14,36 @@ function cari_nama($koneksi, $nama_cari)
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_user']) ? $row['id_user'] : '';
-        $email = isset($row['email']) ? $row['email'] : '';
-        $fullname = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
-        $nohp = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $useremail = isset($row['email']) ? $row['email'] : '';
+        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
+        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
         ?>
         <tr>
             <td>
                 <?php echo $no; ?>
             </td>
             <td>
-                <?php echo $fullname; ?>
+                <?php echo $usernamalengkap; ?>
             </td>
             <td>
-                <?php echo $email; ?>
+                <?php echo $useremail; ?>
             </td>
             <td>
-                <?php echo $nohp; ?>
+                <?php echo $usertelepon; ?>
             </td>
             <td>
-                <a href="edit.php?id=<?php echo $id; ?>" class="btn-edit">Edit</a>
-                <a href="hapus.php?id=<?php echo $id; ?>" class="btn-delete">Hapus</a>
+                <?php echo $userjabatan; ?>
+            </td>
+            <td>
+                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
+                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
             </td>
         </tr>
         <?php
         $no++;
     }
 }
-
 $koneksi = mysqli_connect($host, $username, $password, $database);
 
 if (!$koneksi) {
@@ -2415,6 +2418,7 @@ if (!$koneksi) {
                 } else {
                     $query = "SELECT user.id_user, user.nama_lengkap, user.email, user.no_hp, jabatan.jabatan 
                     FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab where user.id_user";
+                    $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -2422,7 +2426,7 @@ if (!$koneksi) {
                         $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
                         $useremail = isset($row['email']) ? $row['email'] : '';
                         $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
-                        $userjabatan=isset( $row['jabatan']) ? $row['jabatan'] : '';
+                        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
                         ?>
                         <tr>
                             <td>
@@ -2438,7 +2442,7 @@ if (!$koneksi) {
                                 <?php echo $usertelepon; ?>
                             </td>
                             <td>
-                                <?php echo $userjabatan;?>
+                                <?php echo $userjabatan; ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
@@ -2558,7 +2562,6 @@ if (!$koneksi) {
         const editButtons = document.querySelectorAll(".btn-edit");
         const modal = document.getElementById("myModal");
         const confirmEditYes = document.getElementById("confirmEditYes");
-        const confirmEditNo = document.getElementById("confirmEditNo");
 
         editButtons.forEach(button => {
             button.addEventListener("click", function (event) {
@@ -2574,10 +2577,6 @@ if (!$koneksi) {
             if (userId) {
                 window.location.href = "edit.php?id=" + userId;
             }
-            modal.style.display = "none";
-        });
-
-        confirmEditNo.addEventListener("click", function () {
             modal.style.display = "none";
         });
     </script>
