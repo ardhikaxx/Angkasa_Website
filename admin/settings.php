@@ -44,7 +44,7 @@ function cari_nama($koneksi, $nama_cari)
         $no++;
     }
 }
-$koneksi = mysqli_connect($host, $username, $password, $database);
+$koneksi = mysqli_connect($host,$username,$password,$database);
 
 if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());

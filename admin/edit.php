@@ -226,7 +226,7 @@ if (!$koneksi) {
                     $existingData = mysqli_fetch_array($result);
 
                     if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jenis_kelamin']==$userjenis && $existingData['jabatan']==$userjabatan) {
-                         header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
+                        header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
                     } else {
                         $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',jabatan='$userjabatan' WHERE id_user='$id'";
                         $result = mysqli_query($koneksi, $query);
@@ -255,10 +255,6 @@ if (!$koneksi) {
                         <option value="<?php echo $data['jenis_kelamin'];?>"><?php echo $data['jenis_kelamin'];?></option>
                         <option value="Laki-laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
-                    <select name="txt_gender" id="txt_gender" class="gender-select">
-                        <option value="" disabled selected>Jenis kelamin</option>
-                        <option >Laki-laki</option>
-                        <option >Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -271,9 +267,6 @@ if (!$koneksi) {
                     <option value="<?php echo $data['jabatan'];?>"><?php echo $data['jabatan'];?></option>
                         <option value="admin">admin</option>
                         <option value="karyawan">karyawan</option>
-                        <option value="" disabled selected>Jabatan</option>
-                        <option >Admin</option>
-                        <option >Karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
