@@ -2562,6 +2562,7 @@ if (!$koneksi) {
         const editButtons = document.querySelectorAll(".btn-edit");
         const modal = document.getElementById("myModal");
         const confirmEditYes = document.getElementById("confirmEditYes");
+        const confirmEditNo = document.getElementById("confirmEditNo");
 
         editButtons.forEach(button => {
             button.addEventListener("click", function (event) {
@@ -2577,6 +2578,10 @@ if (!$koneksi) {
             if (userId) {
                 window.location.href = "edit.php?id=" + userId;
             }
+            modal.style.display = "none";
+        });
+
+        confirmEditNo.addEventListener("click", function () {
             modal.style.display = "none";
         });
     </script>
