@@ -189,10 +189,18 @@ if (!$koneksi) {
 
                     $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
 
+                    $query = "SELECT * FROM user WHERE id_user = '$id'";
+                    $result = mysqli_query($koneksi, $query);
+                    $existingData = mysqli_fetch_array($result);
+                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp  && $existingData['jabatan']==$userjabatan) {
+                        echo '<script>window.location.href = "settings.php?successMessage=Tidak Ada Pembaruan Data";</script>';
+                    } else {
+
                     $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
                     $result = mysqli_query($koneksi, $query);
                     echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Telah Selesai";</script>';
                 }
+            }
 
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
