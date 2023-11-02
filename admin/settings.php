@@ -44,7 +44,7 @@ function cari_nama($koneksi, $nama_cari)
         $no++;
     }
 }
-$koneksi = mysqli_connect($host,$username,$password,$database);
+$koneksi = mysqli_connect($host, $username, $password, $database);
 
 if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());
@@ -2458,8 +2458,7 @@ if (!$koneksi) {
         </table>
     </div>
 
-    <div class="notification" id="notification"></div>
-    <div class="notification-noChange" id="notification-noChange"></div>
+    <div id="notification" class="notification"></div>
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
@@ -2621,14 +2620,9 @@ if (!$koneksi) {
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const successMessage = urlParams.get('successMessage');
-            const noChangeMessage = urlParams.get('noChangeMessage');
 
             if (successMessage) {
                 displayNotification(successMessage, 'notification');
-            }
-
-            if (noChangeMessage) {
-                displayNotification(noChangeMessage, 'notification-noChange');
             }
         });
 
@@ -2649,7 +2643,6 @@ if (!$koneksi) {
             }, 5000);
         }
     </script>
-
 </body>
 
 </html>

@@ -27,7 +27,7 @@ if (!$koneksi) {
         .edit-box {
             text-align: center;
             width: 300px;
-            height: 545px;
+            height: 470px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -138,39 +138,6 @@ if (!$koneksi) {
             color: #000;
         }
 
-        .gender-select {
-            width: 100%;
-            padding: 15px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-            outline: none;
-            border-radius: 50px;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            transition: border-color 0.3s;
-            text-align: left;
-            color: #61677C;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: transparent;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: #000;
-        }
-
         .jabatan-select {
             width: 100%;
             padding: 15px 15px;
@@ -218,14 +185,13 @@ if (!$koneksi) {
                     $userMail = $_POST['txt_email'];
                     $userNohp = $_POST['txt_phone'];
                     $userName = $_POST['txt_nama'];
-                    $userjenis = $_POST['id_gender'];
                     $userjabatan = $_POST['id_jabatan'];
 
                     $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
 
-                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',jabatan='$userjabatan' WHERE id_user='$id'";
+                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
                     $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "settings.php?succesMessage=Pembaruan Data Telah Selesai";</script>';
+                    echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Telah Selesai";</script>';
                 }
 
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -243,20 +209,6 @@ if (!$koneksi) {
             <label class="nomer-telp">
                 <input type="text" name="txt_phone" id="phoneInput" autocomplete="off"
                     value="<?php echo $data['no_hp']; ?>">
-            </label>
-            <label class="gender">
-                <div class="select-wrapper">
-                    <select name="id_gender" id="txt_gender" class="gender-select">
-                        <option value="<?php echo $data['jenis_kelamin']; ?>">
-                            <?php echo $data['jenis_kelamin']; ?>
-                        </option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                    <div class="select-icon">
-                        <i class="fas fa-caret-down"></i>
-                    </div>
-                </div>
             </label>
             <label class="jabatan">
                 <div class="select-wrapper">
