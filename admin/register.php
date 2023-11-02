@@ -2372,8 +2372,8 @@ if (isset($_POST['register'])) {
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
                         <option value="" disabled selected>Jabatan</option>
-                        <option >admin</option>
-                        <option >karyawan</option>
+                        <option >Admin</option>
+                        <option >Karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
