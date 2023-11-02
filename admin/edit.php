@@ -10,7 +10,7 @@ if (!$koneksi) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <title>Angkasa | Edit Page</title>
     <style>
@@ -216,7 +216,7 @@ if (!$koneksi) {
                     $userMail = $_POST['txt_email'];
                     $userNohp = $_POST['txt_phone'];
                     $userName = $_POST['txt_nama'];
-                    $userjenis = $_POST['txt_gender'];
+                    $userjenis = $_POST['id_gender'];
                     $userjabatan=$_POST['id_jabatan'];
 
                     $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
@@ -224,12 +224,14 @@ if (!$koneksi) {
                     $query = "SELECT * FROM user WHERE id_user = '$id'";
                     $result = mysqli_query($koneksi, $query);
                     $existingData = mysqli_fetch_array($result);
-                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jenis_kelamin']==$userjenis && $existingData['id_jab']==$userjabatan) {
-                        header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
+
+                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jenis_kelamin']==$userjenis && $existingData['jabatan']==$userjabatan) {
+                         header("Location: settings.php?noChangeMessage=Tidak Ada Perubahan Pada Data");
                     } else {
+                        // Data telah berubah, lakukan pembaruan
                         $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp' ,jenis_kelamin='$userjenis',jabatan='$userjabatan' WHERE id_user='$id'";
                         $result = mysqli_query($koneksi, $query);
-                        header("Location: settings.php?successMessage=Pembaruan Data Telah Selesai");
+                        header("Location: settings.php?succesMessage=Pembaruan Data Telah Selesai");
                     }
                 }
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
@@ -250,10 +252,10 @@ if (!$koneksi) {
             </label>
             <label class="gender">
                 <div class="select-wrapper">
-                    <select name="txt_gender" id="txt_gender" class="gender-select">
-                        <option value="" disabled selected>Jenis Kelamin</option>
-                        <option >Laki-laki</option>
-                        <option >Perempuan</option>
+                    <select name="id_gender" id="txt_gender" class="gender-select">
+                        <option value="<?php echo $data['jenis_kelamin'];?>"><?php echo $data['jenis_kelamin'];?></option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -263,9 +265,9 @@ if (!$koneksi) {
             <label class="jabatan">
                 <div class="select-wrapper">
                     <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                    <option value="" disabled selected>Jabatan</option>
-                        <option >admin</option>
-                        <option >karyawan</option>
+                    <option value="<?php echo $data['jabatan'];?>"><?php echo $data['jabatan'];?></option>
+                        <option value="admin">admin</option>
+                        <option value="karyawan">karyawan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>

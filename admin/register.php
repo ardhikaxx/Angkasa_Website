@@ -2360,8 +2360,8 @@ if (isset($_POST['register'])) {
                 <div class="select-wrapper">
                     <select name="txt_gender" id="txt_gender" class="gender-select">
                         <option value="" disabled selected>Jenis Kelamin</option>
-                        <option >Laki-laki</option>
-                        <option >Perempuan</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
