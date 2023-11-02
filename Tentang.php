@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <title>Angkasa | Tentang Kami Page</title>
     <style>
@@ -753,10 +754,10 @@
         <section class="about-section">
             <div class="about-container">
                 <div class="about-row">
-                    <div class="about-column about-image">
+                    <div class="about-column about-image" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="700">
                         <img src="assets/Gallery/fotoTentang.jpg" alt="Square Image">
                     </div>
-                    <div class="about-column about-content">
+                    <div class="about-column about-content" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="700">
                         <h2 class="about-title">About Us</h2>
                         <p class="about-subtitle">Our Story</p>
                         <p class="about-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -771,7 +772,7 @@
             <div class="latarbelakang-container">
                 <div class="latarbelakang-row">
                     <div class="latarbelakang-column">
-                        <div class="text-center">
+                        <div class="text-center"  data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
                             <h2 class="latarbelakang-title">Latar Belakang</h2>
                             <p class="latarbelakang-paragraph">
                                 Photobooth adalah hiburan yang menyenangkan dalam event. Ini membantu menciptakan
@@ -790,7 +791,7 @@
             <div class="tujuan-container">
                 <div class="tujuan-row">
                     <div class="tujuan-column">
-                        <div class="text-center">
+                        <div class="text-center" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
                             <h2 class="tujuan-title">Sasaran dan Tujuan</h2>
                             <li class="tujuan-paragraph">
                                 Untuk mengenalkan dan membuat acara lebih menarik
@@ -808,9 +809,9 @@
             <div class="feedback-container">
                 <div class="feedback-row">
                     <div class="feedback-column">
-                        <div class="text-center">
+                        <div class="text-center"  data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
                             <h2 class="feedback-title">Feedback</h2>
-                            <li class="feedback-paragraph">
+                            <li class="feedback-paragraph"">
                                 Fee 8%
                             </li>
                             <li class="feedback-paragraph">
@@ -878,6 +879,12 @@
         <div class="star"></div>
         <div class="star"></div>
     </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>

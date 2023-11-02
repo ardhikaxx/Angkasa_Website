@@ -2459,6 +2459,7 @@ if (!$koneksi) {
     </div>
 
     <div id="notification" class="notification"></div>
+    <div id="notification-noChange" class="notification-noChange"></div>
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
@@ -2620,9 +2621,14 @@ if (!$koneksi) {
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
             const successMessage = urlParams.get('successMessage');
+            const noChangeMessage = urlParams.get('NoChageMessage');
 
             if (successMessage) {
                 displayNotification(successMessage, 'notification');
+            }
+
+            if (noChangeMessage) {
+                displayNotification(noChangeMessage, 'notification-noChange');
             }
         });
 

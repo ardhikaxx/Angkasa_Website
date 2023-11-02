@@ -1575,7 +1575,9 @@ if (isset($_POST['register'])) {
             height: 540px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
-            padding: 20px;
+            padding: 10px;
+            padding-top: 23px;
+            padding-bottom: 23px;
             border-radius: 15px;
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: box-shadow 0.3s ease;

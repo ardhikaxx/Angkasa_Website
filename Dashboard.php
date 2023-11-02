@@ -1245,7 +1245,7 @@
         }
 
         .content {
-            width: 900px;
+            width: 650px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1254,6 +1254,24 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             margin-top: 10px;
+        }
+
+        .content-promo span {
+            font-size: 50px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .content-promo h2 {
+            text-align: center;
+        }
+
+        .content-promo h1 {
+            text-align: center;
+            font-size: 35px;
         }
     </style>
 </head>
@@ -1394,12 +1412,17 @@
 
     <div class="promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="promo-title">
-            <h1>Promo</h1>
+            <h1>Promo Bulan Ini</h1>
             <p>Jangan sampai ketinggalan promonya!</p>
         </div>
     </div>
 
-    <div class="content">
+    <div class="content" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
+        <div class="content-promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
+            <span id="bulan"></span>
+            <h2>Unlimit 3 Hour 360 & 3 Hour Photobooth</h2>
+            <h1>Rp 1.800.000</h1>
+        </div>
     </div>
 
     <div class="gallery-pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
@@ -1411,13 +1434,13 @@
 
     <div id="gallery">
         <div class="gallery-photo" data-aos="fade-down-right" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto1.jpg"/>
+            <img src="assets/Gallery/foto1.jpg" />
         </div>
         <div class="gallery-photo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto2.jpg"/>
+            <img src="assets/Gallery/foto2.jpg" />
         </div>
         <div class="gallery-photo" data-aos="fade-down-left" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto3.jpg"/>
+            <img src="assets/Gallery/foto3.jpg" />
         </div>
     </div>
 
@@ -1518,7 +1541,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" title="WhatsApp">
+                            <a href="https://api.whatsapp.com/send/?phone=6287752874282&text&type=phone_number&app_absent=0"
+                                target="_blank" title="WhatsApp">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
                                     class="bi bi-whatsapp" viewBox="0 0 16 16">
                                     <path
@@ -1539,6 +1563,13 @@
 
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        const today = new Date();
+        const currentMonth = monthNames[today.getMonth()];
+        document.getElementById("bulan").textContent = currentMonth;
     </script>
 
     <script>

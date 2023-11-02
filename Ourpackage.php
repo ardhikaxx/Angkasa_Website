@@ -951,7 +951,7 @@
             position: absolute;
             bottom: 100px;
             left: 50%;
-            translate: -50%;
+            transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -967,6 +967,10 @@
 
         .scroll-btn i {
             font-size: 20px;
+        }
+
+        .scroll-btn p {
+            margin: 0;
         }
     </style>
 </head>
@@ -998,7 +1002,7 @@
         <span class="title-mouse">Scroll Down</span>
     </div>
 
-    <div class="content-package">
+    <div class="content-package" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <h1>Pilih Paketmu Sesuai Dengan Keinginanmu</h1>
         <p>Scroll Kebawah Untuk Melihat Lebih Lanjut</p>
         <div class="scroll-icon-box">
@@ -1089,7 +1093,7 @@
         </div>
     </div>
 
-    <div class="content-layout">
+    <div class="content-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
     </div>
 
     <div class="price-list" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
@@ -1099,11 +1103,11 @@
         </div>
     </div>
 
-    <div class="content-layout">
+    <div class="content-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="price-container">
             <div class="row">
                 <div class="column">
-                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1000">
+                    <div class="product" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="1000">
                         <h2>PaperFrame 4R</h2>
                         <div class="options">
                             <div class="option">
@@ -1127,7 +1131,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="product" data-aos="flip-right" data-aos-easing="ease" data-aos-duration="1100">
+                    <div class="product" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="1100">
                         <h2>PaperFrame strip 2R</h2>
                         <div class="options">
                             <div class="option">
@@ -1153,7 +1157,7 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1200">
+                    <div class="product" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="1200">
                         <h2>360 Videobooth</h2>
                         <div class="options">
                             <div class="option">
@@ -1168,7 +1172,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1300">
+                    <div class="product" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="1300">
                         <h2>Note</h2>
                         <div class="options-note">
                             <ul>

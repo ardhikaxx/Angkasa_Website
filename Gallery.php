@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <title>Angkasa | Gallery Page</title>
     <style>
@@ -594,7 +595,7 @@
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div class="pack">
+    <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="pack-title">
             <h1>Gallery</h1>
             <p>Here's an example of the results from our photos</p>
@@ -653,6 +654,11 @@
         <div class="star"></div>
         <div class="star"></div>
     </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>
