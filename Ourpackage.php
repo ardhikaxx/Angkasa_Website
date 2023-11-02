@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <title>Angkasa | OurPackage Page</title>
     <style>
@@ -873,11 +875,6 @@
             margin-right: 15px;
         }
 
-        .product:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
         .product h2 {
             font-size: 21px;
             margin-bottom: 10px;
@@ -926,6 +923,51 @@
             margin-left: -25px;
             text-align: start;
         }
+
+        .content-package {
+            width: 100%;
+            height: 100vh;
+            margin-top: -10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .content-package h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .content-package p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            translate: -50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 50px;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+            background: #000;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .scroll-btn i {
+            font-size: 20px;
+        }
     </style>
 </head>
 
@@ -955,7 +997,19 @@
         </span>
         <span class="title-mouse">Scroll Down</span>
     </div>
-    <div class="pack">
+
+    <div class="content-package">
+        <h1>Pilih Paketmu Sesuai Dengan Keinginanmu</h1>
+        <p>Scroll Kebawah Untuk Melihat Lebih Lanjut</p>
+        <div class="scroll-icon-box">
+            <a class="scroll-btn">
+                <i class="uil uil-mouse-alt"></i>
+                <p>Scroll Down</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="pack-title">
             <h1>Choose a Package</h1>
             <p>Choose the Package You Want</p>
@@ -964,7 +1018,7 @@
 
 
     <div class="pack-card">
-        <div class="card">
+        <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
             </div>
             <div class="content">
@@ -977,7 +1031,7 @@
                 <button class="btn-detail" id="self-photobox">Detail</button>
             </div>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
             </div>
             <div class="content">
@@ -990,7 +1044,7 @@
                 <button class="btn-detail" id="self-photo">Detail</button>
             </div>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
             </div>
             <div class="content">
@@ -1003,7 +1057,7 @@
                 <button class="btn-detail" id="manual-photobooth">Detail</button>
             </div>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
             </div>
             <div class="content">
@@ -1028,14 +1082,17 @@
         </div>
     </div>
 
-    <div class="pack-layout">
+    <div class="pack-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="title-layout">
             <h1>Photo Layout Option</h1>
             <p>Choose the Layout You Want</p>
         </div>
     </div>
 
-    <div class="price-list">
+    <div class="content-layout">
+    </div>
+
+    <div class="price-list" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="title-price">
             <h1>Price List</h1>
             <p>Explore Our Photobooth Packages</p>
@@ -1046,7 +1103,7 @@
         <div class="price-container">
             <div class="row">
                 <div class="column">
-                    <div class="product">
+                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1000">
                         <h2>PaperFrame 4R</h2>
                         <div class="options">
                             <div class="option">
@@ -1070,7 +1127,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="product">
+                    <div class="product" data-aos="flip-right" data-aos-easing="ease" data-aos-duration="1100">
                         <h2>PaperFrame strip 2R</h2>
                         <div class="options">
                             <div class="option">
@@ -1096,7 +1153,7 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <div class="product">
+                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1200">
                         <h2>360 Videobooth</h2>
                         <div class="options">
                             <div class="option">
@@ -1111,7 +1168,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <div class="product">
+                    <div class="product" data-aos="flip-left" data-aos-easing="ease" data-aos-duration="1300">
                         <h2>Note</h2>
                         <div class="options-note">
                             <ul>
@@ -1128,87 +1185,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="price-container">
-            <div class="column">
-                <div class="product">
-                    <h2>PaperFrame 4R</h2>
-                    <div class="options">
-                        <div class="option">
-                            <h3>Quota</h3>
-                            <ul>
-                                <li><strong>100 Pcs</strong> Rp 750.000</li>
-                                <li><strong>150 Pcs</strong> Rp 1.000.000</li>
-                                <li><strong>200 Pcs</strong> Rp 1.250.000</li>
-                                <li><strong>300 Pcs</strong> Rp 1.700.000</li>
-                            </ul>
-                        </div>
-                        <div class="option">
-                            <h3>Unlimited</h3>
-                            <ul>
-                                <li><strong>2 Hour</strong> Rp 1.200.000</li>
-                                <li><strong>3 Hour</strong> Rp 1.500.000</li>
-                                <li><strong>4 Hour</strong> Rp 1.800.000</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="product">
-                    <h2>PaperFrame strip 2R</h2>
-                    <div class="options">
-                        <div class="option">
-                            <h3>Quota</h3>
-                            <ul>
-                                <li><strong>200 Pcs</strong> Rp 750.000</li>
-                                <li><strong>300 Pcs</strong> Rp 1.000.000</li>
-                                <li><strong>400 Pcs</strong> Rp 1.250.000</li>
-                                <li><strong>600 Pcs</strong> Rp 1.700.000</li>
-                            </ul>
-                        </div>
-                        <div class="option">
-                            <h3>Unlimited</h3>
-                            <ul>
-                                <li><strong>2 Hour</strong> Rp 1.000.000</li>
-                                <li><strong>3 Hour</strong> Rp 1.300.000</li>
-                                <li><strong>4 Hour</strong> Rp 1.600.000</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="product">
-                    <h2>360 Videobooth</h2>
-                    <div class="options">
-                        <div class="option">
-                            <h3>Unlimited</h3>
-                            <ul>
-                                <li><strong>2 Hour</strong> Rp 1.500.000</li>
-                                <li><strong>3 Hour</strong> Rp 2.000.000</li>
-                                <li><strong>4 Hour</strong> Rp 2.300.000</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="product">
-                    <h2>Note</h2>
-                    <div class="options">
-                        <ul>
-                            <li>Extra paper per 50 lembar 4R = Rp 400.000,-</li>
-                            <li>Extra unlimited paper dan video, per 1 jam = Rp 500.000,-</li>
-                            <li>Free Simple Fabric gliter / Background Photo</li>
-                            <li>High Speed Printer 15 Detik / Photo</li>
-                            <li>Include 2 Crew</li>
-                            <li>4 Hours Per quota Package</li>
-                            <li>Softcopy Flashdisk + Online Google Drive</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </div>
 
     <div class="stars">
@@ -1264,6 +1240,11 @@
         <div class="star"></div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 
     <script>
         const popup = document.getElementById("popup");

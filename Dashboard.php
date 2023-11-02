@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angkasa | Dashboard Page</title>
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         body {
             padding: 0;
@@ -454,7 +455,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .gallery {
+        .gallery-pack {
             width: 100%;
             text-align: center;
             height: auto;
@@ -476,26 +477,55 @@
             font-weight: bold;
         }
 
-        .pack-gallery {
+        #gallery {
             display: flex;
+            justify-content: center;
             align-items: center;
-            column-gap: 20px;
-            overflow-x: scroll;
-            margin-top: 30px;
-            margin-left: 35px;
-            margin-right: 45px;
+            margin-top: 20px;
         }
 
-        .gallery-item {
-            scroll-snap-align: center;
-            min-width: 40%;
+        .gallery-photo {
+            display: grid;
+            place-items: center;
+            width: 300px;
+            aspect-ratio: 1;
+            background-color: rgb(31, 41, 55);
+            border-radius: 6vmin;
+            border: 0;
+            box-shadow: 0vmin 2vmin 6vmin rgb(0 0 0 / 9%), inset 0vmin 0.5vmin 1vmin rgb(255 255 255 / 5%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .gallery-image {
-            width: 100%;
+        .gallery-photo:nth-child(1) {
+            rotate: 3deg;
+            z-index: 3;
+        }
+
+        .gallery-photo:nth-child(2) {
+            rotate: -2deg;
+            z-index: 2;
+        }
+
+        .gallery-photo:nth-child(3) {
+            rotate: 5deg;
+            z-index: 1;
+        }
+
+        .gallery-photo>i {
+            font-size: 15vmin;
+            color: rgb(255 255 255 / 10%);
+        }
+
+        .gallery-photo>img {
             height: 100%;
+            aspect-ratio: 1;
+            position: absolute;
+            left: 0px;
+            top: 0px;
             object-fit: cover;
-            border-radius: 10px;
+            opacity: var(-- opacity);
+            filter: blur(calc(var(-- blur) *10px));
         }
 
         .pack-peta {
@@ -523,7 +553,6 @@
         .map iframe {
             max-width: 100%;
             border-radius: 15px;
-            border: 2px solid linear-gradient(to bottom, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
         }
 
         .detail-map {
@@ -1330,32 +1359,32 @@
         </div>
     </div>
 
-    <div class="pack">
+    <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="pack-title">
             <h1>Our Package</h1>
             <p>Choose the Package You Want</p>
         </div>
     </div>
     <div class="pack-card">
-        <div class="card">
+        <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="card-image"></div>
             <p class="card-title">Self Photobox</p>
             <p class="card-body">Take a booth with automatic touchscreen screen (Only Landscape)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="card-image"></div>
             <p class="card-title">Self Photo</p>
             <p class="card-body">Self Photo with Remote Shuter (Landscape & Portrait)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="card-image"></div>
             <p class="card-title">Manual Photobooth</p>
             <p class="card-body">Take a photo manual with photographer (Landscape & portrait)</p>
             <a href="ourpackage.php" class="btn">Read More</a>
         </div>
-        <div class="card">
+        <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="card-image"></div>
             <p class="card-title">360 Videobooth</p>
             <p class="card-body">Take a Video with our equipment (Only portrait)</p>
@@ -1363,7 +1392,7 @@
         </div>
     </div>
 
-    <div class="promo">
+    <div class="promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="promo-title">
             <h1>Promo</h1>
             <p>Jangan sampai ketinggalan promonya!</p>
@@ -1371,39 +1400,40 @@
     </div>
 
     <div class="content">
-
     </div>
 
-    <div class="gallery">
+    <div class="gallery-pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="gallery-title">
             <h1>Gallery</h1>
             <p>info beli gedang goreng</p>
         </div>
     </div>
 
-    <div class="carousel-wrapper">
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="image-one"></div>
-                <div class="image-two"></div>
-                <div class="image-three"></div>
-            </div>
+    <div id="gallery">
+        <div class="gallery-photo" data-aos="fade-down-right" data-aos-easing="ease" data-aos-duration="700">
+            <img src="assets/Gallery/foto1.jpg"/>
+        </div>
+        <div class="gallery-photo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
+            <img src="assets/Gallery/foto2.jpg"/>
+        </div>
+        <div class="gallery-photo" data-aos="fade-down-left" data-aos-easing="ease" data-aos-duration="700">
+            <img src="assets/Gallery/foto3.jpg"/>
         </div>
     </div>
 
     <div class="pack-peta">
-        <div class="nama-map">
+        <div class="nama-map" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
             <h1>Contact Information</h1>
         </div>
         <div class="map-info">
-            <div class="map">
+            <div class="map" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.325500129409!2d113.69664727369177!3d-8.169925081875032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6943badc22eff%3A0x6f4eb0009c7ea083!2sJl.%20Sultan%20Agung%20No.11%2C%20Tembaan%2C%20Kepatihan%2C%20Kec.%20Kaliwates%2C%20Kabupaten%20Jember%2C%20Jawa%20Timur%2068131!5e0!3m2!1sid!2sid!4v1695602102332!5m2!1sid!2sid"
                     width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-            <div class="detail-map">
+            <div class="detail-map" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
                 <h2>Contact Us</h2>
                 <p>kalau anda ada kesulitan, anda dapat bisa menghubungi kontak yang tersedia.</p>
                 <ul>
@@ -1504,6 +1534,12 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
