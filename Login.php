@@ -16,12 +16,16 @@ if (isset($_POST['submit'])) {
 
         if (mysqli_num_rows($result) > 0) {
             $userRow = mysqli_fetch_assoc($result);
-            $namaLengkap = $userRow['nama_lengkap'];
+            $jabatan = $userRow['jabatan'];
             session_start();
-            $_SESSION['user'] = $namaLengkap;
-            $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($namaLengkap) . '!';
-            header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
-            exit;
+            if ($jabatan === 'admin') {
+                // Pengguna dengan jabatan admin diarahkan ke dashboard admin
+                $_SESSION['user'] = $userRow['nama_lengkap'];
+                $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
+                header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
+            }else{
+                $error='("Karyawan tidak memiliki akses masuk")';
+            }
         } else {
             $error = '("email atau password salah.");';
         }
