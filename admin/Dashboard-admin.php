@@ -26,10 +26,33 @@ if (isset($_GET['successMessage'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
             background-color: #EBECF0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
         }
 
         .navbar {
@@ -1992,126 +2015,220 @@ if (isset($_GET['successMessage'])) {
             margin-left: 200px;
         }
 
-        .table-container {
+        .dashboard-container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             border-radius: 10px;
         }
 
-        .table-container h1 {
-            text-align: center;
+        .dashboard-container h1 {
+            text-align: left;
             font-family: "Poppins", sans-serif;
             color: #000;
             margin-bottom: 20px;
-            font-size: 35px;
+            font-size: 24px;
             font-weight: 800;
         }
 
-        .filter-section {
-            text-align: right;
-            margin-bottom: 20px;
+        .dashboard-container h2 {
+            text-align: left;
+            font-family: "Poppins", sans-serif;
+            color: #222222;
+            font-size: 20px;
+            font-weight: 750;
         }
 
-        #search,
-        #search-button,
-        #filter {
-            margin: 5px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
+        .count-content {
+            display: flex;
+            gap: 20px;
         }
 
-        #search {
-            width: 200px;
-        }
-
-        #search-button {
-            background-color: #000;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        #search-button:hover {
-            background-color: #333;
-        }
-
-        #filter {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #filter option {
-            background-color: #fff;
-            color: #000;
-        }
-
-        #filter option:active {
-            background-color: #000;
-            color: #fff;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        thead {
+        .karyawan-count,
+        .admin-count,
+        .pemesanan-count {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            margin-top: 20px;
             background-color: #000;
             color: #fff;
             border-radius: 15px;
-        }
-
-        th,
-        td {
-            border-bottom: 1px solid #dee2e6;
-            padding: 15px;
-            text-align: left;
-        }
-
-        th {
-            border: none;
-        }
-
-        td:last-child {
-            font-weight: bold;
-            text-transform: capitalize;
-            color: #000;
-        }
-
-        #page-links {
             text-align: center;
+        }
+
+        .karyawan-count i,
+        .admin-count i,
+        .pemesanan-count i {
+            font-size: 20px;
+            margin: 10px;
+        }
+
+        .karyawan-count h3,
+        .admin-count h3,
+        .pemesanan-count h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .karyawan-count span,
+        .admin-count span,
+        .pemesanan-count span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 800;
+            margin: 10px;
+        }
+
+
+        .kalender-pemesanan {
+            width: 300px;
+            height: 350px;
             margin-top: 20px;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
         }
 
-        #page-links a {
-            text-decoration: none;
+        button {
+            font: inherit;
+            cursor: pointer;
+
+            &:focus {
+                outline: 0;
+            }
+        }
+
+        .datepicker {
+            width: 95%;
+            max-width: 350px;
+            height: auto;
+            background-color: #000;
+            border-radius: 10px;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        .datepicker-top {
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            border: 0;
+            background-color: #EAEBEC;
+            border-radius: 10px;
+            padding: 0.5em 0.75em;
+            font-weight: 600;
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            background-color: #fff;
             color: #000;
-            padding: 5px 10px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            margin: 0 5px;
+            border-radius: 12px;
+            width: 2.5rem;
+            height: 2.5rem;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0 10px 0 rgba(0, 0, 0, 0.15);
         }
 
-        #page-links a:hover {
-            background-color: #000;
+        .month-name {
+            font-weight: 600;
             color: #fff;
         }
 
-        #page-links a.active {
-            background-color: #000;
+        .datepicker-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-row-gap: 1rem;
             color: #fff;
+        }
+
+        .day,
+        .date {
+            justify-self: center;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .day span {
+            color: #fff;
+            font-size: 0.875em;
+            font-weight: 500;
+            justify-self: center;
+        }
+
+        .date {
+            border: 0;
+            padding: 0;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 2px solid transparent;
+            background-color: transparent;
+            cursor: pointer;
+
+            &:focus {
+                outline: 0;
+                color: #fff;
+                border-color: #fff;
+            }
+        }
+
+        .faded {
+            color: #999FA6;
+        }
+
+        .current-day {
+            color: #000;
+            border-color: #fff;
+            background-color: #fff;
+
+            &:focus {
+                background-color: #000;
+            }
+        }
+
+        .sponsor-detail {
+            width: 480px;
+            height: 195px;
+            margin-top: -180px;
+            border-radius: 15px;
+            background-color: #000;
+        }
+
+        .sponsor-detail h3 {
+            color: #fff;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .modal {
-            background-color: #000;
+            background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
-            color: #fff;
+            color: #000;
             display: none;
             position: fixed;
             top: 50%;
@@ -2140,29 +2257,23 @@ if (isset($_GET['successMessage'])) {
         }
 
         .btn-confirm {
-            background: linear-gradient(to right, #4CAF50, #45a049);
+            background: #00C82E;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-cancel {
-            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            background: #E4071C;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-confirm:hover {
-            background: linear-gradient(to right, #45a049, #4CAF50);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .btn-cancel:hover {
-            background: linear-gradient(to right, #C43C2F, #E74C3C);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .modal-overlay {
@@ -2206,7 +2317,7 @@ if (isset($_GET['successMessage'])) {
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Beranda</span></a>
+                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Dashboard</span></a>
             </li>
             <li class="navbar__item">
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
@@ -2218,8 +2329,7 @@ if (isset($_GET['successMessage'])) {
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2240,31 +2350,51 @@ if (isset($_GET['successMessage'])) {
     </div>
 
     <div class="content">
-        <div class="table-container">
-            <h1>Selamat datang, <?php echo $namaLengkap; ?>!</h1>
-            <h1>Dashboard Admin</h1>
-            <div class="filter-section">
-                <input type="text" id="search" placeholder="Cari Nama Pemesan / Tanggal" autocomplete="off">
-                <button id="search-button"><i class="fa fa-search"></i> Cari</button>
-                <select id="filter">
-                    <option value="all">Semua</option>
-                    <option value="last-week">Minggu Lalu</option>
-                    <option value="last-month">Bulan Lalu</option>
-                </select>
+        <div class="dashboard-container">
+            <h1>Hi,
+                <?php echo $namaLengkap; ?>!
+            </h1>
+            <h2>Dashboard Admin</h2>
+            <div class="count-content">
+                <div class="karyawan-count">
+                    <i class="fas fa-user"></i>
+                    <h3>Karyawan</h3>
+                    <span>0</span>
+                </div>
+                <div class="admin-count">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Admin</h3>
+                    <span>0</span>
+                </div>
+                <div class="pemesanan-count">
+                    <i class="fas fa-camera"></i>
+                    <h3>Pemesanan</h3>
+                    <span>0</span>
+                </div>
+                <div class="kalender-pemesanan">
+                    <div class="datepicker">
+                        <div class="datepicker-top">
+                            <div class="month-selector">
+                                <button class="arrow" id="prevMonth"><i class="material-icons">chevron_left</i></button>
+                                <span class="month-name" id="currentMonth"></span>
+                                <button class="arrow" id="nextMonth"><i
+                                        class="material-icons">chevron_right</i></button>
+                            </div>
+                        </div>
+                        <div class="datepicker-calendar">
+                            <span class="day">Mo</span>
+                            <span class="day">Tu</span>
+                            <span class="day">We</span>
+                            <span class="day">Th</span>
+                            <span class="day">Fr</span>
+                            <span class="day">Sa</span>
+                            <span class="day">Su</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nama Pemesan</th>
-                        <th>Tanggal Pemesanan</th>
-                        <th>Tempat Pemesanan</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="booking-list">
-                </tbody>
-            </table>
-            <div id="page-links">
+            <div class="sponsor-detail">
+                <h3>Detail</h3>
             </div>
         </div>
     </div>
@@ -2325,183 +2455,80 @@ if (isset($_GET['successMessage'])) {
     <script>feather.replace()</script>
 
     <script>
-        let bookings = [
-            { nama: "Rafika", tanggal: "2023-10-01", tempat: "Jakarta" },
-            { nama: "Dhika", tanggal: "2023-10-05", tempat: "Surabaya" },
-            { nama: "Insan", tanggal: "2023-09-25", tempat: "Bandung" },
-            { nama: "Greta", tanggal: "2023-11-01", tempat: "Bogor" },
-            { nama: "Wulan", tanggal: "2023-12-20", tempat: "Jaksel" },
-            { nama: "Udin", tanggal: "2023-08-05", tempat: "Sumedang" },
-            { nama: "Atok", tanggal: "2023-10-15", tempat: "Surabaya" },
-            { nama: "Syahroni", tanggal: "2023-09-04", tempat: "Bandung" },
-            { nama: "Mamat", tanggal: "2023-11-12", tempat: "Bogor" },
-            { nama: "Mimin", tanggal: "2023-01-27", tempat: "Jaksel" },
-            { nama: "Putri", tanggal: "2023-10-13", tempat: "Jakarta" },
-            { nama: "Sandika", tanggal: "2023-09-17", tempat: "Surabaya" },
-            { nama: "Santi", tanggal: "2023-10-28", tempat: "Bandung" },
-            { nama: "Jojo", tanggal: "2023-11-23", tempat: "Bogor" },
-            { nama: "Siti", tanggal: "2023-09-19", tempat: "Jaksel" },
-        ];
+        function populateCalendar(year, month) {
+            const calendar = document.querySelector('.datepicker-calendar');
+            calendar.innerHTML = ''; // Kosongkan kalender sebelum mengisi tanggal baru
 
-        const itemsPerPage = 5;
-        let currentPage = 1;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDay = new Date(year, month, 1).getDay();
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-        const bookingList = document.getElementById("booking-list");
-        const searchInput = document.getElementById("search");
-        const searchButton = document.getElementById("search-button");
-        const filterSelect = document.getElementById("filter");
+            weekdays.forEach(day => {
+                const dayElement = document.createElement('span');
+                dayElement.className = 'day';
+                dayElement.textContent = day;
+                calendar.appendChild(dayElement);
+            });
 
-        function displayPage(page) {
-            bookingList.innerHTML = "";
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const currentBookings = bookings.slice(start, end);
-            const currentDate = new Date();
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDate = document.createElement('button');
+                emptyDate.className = 'date faded';
+                calendar.appendChild(emptyDate);
+            }
 
-            currentBookings.forEach(booking => {
-                const bookingDate = new Date(booking.tanggal);
-                let status = "";
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateButton = document.createElement('button');
+                dateButton.className = 'date';
+                dateButton.textContent = day;
 
-                if (currentDate < bookingDate) {
-                    status = "baru pemesanan";
-                } else if (currentDate.toDateString() === bookingDate.toDateString()) {
-                    status = "telah selesai";
-                } else {
-                    const timeDifference = bookingDate - currentDate;
-                    const daysDifference = timeDifference / (1000 * 3600 * 24);
-                    if (daysDifference >= 1) {
-                        status = "belum selesai";
-                    } else {
-                        status = "telah selesai";
-                    }
+                if (year === currentYear && month === currentMonth && day === currentDate.getDate()) {
+                    dateButton.classList.add('current-day');
                 }
 
-                const row = bookingList.insertRow();
-                row.innerHTML = `
-                <td>${booking.nama}</td>
-                <td>${booking.tanggal}</td>
-                <td>${booking.tempat}</td>
-                <td>${status}</td>
-                `;
-            });
-        }
-
-        function displayBookings(filteredBookings) {
-            bookingList.innerHTML = "";
-            const currentDate = new Date();
-
-            if (filteredBookings) {
-                filteredBookings.forEach(booking => {
-                    const bookingDate = new Date(booking.tanggal);
-                    let status = "";
-
-                    if (currentDate < bookingDate) {
-                        status = "baru pemesanan";
-                    } else if (currentDate.toDateString() === bookingDate.toDateString()) {
-                        status = "telah selesai";
-                    } else {
-                        const timeDifference = bookingDate - currentDate;
-                        const daysDifference = timeDifference / (1000 * 3600 * 24);
-                        if (daysDifference >= 1) {
-                            status = "belum selesai";
-                        } else {
-                            status = "telah selesai";
-                        }
-                    }
-
-                    const row = bookingList.insertRow();
-                    row.innerHTML = `
-                    <td>${booking.nama}</td>
-                    <td>${booking.tanggal}</td>
-                    <td>${booking.tempat}</td>
-                    <td>${status}</td>
-                    `;
-                });
-            } else {
-                displayPage(currentPage);
-            }
-        }
-
-        displayPage(currentPage);
-
-        searchButton.addEventListener("click", () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredBookings = bookings.filter(booking => {
-                return booking.nama.toLowerCase().includes(searchTerm) || booking.tanggal.includes(searchTerm);
-            });
-            displayBookings(filteredBookings);
-        });
-
-        filterSelect.addEventListener("change", () => {
-            const filterValue = filterSelect.value;
-            if (filterValue === "last-week") {
-                const lastWeek = new Date();
-                lastWeek.setDate(lastWeek.getDate() - 7);
-                const filteredBookings = bookings.filter(booking => new Date(booking.tanggal) >= lastWeek);
-                displayBookings(filteredBookings);
-            } else if (filterValue === "last-month") {
-                const lastMonth = new Date();
-                lastMonth.setMonth(lastMonth.getMonth() - 1);
-                const filteredBookings = bookings.filter(booking => new Date(booking.tanggal) >= lastMonth);
-                displayBookings(filteredBookings);
-            } else {
-                displayBookings();
-            }
-        });
-
-        function changePage(page) {
-            currentPage = page;
-            displayPage(currentPage);
-        }
-
-        function createPageLinks() {
-            const totalPages = Math.ceil(bookings.length / itemsPerPage);
-            const pageLinksContainer = document.getElementById("page-links");
-            pageLinksContainer.innerHTML = "";
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageLink = document.createElement("a");
-                pageLink.href = "#";
-                pageLink.innerText = i;
-                pageLink.addEventListener("click", () => changePage(i));
-                pageLinksContainer.appendChild(pageLink);
-            }
-        }
-
-        createPageLinks();
-
-        function updatePage() {
-            createPageLinks();
-            displayPage(currentPage);
-        }
-
-        function updateStatusAutomatically() {
-            const currentDate = new Date();
-
-            bookings.forEach(booking => {
-                const bookingDate = new Date(booking.tanggal);
-                let status = "";
-
-                if (currentDate < bookingDate) {
-                    status = "baru pemesanan";
-                } else if (currentDate.toDateString() === bookingDate.toDateString()) {
-                    status = "telah selesai";
-                } else {
-                    const timeDifference = bookingDate - currentDate;
-                    const daysDifference = timeDifference / (1000 * 3600 * 24);
-                    if (daysDifference >= 1) {
-                        status = "belum selesai";
-                    } else {
-                        status = "telah selesai";
-                    }
+                if (year < currentYear || (year === currentYear && month < currentMonth) || (year === currentYear && month === currentMonth && day < currentDate.getDate())) {
+                    dateButton.classList.add('faded');
                 }
-                booking.status = status;
-            });
 
-            displayBookings();
+                calendar.appendChild(dateButton);
+            }
         }
 
-        setInterval(updateStatusAutomatically, 60000);
+        function displayMonthName(year, month) {
+            const months = [
+                'January', 'February', 'March', 'April',
+                'May', 'June', 'July', 'August', 'September',
+                'October', 'November', 'December'
+            ];
+            const currentMonth = document.getElementById('currentMonth');
+            currentMonth.textContent = months[month] + ' ' + year;
+        }
+
+        const currentDate = new Date();
+        let currentYear = currentDate.getFullYear();
+        let currentMonth = currentDate.getMonth();
+
+        populateCalendar(currentYear, currentMonth);
+        displayMonthName(currentYear, currentMonth);
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            populateCalendar(currentYear, currentMonth);
+            displayMonthName(currentYear, currentMonth);
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            populateCalendar(currentYear, currentMonth);
+            displayMonthName(currentYear, currentMonth);
+        });
     </script>
 
     <script>

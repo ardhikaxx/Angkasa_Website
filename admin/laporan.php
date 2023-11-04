@@ -15,6 +15,28 @@
             background-color: #EBECF0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
         .navbar {
             position: fixed;
             top: 1rem;
@@ -1976,9 +1998,9 @@
         }
 
         .modal {
-            background-color: #000;
+            background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
-            color: #fff;
+            color: #000;
             display: none;
             position: fixed;
             top: 50%;
@@ -2007,29 +2029,23 @@
         }
 
         .btn-confirm {
-            background: linear-gradient(to right, #4CAF50, #45a049);
+            background: #00C82E;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-cancel {
-            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            background: #E4071C;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-confirm:hover {
-            background: linear-gradient(to right, #45a049, #4CAF50);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .btn-cancel:hover {
-            background: linear-gradient(to right, #C43C2F, #E74C3C);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .modal-overlay {
@@ -2043,6 +2059,103 @@
             z-index: 999;
             display: none;
         }
+
+        .tabel-laporan {
+            width: 900px;
+            margin: 0 auto;
+            background-color: #EBECF0 0.5;
+            backdrop-filter: blur(5px);
+            font-family: "Poppins", sans-serif;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 50px;
+            margin-left: 200px;
+        }
+
+        .tabel-laporan h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
+            color: #000;
+            font-weight: 800;
+        }
+
+        .tabel-laporan table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th,
+        .tabel-laporan td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tabel-akun tr {
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .btn-selesai {
+            background-color: #00C82E;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-belum {
+            background-color: #E4071C;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-selesai,
+        .btn-belum:hover {
+            opacity: 0.9;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .search button:hover {
+            background-color: #333;
+        }
+
+        .search-icon {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -2051,7 +2164,7 @@
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Beranda</span></a>
+                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Dashboard</span></a>
             </li>
             <li class="navbar__item">
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
@@ -2081,7 +2194,45 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="tabel-laporan">
+        <h1>Laporan Pemesanan</h1>
+        <form method="GET">
+            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap Pemesan"
+                autocomplete="off">
+            <button class="search" type="submit">
+                <i class="fas fa-search search-icon"></i> Cari
+            </button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Lengkap</th>
+                    <th>No Hp</th>
+                    <th>Alamat Acara</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="tabel-akun">
+                <td>
+                    no
+                </td>
+                <td>
+                    nama lengkap
+                </td>
+                <td>
+                    no hp
+                </td>
+                <td>
+                    Alamat Acara
+                </td>
+                <td>
+                    <a href="#" class="btn-selesai"><i class="fa fa-check"></i> Selesai</a>
+                    <a href="#" class="btn-belum"><i class="fa fa-times"></i> Belum</a>
+                </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="stars">

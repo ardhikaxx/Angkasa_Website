@@ -67,6 +67,28 @@ if (!$koneksi) {
             background-color: #EBECF0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
         .navbar {
             position: fixed;
             top: 1rem;
@@ -1604,7 +1626,7 @@ if (!$koneksi) {
         .content-settings th,
         .content-settings td {
             padding: 15px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #dee2e6;
         }
 
@@ -1621,17 +1643,25 @@ if (!$koneksi) {
             background-color: #007bff;
             color: #fff;
             border-radius: 10px;
-            padding: 5px 10px;
+            padding: 6px 11px;
             margin-right: 10px;
             text-decoration: none;
+        }
+
+        .btn-edit i {
+            font-size: 13px;
         }
 
         .btn-delete {
             background-color: #dc3545;
             color: #fff;
             border-radius: 10px;
-            padding: 5px 10px;
+            padding: 6px 11px;
             text-decoration: none;
+        }
+
+        .btn-delete i {
+            font-size: 13px;
         }
 
         .btn-edit:hover,
@@ -1663,7 +1693,7 @@ if (!$koneksi) {
             margin: 10px;
         }
 
-        button:hover {
+        .search button:hover {
             background-color: #333;
         }
 
@@ -2111,9 +2141,9 @@ if (!$koneksi) {
         }
 
         .modal {
-            background-color: #000;
+            background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
-            color: #fff;
+            color: #000;
             display: none;
             position: fixed;
             top: 50%;
@@ -2143,29 +2173,23 @@ if (!$koneksi) {
         }
 
         .btn-confirm {
-            background: linear-gradient(to right, #4CAF50, #45a049);
+            background: #00C82E;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-cancel {
-            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            background: #E4071C;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
+            opacity: 1;
         }
 
         .btn-confirm:hover {
-            background: linear-gradient(to right, #45a049, #4CAF50);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .btn-cancel:hover {
-            background: linear-gradient(to right, #C43C2F, #E74C3C);
             transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .modal-overlay {
@@ -2193,8 +2217,8 @@ if (!$koneksi) {
         }
 
         .edit-content {
-            background-color: #000;
-            color: #fff;
+            background-color: #EBECF0;
+            color: #000;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -2259,8 +2283,8 @@ if (!$koneksi) {
         }
 
         .modal-content-delete {
-            background-color: #000;
-            color: #fff;
+            background-color: #EBECF0;
+            color: #000;
             position: absolute;
             font-family: "Poppins", sans-serif;
             top: 50%;
@@ -2359,7 +2383,7 @@ if (!$koneksi) {
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Beranda</span></a>
+                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Dashboard</span></a>
             </li>
             <li class="navbar__item">
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
@@ -2371,8 +2395,7 @@ if (!$koneksi) {
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2395,7 +2418,7 @@ if (!$koneksi) {
         <form method="GET">
             <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user"
                 autocomplete="off">
-            <button type="submit">
+            <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
         </form>
@@ -2445,8 +2468,8 @@ if (!$koneksi) {
                                 <?php echo $userjabatan; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i> Hapus</a>
                             </td>
                         </tr>
                     </tbody>
