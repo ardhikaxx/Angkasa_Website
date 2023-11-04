@@ -15,6 +15,28 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
         .navbar {
             position: fixed;
             top: 0;
@@ -843,6 +865,15 @@
             margin-bottom: 30px;
         }
 
+        .layout-2R {
+            text-align: center;
+        }
+
+        .layout-4R {
+            margin-top: 50px;
+            text-align: center;
+        }
+
         .price-container {
             display: flex;
             flex-wrap: wrap;
@@ -1094,6 +1125,12 @@
     </div>
 
     <div class="content-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
+        <div class="layout-2R">
+            <h1>Strip 2R (5 cm x 15 cm)</h1>
+        </div>
+        <div class="layout-4R">
+            <h1>Photo 4R (10cm x 15 cm)</h1>
+        </div>
     </div>
 
     <div class="price-list" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">

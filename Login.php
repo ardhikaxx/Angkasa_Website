@@ -19,7 +19,6 @@ if (isset($_POST['submit'])) {
             $jabatan = $userRow['jabatan'];
             session_start();
             if ($jabatan === 'admin') {
-                // Pengguna dengan jabatan admin diarahkan ke dashboard admin
                 $_SESSION['user'] = $userRow['nama_lengkap'];
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
                 header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
@@ -743,6 +742,7 @@ if (isset($_POST['submit'])) {
             transform: translate(-50%, -50%) scale(0.2);
             background: #000;
             color: #fff;
+            font-family: "Poppins", sans-serif;
             text-align: center;
             padding: 15px 20px;
             border-radius: 50px;

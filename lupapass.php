@@ -163,9 +163,9 @@
         }
 
         .modal-content {
-            background-color: #000;
+            background-color: #EBECF0;
             position: fixed;
-            color: #fff;
+            color: #000;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);

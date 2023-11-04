@@ -13,6 +13,28 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
         .navbar {
             position: fixed;
             top: 0;
@@ -581,7 +603,7 @@
 </head>
 
 <body>
-<div class="navbar">
+    <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
             <li><a href="dashboard.php">Home</a></li>
@@ -599,7 +621,7 @@
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
-    
+
     <div class="pack">
         <div class="pack-title">
             <h1>Pemesanan Didaerah Jember</h1>

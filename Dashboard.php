@@ -14,6 +14,28 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 30px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
+        }
+
         link[rel="icon"] {
             width: 50px;
             height: 50px;
@@ -403,10 +425,6 @@
             border-radius: 20px;
             background: #000;
             transition: 0.4s;
-        }
-
-        .card:hover {
-            translate: 0 -10px;
         }
 
         .card-title {
