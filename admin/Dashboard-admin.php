@@ -1,4 +1,5 @@
 <?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -2351,6 +2352,28 @@ if (isset($_GET['successMessage'])) {
 
     <div class="content">
         <div class="dashboard-container">
+            <?php
+            // Hitung jumlah karyawan
+            $queryKaryawan = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'karyawan'";
+            $resultKaryawan = mysqli_query($koneksi, $queryKaryawan);
+
+            if ($resultKaryawan) {
+            $rowKaryawan = mysqli_fetch_assoc($resultKaryawan);
+            $totalKaryawan = $rowKaryawan['total_karyawan'];
+            } else {
+            $totalKaryawan = 0;
+            }
+             // Hitung jumlah admin
+             $queryadmin = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'admin'";
+             $resultadmin = mysqli_query($koneksi, $queryadmin);
+ 
+             if ($resultadmin) {
+             $rowadmin = mysqli_fetch_assoc($resultadmin);
+             $totaladmin = $rowadmin['total_karyawan'];
+             } else {
+             $totaladmin = 0;
+             }
+            ?>
             <h1>Hi,
                 <?php echo $namaLengkap; ?>!
             </h1>
@@ -2359,12 +2382,12 @@ if (isset($_GET['successMessage'])) {
                 <div class="karyawan-count">
                     <i class="fas fa-user"></i>
                     <h3>Karyawan</h3>
-                    <span>0</span>
+                    <span><?php echo $totalKaryawan?></span>
                 </div>
                 <div class="admin-count">
                     <i class="fas fa-user-shield"></i>
                     <h3>Admin</h3>
-                    <span>0</span>
+                    <span><?php echo $totaladmin?></span>
                 </div>
                 <div class="pemesanan-count">
                     <i class="fas fa-camera"></i>
