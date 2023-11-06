@@ -2373,6 +2373,15 @@ if (isset($_GET['successMessage'])) {
              } else {
              $totaladmin = 0;
              }
+             //Menampilkan tanggal pemesanan
+            $query = "SELECT tanggal_acara FROM pemesanan"; 
+            $result = mysqli_query($koneksi, $query);
+
+            $event_dates = array();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+            $event_dates[] = $row['tanggal_acara'];
+            }
             ?>
             <h1>Hi,
                 <?php echo $namaLengkap; ?>!
