@@ -2052,8 +2052,8 @@ if (isset($_GET['successMessage'])) {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             margin-top: 20px;
             background-color: #000;
             color: #fff;
@@ -2064,14 +2064,14 @@ if (isset($_GET['successMessage'])) {
         .karyawan-count i,
         .admin-count i,
         .pemesanan-count i {
-            font-size: 20px;
+            font-size: 15px;
             margin: 10px;
         }
 
         .karyawan-count h3,
         .admin-count h3,
         .pemesanan-count h3 {
-            font-size: 20px;
+            font-size: 15px;
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -2089,131 +2089,10 @@ if (isset($_GET['successMessage'])) {
             margin: 10px;
         }
 
-
-        .kalender-pemesanan {
-            width: 300px;
-            height: 350px;
-            margin-top: 20px;
-            color: #fff;
-            font-family: "Poppins", sans-serif;
-        }
-
-        button {
-            font: inherit;
-            cursor: pointer;
-
-            &:focus {
-                outline: 0;
-            }
-        }
-
-        .datepicker {
-            width: 95%;
-            max-width: 350px;
-            height: auto;
-            background-color: #000;
-            border-radius: 10px;
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-            padding: 1rem;
-        }
-
-        .datepicker-top {
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-            border: 0;
-            background-color: #EAEBEC;
-            border-radius: 10px;
-            padding: 0.5em 0.75em;
-            font-weight: 600;
-        }
-
-        .month-selector {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            background-color: #fff;
-            color: #000;
-            border-radius: 12px;
-            width: 2.5rem;
-            height: 2.5rem;
-            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25), 0 0 10px 0 rgba(0, 0, 0, 0.15);
-        }
-
-        .month-name {
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .datepicker-calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-row-gap: 1rem;
-            color: #fff;
-        }
-
-        .day,
-        .date {
-            justify-self: center;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .day span {
-            color: #fff;
-            font-size: 0.875em;
-            font-weight: 500;
-            justify-self: center;
-        }
-
-        .date {
-            border: 0;
-            padding: 0;
-            width: 2.25rem;
-            height: 2.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            font-weight: 600;
-            border: 2px solid transparent;
-            background-color: transparent;
-            cursor: pointer;
-
-            &:focus {
-                outline: 0;
-                color: #fff;
-                border-color: #fff;
-            }
-        }
-
-        .faded {
-            color: #999FA6;
-        }
-
-        .current-day {
-            color: #000;
-            border-color: #fff;
-            background-color: #fff;
-
-            &:focus {
-                background-color: #000;
-            }
-        }
-
-        .tabel-detail {
-            width: 440px;
-            margin-top: -180px;
+        .grafik-pemesanan {
+            width: 330px;
+            height: 205px;
+            margin-top: -235px;
             border-radius: 15px;
             background-color: #000;
             color: #fff;
@@ -2224,9 +2103,24 @@ if (isset($_GET['successMessage'])) {
             font-family: "Poppins", sans-serif;
         }
 
+        .tabel-detail {
+            width: 400px;
+            height: 350px;
+            margin-top: 20px;
+            background-color: #000;
+            border-radius: 15px;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+        }
+
         .tabel-container {
-            max-height: 150px; /* Atur tinggi maksimum sesuai kebutuhan */
-            overflow-y: auto; 
+            max-height: 150px;
+            overflow-y: auto;
         }
 
         .tabel-container table {
@@ -2451,56 +2345,43 @@ if (isset($_GET['successMessage'])) {
                     <h3>Pemesanan</h3>
                     <span>0</span>
                 </div>
-                <div class="kalender-pemesanan">
-                    <div class="datepicker">
-                        <div class="datepicker-top">
-                            <div class="month-selector">
-                                <button class="arrow" id="prevMonth"><i class="material-icons">chevron_left</i></button>
-                                <span class="month-name" id="currentMonth"></span>
-                                <button class="arrow" id="nextMonth"><i
-                                        class="material-icons">chevron_right</i></button>
-                            </div>
-                        </div>
-                        <div class="datepicker-calendar">
-                            <span class="day">Mo</span>
-                            <span class="day">Tu</span>
-                            <span class="day">We</span>
-                            <span class="day">Th</span>
-                            <span class="day">Fr</span>
-                            <span class="day">Sa</span>
-                            <span class="day">Su</span>
-                        </div>
+                <div class="tabel-detail">
+                    <h3>Tabel Pemesanan Bulan ini</h3>
+                    <div class="tabel-container">
+                        <table>
+                            <?php
+                            $query = "SELECT id_pemesanan,nama_customer,tanggal_acara FROM pemesanan";
+                            $result = mysqli_query($koneksi, $query);
+                            $no = 1;
+                            while ($row = mysqli_fetch_array($result)) {
+                                $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                                $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+                                $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                            }
+                            ?>
+                            <thead>
+                                <tr>
+                                    <th id="customer">Nama Customer</th>
+                                    <th id="tgl-acara">Tanggal Acara</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <?php echo $namacustomer ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $tanggalacara ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="tabel-detail">
-                <h3>Tabel Pemesanan Bulan ini</h3>
-                <div class="tabel-container">
-                    <table>
-                        <?php
-                        $query="SELECT id_pemesanan,nama_customer,tanggal_acara FROM pemesanan";
-                        $result=mysqli_query($koneksi, $query);
-                        $no=1;
-                        while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                            $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-                            $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-                        }
-                        ?>
-                        <thead>
-                            <tr>
-                                <th id="customer">Nama Customer</th>
-                                <th id="tgl-acara">Tanggal Acara</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?php echo $namacustomer?></td>
-                                <td><?php echo $tanggalacara?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="grafik-pemesanan">
+                <h3>Grafik Package</h3>
+                <canvas id="myBarChart"></canvas>
             </div>
         </div>
     </div>
@@ -2560,80 +2441,44 @@ if (isset($_GET['successMessage'])) {
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
-        function populateCalendar(year, month) {
-            const calendar = document.querySelector('.datepicker-calendar');
-            calendar.innerHTML = ''; // Kosongkan kalender sebelum mengisi tanggal baru
+        const packageData = <?php echo $packageDataJSON; ?>;
 
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const firstDay = new Date(year, month, 1).getDay();
-            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const ctx = document.getElementById("myBarChart").getContext("2d");
 
-            weekdays.forEach(day => {
-                const dayElement = document.createElement('span');
-                dayElement.className = 'day';
-                dayElement.textContent = day;
-                calendar.appendChild(dayElement);
-            });
-
-            for (let i = 0; i < firstDay; i++) {
-                const emptyDate = document.createElement('button');
-                emptyDate.className = 'date faded';
-                calendar.appendChild(emptyDate);
-            }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateButton = document.createElement('button');
-                dateButton.className = 'date';
-                dateButton.textContent = day;
-
-                if (year === currentYear && month === currentMonth && day === currentDate.getDate()) {
-                    dateButton.classList.add('current-day');
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: packageData.labels,
+                datasets: [
+                    {
+                        label: "Jumlah Pesanan",
+                        data: packageData.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
-
-                if (year < currentYear || (year === currentYear && month < currentMonth) || (year === currentYear && month === currentMonth && day < currentDate.getDate())) {
-                    dateButton.classList.add('faded');
-                }
-
-                calendar.appendChild(dateButton);
             }
-        }
-
-        function displayMonthName(year, month) {
-            const months = [
-                'January', 'February', 'March', 'April',
-                'May', 'June', 'July', 'August', 'September',
-                'October', 'November', 'December'
-            ];
-            const currentMonth = document.getElementById('currentMonth');
-            currentMonth.textContent = months[month] + ' ' + year;
-        }
-
-        const currentDate = new Date();
-        let currentYear = currentDate.getFullYear();
-        let currentMonth = currentDate.getMonth();
-
-        populateCalendar(currentYear, currentMonth);
-        displayMonthName(currentYear, currentMonth);
-
-        document.getElementById('prevMonth').addEventListener('click', () => {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            populateCalendar(currentYear, currentMonth);
-            displayMonthName(currentYear, currentMonth);
-        });
-
-        document.getElementById('nextMonth').addEventListener('click', () => {
-            currentMonth++;
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-            populateCalendar(currentYear, currentMonth);
-            displayMonthName(currentYear, currentMonth);
         });
     </script>
 
