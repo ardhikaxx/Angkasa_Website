@@ -2439,8 +2439,6 @@ if (!$koneksi) {
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, );
                 } else {
-                    $query = "SELECT user.id_user, user.nama_lengkap, user.email, user.no_hp, jabatan.jabatan 
-                    FROM user INNER JOIN jabatan ON user.id_jab = jabatan.id_jab where user.id_user";
                     $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
