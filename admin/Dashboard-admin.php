@@ -2005,6 +2005,7 @@ if (isset($_GET['successMessage'])) {
 
         .content {
             width: 900px;
+            height: 515px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -2012,7 +2013,7 @@ if (isset($_GET['successMessage'])) {
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
-            margin-top: 40px;
+            margin: 20px;
             margin-left: 200px;
         }
 
@@ -2210,20 +2211,62 @@ if (isset($_GET['successMessage'])) {
             }
         }
 
-        .sponsor-detail {
-            width: 480px;
-            height: 195px;
+        .tabel-detail {
+            width: 440px;
             margin-top: -180px;
             border-radius: 15px;
             background-color: #000;
-        }
-
-        .sponsor-detail h3 {
             color: #fff;
             text-align: center;
             padding: 15px 20px;
             font-size: 20px;
             font-weight: bold;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .tabel-container {
+            max-height: 150px; /* Atur tinggi maksimum sesuai kebutuhan */
+            overflow-y: auto; 
+        }
+
+        .tabel-container table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        .tabel-container th,
+        .tabel-container td {
+            border-bottom: 1px solid #fff;
+            padding: 8px;
+        }
+
+        .tabel-container td {
+            font-size: 15px;
+        }
+
+        .tabel-container th {
+            background-color: #fff;
+            color: #000;
+            font-size: 20px;
+            position: sticky;
+            top: 0px;
+        }
+
+        .tabel-container #customer {
+            background-color: #fff;
+            color: #000;
+            border-top-left-radius: 10px;
+        }
+
+        .tabel-container #tgl-acara {
+            background-color: #fff;
+            color: #000;
+            border-top-right-radius: 10px;
+        }
+
+        .tabel-container tr {
+            background-color: transparent;
         }
 
         .modal {
@@ -2330,7 +2373,8 @@ if (isset($_GET['successMessage'])) {
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2358,29 +2402,29 @@ if (isset($_GET['successMessage'])) {
             $resultKaryawan = mysqli_query($koneksi, $queryKaryawan);
 
             if ($resultKaryawan) {
-            $rowKaryawan = mysqli_fetch_assoc($resultKaryawan);
-            $totalKaryawan = $rowKaryawan['total_karyawan'];
+                $rowKaryawan = mysqli_fetch_assoc($resultKaryawan);
+                $totalKaryawan = $rowKaryawan['total_karyawan'];
             } else {
-            $totalKaryawan = 0;
+                $totalKaryawan = 0;
             }
-             // Hitung jumlah admin
-             $queryadmin = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'admin'";
-             $resultadmin = mysqli_query($koneksi, $queryadmin);
- 
-             if ($resultadmin) {
-             $rowadmin = mysqli_fetch_assoc($resultadmin);
-             $totaladmin = $rowadmin['total_karyawan'];
-             } else {
-             $totaladmin = 0;
-             }
-             //Menampilkan tanggal pemesanan
-            $query = "SELECT tanggal_acara FROM pemesanan"; 
+            // Hitung jumlah admin
+            $queryadmin = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'admin'";
+            $resultadmin = mysqli_query($koneksi, $queryadmin);
+
+            if ($resultadmin) {
+                $rowadmin = mysqli_fetch_assoc($resultadmin);
+                $totaladmin = $rowadmin['total_karyawan'];
+            } else {
+                $totaladmin = 0;
+            }
+            //Menampilkan tanggal pemesanan
+            $query = "SELECT tanggal_acara FROM pemesanan";
             $result = mysqli_query($koneksi, $query);
 
             $event_dates = array();
 
             while ($row = mysqli_fetch_assoc($result)) {
-            $event_dates[] = $row['tanggal_acara'];
+                $event_dates[] = $row['tanggal_acara'];
             }
             ?>
             <h1>Hi,
@@ -2391,12 +2435,16 @@ if (isset($_GET['successMessage'])) {
                 <div class="karyawan-count">
                     <i class="fas fa-user"></i>
                     <h3>Karyawan</h3>
-                    <span><?php echo $totalKaryawan?></span>
+                    <span>
+                        <?php echo $totalKaryawan ?>
+                    </span>
                 </div>
                 <div class="admin-count">
                     <i class="fas fa-user-shield"></i>
                     <h3>Admin</h3>
-                    <span><?php echo $totaladmin?></span>
+                    <span>
+                        <?php echo $totaladmin ?>
+                    </span>
                 </div>
                 <div class="pemesanan-count">
                     <i class="fas fa-camera"></i>
@@ -2425,8 +2473,24 @@ if (isset($_GET['successMessage'])) {
                     </div>
                 </div>
             </div>
-            <div class="sponsor-detail">
-                <h3>Detail</h3>
+            <div class="tabel-detail">
+                <h3>Tabel Detail</h3>
+                <div class="tabel-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="customer">Nama Customer</th>
+                                <th id="tgl-acara">Tanggal Acara</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nama Customer 1</td>
+                                <td>Tanggal Acara 1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
