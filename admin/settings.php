@@ -1,9 +1,13 @@
 <?php
-require('../koneksi.php');
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'angkasa';
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: /Angkasa_Website/login.php");
+    exit;
+}
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
 
 function cari_nama($koneksi, $nama_cari)
 {
@@ -43,11 +47,6 @@ function cari_nama($koneksi, $nama_cari)
         <?php
         $no++;
     }
-}
-$koneksi = mysqli_connect($host, $username, $password, $database);
-
-if (!$koneksi) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
 }
 ?>
 <!DOCTYPE html>
