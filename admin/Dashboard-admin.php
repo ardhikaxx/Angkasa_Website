@@ -1910,16 +1910,19 @@ if (isset($_GET['successMessage'])) {
                     <h3>Tabel Pemesanan Bulan ini</h3>
                     <div class="tabel-container">
                         <table>
-                            <?php
-                            $query = "SELECT id_pemesanan,nama_customer,tanggal_acara FROM pemesanan";
-                            $result = mysqli_query($koneksi, $query);
-                            $no = 1;
-                            while ($row = mysqli_fetch_array($result)) {
-                                $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                                $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-                                $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-                            }
-                            ?>
+                        <?php
+                        $query = "SELECT id_pemesanan, nama_customer, tanggal_acara FROM pemesanan";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                        $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                        echo "<tr>";
+                        echo "<td>" . $namacustomer . "</td>";
+                        echo "<td>" . $tanggalacara . "</td>";
+                        echo "</tr>";
+                        }
+                        ?>
                             <thead>
                                 <tr>
                                     <th id="customer">Nama Customer</th>
@@ -1927,14 +1930,6 @@ if (isset($_GET['successMessage'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <?php echo $namacustomer ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $tanggalacara ?>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
