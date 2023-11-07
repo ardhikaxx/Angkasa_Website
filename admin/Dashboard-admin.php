@@ -1872,15 +1872,17 @@ if (isset($_GET['successMessage'])) {
             } else {
                 $totaladmin = 0;
             }
-            //Menampilkan tanggal pemesanan
-            $query = "SELECT tanggal_acara FROM pemesanan";
-            $result = mysqli_query($koneksi, $query);
+            // Hitung jumlah pemesanan
+            $querypemesanan = "SELECT COUNT(*) as total_pemesanan from pemesanan where id_pemesanan";
+            $resultpemesanan = mysqli_query($koneksi, $querypemesanan);
 
-            $event_dates = array();
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                $event_dates[] = $row['tanggal_acara'];
+            if ($resultpemesanan) {
+                $rowpemesanan = mysqli_fetch_assoc($resultpemesanan);
+                $totalpemesanan = $rowpemesanan['total_pemesanan'];
+            } else {
+                $totalpemesanan = 0;
             }
+            
             ?>
             <h1>Hi,
                 <?php echo $namaLengkap; ?>!
@@ -1904,7 +1906,9 @@ if (isset($_GET['successMessage'])) {
                 <div class="pemesanan-count">
                     <i class="fas fa-camera"></i>
                     <h3>Pemesanan</h3>
-                    <span>0</span>
+                    <span>
+                        <?php echo $totalpemesanan?>
+                    </span>
                 </div>
                 <div class="tabel-detail">
                     <h3>Tabel Pemesanan Bulan ini</h3>
