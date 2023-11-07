@@ -1942,6 +1942,21 @@ if (isset($_GET['successMessage'])) {
             </div>
             <div class="grafik-pemesanan">
                 <h3>Grafik Package</h3>
+                <?php
+                $query ="SELECT nama_package, COUNT(pemesanan.id_package) AS jumlah_pemesanan FROM package
+                LEFT JOIN pemesanan ON package.id_package = pemesanan.id_package
+                GROUP BY package.id_package";
+      
+                $result = $koneksi->query($query);
+      
+                $packageData = array();
+                while ($row = $result->fetch_assoc()) {
+                $packageData["labels"][] = $row["nama_package"];
+                $packageData["data"][] = $row["jumlah_pemesanan"];
+                }
+      
+                $packageDataJSON = json_encode($packageData);
+                ?>
                 <canvas id="myBarChart"></canvas>
             </div>
         </div>
@@ -1966,13 +1981,13 @@ if (isset($_GET['successMessage'])) {
                         label: "Jumlah Pesanan",
                         data: packageData.data,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)'
+                            'rgba(199, 20, 26, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
+                            'rgba(199, 20, 26, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
                             'rgba(75, 192, 192, 1)'
