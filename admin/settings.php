@@ -1597,7 +1597,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .content-settings {
-            width: 900px;
+            width: 950px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1642,25 +1642,25 @@ function cari_nama($koneksi, $nama_cari)
             background-color: #007bff;
             color: #fff;
             border-radius: 10px;
-            padding: 6px 11px;
+            padding: 5px 10px;
             margin-right: 10px;
             text-decoration: none;
         }
 
         .btn-edit i {
-            font-size: 13px;
+            font-size: 15px;
         }
 
         .btn-delete {
             background-color: #dc3545;
             color: #fff;
             border-radius: 10px;
-            padding: 6px 11px;
+            padding: 5px 10px;
             text-decoration: none;
         }
 
         .btn-delete i {
-            font-size: 13px;
+            font-size: 15px;
         }
 
         .btn-edit:hover,
@@ -2026,8 +2026,8 @@ function cari_nama($koneksi, $nama_cari)
                                 <?php echo $userjabatan; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i> Edit</a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i> Hapus</a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     </tbody>

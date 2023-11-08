@@ -45,6 +45,7 @@ if (isset($_GET['successMessage'])) {
 
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
+            border-radius: 50px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -1565,7 +1566,7 @@ if (isset($_GET['successMessage'])) {
         }
 
         .content {
-            width: 900px;
+            width: 950px;
             height: 515px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
@@ -1581,7 +1582,7 @@ if (isset($_GET['successMessage'])) {
         .dashboard-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
         }
 
@@ -1651,22 +1652,27 @@ if (isset($_GET['successMessage'])) {
         }
 
         .grafik-pemesanan {
-            width: 330px;
-            height: 205px;
-            margin-top: -235px;
+            width: 340px;
+            height: 230px;
+            margin-top: -260px;
             border-radius: 15px;
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 15px 20px;
+            padding: 15px;
             font-size: 20px;
             font-weight: bold;
             font-family: "Poppins", sans-serif;
         }
 
+        .grafik-pemesanan h3 {
+            font-weight: 800;
+            margin: 10px 10px;
+        }
+
         .tabel-detail {
             width: 400px;
-            height: 350px;
+            height: 370px;
             margin-top: 20px;
             background-color: #000;
             border-radius: 15px;
@@ -1680,7 +1686,8 @@ if (isset($_GET['successMessage'])) {
         }
 
         .tabel-container {
-            max-height: 150px;
+            margin-top: 20px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
@@ -1852,7 +1859,6 @@ if (isset($_GET['successMessage'])) {
     <div class="content">
         <div class="dashboard-container">
             <?php
-            // Hitung jumlah karyawan
             $queryKaryawan = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'karyawan'";
             $resultKaryawan = mysqli_query($koneksi, $queryKaryawan);
 
@@ -1872,7 +1878,7 @@ if (isset($_GET['successMessage'])) {
             } else {
                 $totaladmin = 0;
             }
-            // Hitung jumlah pemesanan
+
             $querypemesanan = "SELECT COUNT(*) as total_pemesanan from pemesanan where id_pemesanan";
             $resultpemesanan = mysqli_query($koneksi, $querypemesanan);
 
@@ -1882,7 +1888,7 @@ if (isset($_GET['successMessage'])) {
             } else {
                 $totalpemesanan = 0;
             }
-            
+
             ?>
             <h1>Hi,
                 <?php echo $namaLengkap; ?>!
@@ -1907,26 +1913,22 @@ if (isset($_GET['successMessage'])) {
                     <i class="fas fa-camera"></i>
                     <h3>Pemesanan</h3>
                     <span>
-                        <?php echo $totalpemesanan?>
+                        <?php
+                        $tanggalSekarang = date('Y-m-d');
+
+                        $query = "SELECT COUNT(*) as total FROM pemesanan WHERE YEAR(tanggal_acara) = YEAR('$tanggalSekarang') AND MONTH(tanggal_acara) = MONTH('$tanggalSekarang')";
+                        $result = mysqli_query($koneksi, $query);
+                        $row = mysqli_fetch_assoc($result);
+                        $totalpemesanan = isset($row['total']) ? $row['total'] : 0;
+
+                        echo $totalpemesanan;
+                        ?>
                     </span>
                 </div>
                 <div class="tabel-detail">
                     <h3>Tabel Pemesanan Bulan ini</h3>
                     <div class="tabel-container">
                         <table>
-                        <?php
-                        $query = "SELECT id_pemesanan, nama_customer, tanggal_acara FROM pemesanan";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                        $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-                        echo "<tr>";
-                        echo "<td>" . $namacustomer . "</td>";
-                        echo "<td>" . $tanggalacara . "</td>";
-                        echo "</tr>";
-                        }
-                        ?>
                             <thead>
                                 <tr>
                                     <th id="customer">Nama Customer</th>
@@ -1934,26 +1936,43 @@ if (isset($_GET['successMessage'])) {
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $tanggalSekarang = date('Y-m-d');
+
+                                $query = "SELECT id_pemesanan, nama_customer, tanggal_acara FROM pemesanan WHERE YEAR(tanggal_acara) = YEAR('$tanggalSekarang') AND MONTH(tanggal_acara) = MONTH('$tanggalSekarang')";
+                                $result = mysqli_query($koneksi, $query);
+
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+                                    $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+
+                                    echo "<tr>";
+                                    echo "<td>" . $namacustomer . "</td>";
+                                    echo "<td>" . $tanggalacara . "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
             <div class="grafik-pemesanan">
                 <h3>Grafik Package</h3>
                 <?php
-                $query ="SELECT nama_package, COUNT(pemesanan.id_package) AS jumlah_pemesanan FROM package
+                $query = "SELECT nama_package, COUNT(pemesanan.id_package) AS jumlah_pemesanan FROM package
                 LEFT JOIN pemesanan ON package.id_package = pemesanan.id_package
                 GROUP BY package.id_package";
-      
+
                 $result = $koneksi->query($query);
-      
+
                 $packageData = array();
                 while ($row = $result->fetch_assoc()) {
-                $packageData["labels"][] = $row["nama_package"];
-                $packageData["data"][] = $row["jumlah_pemesanan"];
+                    $packageData["labels"][] = $row["nama_package"];
+                    $packageData["data"][] = $row["jumlah_pemesanan"];
                 }
-      
+
                 $packageDataJSON = json_encode($packageData);
                 ?>
                 <canvas id="myBarChart"></canvas>
@@ -1971,32 +1990,44 @@ if (isset($_GET['successMessage'])) {
 
         const ctx = document.getElementById("myBarChart").getContext("2d");
 
+        const labels = packageData.labels.map(label => {
+            const words = label.split(' ');
+            return words.join('\n');
+        });
+
         new Chart(ctx, {
             type: "bar",
             data: {
-                labels: packageData.labels,
+                labels: packageData.labels.map(label => label.split(' ')),
                 datasets: [
                     {
                         label: "Jumlah Pesanan",
                         data: packageData.data,
                         backgroundColor: [
-                            'rgba(199, 20, 26, 1)',
+                            'rgba(224, 31, 38, 1)',
                             'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)'
+                            'rgba(255, 248, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
                         ],
                         borderColor: [
-                            'rgba(199, 20, 26, 1)',
+                            'rgba(224, 31, 38, 1)',
                             'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)'
+                            'rgba(255, 248, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        barPercentage: 0.6
                     }
                 ]
             },
             options: {
                 scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            maxRotation: 0,
+                        }
+                    },
                     y: {
                         beginAtZero: true
                     }

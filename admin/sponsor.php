@@ -1620,7 +1620,7 @@ if (!$koneksi) {
         }
 
         .tabel-sponsor {
-            width: 900px;
+            width: 950px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
