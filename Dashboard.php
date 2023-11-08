@@ -197,7 +197,7 @@
 
         .mouse-btn {
             margin: 10px auto;
-            width: 20px;
+            width: 17px;
             height: 40px;
             border: 3px solid #000;
             border-radius: 20px;
@@ -452,25 +452,26 @@
         }
 
         .btn {
-            background: linear-gradient(to right, #000022, #0C0055, #1A0088, #2800BB, #3600EE, #4500FF);
+            background: #fff;
             font-family: "Poppins", sans-serif;
-            color: #fff;
+            color: #000;
+            font-weight: 600;
             text-decoration: none;
             padding: 8px 16px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             display: inline-block;
             font-size: 1rem;
             margin: 15px 0 10px 10px;
             cursor: pointer;
-            transition: background 0.4s, transform 0.2s, box-shadow 0.4s, color 0.4s;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.4s, color 0.4s;
         }
 
         .btn:hover {
-            background: linear-gradient(to bottom, #3600EE, #4500FF, #3600EE);
+            background: #000;
             color: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
         }
 
         .gallery-pack {
@@ -801,38 +802,36 @@
             }
         }
 
-        .promo {
-            width: 100%;
-            text-align: center;
-            height: auto;
-            background-color: transparent;
+        .content {
+            width: 650px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 150px;
-        }
-
-        .promo-title p {
-            margin-top: 5px;
-            font-family: "Poppins", sans-serif;
-        }
-
-        .promo-title h1 {
-            margin-bottom: 5px;
-            font-family: "Poppins", sans-serif;
-            font-weight: bold;
-        }
-
-        .content {
-            width: 650px;
             margin: 0 auto;
+            margin-top: 50px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             font-family: "Poppins", sans-serif;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            margin-top: 10px;
+            margin-top: 150px;
+        }
+
+        .promo-title {
+            margin-bottom: 5px;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            color: #FF0000;
+        }
+
+        .content-promo p {
+            margin-top: 5px;
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .content-promo span {
@@ -893,10 +892,10 @@
             <div class="contohfoto">
                 <div class="contohfoto-inner">
                     <div class="contohfoto-front">
-                        <img src="assets/Gallery/foto1.jpg" alt="foto depan">
+                        <img src="assets/Gallery/img28.gif" alt="foto depan">
                     </div>
                     <div class="contohfoto-back">
-                        <img src="assets/Gallery/foto2.jpg" alt="foto belakang">
+                        <img src="assets/Gallery/img7.gif" alt="foto belakang">
                     </div>
                 </div>
             </div>
@@ -936,15 +935,10 @@
         </div>
     </div>
 
-    <div class="promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-        <div class="promo-title">
-            <h1>Promo Bulan Ini</h1>
-            <p>Jangan sampai ketinggalan promonya!</p>
-        </div>
-    </div>
-
     <div class="content" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
         <div class="content-promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
+            <h1 class="promo-title" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">Promo Bulan Ini🥳🎉</h1>
+            <p>Jangan sampai ketinggalan promonya!</p>
             <span id="bulan"></span>
             <h2>Unlimit 3 Hour 360 & 3 Hour Photobooth</h2>
             <h1>Rp 1.800.000</h1>
@@ -960,13 +954,13 @@
 
     <div id="gallery">
         <div class="gallery-photo" data-aos="fade-down-right" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto1.jpg" />
+            <img src="assets/Gallery/img16.gif" />
         </div>
         <div class="gallery-photo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto2.jpg" />
+            <img src="assets/Gallery/img23.gif" />
         </div>
         <div class="gallery-photo" data-aos="fade-down-left" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/foto3.jpg" />
+            <img src="assets/Gallery/img18.gif" />
         </div>
     </div>
 

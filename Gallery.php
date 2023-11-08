@@ -233,14 +233,34 @@
     <div class="photo-gallery">
         <div class="container mt-5">
             <div class="row photos" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto1.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto1.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto2.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto2.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto3.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto3.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto4.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto4.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto5.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto5.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto6.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto6.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto7.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto7.jpg"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/foto8.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/foto8.jpg"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img1.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img1.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img2.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img2.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img3.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img3.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img4.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img4.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img5.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img5.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img6.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img6.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img7.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img7.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img8.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img8.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img9.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img9.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img10.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img10.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img11.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img11.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img12.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img12.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img13.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img13.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img14.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img14.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img15.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img15.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img16.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img16.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img17.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img17.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img18.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img18.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img19.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img19.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img20.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img20.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img21.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img21.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img22.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img22.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img23.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img23.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img24.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img24.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img25.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img25.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img26.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img26.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img27.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img27.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img28.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img28.gif"></a></div>
             </div>
         </div>
     </div>

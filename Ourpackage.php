@@ -147,7 +147,7 @@
 
         .mouse-btn {
             margin: 10px auto;
-            width: 20px;
+            width: 17px;
             height: 40px;
             border: 3px solid #000;
             border-radius: 20px;
