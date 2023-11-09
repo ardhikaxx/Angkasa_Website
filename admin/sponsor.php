@@ -8,6 +8,37 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
+function cari_nama($koneksi, $nama_cari)
+{
+    $query = "SELECT * FROM pemesanan WHERE nama_customer LIKE '%$nama_cari%'";
+    $result = mysqli_query($koneksi, $query);
+
+    $no = 1;
+
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
+        // $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        ?>
+        <tr>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $namalengkapcustomer; ?>
+            </td>
+            <td>
+                <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                    <a href="#" class="btn-download" data-id="<?php echo $id; ?>"><i class="fa fa-download"></i> Download</a>
+                </td>
+        </tr>
+        <?php
+        $no++;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -1764,23 +1795,42 @@ if (!$koneksi) {
                 </tr>
             </thead>
             <tbody class="tabel-akun">
+            <?php
+                if (isset($_GET['search'])) {
+                    $searchquery = $_GET['search'];
+                    cari_nama($koneksi, $searchquery, );
+                } else {
+                    $query = "SELECT id_pemesanan, nama_customer, no_customer, alamat_acara FROM pemesanan";
+                    $result = mysqli_query($koneksi, $query);
+                    $no = 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+                        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
+                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        ?>
                 <td>
-                    no
+                    <?php echo $no;?>
                 </td>
                 <td>
-                    nama lengkap
+                    <?php echo $namalengkapcustomer;?>
                 </td>
                 <td>
-                    no hp
+                    <?php echo $teleponcustomer;?>
                 </td>
                 <td>
-                    proposal
+                    <?php echo $alamatacara;?>
                 </td>
                 <td>
                     <a href="#" class="btn-download"><i class="fa fa-download"></i> Download</a>
                 </td>
                 </tr>
             </tbody>
+            <?php
+                    $no++;
+                    }
+                    }
+                    ?>
         </table>
     </div>
 
