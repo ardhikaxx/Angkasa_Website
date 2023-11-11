@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
             $userRow = mysqli_fetch_assoc($result);
             $jabatan = $userRow['jabatan'];
             session_start();
-            if ($jabatan === 'admin') {
+            if ($jabatan === 'Admin') {
                 $_SESSION['user'] = $userRow['nama_lengkap'];
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
                 header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);

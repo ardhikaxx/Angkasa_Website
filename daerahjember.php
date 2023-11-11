@@ -1,3 +1,87 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
+}
+
+if (isset($_POST['submit'])) {
+
+    $namacustomer = isset($_POST['txt_nama']) ? $_POST['txt_nama'] : '';
+    $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
+    $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
+    $tanggalacara = isset($_POST['txt_date']) ? $_POST['txt_date'] : '';
+    $pilihanpackage = isset($_POST['txt_package']) ? $_POST['txt_package'] : '';
+    $pilihpaketlayout = isset($_POST['paket-layout']) ? $_POST['paket-layout'] : '';
+    $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
+    $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
+    $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
+    $buktipembayaran = isset($_POST['proof']) ? $_POST['proof'] : '';
+
+    foreach($pilihpaketlayout as $key => $value) {
+        var_dump($quota[$value]);
+        var_dump($unlimited[$value]);
+    }
+
+
+    // // Query untuk menyisipkan data ke tabel layout
+    // $query_layout = "SELECT id_layout FROM layout WHERE nama_layout = '$pilihpaketlayout'";
+    // $result_layout = mysqli_query($koneksi, $query_layout);
+    // $layout_data = mysqli_fetch_assoc($result_layout);
+    // $layout_id = $layout_data['id_layout'];
+
+    // // Query untuk menyisipkan data ke tabel quota
+    // $query_quota = "SELECT id_quota FROM quota WHERE nama_quota = '$quota'";
+    // $result_quota = mysqli_query($koneksi, $query_quota);
+    // $quota_data = mysqli_fetch_assoc($result_quota);
+    // $quota_id = $quota_data['id_quota'];
+
+    // // Query untuk menyisipkan data ke tabel unlimited
+    // $query_unlimited = "SELECT id_unlimited FROM unlimited WHERE nama_unlimited = '$unlimited'";
+    // $result_unlimited = mysqli_query($koneksi, $query_unlimited);
+    // $unlimited_data = mysqli_fetch_assoc($result_unlimited);
+    // $unlimited_id = $unlimited_data['id_unlimited'];
+
+    // Query untuk menyisipkan data ke tabel customer
+    $query_customer = "INSERT INTO customer (id, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+    $result_customer = mysqli_query($koneksi, $query_customer);
+    if($result_customer){
+             // Ambil ID pemesanan yang baru saja diinsert
+             $last_inserted_customer_id = mysqli_insert_id($koneksi);
+
+                 // Query untuk menyisipkan data ke tabel pemesanan
+    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$buktipembayaran')";
+    $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+
+    // Jika query untuk pemesanan berhasil
+    if ($result_pemesanan) {
+        // Ambil ID pemesanan yang baru saja diinsert
+        $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
+        foreach($pilihpaketlayout as $key => $value) {
+            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
+        $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+
+        }
+        // Query untuk menyisipkan data ke tabel detail_pemesanan
+        
+        // Jika semua query berhasil, commit transaksi
+        if ($result_detail_pemesanan) {
+            $koneksi->commit();
+            header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+            exit();
+        } else {
+            // Jika ada query yang gagal, rollback transaksi
+            $conn->rollback();
+            $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+        }
+    }
+    }
+
+} else {
+    $error = "Gagal menyisipkan data ke tabel layout.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -367,35 +451,38 @@
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
+    <form method="POST" enctype="multipart/form-data">
     <div class="pack-jember">
         <div class="container-pemesanan">
-            <form id="step-1">
+                <div id="step-1" >
+
+
                 <h1>Pemesanan Didaerah Jember</h1>
                 <div class="input-container">
                     <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="name" placeholder="Ex.Jhon Doe" required>
+                    <input type="text" id="name" name="txt_nama" placeholder="Ex.Jhon Doe" required>
                 </div>
                 <div class="input-container">
                     <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Ex.081222333444" required>
+                    <input type="tel" id="phone" name="txt_phone" placeholder="Ex.081222333444" required>
                 </div>
                 <div class="input-container">
                     <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address" placeholder="Ex.Jl. Mastrip, Kec. Sumbersari, Jember" required>
+                    <input type="text" id="address" name="txt_address" placeholder="Ex.Jl. Mastrip, Kec. Sumbersari, Jember" required>
                 </div>
                 <div class="toast" id="address-warning">Alamat harus mencantumkan kata "Jember".</div>
                 <div class="input-container">
                     <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="date" required>
+                    <input type="date" id="date" name="txt_date" required>
                 </div>
                 <button class="next-button" id="next-1" disabled>Selanjutnya</button>
-            </form>
+                </div>
 
-            <form id="step-2" style="display: none;">
+                <div id="step-2" style="display: none;">
                 <h1>Pemesanan Didaerah Jember</h1>
                 <div class="input-container">
                     <label for="package">Package Selection:</label>
-                    <select id="package" name="package">
+                    <select id="package" name="txt_package">
                         <option value="" disabled selected>Pilih Paket</option>
                         <option value="Self Photobox">Self Photobox</option>
                         <option value="Self Photo">Self Photo</option>
@@ -406,80 +493,98 @@
                 <div class="input-container checkbox-group">
                     <h3>Pilih Paket Layout:</h3>
                     <div class="checkbox-container" id="checkbox">
-                        <input type="checkbox" id="paperframe-4r" name="paket-layout" value="PaperFrame 4R">
+                        <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1">
                         <label for="paperframe-4r">PaperFrame 4R</label>
                         <br>
-                        <input type="checkbox" id="paperframe-2r" name="paket-layout" value="PaperFrame 2R">
+                        <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2">
                         <label for="paperframe-2r">PaperFrame 2R</label>
                         <br>
-                        <input type="checkbox" id="layout-360" name="paket-layout" value="360">
+                        <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
                         <label for="layout-360">360 Videobooth</label>
                     </div>
                 </div>
                 <div class="input-container" id="quota-2R-dropdown">
                     <label for="quota-2R">Quota PaperFrame 2R:</label>
-                    <select name="quota-2R" id="quota-2R">
+                    <select name="quota[2]" id="quota-2R">
                         <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
-                        <option value="">400 Pcs</option>
-                        <option value="">600 Pcs</option>
+                        <?php
+   $query = mysqli_query ($koneksi,"SELECT * FROM quota where id_layout='1'");
+
+   while ($data=mysqli_fetch_array($query)){
+                        ?>
+                        <option value="<?= $data['id_quota'] ?>"><?= $data['nama_quota'] ?></option>
+<?php } ?>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-2R-dropdown">
                     <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited-2R" id="unlimited-2R">
+                    <select name="unlimited[2]" id="unlimited-2R">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
+                        <?php
+   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='1'");
+
+   while ($data=mysqli_fetch_array($query)){
+                        ?>
+                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
+<?php } ?>
                     </select>
                 </div>
 
                 <div class="input-container" id="quota-4R-dropdown">
                     <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota-4R" id="quota-4R">
+                    <select name="quota[1]" id="quota-4R">
                         <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">100 pcs</option>
-                        <option value="">150 Pcs</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
+                        <?php
+   $query = mysqli_query ($koneksi,"SELECT * FROM quota where id_layout='2'");
+
+   while ($data=mysqli_fetch_array($query)){
+                        ?>
+                        <option value="<?= $data['id_quota'] ?>"><?= $data['nama_quota'] ?></option>
+<?php } ?>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-4R-dropdown">
                     <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited-4R" id="unlimited-4R">
+                    <select name="unlimited[1]" id="unlimited-4R">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
+                        <?php
+   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='2'");
+
+   while ($data=mysqli_fetch_array($query)){
+                        ?>
+                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
+<?php } ?>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-360-dropdown">
                     <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited-360" id="unlimited-360">
+                    <select name="unlimited[3]" id="unlimited-360">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
+                        <?php
+   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='3'");
+
+   while ($data=mysqli_fetch_array($query)){
+                        ?>
+                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
+<?php } ?>
                     </select>
                 </div>
 
                 <button class="prev-button" id="prev-2">Kembali</button>
                 <button class="next-button" id="next-2" disabled>Selanjutnya</button>
-            </form>
+                </div>
 
-            <form id="step-3" style="display: none;">
+            <div id="step-3" style="display: none;">
                 <h1>Pemesanan Didaerah Jember</h1>
                 <div class="input-container">
                     <label for="metode-pembayaran">Payment Method:</label>
-                    <select id="payment" name="payment">
+                    <select id="payment" name="txt_payment">
                         <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="cash">Cash</option>
-                        <option value="bank">Bank Transfer</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Transfer Bank">Bank Transfer</option>
                     </select>
                 </div>
                 <div class="input-container">
@@ -487,10 +592,11 @@
                     <input type="file" id="proof" name="proof" required>
                 </div>
                 <button class="prev-button" id="prev-3">Kembali</button>
-                <button class="submit-button" id="submit" disabled>Pesan</button>
-            </form>
+                <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
