@@ -1,3 +1,6 @@
+<?php
+include "koneksi.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +22,21 @@
 
         html {
             scroll-behavior: smooth;
+        }
+
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
         }
 
         ::-webkit-scrollbar {
@@ -78,12 +96,29 @@
             border-radius: 10px;
         }
 
+        .navbar-menu #Pemesanan {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 10px;
+        }
+
         .navbar-menu li a:hover {
             color: #fff;
             background-color: #000;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+
+        .active-link {
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: 0.3;
         }
 
         .admin-link {
@@ -157,7 +192,7 @@
             text-align: center;
             color: #000;
             font-weight: 800;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .container-pemesanan #step-2::after {
@@ -314,7 +349,7 @@
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: 20%;
+            top: 15%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -351,197 +386,169 @@
     <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php">Home</a></li>
+            <li><a href="dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn active-link">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
                     <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php">Our Package</a></li>
-            <li><a href="gallery.php">Gallery</a></li>
-            <li><a href="tentang.php">Tentang Kami</a></li>
+            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
+    <div id="circularcursor"></div>
+
     <div class="pack-jember">
         <div class="container-pemesanan">
-            <form id="step-1">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="name" placeholder="Ex.Jhon Doe" required>
-                </div>
-                <div class="input-container">
-                    <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Ex.081222333444" required>
-                </div>
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address" placeholder="Ex.Jl. Mastrip, Kec. Sumbersari, Jember" required>
-                </div>
-                <div class="toast" id="address-warning">Alamat harus mencantumkan kata "Jember".</div>
-                <div class="input-container">
-                    <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <button class="next-button" id="next-1" disabled>Selanjutnya</button>
-            </form>
+            <div class="input-container">
+                <label for="name">Nama Lengkap:</label>
+                <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
+            </div>
+            
+            <div class="input-container">
+                <label for="phone">Nomer Telepon:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
+            </div>
 
-            <form id="step-2" style="display: none;">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="package">Package Selection:</label>
-                    <select id="package" name="package">
-                        <option value="" disabled selected>Pilih Paket</option>
-                        <option value="Self Photobox">Self Photobox</option>
-                        <option value="Self Photo">Self Photo</option>
-                        <option value="Manual Photobooth">Manual Photobooth</option>
-                        <option value="360 Videobooth">360 Videobooth</option>
-                    </select>
-                </div>
-                <div class="input-container checkbox-group">
-                    <h3>Pilih Paket Layout:</h3>
-                    <div class="checkbox-container" id="checkbox">
-                        <input type="checkbox" id="paperframe-4r" name="paket-layout" value="PaperFrame 4R">
-                        <label for="paperframe-4r">PaperFrame 4R</label>
-                        <br>
-                        <input type="checkbox" id="paperframe-2r" name="paket-layout" value="PaperFrame 2R">
-                        <label for="paperframe-2r">PaperFrame 2R</label>
-                        <br>
-                        <input type="checkbox" id="layout-360" name="paket-layout" value="360">
-                        <label for="layout-360">360 Videobooth</label>
-                    </div>
-                </div>
-                <div class="input-container" id="quota-2R-dropdown">
-                    <label for="quota-2R">Quota PaperFrame 2R:</label>
-                    <select name="quota-2R" id="quota-2R">
-                        <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
-                        <option value="">400 Pcs</option>
-                        <option value="">600 Pcs</option>
-                    </select>
-                </div>
+            <div class="input-container">
+                <label for="address">Alamat Acara:</label>
+                <input type="text" id="address" name="address"
+                    placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
+            </div>
 
-                <div class="input-container" id="unlimited-2R-dropdown">
-                    <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited-2R" id="unlimited-2R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
-                    </select>
-                </div>
+            <div class="input-container">
+                <label for="date">Tanggal Acara:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
 
-                <div class="input-container" id="quota-4R-dropdown">
-                    <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota-4R" id="quota-4R">
-                        <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">100 pcs</option>
-                        <option value="">150 Pcs</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
-                    </select>
+            <div class="input-container">
+                <label for="package">Package Selection:</label>
+                <select id="package" name="package">
+                    <option value="" disabled selected>Pilih Paket</option>
+                    <option value="Self Photobox">Self Photobox</option>
+                    <option value="Self Photo">Self Photo</option>
+                    <option value="Manual Photobooth">Manual Photobooth</option>
+                    <option value="360 Videobooth">360 Videobooth</option>
+                </select>
+            </div>
+            
+            <div class="input-container checkbox-group">
+                <h3>Pilih Paket Layout:</h3>
+                <div class="checkbox-container" id="checkbox">
+                    <input type="checkbox" id="paperframe-4r" name="paket-layout" value="PaperFrame 4R">
+                    <label for="paperframe-4r">PaperFrame 4R</label>
+                    <br>
+                    <input type="checkbox" id="paperframe-2r" name="paket-layout" value="PaperFrame 2R">
+                    <label for="paperframe-2r">PaperFrame 2R</label>
+                    <br>
+                    <input type="checkbox" id="layout-360" name="paket-layout" value="360">
+                    <label for="layout-360">360 Videobooth</label>
                 </div>
+            </div>
 
-                <div class="input-container" id="unlimited-4R-dropdown">
-                    <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited-4R" id="unlimited-4R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
-                    </select>
-                </div>
+            <div class="input-container" id="quota-2R-dropdown">
+                <label for="quota-2R">Quota PaperFrame 2R:</label>
+                <select name="quota-2R" id="quota-2R">
+                    <option value="" disabled selected>Pilih Quota</option>
+                    <?php
+                    include "koneksi.php";
+                    $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'") or die(mysqli_error($koneksi));
+                    while ($data = mysqli_fetch_array($query)) {
+                        echo "<option value=$data[id_quota]>$data[nama_quota]</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-                <div class="input-container" id="unlimited-360-dropdown">
-                    <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited-360" id="unlimited-360">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
-                    </select>
-                </div>
+            <div class="input-container" id="unlimited-2R-dropdown">
+                <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
+                <select name="unlimited-2R" id="unlimited-2R">
+                    <option value="" disabled selected>Pilih Unlimited</option>
+                    <?php
+                    include "koneksi.php";
+                    $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'") or die(mysqli_error($koneksi));
+                    while ($data = mysqli_fetch_array($query)) {
+                        echo "<option value = $data[id_unlimited]>$data[nama_unlimited]</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-                <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="next-button" id="next-2" disabled>Selanjutnya</button>
-            </form>
+            <div class="input-container" id="quota-4R-dropdown">
+                <label for="quota-4R">Quota PaperFrame 4R:</label>
+                <select name="quota-4R" id="quota-4R">
+                    <option value="" disabled selected>Pilih Quota</option>
+                    <?php
+                    include "koneksi.php";
+                    $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'") or die(mysqli_error($koneksi));
+                    while ($data = mysqli_fetch_array($query)) {
+                        echo "<option value=$data[id_quota]>$data[nama_quota]</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-            <form id="step-3" style="display: none;">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="metode-pembayaran">Payment Method:</label>
-                    <select id="payment" name="payment">
-                        <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="cash">Cash</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="proof" required>
-                </div>
-                <button class="prev-button" id="prev-3">Kembali</button>
-                <button class="submit-button" id="submit" disabled>Pesan</button>
-            </form>
+            <div class="input-container" id="unlimited-4R-dropdown">
+                <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
+                <select name="unlimited-4R" id="unlimited-4R">
+                    <option value="" disabled selected>Pilih Unlimited</option>
+                    <?php
+                    include "koneksi.php";
+                    $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'") or die(mysqli_error($koneksi));
+                    while ($data = mysqli_fetch_array($query)) {
+                        echo "<option value = $data[id_unlimited]>$data[nama_unlimited]</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="input-container" id="unlimited-360-dropdown">
+                <label for="unlimited-360">Unlimited 360 Videobooth:</label>
+                <select name="unlimited-360" id="unlimited-360">
+                    <option value="" disabled selected>Pilih Unlimited</option>
+                    <?php
+                    include "koneksi.php";
+                    $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='3'") or die(mysqli_error($koneksi));
+                    while ($data = mysqli_fetch_array($query)) {
+                        echo "<option value = $data[id_unlimited]>$data[nama_unlimited]</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="metode-pembayaran">Payment Method:</label>
+                <select id="payment" name="payment">
+                    <option value="" disabled selected>Pilih Metode Pembayaran</option>
+                    <option value="cash">Cash</option>
+                    <option value="bank">Bank Transfer</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="proof">Kirim Bukti Pembayaran:</label>
+                <input type="file" id="proof" name="proof" required>
+            </div>
+            <button class="submit-button" id="submit">Pesan</button>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const addressInput = document.getElementById('address');
-            const addressWarning = document.getElementById('address-warning');
-            const nextButton = document.getElementById('next-1');
-
-            addressInput.addEventListener('blur', function () {
-                const addressValue = addressInput.value.toLowerCase();
-                if (!addressValue.includes('jember')) {
-                    addressWarning.style.display = 'inline-block';
-                    nextButton.disabled = true;
-                } else {
-                    addressWarning.style.display = 'none';
-                    nextButton.disabled = false;
-                }
-            });
-        });
-    </script>
-
-    <script>
-        const nextButton1 = document.getElementById("next-1");
-        const nextButton2 = document.getElementById("next-2");
-        const nextButton3 = document.getElementById("submit");
-
-        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
-        const step2Inputs = [document.getElementById("package")];
-        const step3Inputs = [document.getElementById("payment"), document.getElementById("proof")];
-
-        function isStepFormValid(inputs) {
-            return inputs.every(input => input.value.trim() !== "");
-        }
-
-        step1Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton1.disabled = !isStepFormValid(step1Inputs);
-            });
-        });
-
-        step2Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton2.disabled = !isStepFormValid(step2Inputs);
-            });
-        });
-
-        step3Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton3.disabled = !isStepFormValid(step3Inputs);
-            });
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
         });
     </script>
 
@@ -590,6 +597,7 @@
             updateDropdowns();
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const packageDropdown = document.getElementById("package");
@@ -614,43 +622,7 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const step1Form = document.getElementById("step-1");
-            const step2Form = document.getElementById("step-2");
-            const step3Form = document.getElementById("step-3");
-
-            const nextButton1 = document.getElementById("next-1");
-            const nextButton2 = document.getElementById("next-2");
-            const prevButton2 = document.getElementById("prev-2");
-            const nextButton3 = document.getElementById("next-3");
-            const prevButton3 = document.getElementById("prev-3");
-
-            nextButton1.addEventListener("click", function (e) {
-                e.preventDefault();
-                step1Form.style.display = "none";
-                step2Form.style.display = "block";
-            });
-
-            nextButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step3Form.style.display = "block";
-            });
-
-            prevButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step1Form.style.display = "block";
-            });
-
-            prevButton3.addEventListener("click", function (e) {
-                e.preventDefault();
-                step3Form.style.display = "none";
-                step2Form.style.display = "block";
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </body>
 
 </html>
