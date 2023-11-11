@@ -105,6 +105,21 @@ if (isset($_POST['submit'])) {
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -162,12 +177,29 @@ if (isset($_POST['submit'])) {
             border-radius: 10px;
         }
 
+        .navbar-menu #Pemesanan {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 10px;
+        }
+
         .navbar-menu li a:hover {
             color: #fff;
             background-color: #000;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+
+        .active-link {
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: 0.3;
         }
 
         .admin-link {
@@ -241,7 +273,7 @@ if (isset($_POST['submit'])) {
             text-align: center;
             color: #000;
             font-weight: 800;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .container-pemesanan #step-2::after {
@@ -398,7 +430,7 @@ if (isset($_POST['submit'])) {
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: 20%;
+            top: 15%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -435,18 +467,18 @@ if (isset($_POST['submit'])) {
     <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php">Home</a></li>
+            <li><a href="dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn active-link">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
                     <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php">Our Package</a></li>
-            <li><a href="gallery.php">Gallery</a></li>
-            <li><a href="tentang.php">Tentang Kami</a></li>
+            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
@@ -544,6 +576,7 @@ if (isset($_POST['submit'])) {
 <?php } ?>
                     </select>
                 </div>
+            </div>
 
                 <div class="input-container" id="unlimited-4R-dropdown">
                     <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
@@ -598,56 +631,16 @@ if (isset($_POST['submit'])) {
         </div>
     </form>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const addressInput = document.getElementById('address');
-            const addressWarning = document.getElementById('address-warning');
-            const nextButton = document.getElementById('next-1');
-
-            addressInput.addEventListener('blur', function () {
-                const addressValue = addressInput.value.toLowerCase();
-                if (!addressValue.includes('jember')) {
-                    addressWarning.style.display = 'inline-block';
-                    nextButton.disabled = true;
-                } else {
-                    addressWarning.style.display = 'none';
-                    nextButton.disabled = false;
-                }
-            });
-        });
-    </script>
-
-    <script>
-        const nextButton1 = document.getElementById("next-1");
-        const nextButton2 = document.getElementById("next-2");
-        const nextButton3 = document.getElementById("submit");
-
-        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
-        const step2Inputs = [document.getElementById("package")];
-        const step3Inputs = [document.getElementById("payment"), document.getElementById("proof")];
-
-        function isStepFormValid(inputs) {
-            return inputs.every(input => input.value.trim() !== "");
-        }
-
-        step1Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton1.disabled = !isStepFormValid(step1Inputs);
-            });
-        });
-
-        step2Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton2.disabled = !isStepFormValid(step2Inputs);
-            });
-        });
-
-        step3Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton3.disabled = !isStepFormValid(step3Inputs);
-            });
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
         });
     </script>
 
@@ -696,6 +689,7 @@ if (isset($_POST['submit'])) {
             updateDropdowns();
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const packageDropdown = document.getElementById("package");
@@ -720,43 +714,7 @@ if (isset($_POST['submit'])) {
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const step1Form = document.getElementById("step-1");
-            const step2Form = document.getElementById("step-2");
-            const step3Form = document.getElementById("step-3");
-
-            const nextButton1 = document.getElementById("next-1");
-            const nextButton2 = document.getElementById("next-2");
-            const prevButton2 = document.getElementById("prev-2");
-            const nextButton3 = document.getElementById("next-3");
-            const prevButton3 = document.getElementById("prev-3");
-
-            nextButton1.addEventListener("click", function (e) {
-                e.preventDefault();
-                step1Form.style.display = "none";
-                step2Form.style.display = "block";
-            });
-
-            nextButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step3Form.style.display = "block";
-            });
-
-            prevButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step1Form.style.display = "block";
-            });
-
-            prevButton3.addEventListener("click", function (e) {
-                e.preventDefault();
-                step3Form.style.display = "none";
-                step2Form.style.display = "block";
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </body>
 
 </html>
