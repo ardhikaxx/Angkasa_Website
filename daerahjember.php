@@ -23,25 +23,6 @@ if (isset($_POST['submit'])) {
         var_dump($unlimited[$value]);
     }
 
-
-    // // Query untuk menyisipkan data ke tabel layout
-    // $query_layout = "SELECT id_layout FROM layout WHERE nama_layout = '$pilihpaketlayout'";
-    // $result_layout = mysqli_query($koneksi, $query_layout);
-    // $layout_data = mysqli_fetch_assoc($result_layout);
-    // $layout_id = $layout_data['id_layout'];
-
-    // // Query untuk menyisipkan data ke tabel quota
-    // $query_quota = "SELECT id_quota FROM quota WHERE nama_quota = '$quota'";
-    // $result_quota = mysqli_query($koneksi, $query_quota);
-    // $quota_data = mysqli_fetch_assoc($result_quota);
-    // $quota_id = $quota_data['id_quota'];
-
-    // // Query untuk menyisipkan data ke tabel unlimited
-    // $query_unlimited = "SELECT id_unlimited FROM unlimited WHERE nama_unlimited = '$unlimited'";
-    // $result_unlimited = mysqli_query($koneksi, $query_unlimited);
-    // $unlimited_data = mysqli_fetch_assoc($result_unlimited);
-    // $unlimited_id = $unlimited_data['id_unlimited'];
-
     // Query untuk menyisipkan data ke tabel customer
     $query_customer = "INSERT INTO customer (id, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
     $result_customer = mysqli_query($koneksi, $query_customer);
@@ -62,7 +43,6 @@ if (isset($_POST['submit'])) {
         $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
 
         }
-        // Query untuk menyisipkan data ke tabel detail_pemesanan
         
         // Jika semua query berhasil, commit transaksi
         if ($result_detail_pemesanan) {
@@ -485,7 +465,7 @@ if (isset($_POST['submit'])) {
 
     <form method="POST" enctype="multipart/form-data">
     <div class="pack-jember">
-        <div class="container-pemesanan">
+    <div class="container-pemesanan">
                 <div id="step-1" >
 
 
@@ -576,7 +556,7 @@ if (isset($_POST['submit'])) {
 <?php } ?>
                     </select>
                 </div>
-            </div>
+             <!-- </div>  -->
 
                 <div class="input-container" id="unlimited-4R-dropdown">
                     <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
@@ -632,8 +612,58 @@ if (isset($_POST['submit'])) {
     </form>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addressInput = document.getElementById('address');
+            const addressWarning = document.getElementById('address-warning');
+            const nextButton = document.getElementById('next-1');
+
+            addressInput.addEventListener('blur', function () {
+                const addressValue = addressInput.value.toLowerCase();
+                if (!addressValue.includes('jember')) {
+                    addressWarning.style.display = 'inline-block';
+                    nextButton.disabled = true;
+                } else {
+                    addressWarning.style.display = 'none';
+                    nextButton.disabled = false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const nextButton1 = document.getElementById("next-1");
+        const nextButton2 = document.getElementById("next-2");
+        const nextButton3 = document.getElementById("submit");
+
+        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
+        const step2Inputs = [document.getElementById("package")];
+        const step3Inputs = [document.getElementById("payment"), document.getElementById("proof")];
+
+        function isStepFormValid(inputs) {
+            return inputs.every(input => input.value.trim() !== "");
+        }
+
+        step1Inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                nextButton1.disabled = !isStepFormValid(step1Inputs);
+            });
+        });
+
+        step2Inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                nextButton2.disabled = !isStepFormValid(step2Inputs);
+            });
+        });
+
+        step3Inputs.forEach(input => {
+            input.addEventListener("input", () => {
+                nextButton3.disabled = !isStepFormValid(step3Inputs);
+            });
+        });
         $(document).ready(function () {
             $(document).on('mousemove', function (e) {
                 $('#circularcursor').css({
@@ -641,6 +671,43 @@ if (isset($_POST['submit'])) {
                     top: e.pageY
                 });
             })
+        });
+
+        // <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const step1Form = document.getElementById("step-1");
+            const step2Form = document.getElementById("step-2");
+            const step3Form = document.getElementById("step-3");
+
+            const nextButton1 = document.getElementById("next-1");
+            const nextButton2 = document.getElementById("next-2");
+            const prevButton2 = document.getElementById("prev-2");
+            const nextButton3 = document.getElementById("next-3");
+            const prevButton3 = document.getElementById("prev-3");
+
+            nextButton1.addEventListener("click", function (e) {
+                e.preventDefault();
+                step1Form.style.display = "none";
+                step2Form.style.display = "block";
+            });
+
+            nextButton2.addEventListener("click", function (e) {
+                e.preventDefault();
+                step2Form.style.display = "none";
+                step3Form.style.display = "block";
+            });
+
+            prevButton2.addEventListener("click", function (e) {
+                e.preventDefault();
+                step2Form.style.display = "none";
+                step1Form.style.display = "block";
+            });
+
+            prevButton3.addEventListener("click", function (e) {
+                e.preventDefault();
+                step3Form.style.display = "none";
+                step2Form.style.display = "block";
+            });
         });
     </script>
 
