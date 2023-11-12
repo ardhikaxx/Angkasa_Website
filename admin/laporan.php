@@ -10,15 +10,15 @@ if (!$koneksi) {
 }
 function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
-    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
     $no = $start_from + 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
         ?>
         <tr>
@@ -1870,13 +1870,13 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query = "SELECT id_pemesanan, nama_customer, no_customer, alamat_acara FROM pemesanan LIMIT $start_from, $records_per_page";
+                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer LIMIT $start_from, $records_per_page";
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-                        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
+                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
                         ?>
                         <tr>

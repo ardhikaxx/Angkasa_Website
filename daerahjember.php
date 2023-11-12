@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Query untuk menyisipkan data ke tabel customer
-    $query_customer = "INSERT INTO customer (id, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+    $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
     $result_customer = mysqli_query($koneksi, $query_customer);
     if($result_customer){
              // Ambil ID pemesanan yang baru saja diinsert

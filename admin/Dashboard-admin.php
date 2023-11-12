@@ -1980,11 +1980,11 @@ if (isset($_GET['successMessage'])) {
                                 <?php
                                 $tanggalSekarang = date('Y-m-d');
 
-                                $query = "SELECT id_pemesanan, nama_customer, tanggal_acara FROM pemesanan WHERE YEAR(tanggal_acara) = YEAR('$tanggalSekarang') AND MONTH(tanggal_acara) = MONTH('$tanggalSekarang')";
+                                $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,pemesanan.tanggal_acara FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer WHERE YEAR(tanggal_acara) = YEAR('$tanggalSekarang') AND MONTH(tanggal_acara) = MONTH('$tanggalSekarang')";
                                 $result = mysqli_query($koneksi, $query);
 
                                 while ($row = mysqli_fetch_array($result)) {
-                                    $namacustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
+                                    $namacustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                                     $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
 
                                     echo "<tr>";
@@ -2002,9 +2002,8 @@ if (isset($_GET['successMessage'])) {
             <div class="grafik-pemesanan">
                 <h3>Grafik Package</h3>
                 <?php
-                $query = "SELECT nama_package, COUNT(pemesanan.id_package) AS jumlah_pemesanan FROM package
-                LEFT JOIN pemesanan ON package.id_package = pemesanan.id_package
-                GROUP BY package.id_package";
+                $query = "SELECT nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
+                GROUP BY pemesanan.nama_package";
 
                 $result = $koneksi->query($query);
 

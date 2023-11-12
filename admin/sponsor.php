@@ -10,16 +10,16 @@ if (!$koneksi) {
 }
 function cari_nama($koneksi, $nama_cari)
 {
-    $query = "SELECT * FROM pemesanan WHERE nama_customer LIKE '%$nama_cari%'";
+    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%'";
     $result = mysqli_query($koneksi, $query);
 
     $no = 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
-        // $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
         ?>
         <tr>
             <td>
@@ -30,6 +30,9 @@ function cari_nama($koneksi, $nama_cari)
             </td>
             <td>
                 <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                <?php echo $proposal;?>
             </td>
             <td>
                     <a href="#" class="btn-download" data-id="<?php echo $id; ?>"><i class="fa fa-download"></i> Download</a>
@@ -1817,14 +1820,14 @@ function cari_nama($koneksi, $nama_cari)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, );
                 } else {
-                    $query = "SELECT id_pemesanan, nama_customer, no_customer, alamat_acara FROM pemesanan";
+                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.proposal FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer";
                     $result = mysqli_query($koneksi, $query);
                     $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                        $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
-                        $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
-                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
                         ?>
                 <td>
                     <?php echo $no;?>
@@ -1836,7 +1839,7 @@ function cari_nama($koneksi, $nama_cari)
                     <?php echo $teleponcustomer;?>
                 </td>
                 <td>
-                    <?php echo $alamatacara;?>
+                    <?php echo $proposal;?>
                 </td>
                 <td>
                     <a href="#" class="btn-download"><i class="fa fa-download"></i> Download</a>
