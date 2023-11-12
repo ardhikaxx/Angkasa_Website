@@ -1106,7 +1106,7 @@
                 <div class="promo-pack">
                     <div class="promo-title">
                         <div class="header-promo">
-                            <h1>Promo Bulan Ini <i class="fas fa-tag"></i></h1>
+                            <h1>Promo Bulan Ini</h1>
                         </div>
                         <span id="bulan"></span>
                         <h2 id="paket-promo">Unlimited 3 Hour 360 & 3 Hour Photobooth</h2>

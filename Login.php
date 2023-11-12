@@ -406,7 +406,7 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="right-side">
         <h1 data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">Hallo, Admin!</h1>
-        <p data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">Selamat datang kembali ke pusat kendali Angkasa Photobooth.🚀🔐</p>
+        <p data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">Selamat datang kembali ke pusat kendali Angkasa Photobooth</p>
         <a href="dashboard.php" class="dashboard-button" data-aos="fade-down" data-aos-easing="ease"
             data-aos-duration="300">Dashboard</a>
     </div>
