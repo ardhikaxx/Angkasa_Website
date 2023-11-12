@@ -19,6 +19,21 @@
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -76,12 +91,29 @@
             border-radius: 10px;
         }
 
+        .navbar-menu #Our-Package {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 10px;
+        }
+
         .navbar-menu li a:hover {
             color: #fff;
             background-color: #000;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+
+        .active-link {
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: 0.3;
         }
 
         .admin-link {
@@ -134,51 +166,6 @@
 
         .dropdown:hover .dropdown-content {
             display: block;
-        }
-
-        .container_mouse {
-            position: fixed;
-            justify-content: bottom;
-            align-items: bottom;
-            z-index: 99;
-            bottom: 25px;
-            right: 30px;
-        }
-
-        .mouse-btn {
-            margin: 10px auto;
-            width: 17px;
-            height: 40px;
-            border: 3px solid #000;
-            border-radius: 20px;
-            display: flex;
-        }
-
-        .mouse-scroll {
-            display: block;
-            width: 10px;
-            height: 10px;
-            background: #000;
-            border-radius: 50%;
-            margin: auto;
-            animation: scrolling13 1s linear infinite;
-        }
-
-        .title-mouse {
-            font-family: "Poppins", sans-serif;
-            font-weight: 600;
-        }
-
-        @keyframes scrolling13 {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(20px);
-            }
         }
 
         .pack {
@@ -260,6 +247,10 @@
             margin-bottom: -40px;
         }
 
+        .header img {
+            width: 350px;
+        }
+
         .content {
             padding: 1.5rem;
             margin-top: 0px;
@@ -329,7 +320,6 @@
             transform: translate(-50%, -50%);
             width: 100%;
             max-width: 500px;
-            /* background-image: linear-gradient(to right, #2996f0, #165487); */
             background-color: #fff;
             color: #000;
             border-radius: 10px;
@@ -428,6 +418,12 @@
 
         .layout-2R {
             text-align: center;
+        }
+
+        .layout-photo-2R img {
+            width: 700px;
+            border-radius: 15px;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
         }
 
         .layout-4R {
@@ -555,6 +551,7 @@
             background: #000;
             border-radius: 30px;
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+            cursor: pointer;
         }
 
         .scroll-btn i {
@@ -571,41 +568,36 @@
     <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php">Home</a></li>
+            <li><a href="dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
                     <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php">Our Package</a></li>
-            <li><a href="gallery.php">Gallery</a></li>
-            <li><a href="tentang.php">Tentang Kami</a></li>
+            <li><a href="ourpackage.php" id="Our-Package" class="active-link">Our Package</a></li>
+            <li><a href="gallery.php" id="Gallery" >Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div class="container_mouse">
-        <span class="mouse-btn">
-            <span class="mouse-scroll"></span>
-        </span>
-        <span class="title-mouse">Scroll Down</span>
-    </div>
+    <div id="circularcursor"></div>
 
     <div class="content-package" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <h1>Pilih Paketmu Sesuai Dengan Keinginanmu</h1>
         <p>Scroll Kebawah Untuk Melihat Lebih Lanjut</p>
         <div class="scroll-icon-box">
-            <a class="scroll-btn">
+            <a href="#Package" class="scroll-btn">
                 <i class="uil uil-mouse-alt"></i>
                 <p>Scroll Down</p>
             </a>
         </div>
     </div>
 
-    <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
+    <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700" id="Package">
         <div class="pack-title">
             <h1>Choose a Package</h1>
             <p>Choose the Package You Want</p>
@@ -616,6 +608,7 @@
     <div class="pack-card">
         <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
+                <img src="assets/Gallery/Self Photobox.jpg" alt="">
             </div>
             <div class="content">
                 <h5 class="title">Self Photobox</h5>
@@ -629,6 +622,7 @@
         </div>
         <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
+                <img src="assets/Gallery/Self Photo.jpg" alt="">
             </div>
             <div class="content">
                 <h5 class="title">Self Photo</h5>
@@ -642,6 +636,7 @@
         </div>
         <div class="card" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
+                <img src="assets/Gallery/Manual Photobooth.jpg" alt="">
             </div>
             <div class="content">
                 <h5 class="title">Manual Photobooth</h5>
@@ -655,6 +650,7 @@
         </div>
         <div class="card" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
             <div class="header">
+                <img src="assets/Gallery/360 Videobooth.jpg" alt="">
             </div>
             <div class="content">
                 <h5 class="title">360 Videobooth</h5>
@@ -688,9 +684,15 @@
     <div class="content-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="layout-2R">
             <h1>Strip 2R (5 cm x 15 cm)</h1>
+            <div class="layout-photo-2R">
+                <img src="assets/Gallery/Layout2R.png" alt="">
+            </div>
         </div>
         <div class="layout-4R">
             <h1>Photo 4R (10cm x 15 cm)</h1>
+            <div class="layout-photo-4R">
+                <img src="" alt="">
+            </div>
         </div>
     </div>
 
@@ -788,6 +790,19 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 

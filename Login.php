@@ -22,8 +22,8 @@ if (isset($_POST['submit'])) {
                 $_SESSION['user'] = $userRow['nama_lengkap'];
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
                 header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
-            }else{
-                $error='("Karyawan tidak memiliki akses masuk")';
+            } else {
+                $error = '("Karyawan tidak memiliki akses masuk")';
             }
         } else {
             $error = '("email atau password salah.");';
@@ -57,6 +57,21 @@ if (isset($_POST['submit'])) {
             display: flex;
             flex-direction: row;
             height: 100vh;
+        }
+
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
         }
 
         .left-side {
@@ -124,8 +139,8 @@ if (isset($_POST['submit'])) {
         }
 
         .right-side p {
-            padding-left: 50px;
-            padding-right: 50px;
+            padding-left: 100px;
+            padding-right: 100px;
         }
 
 
@@ -369,6 +384,8 @@ if (isset($_POST['submit'])) {
         <span id="notification-content"></span>
     </div>
 
+    <div id="circularcursor"></div>
+
     <div class="left-side">
         <div class="login-box">
             <h1>LOGIN</h1>
@@ -389,14 +406,28 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="right-side">
         <h1 data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">Hallo, Admin!</h1>
-        <p data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">Selamat datang Admin!<br> Kami senang Anda ingin login ke akun Admin Anda.</p>
-        <a href="dashboard.php" class="dashboard-button" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="300">Dashboard</a>
+        <p data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">Selamat datang kembali ke pusat kendali Angkasa Photobooth.🚀🔐</p>
+        <a href="dashboard.php" class="dashboard-button" data-aos="fade-down" data-aos-easing="ease"
+            data-aos-duration="300">Dashboard</a>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
         AOS.init();
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
     </script>
 
     <script>

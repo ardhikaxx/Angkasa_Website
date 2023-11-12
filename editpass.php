@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+} else {
+    header('Location: lupapass.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +27,21 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+        }
+
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
         }
 
         .editpass-container {
@@ -161,7 +186,6 @@
         #notification-success.show {
             opacity: 1;
         }
-
     </style>
 </head>
 
@@ -173,16 +197,19 @@
         <h1>Edit Password Baru</h1>
         <form method="post" action="update_password.php">
             <label class="email">
-                <input type="text" id="email" placeholder="Masukkan Email Anda" name="email" required>
+                <input type="text" id="email" placeholder="Masukkan Email Anda" name="email"
+                    value="<?php echo $email; ?>" required readonly>
             </label>
             <label class="password">
-                <input type="password" id="newPassword" placeholder="Masukkan Password Baru" name="new_password" required>
+                <input type="password" id="newPassword" placeholder="Masukkan Password Baru" name="new_password"
+                    required>
                 <span id="showPassword1" onclick="togglePasswordVisibility('newPassword', 'passwordIcon1')">
                     <i id="passwordIcon1" class="fas fa-eye"></i>
                 </span>
             </label>
             <label class="repeat-password">
-                <input type="password" id="confirmPassword" placeholder="Ulangi Password Baru" name="confirm_password" required>
+                <input type="password" id="confirmPassword" placeholder="Ulangi Password Baru" name="confirm_password"
+                    required>
                 <span id="showPassword2" onclick="togglePasswordVisibility('confirmPassword', 'passwordIcon2')">
                     <i id="passwordIcon2" class="fas fa-eye"></i>
                 </span>
@@ -190,6 +217,21 @@
             <button type="submit" id="submitButton" disabled>Simpan</button>
         </form>
     </div>
+
+    <div id="circularcursor"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script>
         const emailInput = document.getElementById('email');

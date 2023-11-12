@@ -20,6 +20,21 @@
             height: 100vh;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         .forgot-container {
             width: 100%;
             max-width: 400px;
@@ -266,6 +281,8 @@
         </form>
     </div>
 
+    <div id="circularcursor"></div>
+
     <div id="notification-success" style="display: none;">
         <p id="successMessage"></p>
     </div>
@@ -277,6 +294,19 @@
             <button id="confirm-no" class="btn-no">Tidak</button>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script>
         document.getElementById("cancel-button").addEventListener("click", function () {

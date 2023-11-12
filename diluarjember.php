@@ -21,6 +21,21 @@
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -78,12 +93,29 @@
             border-radius: 10px;
         }
 
+        .navbar-menu #Pemesanan {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 10px;
+        }
+
         .navbar-menu li a:hover {
             color: #fff;
             background-color: #000;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+
+        .active-link {
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: 0.3;
         }
 
         .admin-link {
@@ -310,21 +342,23 @@
     <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php">Home</a></li>
+            <li><a href="dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn active-link">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
                     <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php">Our Package</a></li>
-            <li><a href="gallery.php">Gallery</a></li>
-            <li><a href="tentang.php">Tentang Kami</a></li>
+            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="gallery.php" id="Gallery" >Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
+
+    <div id="circularcursor"></div>
 
     <div class="pack-diluarjember">
         <div class="container-pemesanan">
@@ -332,16 +366,15 @@
                 <h1>Pemesanan Diluar Daerah Jember</h1>
                 <div class="input-container">
                     <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="name" placeholder="Ex.Jhon Doe" required>
+                    <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
                 </div>
                 <div class="input-container">
                     <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Ex.081222333444" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
                 </div>
                 <div class="input-container">
                     <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address"
-                        placeholder="Ex.Jl. Walikota Mustajab No.59, Surabaya" required>
+                    <input type="text" id="address" name="address" placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
                 </div>
                 <div class="input-container">
                     <label for="date">Tanggal Acara:</label>
@@ -450,6 +483,19 @@
             </form>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script>
         const nextButton1 = document.getElementById("next-1");

@@ -21,6 +21,21 @@
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -78,12 +93,29 @@
             border-radius: 10px;
         }
 
+        .navbar-menu #Gallery {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 10px;
+        }
+
         .navbar-menu li a:hover {
             color: #fff;
             background-color: #000;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+        }
+
+        .active-link {
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: 0.3;
         }
 
         .admin-link {
@@ -207,26 +239,28 @@
     <div class="navbar">
         <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php">Home</a></li>
+            <li><a href="dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="daerahjember.php">Daerah Jember</a>
                     <a href="diluarjember.php">Diluar Jember</a>
                     <a href="sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php">Our Package</a></li>
-            <li><a href="gallery.php">Gallery</a></li>
-            <li><a href="tentang.php">Tentang Kami</a></li>
+            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="gallery.php" id="Gallery" class="active-link" >Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
+    <div id="circularcursor"></div>
+
     <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="pack-title">
             <h1>Gallery</h1>
-            <p>Here's an example of the results from our photos</p>
+            <p>Berikut ini adalah contoh hasil dari foto-foto kami</p>
         </div>
     </div>
 
@@ -236,31 +270,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img1.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img1.gif"></a></div>
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img2.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img2.gif"></a></div>
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img3.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img3.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img4.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img4.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img5.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img5.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img6.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img6.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img7.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img7.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img8.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img8.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img9.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img9.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img10.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img10.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img11.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img11.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img12.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img12.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img13.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img13.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img14.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img14.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img15.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img15.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img16.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img16.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img17.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img17.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img18.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img18.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img19.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img19.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img20.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img20.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img21.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img21.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img22.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img22.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img23.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img23.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img24.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img24.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img25.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img25.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img26.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img26.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img27.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img27.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img28.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img28.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img4.gi" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img4.gif"></a></div>
             </div>
         </div>
     </div>
@@ -273,6 +283,19 @@
 
     <script>
         AOS.init();
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
     </script>
 </body>
 
