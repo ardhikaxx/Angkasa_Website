@@ -1131,13 +1131,13 @@
 
     <div id="gallery">
         <div class="gallery-photo" data-aos="fade-down-right" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/img16.gif" />
+            <img src="assets/Gallery/img1.gif" />
         </div>
         <div class="gallery-photo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/img23.gif" />
+            <img src="assets/Gallery/img2.gif" />
         </div>
         <div class="gallery-photo" data-aos="fade-down-left" data-aos-easing="ease" data-aos-duration="700">
-            <img src="assets/Gallery/img18.gif" />
+            <img src="assets/Gallery/img3.gif" />
         </div>
     </div>
 
