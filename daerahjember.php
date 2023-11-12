@@ -16,7 +16,12 @@ if (isset($_POST['submit'])) {
     $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
-    $buktipembayaran = isset($_POST['proof']) ? $_POST['proof'] : '';
+    //upload gambar
+    $gambar = upload() ;
+    if(!$gambar){
+        return false;
+    }
+
 
     foreach($pilihpaketlayout as $key => $value) {
         var_dump($quota[$value]);
@@ -31,7 +36,7 @@ if (isset($_POST['submit'])) {
              $last_inserted_customer_id = mysqli_insert_id($koneksi);
 
                  // Query untuk menyisipkan data ke tabel pemesanan
-    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$buktipembayaran')";
+    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
     $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
 
     // Jika query untuk pemesanan berhasil
@@ -59,6 +64,45 @@ if (isset($_POST['submit'])) {
 
 } else {
     $error = "Gagal menyisipkan data ke tabel layout.";
+}
+function upload(){
+    $namaFile = $_FILES ['gambar'] ['name'];
+    $ukuranFile= $_FILES ['gambar'] ['size'];
+    $error=$_FILES['gambar'] ['error'];
+    $tmpName=$_FILES ['gambar'] ['tmp_name'];
+
+    //cek apakah adakah gambar yang diupload
+    if($error === 4){
+      echo "<script>
+            alert ('pilih gambar terlebih dahulu');
+            </script>";
+            return false;
+    }
+    //cek apakah ada yang diupload adalah gambar
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode ('.',$namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+        echo "<script>
+            alert ('Yang anda upload bukan gambar!');
+            </script>";
+            return false;
+    }
+    //cek jika ukurannya terlalu besar
+    if ($ukuranFile > 1000000){
+        echo "<script>
+            alert ('ukuran gambar terlalu besar!');
+            </script>";
+            return false;
+    }
+    //generate nama gambar baru
+    $namaFileBaru = uniqid ();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiGambar;
+
+    //lolos pengecekan,gambar siap diupload
+    move_uploaded_file($tmpName, 'img/' . $namaFileBaru );
+    return $namaFileBaru;
 }
 ?>
 
@@ -602,7 +646,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="input-container">
                     <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="proof" required>
+                    <input type="file" id="proof" name="gambar" required>
                 </div>
                 <button class="prev-button" id="prev-3">Kembali</button>
                 <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
