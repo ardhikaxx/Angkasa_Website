@@ -1445,7 +1445,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 transform: scale(1, 1);
             }
         }
-
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
