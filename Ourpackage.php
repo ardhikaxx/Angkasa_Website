@@ -538,6 +538,7 @@
         .scroll-btn {
             position: absolute;
             bottom: 100px;
+            top: 65%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -545,7 +546,7 @@
             align-items: center;
             width: 150px;
             height: 50px;
-            gap: 10px;
+            gap: 5px;
             text-decoration: none;
             color: #fff;
             background: #000;
@@ -588,7 +589,7 @@
 
     <div class="content-package" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <h1>Pilih Paketmu Sesuai Dengan Keinginanmu</h1>
-        <p>Scroll Kebawah Untuk Melihat Lebih Lanjut</p>
+        <p>Scroll Down Untuk Melihat Lebih Lanjut</p>
         <div class="scroll-icon-box">
             <a href="#Package" class="scroll-btn">
                 <i class="uil uil-mouse-alt"></i>
