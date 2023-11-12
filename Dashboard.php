@@ -924,6 +924,7 @@
             background-color: red;
             padding: 1px;
             border-radius: 15px;
+            margin-bottom: 10px;
         }
 
         .header-promo h1 {
@@ -945,14 +946,14 @@
 
         .promo-title p {
             font-size: 15px;
-            background: #000;
             border-radius: 5px;
-            color: #fff;
+            color: red;
             padding: 4px;
+            font-weight: 800;
         }
 
         .promo-title h2 {
-            font-size: 23px;
+            font-size: 25px;
             font-weight: 800;
         }
 
@@ -1107,9 +1108,9 @@
                         <div class="header-promo">
                             <h1>Promo Bulan Ini <i class="fas fa-tag"></i></h1>
                         </div>
-                        <p>Jangan sampai ketinggalan promonya!</p>
                         <span id="bulan"></span>
-                        <h2 id="paket-promo">Unlimit 3 Hour 360 & 3 Hour Photobooth</h2>
+                        <h2 id="paket-promo">Unlimited 3 Hour 360 & 3 Hour Photobooth</h2>
+                        <p>Jangan sampai<br>ketinggalan promonya!</p>
                     </div>
                     <div class="promo-harga">
                         <div class="description">
