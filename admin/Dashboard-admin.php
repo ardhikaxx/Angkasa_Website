@@ -38,6 +38,21 @@ if (isset($_GET['successMessage'])) {
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -1608,8 +1623,32 @@ if (isset($_GET['successMessage'])) {
             gap: 20px;
         }
 
-        .karyawan-count,
-        .admin-count,
+        .karyawan-count {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            margin-top: 20px;
+            background-color: #00C0EF;
+            color: #fff;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .admin-count {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            margin-top: 20px;
+            background-color: #00A65A;
+            color: #fff;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
         .pemesanan-count {
             display: flex;
             flex-direction: column;
@@ -1617,7 +1656,7 @@ if (isset($_GET['successMessage'])) {
             width: 120px;
             height: 120px;
             margin-top: 20px;
-            background-color: #000;
+            background-color: #DD4B39;
             color: #fff;
             border-radius: 15px;
             text-align: center;
@@ -1626,7 +1665,7 @@ if (isset($_GET['successMessage'])) {
         .karyawan-count i,
         .admin-count i,
         .pemesanan-count i {
-            font-size: 15px;
+            font-size: 20px;
             margin: 10px;
         }
 
@@ -1635,7 +1674,7 @@ if (isset($_GET['successMessage'])) {
         .pemesanan-count h3 {
             font-size: 15px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .karyawan-count span,
@@ -1648,7 +1687,7 @@ if (isset($_GET['successMessage'])) {
             font-size: 25px;
             font-family: "Poppins", sans-serif;
             font-weight: 800;
-            margin: 10px;
+            margin: 5px;
         }
 
         .grafik-pemesanan {
@@ -1656,7 +1695,7 @@ if (isset($_GET['successMessage'])) {
             height: 230px;
             margin-top: -260px;
             border-radius: 15px;
-            background-color: #000;
+            background-color: #1A2226;
             color: #fff;
             text-align: center;
             padding: 15px;
@@ -1674,7 +1713,7 @@ if (isset($_GET['successMessage'])) {
             width: 400px;
             height: 370px;
             margin-top: 20px;
-            background-color: #000;
+            background-color: #1A2226;
             border-radius: 15px;
             text-align: center;
             padding: 15px 20px;
@@ -1699,7 +1738,7 @@ if (isset($_GET['successMessage'])) {
 
         .tabel-container th,
         .tabel-container td {
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #ccc;
             padding: 8px;
         }
 
@@ -1708,8 +1747,8 @@ if (isset($_GET['successMessage'])) {
         }
 
         .tabel-container th {
-            background-color: #fff;
-            color: #000;
+            background-color: #000;
+            color: #fff;
             font-size: 20px;
             position: sticky;
             top: 0px;
@@ -1843,6 +1882,8 @@ if (isset($_GET['successMessage'])) {
             </li>
         </ul>
     </nav>
+
+    <div id="circularcursor"></div>
 
     <div class="notification" id="notification"></div>
 
@@ -1980,6 +2021,19 @@ if (isset($_GET['successMessage'])) {
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
+
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>
 
@@ -2004,18 +2058,19 @@ if (isset($_GET['successMessage'])) {
                         label: "Jumlah Pesanan",
                         data: packageData.data,
                         backgroundColor: [
-                            'rgba(224, 31, 38, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 248, 86, 1)',
-                            'rgba(153, 102, 255, 1)'
+                            'rgba(0, 192, 239, 1)',
+                            'rgba(221, 75, 57, 1)',
+                            'rgba(0, 166, 90, 1)',
+                            'rgba(243, 156, 18, 1)'
                         ],
                         borderColor: [
-                            'rgba(224, 31, 38, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 248, 86, 1)',
-                            'rgba(153, 102, 255, 1)'
+                            'rgba(0, 192, 239, 1)',
+                            'rgba(221, 75, 57, 1)',
+                            'rgba(0, 166, 90, 1)',
+                            'rgba(243, 156, 18, 1)'
                         ],
-                        borderWidth: 1,
+                        borderWidth: 0,
+                        borderRadius: 5,
                         barPercentage: 0.6
                     }
                 ]

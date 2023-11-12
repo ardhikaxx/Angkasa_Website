@@ -9,12 +9,12 @@ if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-function cari_nama($koneksi, $nama_cari)
+function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
-    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%'";
+    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
-    $no = 1;
+    $no = $start_from + 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_user']) ? $row['id_user'] : '';
@@ -24,21 +24,11 @@ function cari_nama($koneksi, $nama_cari)
         $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
         ?>
         <tr>
-            <td>
-                <?php echo $no; ?>
-            </td>
-            <td>
-                <?php echo $usernamalengkap; ?>
-            </td>
-            <td>
-                <?php echo $useremail; ?>
-            </td>
-            <td>
-                <?php echo $usertelepon; ?>
-            </td>
-            <td>
-                <?php echo $userjabatan; ?>
-            </td>
+            <td><?php echo $no; ?></td>
+            <td><?php echo $usernamalengkap; ?></td>
+            <td><?php echo $useremail; ?></td>
+            <td><?php echo $usertelepon; ?></td>
+            <td><?php echo $userjabatan; ?></td>
             <td>
                 <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
@@ -68,6 +58,21 @@ function cari_nama($koneksi, $nama_cari)
 
         html {
             scroll-behavior: smooth;
+        }
+
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
         }
 
         ::-webkit-scrollbar {
@@ -1634,7 +1639,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .content-settings th {
-            background-color: #000;
+            background-color: #1A2226;
             color: #fff;
         }
 
@@ -1683,7 +1688,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         button {
-            background-color: #000;
+            background-color: #1A2226;
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -1693,7 +1698,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .search button:hover {
-            background-color: #333;
+            background-color: #000;
         }
 
         .search-icon {
@@ -1935,6 +1940,27 @@ function cari_nama($koneksi, $nama_cari)
         .notification-noChange.show {
             opacity: 1;
         }
+
+        #page-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #page-links a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+        #page-links a:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        #page-links a.active {
+            background-color: #000;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -1955,13 +1981,16 @@ function cari_nama($koneksi, $nama_cari)
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>
         </ul>
     </nav>
+
+    <div id="circularcursor"></div>
 
     <div id="overlay" class="modal-overlay"></div>
 
@@ -1995,13 +2024,16 @@ function cari_nama($koneksi, $nama_cari)
             </thead>
             <tbody class="tabel-akun">
                 <?php
+                $records_per_page = 5;
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $start_from = ($current_page - 1) * $records_per_page;
                 if (isset($_GET['search'])) {
                     $searchquery = $_GET['search'];
-                    cari_nama($koneksi, $searchquery, );
+                    cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user";
+                    $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user LIMIT $start_from, $records_per_page";
                     $result = mysqli_query($koneksi, $query);
-                    $no = 1;
+                    $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $id = isset($row['id_user']) ? $row['id_user'] : '';
                         $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
@@ -2037,6 +2069,15 @@ function cari_nama($koneksi, $nama_cari)
                 }
                 ?>
         </table>
+        <div id="page-links">
+            <?php
+            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_user FROM user"));
+            $total_pages = ceil($total_records / $records_per_page);
+            for ($i = 1; $i <= $total_pages; $i++) {
+                echo '<a href="?page=' . $i . '">' . $i . '</a> ';
+            }
+            ?>
+        </div>
     </div>
 
     <div id="notification" class="notification"></div>
@@ -2044,7 +2085,6 @@ function cari_nama($koneksi, $nama_cari)
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
-            <h2>Konfirmasi Edit</h2>
             <p>Apakah Anda yakin ingin mengedit data ini?</p>
             <button id="confirmEditYes">Ya</button>
             <button id="confirmEditNo">Tidak</button>
@@ -2060,6 +2100,19 @@ function cari_nama($koneksi, $nama_cari)
             <button id="confirmDeleteNo">Tidak</button>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>

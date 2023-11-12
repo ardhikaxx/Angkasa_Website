@@ -29,6 +29,21 @@ if (!$koneksi) {
             position: relative;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         .edit-box {
             text-align: center;
             width: 300px;
@@ -244,6 +259,21 @@ if (!$koneksi) {
             </a>
         </form>
     </div>
+
+    <div id="circularcursor"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script>
         const phoneInput = document.getElementById('phoneInput');

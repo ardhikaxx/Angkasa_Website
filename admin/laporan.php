@@ -8,12 +8,12 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-function cari_nama($koneksi, $nama_cari)
+function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
-    $query = "SELECT * FROM pemesanan WHERE nama_customer LIKE '%$nama_cari%'";
+    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
-    $no = 1;
+    $no = $start_from + 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
@@ -35,8 +35,8 @@ function cari_nama($koneksi, $nama_cari)
                 <?php echo $alamatacara; ?>
             </td>
             <td>
-                    <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i> Selesai</a>
-                    <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i> Belum</a>
+                <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
+                <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i></a>
             </td>
         </tr>
         <?php
@@ -63,6 +63,21 @@ function cari_nama($koneksi, $nama_cari)
 
         html {
             scroll-behavior: smooth;
+        }
+
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
         }
 
         ::-webkit-scrollbar {
@@ -1592,14 +1607,14 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .content {
-            width: 900px;
+            width: 950px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             font-family: "Poppins", sans-serif;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 50px;
             margin-left: 200px;
         }
@@ -1763,6 +1778,30 @@ function cari_nama($koneksi, $nama_cari)
         .search-icon {
             margin-right: 5px;
         }
+
+        #page-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #page-links a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        #page-links a:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #page-links a.active {
+            background-color: #000;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -1783,13 +1822,16 @@ function cari_nama($koneksi, $nama_cari)
                 <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
             </li>
         </ul>
     </nav>
+
+    <div id="circularcursor"></div>
 
     <div id="overlay" class="modal-overlay"></div>
 
@@ -1804,8 +1846,7 @@ function cari_nama($koneksi, $nama_cari)
     <div class="tabel-laporan">
         <h1>Laporan Pemesanan</h1>
         <form method="GET">
-            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap Pemesan"
-                autocomplete="off">
+            <input type="text" name="search" id="search" placeholder="Cari Nama Lengkap Pemesan" autocomplete="off">
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
@@ -1821,45 +1862,71 @@ function cari_nama($koneksi, $nama_cari)
                 </tr>
             </thead>
             <tbody class="tabel-akun">
-            <?php
+                <?php
+                $records_per_page = 5;
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $start_from = ($current_page - 1) * $records_per_page;
                 if (isset($_GET['search'])) {
                     $searchquery = $_GET['search'];
-                    cari_nama($koneksi, $searchquery, );
+                    cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query = "SELECT id_pemesanan, nama_customer, no_customer, alamat_acara FROM pemesanan";
+                    $query = "SELECT id_pemesanan, nama_customer, no_customer, alamat_acara FROM pemesanan LIMIT $start_from, $records_per_page";
                     $result = mysqli_query($koneksi, $query);
-                    $no = 1;
+                    $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
                         $namalengkapcustomer = isset($row['nama_customer']) ? $row['nama_customer'] : '';
                         $teleponcustomer = isset($row['no_customer']) ? $row['no_customer'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
                         ?>
-                <td>
-                    <?php echo $no;?>
-                </td>
-                <td>
-                    <?php echo $namalengkapcustomer;?>
-                </td>
-                <td>
-                    <?php echo $teleponcustomer;?>
-                </td>
-                <td>
-                    <?php echo $alamatacara;?>
-                </td>
-                <td>
-                    <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i> Selesai</a>
-                    <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i> Belum</a>
-                </td>
-                </tr>
+                        <tr>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namalengkapcustomer; ?>
+                            </td>
+                            <td>
+                                <?php echo $teleponcustomer; ?>
+                            </td>
+                            <td>
+                                <?php echo $alamatacara; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
+                                <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                    }
+                }
+                ?>
             </tbody>
-                    <?php
-                    $no++;
-                    }
-                    }
-                    ?>
         </table>
+        <div id="page-links">
+            <?php
+            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_pemesanan FROM pemesanan"));
+            $total_pages = ceil($total_records / $records_per_page);
+            for ($i = 1; $i <= $total_pages; $i++) {
+                echo '<a href="?page=' . $i . '">' . $i . '</a> ';
+            }
+            ?>
+        </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>

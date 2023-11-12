@@ -61,6 +61,21 @@ function cari_nama($koneksi, $nama_cari)
             scroll-behavior: smooth;
         }
 
+        #circularcursor {
+            background-color: #000;
+            border: 1px solid black;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            transition: left 0.1s, top 0.1s;
+            transform: translate(-30%, -15%);
+            pointer-events: none;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -1765,6 +1780,8 @@ function cari_nama($koneksi, $nama_cari)
         </ul>
     </nav>
 
+    <div id="circularcursor"></div>
+
     <div id="overlay" class="modal-overlay"></div>
 
     <div id="logoutModal" class="modal">
@@ -1833,6 +1850,19 @@ function cari_nama($koneksi, $nama_cari)
                     ?>
         </table>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('mousemove', function (e) {
+                $('#circularcursor').css({
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            })
+        });
+    </script>
 
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>
