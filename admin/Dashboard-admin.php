@@ -133,7 +133,7 @@ if (isset($_GET['successMessage'])) {
 
         .navbar__menu {
             position: relative;
-            margin-top: 200px;
+            margin-top: 250px;
         }
 
         .navbar__item:last-child:before {
@@ -1868,10 +1868,7 @@ if (isset($_GET['successMessage'])) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
-                <a href="sponsor.php" class="navbar__link"><i data-feather="folder"></i><span>Sponsor</span></a>
-            </li>
-            <li class="navbar__item">
-                <a href="laporan.php" class="navbar__link"><i data-feather="archive"></i><span>Laporan</span></a>
+                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="settings.php" class="navbar__link" id="settings"><i
@@ -1909,7 +1906,6 @@ if (isset($_GET['successMessage'])) {
             } else {
                 $totalKaryawan = 0;
             }
-            // Hitung jumlah admin
             $queryadmin = "SELECT COUNT(*) as total_karyawan from user where jabatan = 'admin'";
             $resultadmin = mysqli_query($koneksi, $queryadmin);
 
@@ -1979,7 +1975,6 @@ if (isset($_GET['successMessage'])) {
                             <tbody>
                                 <?php
                                 $tanggalSekarang = date('Y-m-d');
-
                                 $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,pemesanan.tanggal_acara FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer WHERE YEAR(tanggal_acara) = YEAR('$tanggalSekarang') AND MONTH(tanggal_acara) = MONTH('$tanggalSekarang')";
                                 $result = mysqli_query($koneksi, $query);
 
@@ -2069,7 +2064,7 @@ if (isset($_GET['successMessage'])) {
                             'rgba(243, 156, 18, 1)'
                         ],
                         borderWidth: 0,
-                        borderRadius: 5,
+                        borderRadius: 4,
                         barPercentage: 0.6
                     }
                 ]

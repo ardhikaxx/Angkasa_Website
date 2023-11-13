@@ -1011,6 +1011,28 @@
                 transform: translateY(0);
             }
         }
+
+        .notification {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -1035,6 +1057,8 @@
     </div>
 
     <div id="circularcursor"></div>
+
+    <div class="notification" id="notification"></div>
 
     <div class="container_mouse">
         <span class="mouse-btn">
@@ -1290,6 +1314,30 @@
 
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('successMessage');
+
+            if (successMessage) {
+                const notification = document.getElementById('notification');
+                notification.innerText = successMessage;
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 

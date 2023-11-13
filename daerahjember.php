@@ -6,7 +6,6 @@ if ($koneksi->connect_error) {
 }
 
 if (isset($_POST['submit'])) {
-
     $namacustomer = isset($_POST['txt_nama']) ? $_POST['txt_nama'] : '';
     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
@@ -16,52 +15,39 @@ if (isset($_POST['submit'])) {
     $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
-    //upload gambar
+
     $gambar = upload() ;
     if(!$gambar){
         return false;
     }
-
-
     foreach($pilihpaketlayout as $key => $value) {
         var_dump($quota[$value]);
         var_dump($unlimited[$value]);
     }
 
-    // Query untuk menyisipkan data ke tabel customer
     $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
     $result_customer = mysqli_query($koneksi, $query_customer);
     if($result_customer){
-             // Ambil ID pemesanan yang baru saja diinsert
              $last_inserted_customer_id = mysqli_insert_id($koneksi);
-
-                 // Query untuk menyisipkan data ke tabel pemesanan
     $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
     $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
-
-    // Jika query untuk pemesanan berhasil
     if ($result_pemesanan) {
-        // Ambil ID pemesanan yang baru saja diinsert
         $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
         foreach($pilihpaketlayout as $key => $value) {
             $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
         $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-
         }
-        
-        // Jika semua query berhasil, commit transaksi
+
         if ($result_detail_pemesanan) {
             $koneksi->commit();
             header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
             exit();
         } else {
-            // Jika ada query yang gagal, rollback transaksi
             $conn->rollback();
             $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
         }
     }
     }
-
 } else {
     $error = "Gagal menyisipkan data ke tabel layout.";
 }
@@ -71,14 +57,13 @@ function upload(){
     $error=$_FILES['gambar'] ['error'];
     $tmpName=$_FILES ['gambar'] ['tmp_name'];
 
-    //cek apakah adakah gambar yang diupload
     if($error === 4){
-      echo "<script>
+        echo "<script>
             alert ('pilih gambar terlebih dahulu');
             </script>";
             return false;
     }
-    //cek apakah ada yang diupload adalah gambar
+
     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
     $ekstensiGambar = explode ('.',$namaFile);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
@@ -88,19 +73,16 @@ function upload(){
             </script>";
             return false;
     }
-    //cek jika ukurannya terlalu besar
+
     if ($ukuranFile > 1000000){
         echo "<script>
             alert ('ukuran gambar terlalu besar!');
             </script>";
             return false;
     }
-    //generate nama gambar baru
     $namaFileBaru = uniqid ();
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiGambar;
-
-    //lolos pengecekan,gambar siap diupload
     move_uploaded_file($tmpName, 'img/' . $namaFileBaru );
     return $namaFileBaru;
 }
@@ -508,157 +490,170 @@ function upload(){
     </div>
 
     <form method="POST" enctype="multipart/form-data">
-    <div class="pack-jember">
-    <div class="container-pemesanan">
-                <div id="step-1" >
+        <div class="pack-jember">
+            <div class="container-pemesanan">
+                <div id="step-1">
+                    <h1>Pemesanan Didaerah Jember</h1>
+                    <div class="input-container">
+                        <label for="name">Nama Lengkap:</label>
+                        <input type="text" id="name" name="txt_nama" placeholder="Contoh: Jhon Doe" required>
+                    </div>
 
+                    <div class="input-container">
+                        <label for="phone">Nomer Telepon:</label>
+                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444" required>
+                    </div>
 
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="txt_nama" placeholder="Ex.Jhon Doe" required>
-                </div>
-                <div class="input-container">
-                    <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="txt_phone" placeholder="Ex.081222333444" required>
-                </div>
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="txt_address" placeholder="Ex.Jl. Mastrip, Kec. Sumbersari, Jember" required>
-                </div>
-                <div class="toast" id="address-warning">Alamat harus mencantumkan kata "Jember".</div>
-                <div class="input-container">
-                    <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="txt_date" required>
-                </div>
-                <button class="next-button" id="next-1" disabled>Selanjutnya</button>
+                    <div class="input-container">
+                        <label for="address">Alamat Acara:</label>
+                        <input type="text" id="address" name="txt_address"
+                            placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
+                    </div>
+
+                    <div class="toast" id="address-warning">Alamat harus mencantumkan kata "Jember".</div>
+                    <div class="input-container">
+                        <label for="date">Tanggal Acara:</label>
+                        <input type="date" id="date" name="txt_date" required>
+                    </div>
+                    <button class="next-button" id="next-1" disabled>Selanjutnya</button>
                 </div>
 
                 <div id="step-2" style="display: none;">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="package">Package Selection:</label>
-                    <select id="package" name="txt_package">
-                        <option value="" disabled selected>Pilih Paket</option>
-                        <option value="Self Photobox">Self Photobox</option>
-                        <option value="Self Photo">Self Photo</option>
-                        <option value="Manual Photobooth">Manual Photobooth</option>
-                        <option value="360 Videobooth">360 Videobooth</option>
-                    </select>
-                </div>
-                <div class="input-container checkbox-group">
-                    <h3>Pilih Paket Layout:</h3>
-                    <div class="checkbox-container" id="checkbox">
-                        <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1">
-                        <label for="paperframe-4r">PaperFrame 4R</label>
-                        <br>
-                        <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2">
-                        <label for="paperframe-2r">PaperFrame 2R</label>
-                        <br>
-                        <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
-                        <label for="layout-360">360 Videobooth</label>
+                    <h1>Pemesanan Didaerah Jember</h1>
+                    <div class="input-container">
+                        <label for="package">Package Selection:</label>
+                        <select id="package" name="txt_package">
+                            <option value="" disabled selected>Pilih Paket</option>
+                            <option value="Self Photobox">Self Photobox</option>
+                            <option value="Self Photo">Self Photo</option>
+                            <option value="Manual Photobooth">Manual Photobooth</option>
+                            <option value="360 Videobooth">360 Videobooth</option>
+                        </select>
                     </div>
+
+                    <div class="input-container checkbox-group">
+                        <h3>Pilih Paket Layout:</h3>
+                        <div class="checkbox-container" id="checkbox">
+                            <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1">
+                            <label for="paperframe-4r">PaperFrame 4R</label>
+                            <br>
+                            <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2">
+                            <label for="paperframe-2r">PaperFrame 2R</label>
+                            <br>
+                            <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
+                            <label for="layout-360">360 Videobooth</label>
+                        </div>
+                    </div>
+                    <div class="input-container" id="quota-2R-dropdown">
+                        <label for="quota-2R">Quota PaperFrame 2R:</label>
+                        <select name="quota[2]" id="quota-2R">
+                            <option value="" disabled selected>Pilih Quota</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_quota'] ?>">
+                                    <?= $data['nama_quota'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="unlimited-2R-dropdown">
+                        <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
+                        <select name="unlimited[2]" id="unlimited-2R">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="quota-4R-dropdown">
+                        <label for="quota-4R">Quota PaperFrame 4R:</label>
+                        <select name="quota[1]" id="quota-4R">
+                            <option value="" disabled selected>Pilih Quota</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_quota'] ?>">
+                                    <?= $data['nama_quota'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="unlimited-4R-dropdown">
+                        <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
+                        <select name="unlimited[1]" id="unlimited-4R">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="unlimited-360-dropdown">
+                        <label for="unlimited-360">Unlimited 360 Videobooth:</label>
+                        <select name="unlimited[3]" id="unlimited-360">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='3'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <button class="prev-button" id="prev-2">Kembali</button>
+                    <button class="next-button" id="next-2" disabled>Selanjutnya</button>
                 </div>
-                <div class="input-container" id="quota-2R-dropdown">
-                    <label for="quota-2R">Quota PaperFrame 2R:</label>
-                    <select name="quota[2]" id="quota-2R">
-                        <option value="" disabled selected>Pilih Quota</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM quota where id_layout='1'");
 
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_quota'] ?>"><?= $data['nama_quota'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <div class="input-container" id="unlimited-2R-dropdown">
-                    <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited[2]" id="unlimited-2R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='1'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <div class="input-container" id="quota-4R-dropdown">
-                    <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota[1]" id="quota-4R">
-                        <option value="" disabled selected>Pilih Quota</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM quota where id_layout='2'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_quota'] ?>"><?= $data['nama_quota'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-             <!-- </div>  -->
-
-                <div class="input-container" id="unlimited-4R-dropdown">
-                    <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited[1]" id="unlimited-4R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='2'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <div class="input-container" id="unlimited-360-dropdown">
-                    <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited[3]" id="unlimited-360">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='3'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="next-button" id="next-2" disabled>Selanjutnya</button>
-                </div>
-
-            <div id="step-3" style="display: none;">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="metode-pembayaran">Payment Method:</label>
-                    <select id="payment" name="txt_payment">
-                        <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Transfer Bank">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="gambar" required>
-                </div>
-                <button class="prev-button" id="prev-3">Kembali</button>
-                <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
+                <div id="step-3" style="display: none;">
+                    <h1>Pemesanan Didaerah Jember</h1>
+                    <div class="input-container">
+                        <label for="metode-pembayaran">Payment Method:</label>
+                        <select id="payment" name="txt_payment">
+                            <option value="" disabled selected>Pilih Metode Pembayaran</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Transfer Bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <label for="proof">Kirim Bukti Pembayaran:</label>
+                        <input type="file" id="proof" name="gambar" required>
+                    </div>
+                    <button class="prev-button" id="prev-3">Kembali</button>
+                    <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
                 </div>
             </div>
         </div>
     </form>
 
+    <div id="circularcursor"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const addressInput = document.getElementById('address');
@@ -708,6 +703,7 @@ function upload(){
                 nextButton3.disabled = !isStepFormValid(step3Inputs);
             });
         });
+
         $(document).ready(function () {
             $(document).on('mousemove', function (e) {
                 $('#circularcursor').css({
@@ -717,7 +713,6 @@ function upload(){
             })
         });
 
-        // <script>
         document.addEventListener("DOMContentLoaded", function () {
             const step1Form = document.getElementById("step-1");
             const step2Form = document.getElementById("step-2");
