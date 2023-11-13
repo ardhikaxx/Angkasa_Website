@@ -58,27 +58,21 @@ function upload(){
     $tmpName=$_FILES ['gambar'] ['tmp_name'];
 
     if($error === 4){
-        echo "<script>
-            alert ('pilih gambar terlebih dahulu');
-            </script>";
-            return false;
+        header("Location: daerahjember.php?WarningMessage=pilih gambar terlebih dahulu!");
+        exit();
     }
 
     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
     $ekstensiGambar = explode ('.',$namaFile);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
     if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
-        echo "<script>
-            alert ('Yang anda upload bukan gambar!');
-            </script>";
-            return false;
+        header("Location: daerahjember.php?WarningMessage=Yang anda upload bukan gambar!");
+        exit();
     }
 
     if ($ukuranFile > 1000000){
-        echo "<script>
-            alert ('ukuran gambar terlalu besar!');
-            </script>";
-            return false;
+        header("Location: daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
+        exit();
     }
     $namaFileBaru = uniqid ();
     $namaFileBaru .= '.';
@@ -466,6 +460,28 @@ function upload(){
                 opacity: 0;
             }
         }
+
+        .notification {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -651,8 +667,34 @@ function upload(){
 
     <div id="circularcursor"></div>
 
+    <div class="notification" id="notification"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const WarningMessage = urlParams.get('WarningMessage');
+
+            if (WarningMessage) {
+                const notification = document.getElementById('notification');
+                notification.innerText = WarningMessage;
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
