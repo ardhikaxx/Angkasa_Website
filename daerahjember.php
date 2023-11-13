@@ -628,7 +628,6 @@ function upload(){
                     <button class="next-button" id="next-2" disabled>Selanjutnya</button>
                 </div>
 
-<<<<<<< HEAD
                 <div id="step-3" style="display: none;">
                     <h1>Pemesanan Didaerah Jember</h1>
                     <div class="input-container">
@@ -645,86 +644,6 @@ function upload(){
                     </div>
                     <button class="prev-button" id="prev-3">Kembali</button>
                     <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
-=======
-                <div class="input-container" id="unlimited-2R-dropdown">
-                    <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited[2]" id="unlimited-2R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='1'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <div class="input-container" id="quota-4R-dropdown">
-                    <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota[1]" id="quota-4R">
-                        <option value="" disabled selected>Pilih Quota</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM quota where id_layout='2'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_quota'] ?>"><?= $data['nama_quota'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-             <!-- </div>  -->
-
-                <div class="input-container" id="unlimited-4R-dropdown">
-                    <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited[1]" id="unlimited-4R">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='2'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <div class="input-container" id="unlimited-360-dropdown">
-                    <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited[3]" id="unlimited-360">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                        <?php
-   $query = mysqli_query ($koneksi,"SELECT * FROM unlimited where id_layout='3'");
-
-   while ($data=mysqli_fetch_array($query)){
-                        ?>
-                        <option value="<?= $data['id_unlimited'] ?>"><?= $data['nama_unlimited'] ?></option>
-<?php } ?>
-                    </select>
-                </div>
-
-                <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="next-button" id="next-2" disabled>Selanjutnya</button>
-                </div>
-
-            <div id="step-3" style="display: none;">
-                <h1>Pemesanan Didaerah Jember</h1>
-                <div class="input-container">
-                    <label for="metode-pembayaran">Payment Method:</label>
-                    <select id="payment" name="txt_payment">
-                        <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="Dana">Dana</option>
-                        <option value="Transfer Bank">Bank Transfer</option>
-                        <option value="Shopee pay">Shopee pay</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="gambar" required>
-                </div>
-                <button class="prev-button" id="prev-3">Kembali</button>
-                <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
->>>>>>> d5f50b770b27150dce338f74d367ce3a25f029df
                 </div>
             </div>
         </div>
