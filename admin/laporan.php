@@ -20,6 +20,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $proposal = isset($row['proposal']) ? $row ['proposal']:'';
         ?>
         <tr>
             <td>
@@ -33,6 +34,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             </td>
             <td>
                 <?php echo $alamatacara; ?>
+            </td>
+            <td>
+                <?php echo $proposal;?>
             </td>
             <td>
                 <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
@@ -1842,7 +1846,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
     <div class="tabel-laporan">
         <h1>Laporan Pemesanan</h1>
         <form method="GET">
-            <input type="text" name="search" id="search" placeholder="Cari Nama Lengkap Pemesan" autocomplete="off">
+            <input type="text" name="search" id="search" placeholder="Cari Nama Customer" autocomplete="off">
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
@@ -1851,9 +1855,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Lengkap</th>
+                    <th>Nama Customer</th>
                     <th>No Hp</th>
                     <th>Alamat Acara</th>
+                    <th>Proposal</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -1866,7 +1871,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer LIMIT $start_from, $records_per_page";
+                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.proposal FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer LIMIT $start_from, $records_per_page";
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -1874,6 +1879,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
                         ?>
                         <tr>
                             <td>
@@ -1887,6 +1893,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                             </td>
                             <td>
                                 <?php echo $alamatacara; ?>
+                            </td>
+                            <td>
+                                <?php echo $proposal;?>
                             </td>
                             <td>
                                 <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
