@@ -640,8 +640,9 @@ function upload(){
                     <label for="metode-pembayaran">Payment Method:</label>
                     <select id="payment" name="txt_payment">
                         <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="Cash">Cash</option>
+                        <option value="Dana">Dana</option>
                         <option value="Transfer Bank">Bank Transfer</option>
+                        <option value="Shopee pay">Shopee pay</option>
                     </select>
                 </div>
                 <div class="input-container">
