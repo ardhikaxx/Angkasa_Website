@@ -533,18 +533,20 @@
         .content-package p {
             text-align: center;
             margin-top: 10px;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .scroll-btn {
             position: absolute;
             bottom: 100px;
-            top: 65%;
+            top: 70%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 150px;
+            width: 200px;
             height: 50px;
             gap: 5px;
             text-decoration: none;
@@ -556,11 +558,12 @@
         }
 
         .scroll-btn i {
-            font-size: 20px;
+            font-size: 25px;
         }
 
         .scroll-btn p {
             margin: 0;
+            padding: 3px;
         }
     </style>
 </head>
@@ -589,7 +592,7 @@
 
     <div class="content-package" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <h1>Pilih Paketmu Sesuai Dengan Keinginanmu</h1>
-        <p>Scroll Down Untuk Melihat Lebih Lanjut</p>
+        <p>Klik Scroll Down Untuk Melihat Lebih Lanjut</p>
         <div class="scroll-icon-box">
             <a href="#Package" class="scroll-btn">
                 <i class="uil uil-mouse-alt"></i>

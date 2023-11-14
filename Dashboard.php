@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angkasa | Dashboard Page</title>
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         body {
@@ -637,12 +637,25 @@
             text-align: left;
             display: flex;
             align-items: center;
+            color: #fff;
+            padding: 5px;
+            border-radius: 15px;
+            background-color: #000;
+        }
+
+        .detail-map #nama-ig {
+            padding: 5px;
+        }
+
+        .detail-map #alamat {
+            padding: 2px;
         }
 
         .detail-map #nomor-wa,
-        #nama-ig {
+        #nama-ig,
+        #alamat {
             font-size: 16px;
-            color: #000;
+            color: #fff;
             text-align: left;
             display: flex;
             align-items: center;
@@ -654,13 +667,15 @@
         }
 
         .detail-map .bi-phone {
-            stroke: black;
-            stroke-width: 0.4;
+            stroke: #fff;
+            stroke-width: 0.6;
+            margin-left: 5px;
         }
 
         .detail-map .bi-geo-alt {
-            stroke: black;
-            stroke-width: 0.4;
+            stroke: #fff;
+            stroke-width: 0.6;
+            margin-left: 5px;
         }
 
         .detail-map h1 {
@@ -1179,7 +1194,7 @@
             </div>
             <div class="detail-map" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
                 <h2>Contact Us</h2>
-                <p>kalau anda ada kesulitan, anda dapat bisa menghubungi kontak yang tersedia.</p>
+                <p>Ketika anda kesulitan, anda dapat mengeklik untuk menghubungi kontak yang tersedia.</p>
                 <ul>
                     <li>
                         <a href="https://api.whatsapp.com/send/?phone=6287752874282&text&type=phone_number&app_absent=0"
@@ -1203,12 +1218,14 @@
                         </a>
                     </li>
                     <li>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="25" fill="currentColor"
-                            class="bi bi-geo-alt" viewBox="0 0 16 16">
-                            <path
-                                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg> Jl. Sultan agung no. 11 jember
+                        <a href="" target="_blank" id="alamat">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="25" fill="currentColor"
+                                class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg> Jl. Sultan agung no. 11 jember
+                        </a>
                     </li>
                 </ul>
             </div>

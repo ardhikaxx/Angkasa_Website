@@ -1724,6 +1724,11 @@ if (isset($_GET['successMessage'])) {
             font-family: "Poppins", sans-serif;
         }
 
+        .tabel-detail h3 {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
         .tabel-container {
             margin-top: 20px;
             max-height: 300px;

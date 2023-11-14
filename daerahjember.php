@@ -16,68 +16,69 @@ if (isset($_POST['submit'])) {
     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
 
-    $gambar = upload() ;
-    if(!$gambar){
+    $gambar = upload();
+    if (!$gambar) {
         return false;
     }
-    foreach($pilihpaketlayout as $key => $value) {
+    foreach ($pilihpaketlayout as $key => $value) {
         var_dump($quota[$value]);
         var_dump($unlimited[$value]);
     }
 
     $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
     $result_customer = mysqli_query($koneksi, $query_customer);
-    if($result_customer){
-             $last_inserted_customer_id = mysqli_insert_id($koneksi);
-    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
-    $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
-    if ($result_pemesanan) {
-        $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
-        foreach($pilihpaketlayout as $key => $value) {
-            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
-        $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-        }
+    if ($result_customer) {
+        $last_inserted_customer_id = mysqli_insert_id($koneksi);
+        $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
+        $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+        if ($result_pemesanan) {
+            $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
+            foreach ($pilihpaketlayout as $key => $value) {
+                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
+                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+            }
 
-        if ($result_detail_pemesanan) {
-            $koneksi->commit();
-            header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
-            exit();
-        } else {
-            $conn->rollback();
-            $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+            if ($result_detail_pemesanan) {
+                $koneksi->commit();
+                header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                exit();
+            } else {
+                $conn->rollback();
+                $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+            }
         }
-    }
     }
 } else {
     $error = "Gagal menyisipkan data ke tabel layout.";
 }
-function upload(){
-    $namaFile = $_FILES ['gambar'] ['name'];
-    $ukuranFile= $_FILES ['gambar'] ['size'];
-    $error=$_FILES['gambar'] ['error'];
-    $tmpName=$_FILES ['gambar'] ['tmp_name'];
+function upload()
+{
+    $namaFile = $_FILES['gambar']['name'];
+    $ukuranFile = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
 
-    if($error === 4){
+    if ($error === 4) {
         header("Location: daerahjember.php?WarningMessage=pilih gambar terlebih dahulu!");
         exit();
     }
 
     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-    $ekstensiGambar = explode ('.',$namaFile);
+    $ekstensiGambar = explode('.', $namaFile);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
         header("Location: daerahjember.php?WarningMessage=Yang anda upload bukan gambar!");
         exit();
     }
 
-    if ($ukuranFile > 1000000){
+    if ($ukuranFile > 1000000) {
         header("Location: daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
         exit();
     }
-    $namaFileBaru = uniqid ();
+    $namaFileBaru = uniqid();
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiGambar;
-    move_uploaded_file($tmpName, 'img/' . $namaFileBaru );
+    move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
     return $namaFileBaru;
 }
 ?>
@@ -482,6 +483,45 @@ function upload(){
         .notification.show {
             opacity: 1;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        .input-container.quota-unlimited {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited {
+            display: flex;
+            align-items: center;
+            margin-left: 110px;
+            margin-top: -18px;
+        }
+
+        .radio-quota-unlimited input[type="radio"] {
+            display: none;
+        }
+
+        .radio-quota-unlimited label {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited label:before {
+            font-family: "FontAwesome";
+            content: "\f096";
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited input[type="radio"]:checked+label:before {
+            content: "\f046";
+        }
     </style>
 </head>
 
@@ -537,7 +577,7 @@ function upload(){
                 <div id="step-2" style="display: none;">
                     <h1>Pemesanan Didaerah Jember</h1>
                     <div class="input-container">
-                        <label for="package">Package Selection:</label>
+                        <label for="package">Package selection:</label>
                         <select id="package" name="txt_package">
                             <option value="" disabled selected>Pilih Paket</option>
                             <option value="Self Photobox">Self Photobox</option>
@@ -548,7 +588,7 @@ function upload(){
                     </div>
 
                     <div class="input-container checkbox-group">
-                        <h3>Pilih Paket Layout:</h3>
+                        <h3>Pilih Layout:</h3>
                         <div class="checkbox-container" id="checkbox">
                             <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1">
                             <label for="paperframe-4r">PaperFrame 4R</label>
@@ -560,6 +600,17 @@ function upload(){
                             <label for="layout-360">360 Videobooth</label>
                         </div>
                     </div>
+
+                    <div class="input-container quota-unlimited" id="quota-unlimited" style="display: none;">
+                        <label>Pilih Paket:</label>
+                        <div class="radio-quota-unlimited">
+                            <input type="radio" id="quota" name="txt_package" value="quota">
+                            <label for="quota">Quota</label>
+                            <input type="radio" id="unlimited" name="txt_package" value="unlimited">
+                            <label for="unlimited">Unlimited</label>
+                        </div>
+                    </div>
+
                     <div class="input-container" id="quota-2R-dropdown">
                         <label for="quota-2R">Quota PaperFrame 2R:</label>
                         <select name="quota[2]" id="quota-2R">
@@ -647,13 +698,22 @@ function upload(){
                 <div id="step-3" style="display: none;">
                     <h1>Pemesanan Didaerah Jember</h1>
                     <div class="input-container">
-                        <label for="metode-pembayaran">Payment Method:</label>
-                        <select id="payment" name="txt_payment">
-                            <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Transfer Bank">Bank Transfer</option>
+                        <label for="metode-pembayaran">Pilih Metode Pembayaran:</label>
+                        <select id="payment" name="txt_payment" onchange="showPaymentDetails()">
+                            <option value="" disabled selected>Pilih Pembayaran</option>
+                            <option value="Dana">Dana</option>
+                            <option value="Transfer Bank">Transfer Bank</option>
                         </select>
                     </div>
+
+                    <div id="danaDetails" class="hidden">
+                        <p id="nomorDana"></p>
+                    </div>
+
+                    <div id="bankDetails" class="hidden">
+                        <p id="nomorRekening"></p>
+                    </div>
+
                     <div class="input-container">
                         <label for="proof">Kirim Bukti Pembayaran:</label>
                         <input type="file" id="proof" name="gambar" required>
@@ -671,6 +731,105 @@ function upload(){
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function toggleVisibility() {
+                var radioButtonValue = document.querySelector("input[name='txt_package']:checked").value;
+                var layoutCheckbox4R = document.getElementById("paperframe-4r");
+                var layoutCheckbox2R = document.getElementById("paperframe-2r");
+                var is4RChecked = layoutCheckbox4R.checked;
+                var is2RChecked = layoutCheckbox2R.checked;
+
+                if (radioButtonValue === "quota") {
+                    document.getElementById("quota-2R-dropdown").style.display = is2RChecked ? "block" : "none";
+                    document.getElementById("unlimited-2R-dropdown").style.display = "none";
+                    document.getElementById("quota-4R-dropdown").style.display = is4RChecked ? "block" : "none";
+                    document.getElementById("unlimited-4R-dropdown").style.display = "none";
+                } else if (radioButtonValue === "unlimited") {
+                    document.getElementById("quota-2R-dropdown").style.display = "none";
+                    document.getElementById("unlimited-2R-dropdown").style.display = is2RChecked ? "block" : "none";
+                    document.getElementById("quota-4R-dropdown").style.display = "none";
+                    document.getElementById("unlimited-4R-dropdown").style.display = is4RChecked ? "block" : "none";
+                }
+            }
+
+            var radioButtons = document.getElementsByName("txt_package");
+
+            radioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener("change", function () {
+                    toggleVisibility();
+                });
+            });
+
+            var layoutCheckboxes = document.getElementById("checkbox");
+
+            layoutCheckboxes.addEventListener("change", function () {
+                toggleVisibility();
+            });
+
+            var initialSelectedRadio = document.querySelector("input[name='txt_package']:checked");
+            if (initialSelectedRadio) {
+                toggleVisibility();
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var paperframe4rCheckbox = document.getElementById("paperframe-4r");
+            var paperframe2rCheckbox = document.getElementById("paperframe-2r");
+            var layout360Checkbox = document.getElementById("layout-360");
+            var quotaUnlimitedDropdown = document.querySelector(".quota-unlimited");
+            var unlimited360Dropdown = document.getElementById("unlimited-360-dropdown");
+
+            paperframe4rCheckbox.addEventListener("click", function () {
+                if (paperframe4rCheckbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "block";
+                    unlimited360Dropdown.style.display = "none";
+                } else {
+                    quotaUnlimitedDropdown.style.display = "none";
+                }
+            });
+
+            paperframe2rCheckbox.addEventListener("click", function () {
+                if (paperframe2rCheckbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "block";
+                    unlimited360Dropdown.style.display = "none";
+                } else {
+                    quotaUnlimitedDropdown.style.display = "none";
+                }
+            });
+
+            layout360Checkbox.addEventListener("click", function () {
+                if (layout360Checkbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "none";
+                    unlimited360Dropdown.style.display = "block";
+                } else {
+                    unlimited360Dropdown.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function showPaymentDetails() {
+            var paymentMethod = document.getElementById("payment").value;
+            var nomorDana = document.getElementById("nomorDana");
+            var nomorRekening = document.getElementById("nomorRekening");
+
+            nomorDana.parentNode.classList.add("hidden");
+            nomorRekening.parentNode.classList.add("hidden");
+
+            if (paymentMethod === "Dana") {
+                nomorDana.innerHTML = "Nomor Dana: 123456789";
+                nomorDana.parentNode.classList.remove("hidden");
+            } else if (paymentMethod === "Transfer Bank") {
+                nomorRekening.innerHTML = "Nomor Rekening: 987654321";
+                nomorRekening.parentNode.classList.remove("hidden");
+            }
+        }
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -695,7 +854,7 @@ function upload(){
             }
         });
     </script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const addressInput = document.getElementById('address');
@@ -789,52 +948,6 @@ function upload(){
                 step3Form.style.display = "none";
                 step2Form.style.display = "block";
             });
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var paperframe4rCheckbox = document.getElementById("paperframe-4r");
-            var paperframe2rCheckbox = document.getElementById("paperframe-2r");
-            var layout360Checkbox = document.getElementById("layout-360");
-
-            var quota2RDropdown = document.getElementById("quota-2R-dropdown");
-            var unlimited2RDropdown = document.getElementById("unlimited-2R-dropdown");
-            var quota4RDropdown = document.getElementById("quota-4R-dropdown");
-            var unlimited4RDropdown = document.getElementById("unlimited-4R-dropdown");
-            var unlimited360Dropdown = document.getElementById("unlimited-360-dropdown");
-
-            paperframe4rCheckbox.addEventListener("change", updateDropdowns);
-            paperframe2rCheckbox.addEventListener("change", updateDropdowns);
-            layout360Checkbox.addEventListener("change", updateDropdowns);
-
-            function updateDropdowns() {
-                var paperframe4rChecked = paperframe4rCheckbox.checked;
-                var paperframe2rChecked = paperframe2rCheckbox.checked;
-                var layout360Checked = layout360Checkbox.checked;
-
-                quota2RDropdown.style.display = "none";
-                unlimited2RDropdown.style.display = "none";
-                quota4RDropdown.style.display = "none";
-                unlimited4RDropdown.style.display = "none";
-                unlimited360Dropdown.style.display = "none";
-
-                if (paperframe4rChecked || paperframe2rChecked) {
-                    if (paperframe4rChecked) {
-                        quota4RDropdown.style.display = "block";
-                        unlimited4RDropdown.style.display = "block";
-                    }
-                    if (paperframe2rChecked) {
-                        quota2RDropdown.style.display = "block";
-                        unlimited2RDropdown.style.display = "block";
-                    }
-                }
-                if (layout360Checked) {
-                    unlimited360Dropdown.style.display = "block";
-                }
-            }
-
-            updateDropdowns();
         });
     </script>
 

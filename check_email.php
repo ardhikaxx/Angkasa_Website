@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $email;
         echo '<script>window.location.href = "editpass.php?successMessage=Selamat, ' . $namaLengkap . ', Anda berhasil diverifikasi!";</script>';
     } else {
-        echo '<script>window.location.href = "lupapass.php?successMessage=Username tidak valid. Silakan coba lagi atau daftar jika Anda belum memiliki akun.";</script>';
-    }    
+        echo '<script>window.location.href = "lupapass.php?successMessage=Email yang anda masukkan tidak valid";</script>';
+    }
 } else {
     echo "Metode permintaan tidak valid.";
 }

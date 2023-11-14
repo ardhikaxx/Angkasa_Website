@@ -68,12 +68,16 @@
             margin-right: 20px;
         }
 
+        .user_input input,
+        .captch_input input {
+            padding: 15px;
+        }
+
         input {
             border: 0;
             outline: 0;
             font-size: 16px;
             border-radius: 320px;
-            padding: 15px;
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
             margin-right: -20px;
@@ -94,8 +98,16 @@
             flex: 1;
             display: flex;
             align-items: center;
-            padding: 10px 10px;
+            padding: 10px;
             font-size: 25;
+        }
+
+        .captcha-box #captcha {
+            font-size: 24px;
+            font-weight: 800;
+            padding-left: 94px;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
 
         .refresh-button {
@@ -205,29 +217,24 @@
         }
 
         .btn-yes {
-            background: linear-gradient(to right, #4CAF50, #45a049);
+            background: #00C82E;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             opacity: 0.8;
         }
 
         .btn-no {
-            background: linear-gradient(to right, #E74C3C, #C43C2F);
+            background: #E4071C;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
         }
 
         .btn-yes:hover {
-            background: linear-gradient(to right, #45a049, #4CAF50);
             transform: scale(1.1);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         .btn-no:hover {
-            background: linear-gradient(to right, #C43C2F, #E74C3C);
             transform: scale(1.1);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            opacity: 1;
         }
 
         #notification-success {

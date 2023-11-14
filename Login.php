@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
         }
 
         .dashboard-button {
-            width: 150px;
+            width: 200px;
             height: 20px;
             background-color: #EBECF0;
             color: black;
@@ -292,7 +292,7 @@ if (isset($_POST['submit'])) {
             color: #EBECF0;
             border: 2px solid black;
             transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
-            font-weight: 700;
+            font-weight: 750;
             font-size: 18px;
             text-align: center;
             text-decoration: none;

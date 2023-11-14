@@ -26,11 +26,11 @@ if (isset($_POST['register'])) {
     if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
         $error = ("Silahkan input semua informasi yang diperlukan");
     } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
-        echo 'showNotification("Nama lengkap sudah terdaftar.");';
+        $error = ("Nama lengkap sudah terdaftar.");
     } elseif (mysqli_num_rows($resultEmail) > 0) {
-        echo 'showNotification("Alamat email sudah terdaftar.");';
+        $error = ("Alamat email sudah terdaftar.");
     } elseif (mysqli_num_rows($resultNoHP) > 0) {
-        echo 'showNotification("Nomor telepon sudah terdaftar.");';
+        $error = ("Nomor telepon sudah terdaftar.");
     } else {
         $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
         $result = mysqli_query($koneksi, $query);
