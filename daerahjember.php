@@ -15,7 +15,20 @@ if (isset($_POST['submit'])) {
     $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
+    // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
+    $today = date("Y-m-d");
+    if ($tanggalacara < $today) {
+        $error = "Anda tidak dapat memilih tanggal yang sudah dilalui.";
+        echo $error;
+    } else {
+    $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
+    $check_date_result = mysqli_query($koneksi, $check_date_query);
 
+    if (mysqli_num_rows($check_date_result) > 0) {
+        // Tanggal sudah dipesan, tampilkan pesan kesalahan
+        $error = "Tanggal tersebut telah dipesan. Silakan pilih tanggal lain.";
+        echo $error;
+    } else {
     $gambar = upload() ;
     if(!$gambar){
         return false;
@@ -46,6 +59,8 @@ if (isset($_POST['submit'])) {
             $conn->rollback();
             $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
         }
+    }
+    }
     }
     }
 } else {
