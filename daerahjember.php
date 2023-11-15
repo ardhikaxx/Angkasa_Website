@@ -21,51 +21,51 @@ if (isset($_POST['submit'])) {
         $error = "Anda tidak dapat memilih tanggal yang sudah dilalui.";
         echo $error;
     } else {
-    $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
-    $check_date_result = mysqli_query($koneksi, $check_date_query);
+        $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
+        $check_date_result = mysqli_query($koneksi, $check_date_query);
 
-    $gambar = upload();
-    if (!$gambar) {
+        $gambar = upload();
+        if (!$gambar) {
 
-    if (mysqli_num_rows($check_date_result) > 0) {
+            if (mysqli_num_rows($check_date_result) > 0) {
 
-        $error = "Tanggal tersebut telah dipesan. Silakan pilih tanggal lain.";
-        echo $error;
-    } else {
-    $gambar = upload() ;
-    if(!$gambar){
-        return false;
-    }
-    foreach ($pilihpaketlayout as $key => $value) {
-        var_dump($quota[$value]);
-        var_dump($unlimited[$value]);
-    }
-
-    $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
-    $result_customer = mysqli_query($koneksi, $query_customer);
-    if ($result_customer) {
-        $last_inserted_customer_id = mysqli_insert_id($koneksi);
-        $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
-        $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
-        if ($result_pemesanan) {
-            $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
-            foreach ($pilihpaketlayout as $key => $value) {
-                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
-                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-            }
-
-            if ($result_detail_pemesanan) {
-                $koneksi->commit();
-                header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
-                exit();
+                $error = "Tanggal tersebut telah dipesan. Silakan pilih tanggal lain.";
+                echo $error;
             } else {
-                $conn->rollback();
-                $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                $gambar = upload();
+                if (!$gambar) {
+                    return false;
+                }
+                foreach ($pilihpaketlayout as $key => $value) {
+                    var_dump($quota[$value]);
+                    var_dump($unlimited[$value]);
+                }
+
+                $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+                $result_customer = mysqli_query($koneksi, $query_customer);
+                if ($result_customer) {
+                    $last_inserted_customer_id = mysqli_insert_id($koneksi);
+                    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
+                    $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+                    if ($result_pemesanan) {
+                        $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
+                        foreach ($pilihpaketlayout as $key => $value) {
+                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
+                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                        }
+
+                        if ($result_detail_pemesanan) {
+                            $koneksi->commit();
+                            header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                            exit();
+                        } else {
+                            $conn->rollback();
+                            $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                        }
+                    }
+                }
             }
         }
-    }
-    }
-    }
     }
 } else {
     $error = "Gagal menyisipkan data ke tabel layout.";
@@ -623,9 +623,9 @@ function upload()
                     <div class="input-container quota-unlimited" id="quota-unlimited" style="display: none;">
                         <label>Pilih Paket:</label>
                         <div class="radio-quota-unlimited">
-                            <input type="radio" id="quota" name="txt_package" value="quota">
+                            <input type="radio" id="quota" name="paket" value="quota">
                             <label for="quota">Quota</label>
-                            <input type="radio" id="unlimited" name="txt_package" value="unlimited">
+                            <input type="radio" id="unlimited" name="paket" value="unlimited">
                             <label for="unlimited">Unlimited</label>
                         </div>
                     </div>
@@ -754,7 +754,7 @@ function upload()
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             function toggleVisibility() {
-                var radioButtonValue = document.querySelector("input[name='txt_package']:checked").value;
+                var radioButtonValue = document.querySelector("input[name='paket']:checked").value;
                 var layoutCheckbox4R = document.getElementById("paperframe-4r");
                 var layoutCheckbox2R = document.getElementById("paperframe-2r");
                 var is4RChecked = layoutCheckbox4R.checked;
@@ -773,7 +773,7 @@ function upload()
                 }
             }
 
-            var radioButtons = document.getElementsByName("txt_package");
+            var radioButtons = document.getElementsByName("paket");
 
             radioButtons.forEach(function (radioButton) {
                 radioButton.addEventListener("change", function () {
@@ -787,7 +787,7 @@ function upload()
                 toggleVisibility();
             });
 
-            var initialSelectedRadio = document.querySelector("input[name='txt_package']:checked");
+            var initialSelectedRadio = document.querySelector("input[name='paket']:checked");
             if (initialSelectedRadio) {
                 toggleVisibility();
             }

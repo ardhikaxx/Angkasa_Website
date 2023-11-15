@@ -270,7 +270,19 @@
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img1.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img1.gif"></a></div>
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img2.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img2.gif"></a></div>
                 <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img3.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img3.gif"></a></div>
-                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img4.gi" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img4.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img4.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img4.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img5.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img5.jpg"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img6.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img6.jpg"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img7.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img7.jpg"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img8.jpg" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img8.jpg"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img9.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img9.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img10.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img10.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img11.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img11.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img12.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img12.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img13.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img13.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img14.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img14.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img15.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img15.gif"></a></div>
+                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="assets/Gallery/img16.gif" data-lightbox="photos"><img class="img-fluid" style="border-radius: 15px;" src="assets/Gallery/img16.gif"></a></div>
             </div>
         </div>
     </div>
