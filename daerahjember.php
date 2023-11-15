@@ -564,7 +564,7 @@ function upload()
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
         <div class="pack-jember">
             <div class="container-pemesanan">
                 <div id="step-1">
@@ -738,7 +738,7 @@ function upload()
                         <input type="file" id="proof" name="gambar" required>
                     </div>
                     <button class="prev-button" id="prev-3">Kembali</button>
-                    <button class="submit-button" id="submit" name="submit" disabled>Pesan</button>
+                    <button class="submit-button" id="submit" type="submit" name="submit" disabled>Pesan</button>
                 </div>
             </div>
         </div>
