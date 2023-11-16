@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <title>Angkasa | Sponsor Page</title>
@@ -16,6 +17,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         html {
@@ -185,10 +189,6 @@
             margin-bottom: 35px;
         }
 
-        .container-pemesanan #step-2::after {
-            margin-top: 100px;
-        }
-
         .input-container {
             display: flex;
             align-items: center;
@@ -202,44 +202,12 @@
             background: transparent;
         }
 
-        .proposal-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            text-align: center;
-        }
-
-        #proposal {
-            display: none;
-        }
-
-        .input-label {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border: 2px dashed #ccc;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        #proposal:hover+.input-label,
-        #proposal:focus+.input-label {
-            border: 2px dashed #007bff;
-        }
-
         label {
             flex-basis: 30%;
             font-weight: bold;
         }
 
-        input,
+        .input-container input,
         select {
             flex: 1;
             padding: 10px;
@@ -263,102 +231,54 @@
             transition: background-color 0.3s;
         }
 
-        button:disabled {
-            background-color: #ccc;
-            color: #888;
-            cursor: not-allowed;
-        }
-
-        .next-button {
-            margin-top: 20px;
-        }
-
-        .prev-button {
-            background-color: #6c6c6c;
-        }
-
         .submit-button {
             background-color: #4CAF50;
             margin-top: 10px;
         }
 
-        .checkbox-group {
-            height: 100px;
-            margin-top: -10px;
+        .proposal-container {
+            position: relative;
+            width: 300px;
+            height: 150px;
+            background-color: #fff;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0 auto;
         }
 
-        .checkbox-group h3 {
+        .input-proposal {
             font-size: 16px;
-            padding-right: 20px;
-            align-items: start;
-        }
-
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-group label {
-            margin-bottom: -15px;
+            color: #777;
             cursor: pointer;
             display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .checkbox-group label:before {
-            content: " ";
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            margin-right: 10px;
-            border: 2px solid #000;
-            border-radius: 3px;
-            vertical-align: middle;
+        .input-proposal i {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        #proposal {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
             cursor: pointer;
         }
 
-        .checkbox-group input[type="checkbox"]+label:before {
-            background-color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .checkbox-group input[type="checkbox"]:checked+label:before {
-            background-color: #000;
-            font-family: "FontAwesome";
-            content: "\f00c";
-            color: #fff;
+        .file-info {
+            margin-top: 10px;
             text-align: center;
-        }
-
-        .checkbox-group input[type="checkbox"]:disabled+label:before {
-            text-decoration: line-through;
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        .checkbox-group input[type="checkbox"]:disabled+label {
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        .checkbox-group input[type="checkbox"]:checked+label:after {
-            display: block;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            line-height: 18px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #quota-2R-dropdown,
-        #unlimited-2R-dropdown,
-        #quota-4R-dropdown,
-        #unlimited-4R-dropdown,
-        #unlimited-360-dropdown {
-            display: none;
+            font-weight: 800;
         }
     </style>
 </head>
@@ -377,8 +297,8 @@
                 </div>
             </li>
             <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery" >Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
+            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
@@ -387,38 +307,38 @@
 
     <div class="pack-sponsor" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="container-pemesanan">
-            <form id="step-1">
-                <h1>Form Pengajuan Sponsor</h1>
-                <div class="input-container">
-                    <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
-                </div>
-                <div class="input-container">
-                    <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
-                </div>
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address" placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
-                </div>
-                <div class="input-container">
-                    <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <button class="next-button" id="next-1" disabled>Selanjutnya</button>
-            </form>
+            <h1>Form Pengajuan Sponsor</h1>
+            <div class="input-container">
+                <label for="name">Nama Lengkap:</label>
+                <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
+            </div>
 
-            <form id="step-2" style="display: none;">
-                <h1>Form Pengajuan Sponsor</h1>
-                <div class="input-container proposal-container">
-                    <label for="proposal" class="input-label">
-                        <span class="icon">📁</span> Drop Here or Click to Upload PDF
-                    </label>
-                    <input type="file" id="proposal" name="proposal" accept=".pdf" required>
-                </div>
-                <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="submit-button" id="submit" disabled>Pesan</button>
-            </form>
+            <div class="input-container">
+                <label for="phone">Nomer Telepon:</label>
+                <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
+                    oninput="validateNumberInput(event)" required>
+            </div>
+
+            <div class="input-container">
+                <label for="address">Alamat Acara:</label>
+                <input type="text" id="address" name="address"
+                    placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
+            </div>
+
+            <div class="input-container">
+                <label for="date">Tanggal Acara:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="proposal-container">
+                <label for="proposal" class="input-proposal">
+                    <i class="fas fa-file-pdf"></i>
+                    Drop Here or Click to Upload PDF
+                </label>
+                <input type="file" id="proposal" name="proposal" accept=".pdf" required>
+                <div class="file-info" id="fileInfo"></div>
+            </div>
+            <button class="submit-button" type="submit" id="submit">Pesan</button>
         </div>
     </div>
 
@@ -429,6 +349,14 @@
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        function validateNumberInput(event) {
+            var inputValue = event.target.value;
+            var numericValue = inputValue.replace(/\D/g, '');
+            event.target.value = numericValue;
+        }
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -442,55 +370,26 @@
     </script>
 
     <script>
+        const fileInput = document.getElementById('proposal');
+        const fileInfo = document.getElementById('fileInfo');
+
+        fileInput.addEventListener('change', function () {
+            const files = fileInput.files;
+            if (files.length > 0) {
+                const fileName = files[0].name;
+                const fileExtension = fileName.split('.').pop().toLowerCase();
+
+                fileInfo.innerHTML = `${fileName}`;
+            } else {
+                fileInfo.innerHTML = '';
+            }
+        });
+    </script>
+
+    <script>
         document.getElementById("proposal").addEventListener("change", function (event) {
             const fileName = event.target.files[0].name;
             document.querySelector(".input-label").textContent = fileName;
-        });
-    </script>
-
-    <script>
-        const nextButton1 = document.getElementById("next-1");
-        const nextButton3 = document.getElementById("submit");
-
-        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
-        const step3Inputs = [document.getElementById("proposal")];
-
-        function isStepFormValid(inputs) {
-            return inputs.every(input => input.value.trim() !== "");
-        }
-
-        step1Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton1.disabled = !isStepFormValid(step1Inputs);
-            });
-        });
-
-        step2Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton2.disabled = !isStepFormValid(step2Inputs);
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const step1Form = document.getElementById("step-1");
-            const step2Form = document.getElementById("step-2");
-
-            const nextButton1 = document.getElementById("next-1");
-            const prevButton2 = document.getElementById("prev-2");
-
-            nextButton1.addEventListener("click", function (e) {
-                e.preventDefault();
-                step1Form.style.display = "none";
-                step2Form.style.display = "block";
-            });
-
-            prevButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step1Form.style.display = "block";
-            });
         });
     </script>
 </body>

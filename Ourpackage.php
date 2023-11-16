@@ -431,6 +431,12 @@
             text-align: center;
         }
 
+        .layout-photo-4R img {
+            width: 700px;
+            border-radius: 15px;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+        }
+
         .price-container {
             display: flex;
             flex-wrap: wrap;
@@ -695,7 +701,7 @@
         <div class="layout-4R">
             <h1>Photo 4R (10cm x 15 cm)</h1>
             <div class="layout-photo-4R">
-                <img src="" alt="">
+                <img src="assets/Gallery/Layout4R.png" alt="">
             </div>
         </div>
     </div>

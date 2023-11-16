@@ -596,7 +596,7 @@ function upload()
 
                     <div class="input-container">
                         <label for="phone">Nomer Telepon:</label>
-                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444" required>
+                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444" oninput="validateNumberInput(event)" required>
                     </div>
 
                     <div class="input-container">
@@ -783,6 +783,14 @@ function upload()
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    <script>
+        function validateNumberInput(event) {
+            var inputValue = event.target.value;
+            var numericValue = inputValue.replace(/\D/g, '');
+            event.target.value = numericValue;
+        }
+    </script>
 
     <script>
         function updateTotal() {
