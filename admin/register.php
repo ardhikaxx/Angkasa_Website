@@ -1614,10 +1614,10 @@ if (isset($_POST['register'])) {
         .register-box {
             text-align: center;
             width: 350px;
-            height: 540px;
+            height: 460px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
-            padding: 10px;
+            padding: 15px;
             padding-top: 23px;
             padding-bottom: 23px;
             border-radius: 15px;
@@ -1669,7 +1669,7 @@ if (isset($_POST['register'])) {
 
         label {
             display: block;
-            margin-bottom: 24px;
+            margin-bottom: 10px;
             width: 100%;
         }
 
@@ -1830,7 +1830,8 @@ if (isset($_POST['register'])) {
             animation: fadeOut 5s ease-in-out;
             text-align: center;
             margin-right: -25px;
-            margin-top: 13px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .gender-select {

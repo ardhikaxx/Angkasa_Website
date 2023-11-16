@@ -1727,20 +1727,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             color: #fff;
         }
 
-        .btn-selesai {
-            background-color: #00C82E;
+        .btn-info {
+            background-color: #FFB800;
             color: #fff;
             border-radius: 10px;
-            padding: 10px 15px;
-            margin-right: 10px;
-            text-decoration: none;
-        }
-
-        .btn-belum {
-            background-color: #E4071C;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px 15px;
+            padding: 8px 15px;
             margin-right: 10px;
             text-decoration: none;
         }
@@ -1898,8 +1889,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $proposal;?>
                             </td>
                             <td>
-                                <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
-                                <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i></a>
+                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
                             </td>
                         </tr>
                         <?php

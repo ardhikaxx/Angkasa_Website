@@ -261,6 +261,7 @@
         <div class="pack-title">
             <h1>Gallery</h1>
             <p>Berikut ini adalah contoh hasil dari foto-foto kami</p>
+            <p><span class="cursor-pointer">👉</span> Klik foto untuk melihat detail</p>
         </div>
     </div>
 

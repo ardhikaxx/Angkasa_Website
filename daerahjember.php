@@ -18,52 +18,51 @@ if (isset($_POST['submit'])) {
     // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
     $today = date("Y-m-d");
     if ($tanggalacara < $today) {
-        $error = "Anda tidak dapat memilih tanggal yang sudah dilalui.";
-        echo $error;
+        header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
+        exit();
     } else {
         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
         $check_date_result = mysqli_query($koneksi, $check_date_query);
 
 
 
-            if (mysqli_num_rows($check_date_result) > 0) {
+        if (mysqli_num_rows($check_date_result) > 0) {
+            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            exit();
+        } else {
+            $gambar = upload();
+            if (!$gambar) {
+                return false;
+            }
 
-                $error = "Tanggal tersebut telah dipesan. Silakan pilih tanggal lain.";
-                echo $error;
-            } else {
-                $gambar = upload();
-                if (!$gambar) {
-                    return false;
-                }
-                
 
-                $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
-                $result_customer = mysqli_query($koneksi, $query_customer);
-                if ($result_customer) {
-                    $last_inserted_customer_id = mysqli_insert_id($koneksi);
-                    $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
-                    $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
-                    if ($result_pemesanan) {
-                        $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
-                        foreach ($pilihpaketlayout as $key => $value) {
-                            if($_POST['paket'] == "quota"){
-                                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', null)";
-                                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-                            }else if(($_POST["paket"] == "unlimited")){
-                                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', null, '$unlimited[$value]')";
-                                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-                            }
+            $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+            $result_customer = mysqli_query($koneksi, $query_customer);
+            if ($result_customer) {
+                $last_inserted_customer_id = mysqli_insert_id($koneksi);
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
+                $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+                if ($result_pemesanan) {
+                    $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
+                    foreach ($pilihpaketlayout as $key => $value) {
+                        if ($_POST['paket'] == "quota") {
+                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', null)";
+                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                        } else if (($_POST["paket"] == "unlimited")) {
+                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', null, '$unlimited[$value]')";
+                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
                         }
+                    }
 
-                        if ($result_detail_pemesanan) {
-                            $koneksi->commit();
-                            header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
-                            exit();
-                        } else {
-                            $conn->rollback();
-                            $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
-                        }
-                    
+                    if ($result_detail_pemesanan) {
+                        $koneksi->commit();
+                        header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                        exit();
+                    } else {
+                        $conn->rollback();
+                        $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                    }
+
                 }
             }
         }
@@ -111,6 +110,7 @@ function upload()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>Angkasa | Pemesanan Page</title>
     <style>
         body {
@@ -120,6 +120,7 @@ function upload()
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
 
         html {
@@ -284,8 +285,6 @@ function upload()
         .container-pemesanan {
             width: 450px;
             padding: 10px;
-            margin-top: 100px;
-            margin-bottom: 25px;
             font-family: "Poppins", sans-serif;
         }
 
@@ -542,6 +541,26 @@ function upload()
         .radio-quota-unlimited input[type="radio"]:checked+label:before {
             content: "\f046";
         }
+
+        #nomorDana {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        #nomorRekening {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .harga-paket h3 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .harga-paket #total-price {
+            font-size: 17px;
+            font-weight: 800;
+        }
     </style>
 </head>
 
@@ -566,7 +585,7 @@ function upload()
     </div>
 
     <form method="POST" action="" enctype="multipart/form-data">
-        <div class="pack-jember">
+        <div class="pack-jember" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
             <div class="container-pemesanan">
                 <div id="step-1">
                     <h1>Pemesanan Didaerah Jember</h1>
@@ -610,10 +629,12 @@ function upload()
                     <div class="input-container checkbox-group">
                         <h3>Pilih Layout:</h3>
                         <div class="checkbox-container" id="checkbox">
-                            <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1">
+                            <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
+                                onclick="handleCheckboxClick(this)">
                             <label for="paperframe-4r">PaperFrame 4R</label>
                             <br>
-                            <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2">
+                            <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2"
+                                onclick="handleCheckboxClick(this)">
                             <label for="paperframe-2r">PaperFrame 2R</label>
                             <br>
                             <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
@@ -633,14 +654,14 @@ function upload()
 
                     <div class="input-container" id="quota-2R-dropdown">
                         <label for="quota-2R">Quota PaperFrame 2R:</label>
-                        <select name="quota[2]" id="quota-2R">
+                        <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Quota</option>
                             <?php
                             $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
-                                <option value="<?= $data['id_quota'] ?>">
+                                <option value="<?= $data['id_quota'] ?>" data-price="<?= $data['harga_quota'] ?>">
                                     <?= $data['nama_quota'] ?>
                                 </option>
                             <?php } ?>
@@ -649,14 +670,14 @@ function upload()
 
                     <div class="input-container" id="unlimited-2R-dropdown">
                         <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                        <select name="unlimited[2]" id="unlimited-2R">
+                        <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Unlimited</option>
                             <?php
                             $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
-                                <option value="<?= $data['id_unlimited'] ?>">
+                                <option value="<?= $data['id_unlimited'] ?>" data-price="<?= $data['harga_unlimited'] ?>">
                                     <?= $data['nama_unlimited'] ?>
                                 </option>
                             <?php } ?>
@@ -665,14 +686,14 @@ function upload()
 
                     <div class="input-container" id="quota-4R-dropdown">
                         <label for="quota-4R">Quota PaperFrame 4R:</label>
-                        <select name="quota[1]" id="quota-4R">
+                        <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Quota</option>
                             <?php
                             $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
-                                <option value="<?= $data['id_quota'] ?>">
+                                <option value="<?= $data['id_quota'] ?>" data-price="<?= $data['harga_quota'] ?>">
                                     <?= $data['nama_quota'] ?>
                                 </option>
                             <?php } ?>
@@ -681,14 +702,14 @@ function upload()
 
                     <div class="input-container" id="unlimited-4R-dropdown">
                         <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                        <select name="unlimited[1]" id="unlimited-4R">
+                        <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Unlimited</option>
                             <?php
                             $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
-                                <option value="<?= $data['id_unlimited'] ?>">
+                                <option value="<?= $data['id_unlimited'] ?>" data-price="<?= $data['harga_unlimited'] ?>">
                                     <?= $data['nama_unlimited'] ?>
                                 </option>
                             <?php } ?>
@@ -697,18 +718,23 @@ function upload()
 
                     <div class="input-container" id="unlimited-360-dropdown">
                         <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                        <select name="unlimited[3]" id="unlimited-360">
+                        <select name="unlimited[3]" id="unlimited-360" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Unlimited</option>
                             <?php
                             $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='3'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
-                                <option value="<?= $data['id_unlimited'] ?>">
+                                <option value="<?= $data['id_unlimited'] ?>" data-price="<?= $data['harga_unlimited'] ?>">
                                     <?= $data['nama_unlimited'] ?>
                                 </option>
                             <?php } ?>
                         </select>
+                    </div>
+
+                    <div class="harga-paket">
+                        <h3>Total Pembayaran:</h3>
+                        <p id="total-price">Rp. 0,-</p>
                     </div>
 
                     <button class="prev-button" id="prev-2">Kembali</button>
@@ -749,8 +775,51 @@ function upload()
 
     <div class="notification" id="notification"></div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    <script>
+        function updateTotal() {
+            var total = 0;
+
+            ['quota-2R', 'quota-4R'].forEach(function (dropdownId) {
+                var selectedOption = document.getElementById(dropdownId).value;
+                if (selectedOption !== "") {
+                    total += parseFloat(document.getElementById(dropdownId).options[document.getElementById(dropdownId).selectedIndex].getAttribute('data-price'));
+                }
+            });
+
+            ['unlimited-2R', 'unlimited-4R', 'unlimited-360'].forEach(function (dropdownId) {
+                var selectedOption = document.getElementById(dropdownId).value;
+                if (selectedOption !== "") {
+                    total += parseFloat(document.getElementById(dropdownId).options[document.getElementById(dropdownId).selectedIndex].getAttribute('data-price'));
+                }
+            });
+
+            var formattedTotal = "Rp. " + total.toLocaleString('id-ID') + ",-";
+            document.getElementById('total-price').innerHTML = formattedTotal;
+        }
+    </script>
+
+    <script>
+        function handleCheckboxClick(checkbox) {
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.disabled = true;
+                }
+            });
+
+            checkbox.disabled = false;
+        }
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -842,10 +911,10 @@ function upload()
             nomorRekening.parentNode.classList.add("hidden");
 
             if (paymentMethod === "Dana") {
-                nomorDana.innerHTML = "Nomor Dana: 123456789";
+                nomorDana.innerHTML = "Nomor Dana (Yanuar Ardhika): 085933648537";
                 nomorDana.parentNode.classList.remove("hidden");
             } else if (paymentMethod === "Transfer Bank") {
-                nomorRekening.innerHTML = "Nomor Rekening: 987654321";
+                nomorRekening.innerHTML = "Nomor Rekening Mandiri (YANUAR ARDHIKA): 1430026836864";
                 nomorRekening.parentNode.classList.remove("hidden");
             }
         }

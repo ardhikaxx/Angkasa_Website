@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/Logo Web.png">
     <title>Angkasa | Sponsor Page</title>
     <style>
@@ -14,6 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
 
         html {
@@ -169,32 +171,9 @@
             display: block;
         }
 
-        .pack {
-            width: 100%;
-            text-align: center;
-            height: auto;
-            background-color: transparent;
-            justify-content: center;
-            align-items: center;
-            margin-top: 100px;
-        }
-
-        .pack-title p {
-            margin-top: 5px;
-            font-family: "Poppins", sans-serif;
-        }
-
-        .pack-title h1 {
-            margin-bottom: 5px;
-            font-family: "Poppins", sans-serif;
-            font-weight: bold;
-        }
-
         .container-pemesanan {
             width: 450px;
             padding: 10px;
-            margin-top: 100px;
-            margin-bottom: 25px;
             font-family: "Poppins", sans-serif;
         }
 
@@ -406,7 +385,7 @@
 
     <div id="circularcursor"></div>
 
-    <div class="pack-sponsor">
+    <div class="pack-sponsor" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="container-pemesanan">
             <form id="step-1">
                 <h1>Form Pengajuan Sponsor</h1>
@@ -442,6 +421,12 @@
             </form>
         </div>
     </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
