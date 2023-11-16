@@ -24,8 +24,7 @@ if (isset($_POST['submit'])) {
         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
         $check_date_result = mysqli_query($koneksi, $check_date_query);
 
-        $gambar = upload();
-        if (!$gambar) {
+
 
             if (mysqli_num_rows($check_date_result) > 0) {
 
@@ -36,10 +35,7 @@ if (isset($_POST['submit'])) {
                 if (!$gambar) {
                     return false;
                 }
-                foreach ($pilihpaketlayout as $key => $value) {
-                    var_dump($quota[$value]);
-                    var_dump($unlimited[$value]);
-                }
+                
 
                 $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
                 $result_customer = mysqli_query($koneksi, $query_customer);
@@ -50,8 +46,13 @@ if (isset($_POST['submit'])) {
                     if ($result_pemesanan) {
                         $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
                         foreach ($pilihpaketlayout as $key => $value) {
-                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', '$unlimited[$value]')";
-                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                            if($_POST['paket'] == "quota"){
+                                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', null)";
+                                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                            }else if(($_POST["paket"] == "unlimited")){
+                                $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', null, '$unlimited[$value]')";
+                                $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                            }
                         }
 
                         if ($result_detail_pemesanan) {
@@ -62,7 +63,7 @@ if (isset($_POST['submit'])) {
                             $conn->rollback();
                             $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
                         }
-                    }
+                    
                 }
             }
         }
