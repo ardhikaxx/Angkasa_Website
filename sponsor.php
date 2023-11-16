@@ -1,3 +1,86 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
+}
+if (isset($_POST['submit'])) {
+    $namacustomer = isset($_POST['txt_name']) ? $_POST['txt_name'] : '';
+    $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
+    $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
+    $tanggalacara = isset($_POST['date']) ? $_POST['date'] : '';
+
+    // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
+    $today = date("Y-m-d");
+    if ($tanggalacara < $today) {
+        header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
+        exit();
+    } else {
+        $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
+        $check_date_result = mysqli_query($koneksi, $check_date_query);
+
+
+
+        if (mysqli_num_rows($check_date_result) > 0) {
+            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            exit();
+        } else {
+            $proposal = upload();
+            if (!$proposal) {
+                return false;
+            }
+
+            $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+            $result_customer = mysqli_query($koneksi, $query_customer);
+            if ($result_customer) {
+                $last_inserted_customer_id = mysqli_insert_id($koneksi);
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara,proposal) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$proposal')";
+                $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+                if ($result_pemesanan) {
+                    $koneksi->commit();
+                    header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                    exit();
+                } else {
+                    $conn->rollback();
+                    $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                }
+        }
+    }
+    }
+}
+function upload()
+{
+    $namaFile = $_FILES['proposal']['name'];
+    $ukuranFile = $_FILES['proposal']['size'];
+    $error = $_FILES['proposal']['error'];
+    $tmpName = $_FILES['proposal']['tmp_name'];
+
+    if ($error === 4) {
+        header("Location: daerahjember.php?WarningMessage=pilih proposal terlebih dahulu!");
+        exit();
+    }
+
+    $ekstensiproposalValid = ['pdf', 'word'];
+    $ekstensiproposal = explode('.', $namaFile);
+    $ekstensiproposal = strtolower(end($ekstensiproposal));
+    if (!in_array($ekstensiproposal, $ekstensiproposalValid)) {
+        header("Location: daerahjember.php?WarningMessage=Yang anda upload bukan proposal!");
+        exit();
+    }
+
+    if ($ukuranFile > 5000000) {
+        header("Location: daerahjember.php?WarningMessage=ukuran proposal terlalu besar!");
+        exit();
+    }
+    $namaFileBaru = time();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiproposal;
+    move_uploaded_file($tmpName, 'proposal/'. $namaFileBaru);
+    return $namaFileBaru;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -304,13 +387,13 @@
     </div>
 
     <div id="circularcursor"></div>
-
+    <form method="POST" action="" enctype="multipart/form-data">
     <div class="pack-sponsor" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="container-pemesanan">
             <h1>Form Pengajuan Sponsor</h1>
             <div class="input-container">
                 <label for="name">Nama Lengkap:</label>
-                <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
+                <input type="text" id="name" name="txt_name" placeholder="Contoh: Jhon Doe" required>
             </div>
 
             <div class="input-container">
@@ -321,7 +404,7 @@
 
             <div class="input-container">
                 <label for="address">Alamat Acara:</label>
-                <input type="text" id="address" name="address"
+                <input type="text" id="address" name="txt_address"
                     placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
             </div>
 
@@ -338,9 +421,10 @@
                 <input type="file" id="proposal" name="proposal" accept=".pdf" required>
                 <div class="file-info" id="fileInfo"></div>
             </div>
-            <button class="submit-button" type="submit" id="submit">Pesan</button>
+            <button class="submit-button" type="submit" id="submit" name="submit">Pesan</button>
         </div>
     </div>
+    </form>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
