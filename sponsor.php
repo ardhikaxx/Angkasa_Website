@@ -103,6 +103,7 @@ function upload()
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #EBECF0;
         }
 
         html {
@@ -137,7 +138,7 @@ function upload()
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
@@ -300,6 +301,7 @@ function upload()
             padding: 12px 20px;
             cursor: pointer;
             width: 100%;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: background-color 0.3s;
         }
 
@@ -312,8 +314,8 @@ function upload()
             position: relative;
             width: 300px;
             height: 150px;
-            background-color: #fff;
-            border: 2px dashed #ddd;
+            background-color: #EBECF0;
+            border: 2px dashed #000;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -434,7 +436,6 @@ function upload()
                     <div class="file-info" id="fileInfo"></div>
                 </div>
                 <button class="submit-button" type="submit" id="submit" name="submit">Pesan</button>
-                <!-- <h3>Setelah Pemesanan Harap Menghubungi Kami Untuk Melakukan Konfirmasi</h3> -->
             </div>
         </div>
     </form>

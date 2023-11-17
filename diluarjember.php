@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: #EBECF0;
         }
 
         html {
@@ -51,7 +52,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
@@ -220,6 +221,7 @@
             padding: 12px 20px;
             cursor: pointer;
             width: 100%;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: background-color 0.3s;
         }
 
@@ -378,109 +380,111 @@
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div class="pack-diluarjember" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-        <div class="container-pemesanan">
-            <form id="step-1">
-                <h1>Pemesanan Diluar Daerah Jember</h1>
-                <div class="input-container">
-                    <label for="name">Nama Lengkap:</label>
-                    <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
-                </div>
-                <div class="input-container">
-                    <label for="phone">Nomer Telepon:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
-                </div>
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address"
-                        placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
-                </div>
-                <div class="input-container">
-                    <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <button class="next-button" id="next-1" disabled>Selanjutnya</button>
-            </form>
-
-            <form id="step-2" style="display: none;">
-                <h1>Pemesanan Diluar Daerah Jember</h1>
-                <div class="input-container">
-                    <label for="package">Package selection:</label>
-                    <select id="package" name="txt_package">
-                        <option value="" disabled selected>Pilih Paket</option>
-                        <option value="Self Photobox">Self Photobox</option>
-                        <option value="Self Photo">Self Photo</option>
-                        <option value="Manual Photobooth">Manual Photobooth</option>
-                        <option value="360 Videobooth">360 Videobooth</option>
-                    </select>
-                </div>
-
-                <div class="input-container checkbox-group">
-                    <h3>Pilih Layout:</h3>
-                    <div class="checkbox-container" id="checkbox">
-                        <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
-                            onclick="handleCheckboxClick(this)">
-                        <label for="paperframe-4r">PaperFrame 4R</label>
-                        <br>
-                        <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2"
-                            onclick="handleCheckboxClick(this)">
-                        <label for="paperframe-2r">PaperFrame 2R</label>
-                        <br>
-                        <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
-                        <label for="layout-360">360 Videobooth</label>
+    <form method="POST" action="" enctype="multipart/form-data">
+        <div class="pack-diluarjember" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
+            <div class="container-pemesanan">
+                <div id="step-1">
+                    <h1>Pemesanan Diluar Daerah Jember</h1>
+                    <div class="input-container">
+                        <label for="name">Nama Lengkap:</label>
+                        <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
                     </div>
-                </div>
-
-                <div class="input-container quota-unlimited" id="quota-unlimited" style="display: none;">
-                    <label>Pilih Paket:</label>
-                    <div class="radio-quota-unlimited">
-                        <input type="radio" id="quota" name="paket" value="quota">
-                        <label for="quota">Quota</label>
-                        <input type="radio" id="unlimited" name="paket" value="unlimited">
-                        <label for="unlimited">Unlimited</label>
+                    <div class="input-container">
+                        <label for="phone">Nomer Telepon:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
                     </div>
+                    <div class="input-container">
+                        <label for="address">Alamat Acara:</label>
+                        <input type="text" id="address" name="address"
+                            placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="date">Tanggal Acara:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <button class="next-button" id="next-1" disabled>Selanjutnya</button>
                 </div>
 
-                <div class="input-container" id="quota-2R-dropdown">
-                    <label for="quota-2R">Quota PaperFrame 2R:</label>
-                    <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
-                        <option value="" disabled selected>Pilih Quota</option>
-                    </select>
-                </div>
+                <div id="step-2" style="display: none;">
+                    <h1>Pemesanan Diluar Daerah Jember</h1>
+                    <div class="input-container">
+                        <label for="package">Package selection:</label>
+                        <select id="package" name="txt_package">
+                            <option value="" disabled selected>Pilih Paket</option>
+                            <option value="Self Photobox">Self Photobox</option>
+                            <option value="Self Photo">Self Photo</option>
+                            <option value="Manual Photobooth">Manual Photobooth</option>
+                            <option value="360 Videobooth">360 Videobooth</option>
+                        </select>
+                    </div>
 
-                <div class="input-container" id="unlimited-2R-dropdown">
-                    <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                    </select>
-                </div>
+                    <div class="input-container checkbox-group">
+                        <h3>Pilih Layout:</h3>
+                        <div class="checkbox-container" id="checkbox">
+                            <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
+                                onclick="handleCheckboxClick(this)">
+                            <label for="paperframe-4r">PaperFrame 4R</label>
+                            <br>
+                            <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2"
+                                onclick="handleCheckboxClick(this)">
+                            <label for="paperframe-2r">PaperFrame 2R</label>
+                            <br>
+                            <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
+                            <label for="layout-360">360 Videobooth</label>
+                        </div>
+                    </div>
 
-                <div class="input-container" id="quota-4R-dropdown">
-                    <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
-                        <option value="" disabled selected>Pilih Quota</option>
-                    </select>
-                </div>
+                    <div class="input-container quota-unlimited" id="quota-unlimited" style="display: none;">
+                        <label>Pilih Paket:</label>
+                        <div class="radio-quota-unlimited">
+                            <input type="radio" id="quota" name="paket" value="quota">
+                            <label for="quota">Quota</label>
+                            <input type="radio" id="unlimited" name="paket" value="unlimited">
+                            <label for="unlimited">Unlimited</label>
+                        </div>
+                    </div>
 
-                <div class="input-container" id="unlimited-4R-dropdown">
-                    <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                    </select>
-                </div>
+                    <div class="input-container" id="quota-2R-dropdown">
+                        <label for="quota-2R">Quota PaperFrame 2R:</label>
+                        <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
+                            <option value="" disabled selected>Pilih Quota</option>
+                        </select>
+                    </div>
 
-                <div class="input-container" id="unlimited-360-dropdown">
-                    <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited[3]" id="unlimited-360" onchange="updateTotal()">
-                        <option value="" disabled selected>Pilih Unlimited</option>
-                    </select>
-                </div>
+                    <div class="input-container" id="unlimited-2R-dropdown">
+                        <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
+                        <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                        </select>
+                    </div>
 
-                <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="submit-button" id="submit" disabled>Pesan</button>
-            </form>
+                    <div class="input-container" id="quota-4R-dropdown">
+                        <label for="quota-4R">Quota PaperFrame 4R:</label>
+                        <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
+                            <option value="" disabled selected>Pilih Quota</option>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="unlimited-4R-dropdown">
+                        <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
+                        <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                        </select>
+                    </div>
+
+                    <div class="input-container" id="unlimited-360-dropdown">
+                        <label for="unlimited-360">Unlimited 360 Videobooth:</label>
+                        <select name="unlimited[3]" id="unlimited-360" onchange="updateTotal()">
+                            <option value="" disabled selected>Pilih Unlimited</option>
+                        </select>
+                    </div>
+
+                    <button class="prev-button" id="prev-2">Kembali</button>
+                    <button class="submit-button" type="submit" id="submit" disabled>Pesan</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 

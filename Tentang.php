@@ -12,6 +12,7 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
+            background: #EBECF0;
         }
 
         html {
@@ -46,7 +47,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
@@ -159,7 +160,7 @@
             backdrop-filter: blur(5px);
             font-family: "Poppins", sans-serif;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             border-radius: 10px;
             margin-top: 100px;
         }

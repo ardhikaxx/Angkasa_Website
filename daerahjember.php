@@ -121,6 +121,7 @@ function upload()
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: #EBECF0;
         }
 
         html {
@@ -155,7 +156,7 @@ function upload()
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
@@ -269,7 +270,9 @@ function upload()
 
         .container-pemesanan {
             width: 450px;
-            padding: 10px;
+            padding: 25px;
+            background-color: #EBECF0 0.5;
+            backdrop-filter: blur(5px);
             font-family: "Poppins", sans-serif;
         }
 
@@ -324,6 +327,8 @@ function upload()
             padding: 12px 20px;
             cursor: pointer;
             width: 100%;
+            font-weight: 800;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: background-color 0.3s;
         }
 
@@ -381,7 +386,7 @@ function upload()
         }
 
         .checkbox-group input[type="checkbox"]+label:before {
-            background-color: #fff;
+            background-color: #EBECF0;
             margin-bottom: 5px;
         }
 

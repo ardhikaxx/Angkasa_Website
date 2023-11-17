@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: "Poppins", sans-serif;
-            background-color: #f2f2f2;
+            background: #EBECF0;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,7 +27,7 @@
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             border-radius: 25px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             text-align: center;
             transition: transform 0.2s;
             justify-content: center;

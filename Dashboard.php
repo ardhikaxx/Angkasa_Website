@@ -13,6 +13,7 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
+            background: #EBECF0;
         }
 
         html {
@@ -53,7 +54,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
@@ -285,7 +286,7 @@
         .continue-button {
             background-color: black;
             font-family: "Poppins", sans-serif;
-            color: white;
+            color: #EBECF0;
             border: 2px solid black;
             transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
             font-weight: 800;
@@ -298,7 +299,7 @@
         }
 
         .continue-button:hover {
-            background-color: white;
+            background-color: #EBECF0;
             color: black;
             border: 2px solid black;
             transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
@@ -442,6 +443,7 @@
             margin: 10px;
             border-radius: 20px;
             background: #000;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: 0.4s;
         }
 
@@ -807,7 +809,7 @@
         .footer-line {
             display: block;
             min-width: 40px;
-            background-color: #FEFEFE;
+            background: #EBECF0;
         }
 
         .social-links {
@@ -855,161 +857,14 @@
             align-items: center;
             margin: 0 auto;
             margin-top: 50px;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #0F0F0F;
             backdrop-filter: blur(5px);
+            color: #fff;
             font-family: "Poppins", sans-serif;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             border-radius: 10px;
             margin-top: 150px;
-        }
-
-        .content-promo {
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .top {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-            font-weight: normal;
-            font-size: 1.6em;
-            text-align: center;
-            margin-left: 20px;
-            margin-bottom: 50px;
-        }
-
-        .printer {
-            width: 100%;
-            height: 20px;
-            border: 5px solid #000;
-            border-radius: 10px;
-            box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2);
-            margin-right: 10px;
-            margin-left: -5px;
-        }
-
-        .promo-wrapper {
-            overflow: hidden;
-            margin-top: -60px;
-            padding-bottom: 10px;
-        }
-
-        .promo-pack {
-            width: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            flex-direction: column;
-            transform: translateY(-510px);
-            animation-duration: 2.5s;
-            animation-delay: 500ms;
-            animation-name: print;
-            animation-fill-mode: forwards;
-        }
-
-        .promo-title {
-            padding: 25px 30px;
-            text-align: center;
-            min-height: 200px;
-            width: 70%;
-            background-color: #fff;
-            border-radius: 10px 10px 20px 20px;
-            box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .header-promo {
-            background-color: red;
-            padding: 1px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-        }
-
-        .header-promo h1 {
-            font-size: 25px;
-            color: #fff;
-            font-family: "Montserrat", sans-serif;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        .header-promo i {
-            font-style: bold;
-        }
-
-        .promo-title span {
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .promo-title p {
-            font-size: 15px;
-            border-radius: 5px;
-            color: red;
-            padding: 4px;
-            font-weight: 800;
-        }
-
-        .promo-title h2 {
-            font-size: 25px;
-            font-weight: 800;
-        }
-
-        .promo-harga {
-            background-color: #ffffff;
-            color: #000000;
-            width: 85%;
-            height: 100px;
-            min-height: unset;
-            position: relative;
-            border-radius: 20px 20px 10px 10px;
-            box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-        }
-
-        .promo-harga::before {
-            content: "";
-            background: linear-gradient(to right, #ffffff 50%, #000000 50%);
-            background-size: 22px 4px, 100% 4px;
-            height: 4px;
-            width: 90%;
-            display: block;
-            left: 0;
-            right: 0;
-            top: -1px;
-            position: absolute;
-            margin: auto;
-        }
-
-        .description {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .description h1 {
-            padding: 25px;
-            font-weight: 800;
-            font-size: 35px;
-            color: red;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: 45px;
-        }
-
-        @keyframes print {
-            0% {
-                transform: translateY(-580px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
         }
 
         .notification {
@@ -1121,10 +976,6 @@
 
     <div class="content">
         <div class="content-promo">
-            <div class="top">
-                <div class="printer"></div>
-            </div>
-            <div class="promo-wrapper" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
                 <div class="promo-pack">
                     <div class="promo-title">
                         <div class="header-promo">
@@ -1242,7 +1093,7 @@
                         </li>
                     </ul>
                 </section>
-                <sectio class="menu-footer">
+                <section class="menu-footer">
                     <h3>Pemesanan</h3>
                     <ul>
                         <li>
@@ -1256,7 +1107,7 @@
                             <a href="sponsor.php" title="Sponsor">Sponsor</a>
                         </li>
                     </ul>
-                </sectio>
+                </section>
             </div>
             <div class="footer-bottom">
                 <div class="social-links">

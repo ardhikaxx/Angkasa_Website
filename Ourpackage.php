@@ -13,6 +13,7 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
+            background: #EBECF0;
         }
 
         html {
@@ -47,7 +48,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
         }
 
