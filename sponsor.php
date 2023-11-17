@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
     $today = date("Y-m-d");
     if ($tanggalacara < $today) {
-        header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
+        header("Location: sponsor.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
         exit();
     } else {
         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 
 
         if (mysqli_num_rows($check_date_result) > 0) {
-            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            header("Location: sponsor.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
             exit();
         } else {
             $proposal = upload();
@@ -44,8 +44,8 @@ if (isset($_POST['submit'])) {
                     $conn->rollback();
                     $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
                 }
+            }
         }
-    }
     }
 }
 function upload()
@@ -56,7 +56,7 @@ function upload()
     $tmpName = $_FILES['proposal']['tmp_name'];
 
     if ($error === 4) {
-        header("Location: daerahjember.php?WarningMessage=pilih proposal terlebih dahulu!");
+        header("Location: sponsor.php?WarningMessage=pilih proposal terlebih dahulu!");
         exit();
     }
 
@@ -64,18 +64,18 @@ function upload()
     $ekstensiproposal = explode('.', $namaFile);
     $ekstensiproposal = strtolower(end($ekstensiproposal));
     if (!in_array($ekstensiproposal, $ekstensiproposalValid)) {
-        header("Location: daerahjember.php?WarningMessage=Yang anda upload bukan proposal!");
+        header("Location: sponsor.php?WarningMessage=Yang anda upload bukan proposal!");
         exit();
     }
 
     if ($ukuranFile > 5000000) {
-        header("Location: daerahjember.php?WarningMessage=ukuran proposal terlalu besar!");
+        header("Location: sponsor.php?WarningMessage=ukuran proposal terlalu besar!");
         exit();
     }
     $namaFileBaru = time();
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiproposal;
-    move_uploaded_file($tmpName, 'proposal/'. $namaFileBaru);
+    move_uploaded_file($tmpName, 'proposal/' . $namaFileBaru);
     return $namaFileBaru;
 }
 
@@ -107,21 +107,6 @@ function upload()
 
         html {
             scroll-behavior: smooth;
-        }
-
-        #circularcursor {
-            background-color: #000;
-            border: 1px solid black;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            position: absolute;
-            z-index: 1;
-            transition: left 0.1s, top 0.1s;
-            transform: translate(-30%, -15%);
-            pointer-events: none;
         }
 
         ::-webkit-scrollbar {
@@ -264,6 +249,10 @@ function upload()
             font-family: "Poppins", sans-serif;
         }
 
+        .container-pemesanan h3 {
+            text-align: center;
+        }
+
         .container-pemesanan h1 {
             font-size: 28px;
             text-align: center;
@@ -363,6 +352,28 @@ function upload()
             text-align: center;
             font-weight: 800;
         }
+
+        .notification {
+            position: fixed;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -386,44 +397,46 @@ function upload()
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div id="circularcursor"></div>
+    <div class="notification" id="notification"></div>
+
     <form method="POST" action="" enctype="multipart/form-data">
-    <div class="pack-sponsor" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
-        <div class="container-pemesanan">
-            <h1>Form Pengajuan Sponsor</h1>
-            <div class="input-container">
-                <label for="name">Nama Lengkap:</label>
-                <input type="text" id="name" name="txt_name" placeholder="Contoh: Jhon Doe" required>
-            </div>
+        <div class="pack-sponsor" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
+            <div class="container-pemesanan">
+                <h1>Form Pengajuan Sponsor</h1>
+                <div class="input-container">
+                    <label for="name">Nama Lengkap:</label>
+                    <input type="text" id="name" name="txt_name" placeholder="Contoh: Jhon Doe" required>
+                </div>
 
-            <div class="input-container">
-                <label for="phone">Nomer Telepon:</label>
-                <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
-                    oninput="validateNumberInput(event)" required>
-            </div>
+                <div class="input-container">
+                    <label for="phone">Nomer Telepon:</label>
+                    <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
+                        oninput="validateNumberInput(event)" required>
+                </div>
 
-            <div class="input-container">
-                <label for="address">Alamat Acara:</label>
-                <input type="text" id="address" name="txt_address"
-                    placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
-            </div>
+                <div class="input-container">
+                    <label for="address">Alamat Acara:</label>
+                    <input type="text" id="address" name="txt_address"
+                        placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
+                </div>
 
-            <div class="input-container">
-                <label for="date">Tanggal Acara:</label>
-                <input type="date" id="date" name="date" required>
-            </div>
+                <div class="input-container">
+                    <label for="date">Tanggal Acara:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
 
-            <div class="proposal-container">
-                <label for="proposal" class="input-proposal">
-                    <i class="fas fa-file-pdf"></i>
-                    Drop Here or Click to Upload PDF
-                </label>
-                <input type="file" id="proposal" name="proposal" accept=".pdf" required>
-                <div class="file-info" id="fileInfo"></div>
+                <div class="proposal-container">
+                    <label for="proposal" class="input-proposal">
+                        <i class="fas fa-file-pdf"></i>
+                        Drop Here or Click to Upload PDF
+                    </label>
+                    <input type="file" id="proposal" name="proposal" accept=".pdf" required>
+                    <div class="file-info" id="fileInfo"></div>
+                </div>
+                <button class="submit-button" type="submit" id="submit" name="submit">Pesan</button>
+                <!-- <h3>Setelah Pemesanan Harap Menghubungi Kami Untuk Melakukan Konfirmasi</h3> -->
             </div>
-            <button class="submit-button" type="submit" id="submit" name="submit">Pesan</button>
         </div>
-    </div>
     </form>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -432,7 +445,29 @@ function upload()
         AOS.init();
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const WarningMessage = urlParams.get('WarningMessage');
+
+            if (WarningMessage) {
+                const notification = document.getElementById('notification');
+                notification.innerText = WarningMessage;
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
 
     <script>
         function validateNumberInput(event) {
@@ -440,17 +475,6 @@ function upload()
             var numericValue = inputValue.replace(/\D/g, '');
             event.target.value = numericValue;
         }
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $(document).on('mousemove', function (e) {
-                $('#circularcursor').css({
-                    left: e.pageX,
-                    top: e.pageY
-                });
-            })
-        });
     </script>
 
     <script>

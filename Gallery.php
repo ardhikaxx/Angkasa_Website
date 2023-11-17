@@ -21,21 +21,6 @@
             scroll-behavior: smooth;
         }
 
-        #circularcursor {
-            background-color: #000;
-            border: 1px solid black;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            position: absolute;
-            z-index: 1;
-            transition: left 0.1s, top 0.1s;
-            transform: translate(-30%, -15%);
-            pointer-events: none;
-        }
-
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -255,8 +240,6 @@
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div id="circularcursor"></div>
-
     <div class="pack" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="pack-title">
             <h1>Gallery</h1>
@@ -296,19 +279,6 @@
 
     <script>
         AOS.init();
-    </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(document).on('mousemove', function (e) {
-                $('#circularcursor').css({
-                    left: e.pageX,
-                    top: e.pageY
-                });
-            })
-        });
     </script>
 </body>
 

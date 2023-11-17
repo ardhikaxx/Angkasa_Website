@@ -19,21 +19,6 @@
             scroll-behavior: smooth;
         }
 
-        #circularcursor {
-            background-color: #000;
-            border: 1px solid black;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            position: absolute;
-            z-index: 1;
-            transition: left 0.1s, top 0.1s;
-            transform: translate(-30%, -15%);
-            pointer-events: none;
-        }
-
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -1071,8 +1056,6 @@
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
 
-    <div id="circularcursor"></div>
-
     <div class="notification" id="notification"></div>
 
     <div class="container_mouse">
@@ -1218,7 +1201,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" target="_blank" id="alamat">
+                        <a href="https://maps.app.goo.gl/hhLqk4goDmyESFWt6" target="_blank" id="alamat">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="25" fill="currentColor"
                                 class="bi bi-geo-alt" viewBox="0 0 16 16">
                                 <path
@@ -1269,6 +1252,9 @@
                             <a href="diluarjember.php" title="Pemesanan-Diluar-Daerah-Jember">Pemesanan Diluar Daerah
                                 Jember</a>
                         </li>
+                        <li>
+                            <a href="sponsor.php" title="Sponsor">Sponsor</a>
+                        </li>
                     </ul>
                 </sectio>
             </div>
@@ -1308,18 +1294,6 @@
 
     <script>
         AOS.init();
-    </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(document).on('mousemove', function (e) {
-                $('#circularcursor').css({
-                    left: e.pageX,
-                    top: e.pageY
-                });
-            });
-        });
     </script>
 
     <script>

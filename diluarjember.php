@@ -23,21 +23,6 @@
             scroll-behavior: smooth;
         }
 
-        #circularcursor {
-            background-color: #000;
-            border: 1px solid black;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            position: absolute;
-            z-index: 1;
-            transition: left 0.1s, top 0.1s;
-            transform: translate(-30%, -15%);
-            pointer-events: none;
-        }
-
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -335,6 +320,41 @@
         #unlimited-360-dropdown {
             display: none;
         }
+
+        .input-container.quota-unlimited {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited {
+            display: flex;
+            align-items: center;
+            margin-left: 110px;
+            margin-top: -18px;
+        }
+
+        .radio-quota-unlimited input[type="radio"] {
+            display: none;
+        }
+
+        .radio-quota-unlimited label {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited label:before {
+            font-family: "FontAwesome";
+            content: "\f096";
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited input[type="radio"]:checked+label:before {
+            content: "\f046";
+        }
     </style>
 </head>
 
@@ -352,13 +372,11 @@
                 </div>
             </li>
             <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery" >Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
+            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
-
-    <div id="circularcursor"></div>
 
     <div class="pack-diluarjember" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="container-pemesanan">
@@ -374,7 +392,8 @@
                 </div>
                 <div class="input-container">
                     <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="address" placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
+                    <input type="text" id="address" name="address"
+                        placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
                 </div>
                 <div class="input-container">
                     <label for="date">Tanggal Acara:</label>
@@ -386,8 +405,8 @@
             <form id="step-2" style="display: none;">
                 <h1>Pemesanan Diluar Daerah Jember</h1>
                 <div class="input-container">
-                    <label for="package">Package Selection:</label>
-                    <select id="package" name="package">
+                    <label for="package">Package selection:</label>
+                    <select id="package" name="txt_package">
                         <option value="" disabled selected>Pilih Paket</option>
                         <option value="Self Photobox">Self Photobox</option>
                         <option value="Self Photo">Self Photo</option>
@@ -395,90 +414,69 @@
                         <option value="360 Videobooth">360 Videobooth</option>
                     </select>
                 </div>
+
                 <div class="input-container checkbox-group">
-                    <h3>Pilih Paket Layout:</h3>
+                    <h3>Pilih Layout:</h3>
                     <div class="checkbox-container" id="checkbox">
-                        <input type="checkbox" id="paperframe-4r" name="paket-layout" value="PaperFrame 4R">
+                        <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
+                            onclick="handleCheckboxClick(this)">
                         <label for="paperframe-4r">PaperFrame 4R</label>
                         <br>
-                        <input type="checkbox" id="paperframe-2r" name="paket-layout" value="PaperFrame 2R">
+                        <input type="checkbox" id="paperframe-2r" name="paket-layout[]" value="2"
+                            onclick="handleCheckboxClick(this)">
                         <label for="paperframe-2r">PaperFrame 2R</label>
                         <br>
-                        <input type="checkbox" id="layout-360" name="paket-layout" value="360">
+                        <input type="checkbox" id="layout-360" name="paket-layout[]" value="3">
                         <label for="layout-360">360 Videobooth</label>
                     </div>
                 </div>
+
+                <div class="input-container quota-unlimited" id="quota-unlimited" style="display: none;">
+                    <label>Pilih Paket:</label>
+                    <div class="radio-quota-unlimited">
+                        <input type="radio" id="quota" name="paket" value="quota">
+                        <label for="quota">Quota</label>
+                        <input type="radio" id="unlimited" name="paket" value="unlimited">
+                        <label for="unlimited">Unlimited</label>
+                    </div>
+                </div>
+
                 <div class="input-container" id="quota-2R-dropdown">
                     <label for="quota-2R">Quota PaperFrame 2R:</label>
-                    <select name="quota-2R" id="quota-2R">
+                    <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
                         <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
-                        <option value="">400 Pcs</option>
-                        <option value="">600 Pcs</option>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-2R-dropdown">
                     <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                    <select name="unlimited-2R" id="unlimited-2R">
+                    <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
                     </select>
                 </div>
 
                 <div class="input-container" id="quota-4R-dropdown">
                     <label for="quota-4R">Quota PaperFrame 4R:</label>
-                    <select name="quota-4R" id="quota-4R">
+                    <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
                         <option value="" disabled selected>Pilih Quota</option>
-                        <option value="">100 pcs</option>
-                        <option value="">150 Pcs</option>
-                        <option value="">200 Pcs</option>
-                        <option value="">300 Pcs</option>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-4R-dropdown">
                     <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                    <select name="unlimited-4R" id="unlimited-4R">
+                    <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
                     </select>
                 </div>
 
                 <div class="input-container" id="unlimited-360-dropdown">
                     <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                    <select name="unlimited-360" id="unlimited-360">
+                    <select name="unlimited[3]" id="unlimited-360" onchange="updateTotal()">
                         <option value="" disabled selected>Pilih Unlimited</option>
-                        <option value="">2 Hour</option>
-                        <option value="">3 Hour</option>
-                        <option value="">4 Hour</option>
                     </select>
                 </div>
 
                 <button class="prev-button" id="prev-2">Kembali</button>
-                <button class="next-button" id="next-2" disabled>Selanjutnya</button>
-            </form>
-
-            <form id="step-3" style="display: none;">
-                <h1>Pemesanan Diluar Daerah Jember</h1>
-                <div class="input-container">
-                    <label for="metode-pembayaran">Payment Method:</label>
-                    <select id="payment" name="payment">
-                        <option value="" disabled selected>Pilih Metode Pembayaran</option>
-                        <option value="cash">Cash</option>
-                        <option value="bank">Bank Transfer</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="proof" required>
-                </div>
-                <button class="prev-button" id="prev-3">Kembali</button>
                 <button class="submit-button" id="submit" disabled>Pesan</button>
             </form>
         </div>
@@ -490,27 +488,12 @@
         AOS.init();
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(document).on('mousemove', function (e) {
-                $('#circularcursor').css({
-                    left: e.pageX,
-                    top: e.pageY
-                });
-            })
-        });
-    </script>
-
     <script>
         const nextButton1 = document.getElementById("next-1");
-        const nextButton2 = document.getElementById("next-2");
-        const nextButton3 = document.getElementById("submit");
+        const nextButton2 = document.getElementById("submit");
 
         const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
         const step2Inputs = [document.getElementById("package")];
-        const step3Inputs = [document.getElementById("payment"), document.getElementById("proof")];
 
         function isStepFormValid(inputs) {
             return inputs.every(input => input.value.trim() !== "");
@@ -527,11 +510,62 @@
                 nextButton2.disabled = !isStepFormValid(step2Inputs);
             });
         });
+    </script>
 
-        step3Inputs.forEach(input => {
-            input.addEventListener("input", () => {
-                nextButton3.disabled = !isStepFormValid(step3Inputs);
+    <script>
+        function handleCheckboxClick(checkbox) {
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) {
+                    cb.disabled = true;
+                }
             });
+
+            checkbox.disabled = false;
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function toggleVisibility() {
+                var radioButtonValue = document.querySelector("input[name='paket']:checked").value;
+                var layoutCheckbox4R = document.getElementById("paperframe-4r");
+                var layoutCheckbox2R = document.getElementById("paperframe-2r");
+                var is4RChecked = layoutCheckbox4R.checked;
+                var is2RChecked = layoutCheckbox2R.checked;
+
+                if (radioButtonValue === "quota") {
+                    document.getElementById("quota-2R-dropdown").style.display = is2RChecked ? "block" : "none";
+                    document.getElementById("unlimited-2R-dropdown").style.display = "none";
+                    document.getElementById("quota-4R-dropdown").style.display = is4RChecked ? "block" : "none";
+                    document.getElementById("unlimited-4R-dropdown").style.display = "none";
+                } else if (radioButtonValue === "unlimited") {
+                    document.getElementById("quota-2R-dropdown").style.display = "none";
+                    document.getElementById("unlimited-2R-dropdown").style.display = is2RChecked ? "block" : "none";
+                    document.getElementById("quota-4R-dropdown").style.display = "none";
+                    document.getElementById("unlimited-4R-dropdown").style.display = is4RChecked ? "block" : "none";
+                }
+            }
+
+            var radioButtons = document.getElementsByName("paket");
+
+            radioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener("change", function () {
+                    toggleVisibility();
+                });
+            });
+
+            var layoutCheckboxes = document.getElementById("checkbox");
+
+            layoutCheckboxes.addEventListener("change", function () {
+                toggleVisibility();
+            });
+
+            var initialSelectedRadio = document.querySelector("input[name='paket']:checked");
+            if (initialSelectedRadio) {
+                toggleVisibility();
+            }
         });
     </script>
 
@@ -540,46 +574,38 @@
             var paperframe4rCheckbox = document.getElementById("paperframe-4r");
             var paperframe2rCheckbox = document.getElementById("paperframe-2r");
             var layout360Checkbox = document.getElementById("layout-360");
-
-            var quota2RDropdown = document.getElementById("quota-2R-dropdown");
-            var unlimited2RDropdown = document.getElementById("unlimited-2R-dropdown");
-            var quota4RDropdown = document.getElementById("quota-4R-dropdown");
-            var unlimited4RDropdown = document.getElementById("unlimited-4R-dropdown");
+            var quotaUnlimitedDropdown = document.querySelector(".quota-unlimited");
             var unlimited360Dropdown = document.getElementById("unlimited-360-dropdown");
 
-            paperframe4rCheckbox.addEventListener("change", updateDropdowns);
-            paperframe2rCheckbox.addEventListener("change", updateDropdowns);
-            layout360Checkbox.addEventListener("change", updateDropdowns);
-
-            function updateDropdowns() {
-                var paperframe4rChecked = paperframe4rCheckbox.checked;
-                var paperframe2rChecked = paperframe2rCheckbox.checked;
-                var layout360Checked = layout360Checkbox.checked;
-
-                quota2RDropdown.style.display = "none";
-                unlimited2RDropdown.style.display = "none";
-                quota4RDropdown.style.display = "none";
-                unlimited4RDropdown.style.display = "none";
-                unlimited360Dropdown.style.display = "none";
-
-                if (paperframe4rChecked || paperframe2rChecked) {
-                    if (paperframe4rChecked) {
-                        quota4RDropdown.style.display = "block";
-                        unlimited4RDropdown.style.display = "block";
-                    }
-                    if (paperframe2rChecked) {
-                        quota2RDropdown.style.display = "block";
-                        unlimited2RDropdown.style.display = "block";
-                    }
+            paperframe4rCheckbox.addEventListener("click", function () {
+                if (paperframe4rCheckbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "block";
+                    unlimited360Dropdown.style.display = "none";
+                } else {
+                    quotaUnlimitedDropdown.style.display = "none";
                 }
-                if (layout360Checked) {
+            });
+
+            paperframe2rCheckbox.addEventListener("click", function () {
+                if (paperframe2rCheckbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "block";
+                    unlimited360Dropdown.style.display = "none";
+                } else {
+                    quotaUnlimitedDropdown.style.display = "none";
+                }
+            });
+
+            layout360Checkbox.addEventListener("click", function () {
+                if (layout360Checkbox.checked) {
+                    quotaUnlimitedDropdown.style.display = "none";
                     unlimited360Dropdown.style.display = "block";
+                } else {
+                    unlimited360Dropdown.style.display = "none";
                 }
-            }
-
-            updateDropdowns();
+            });
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const packageDropdown = document.getElementById("package");
@@ -608,13 +634,9 @@
         document.addEventListener("DOMContentLoaded", function () {
             const step1Form = document.getElementById("step-1");
             const step2Form = document.getElementById("step-2");
-            const step3Form = document.getElementById("step-3");
 
             const nextButton1 = document.getElementById("next-1");
-            const nextButton2 = document.getElementById("next-2");
             const prevButton2 = document.getElementById("prev-2");
-            const nextButton3 = document.getElementById("next-3");
-            const prevButton3 = document.getElementById("prev-3");
 
             nextButton1.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -622,22 +644,10 @@
                 step2Form.style.display = "block";
             });
 
-            nextButton2.addEventListener("click", function (e) {
-                e.preventDefault();
-                step2Form.style.display = "none";
-                step3Form.style.display = "block";
-            });
-
             prevButton2.addEventListener("click", function (e) {
                 e.preventDefault();
                 step2Form.style.display = "none";
                 step1Form.style.display = "block";
-            });
-
-            prevButton3.addEventListener("click", function (e) {
-                e.preventDefault();
-                step3Form.style.display = "none";
-                step2Form.style.display = "block";
             });
         });
     </script>

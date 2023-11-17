@@ -127,21 +127,6 @@ function upload()
             scroll-behavior: smooth;
         }
 
-        #circularcursor {
-            background-color: #000;
-            border: 1px solid black;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            position: absolute;
-            z-index: 1;
-            transition: left 0.1s, top 0.1s;
-            transform: translate(-30%, -15%);
-            pointer-events: none;
-        }
-
         ::-webkit-scrollbar {
             width: 10px;
             border-radius: 50px;
@@ -443,6 +428,7 @@ function upload()
         .toast {
             background-color: #f44336;
             color: #fff;
+            width: 350px;
             font-size: 16px;
             padding: 10px;
             display: none;
@@ -450,33 +436,33 @@ function upload()
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: 15%;
+            top: 5px;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.2);
+            transform: translate(-50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes notificationFadeIn {
             0% {
-                transform: translate(-50%, -50%) scale(0.2);
+                transform: translate(-50%) scale(0.2);
                 opacity: 0;
             }
 
             100% {
-                transform: translate(-50%, -50%) scale(1);
+                transform: translate(-50%) scale(1);
                 opacity: 1;
             }
         }
 
         @keyframes notificationFadeOut {
             0% {
-                transform: translate(-50%, -50%) scale(1);
+                transform: translate(-50%) scale(1);
                 opacity: 1;
             }
 
             100% {
-                transform: translate(-50%, -50%) scale(0.2);
+                transform: translate(-50%) scale(0.2);
                 opacity: 0;
             }
         }
@@ -485,7 +471,7 @@ function upload()
             position: fixed;
             font-family: "Poppins", sans-serif;
             font-size: 18px;
-            top: 20px;
+            top: 35px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #f44336;
@@ -605,7 +591,7 @@ function upload()
                             placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
                     </div>
 
-                    <div class="toast" id="address-warning">Alamat harus mencantumkan kata "Jember".</div>
+                    <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".</div>
                     <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="txt_date" required>
@@ -771,8 +757,6 @@ function upload()
         </div>
     </form>
 
-    <div id="circularcursor"></div>
-
     <div class="notification" id="notification"></div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -781,7 +765,6 @@ function upload()
         AOS.init();
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
     <script>
@@ -1000,15 +983,6 @@ function upload()
             input.addEventListener("input", () => {
                 nextButton3.disabled = !isStepFormValid(step3Inputs);
             });
-        });
-
-        $(document).ready(function () {
-            $(document).on('mousemove', function (e) {
-                $('#circularcursor').css({
-                    left: e.pageX,
-                    top: e.pageY
-                });
-            })
         });
 
         document.addEventListener("DOMContentLoaded", function () {
