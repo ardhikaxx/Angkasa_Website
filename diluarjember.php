@@ -1,3 +1,69 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
+}
+if (isset($_POST['submit'])) {
+    $namacustomer = isset($_POST['name']) ? $_POST['name'] : '';
+    $nohp = isset($_POST['phone']) ? $_POST['phone'] : '';
+    $alamatacara = isset($_POST['address']) ? $_POST['address'] : '';
+    $tanggalacara = isset($_POST['date']) ? $_POST['date'] : '';
+    $pilihanpackage = isset($_POST['txt_package']) ? $_POST['txt_package'] : '';
+    $pilihpaketlayout = isset($_POST['paket-layout']) ? $_POST['paket-layout'] : '';
+    $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
+    $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
+    // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
+    $today = date("Y-m-d");
+    if ($tanggalacara < $today) {
+        header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
+        exit();
+    } else {
+        $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
+        $check_date_result = mysqli_query($koneksi, $check_date_query);
+
+
+
+        if (mysqli_num_rows($check_date_result) > 0) {
+            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            exit();
+        } else {
+            $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+            $result_customer = mysqli_query($koneksi, $query_customer);
+            if ($result_customer) {
+                $last_inserted_customer_id = mysqli_insert_id($koneksi);
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage')";
+                $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
+                if ($result_pemesanan) {
+                    $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
+                    foreach ($pilihpaketlayout as $key => $value) {
+                        if ($_POST['paket'] == "quota") {
+                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', null)";
+                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                        } else if (($_POST["paket"] == "unlimited")) {
+                            $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', null, '$unlimited[$value]')";
+                            $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
+                        }
+                    }
+
+                    if ($result_detail_pemesanan) {
+                        $koneksi->commit();
+                        header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                        exit();
+                    } else {
+                        $conn->rollback();
+                        $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                    }
+
+                }
+            }
+        }
+    }
+} else {
+    $error = "Gagal menyisipkan data ke tabel layout.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -446,41 +512,86 @@
 
                     <div class="input-container" id="quota-2R-dropdown">
                         <label for="quota-2R">Quota PaperFrame 2R:</label>
-                        <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
+                        <select name="quota[2]" id="quota-2R">
                             <option value="" disabled selected>Pilih Quota</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_quota'] ?>">
+                                    <?= $data['nama_quota'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <div class="input-container" id="unlimited-2R-dropdown">
                         <label for="unlimited-2R">Unlimited PaperFrame 2R:</label>
-                        <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
+                        <select name="unlimited[2]" id="unlimited-2R">
                             <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <div class="input-container" id="quota-4R-dropdown">
                         <label for="quota-4R">Quota PaperFrame 4R:</label>
-                        <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
+                        <select name="quota[1]" id="quota-4R">
                             <option value="" disabled selected>Pilih Quota</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_quota'] ?>">
+                                    <?= $data['nama_quota'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <div class="input-container" id="unlimited-4R-dropdown">
                         <label for="unlimited-4R">Unlimited PaperFrame 4R:</label>
-                        <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
+                        <select name="unlimited[1]" id="unlimited-4R">
                             <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <div class="input-container" id="unlimited-360-dropdown">
                         <label for="unlimited-360">Unlimited 360 Videobooth:</label>
-                        <select name="unlimited[3]" id="unlimited-360" onchange="updateTotal()">
+                        <select name="unlimited[3]" id="unlimited-360">
                             <option value="" disabled selected>Pilih Unlimited</option>
+                            <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='3'");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_unlimited'] ?>">
+                                    <?= $data['nama_unlimited'] ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
                     <button class="prev-button" id="prev-2">Kembali</button>
-                    <button class="submit-button" type="submit" id="submit" disabled>Pesan</button>
+                    <button class="submit-button" type="submit" id="submit" name="submit" disabled>Pesan</button>
                 </div>
             </div>
         </div>
