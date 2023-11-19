@@ -677,14 +677,14 @@
 
     <div class="content-layout" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
         <div class="layout-2R">
-            <h1>Strip 2R (5 cm x 15 cm)</h1>
-            <div class="layout-photo-2R">
+            <h1 data-aos="fade-left" data-aos-easing="ease" data-aos-duration="700">Strip 2R (5 cm x 15 cm)</h1>
+            <div class="layout-photo-2R" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
                 <img src="assets/Gallery/Layout2R.png" alt="">
             </div>
         </div>
         <div class="layout-4R">
-            <h1>Photo 4R (10cm x 15 cm)</h1>
-            <div class="layout-photo-4R">
+            <h1 data-aos="fade-right" data-aos-easing="ease" data-aos-duration="700">Photo 4R (10cm x 15 cm)</h1>
+            <div class="layout-photo-4R" data-aos="fade-right" data-aos-easing="ease" data-aos-duration="600">
                 <img src="assets/Gallery/Layout4R.png" alt="">
             </div>
         </div>

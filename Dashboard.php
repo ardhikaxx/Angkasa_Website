@@ -851,20 +851,111 @@
         }
 
         .content {
-            width: 500px;
+            width: 650px;
+            height: 370px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
             margin-top: 50px;
-            background-color: #0F0F0F;
-            backdrop-filter: blur(5px);
+            background-image: url('assets/Gallery/Manual Photobooth.jpg');
+            background-size: cover;
+            background-position: center;
             color: #fff;
             font-family: "Poppins", sans-serif;
             padding: 20px;
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .content-promo {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bulan-pack {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            width: 150px;
+            padding: 10px;
+            margin-left: -110px;
+            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .bulan-pack span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .promo-pack {
+            width: 450px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            background: #EBECF0;
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        .header-promo {
+            text-align: center;
+            margin: 0 auto;
+            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            margin-top: -50px;
+            width: 300px;
+            height: 45px;
+            border-radius: 15px;
+        }
+
+        .header-promo h1 {
+            font-size: 24px;
+            padding: 5px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        #paket-promo {
+            color: #000;
+            margin: 25px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .harga-promo {
+            text-align: center;
+            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            margin-top: 35px;
+            border-radius: 15px;
+            width: 300px;
+            margin: 0 auto;
+            margin-bottom: -60px;
+        }
+
+        .harga-promo h1 {
+            font-size: 30px;
+            padding: 10px;
+            font-weight: 800;
         }
 
         .notification {
@@ -925,7 +1016,7 @@
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
             <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.
                 🚀✨</p>
-            <a href="ourpackage.php" class="continue-button">Get Started</a>
+            <a href="#content-promo" class="continue-button">Promo Bulan Ini <i class="fas fa-tags"></i></a>
         </div>
         <div class="right-content">
             <div class="contohfoto">
@@ -974,22 +1065,18 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content" id="content-promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
         <div class="content-promo">
-                <div class="promo-pack">
-                    <div class="promo-title">
-                        <div class="header-promo">
-                            <h1>Promo Bulan Ini</h1>
-                        </div>
-                        <span id="bulan"></span>
-                        <h2 id="paket-promo">Unlimited 3 Hour 360 & 3 Hour Photobooth</h2>
-                        <p>Jangan sampai<br>ketinggalan promonya!</p>
-                    </div>
-                    <div class="promo-harga">
-                        <div class="description">
-                            <h1>Rp 1.800.000</h1>
-                        </div>
-                    </div>
+            <div class="bulan-pack">
+                <span id="bulan"></span>
+            </div>
+            <div class="promo-pack">
+                <div class="header-promo">
+                    <h1>Promo Bulan Ini</h1>
+                </div>
+                <h2 id="paket-promo">Unlimited 3 Hour 360 & 3 Hour Photobooth</h2>
+                <div class="harga-promo">
+                    <h1>Rp 1.800.000</h1>
                 </div>
             </div>
         </div>
@@ -1145,6 +1232,27 @@
 
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUrls = [
+                'assets/Gallery/Self Photobox.jpg',
+                'assets/Gallery/Self Photo.jpg',
+                'assets/Gallery/Manual Photobooth.jpg',
+                'assets/Gallery/360 Videobooth.jpg'
+            ];
+
+            const content = document.getElementById('content-promo');
+
+            function changeBackgroundImage() {
+                const randomIndex = Math.floor(Math.random() * imageUrls.length);
+                const imageUrl = imageUrls[randomIndex];
+                content.style.backgroundImage = `url('${imageUrl}')`;
+            }
+
+            setInterval(changeBackgroundImage, 3000);
+        });
     </script>
 
     <script>
