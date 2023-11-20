@@ -21,6 +21,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
         $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
+        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
+        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+        $unlimited=isset ($row['nama_unlimited'])? $row ['nama_unlimited']:'';
         $proposal = isset($row['proposal']) ? $row ['proposal']:'';
         ?>
         <tr>
@@ -38,6 +42,18 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             </td>
             <td>
                 <?php echo $tanggalacara;?>
+            </td>
+            <td>
+                <?php echo $package;?>
+            </td>
+            <td>
+                <?php echo $layout;?>
+            </td>
+            <td>
+                <?php echo $quota;?>
+            </td>
+            <td>
+                <?php echo $unlimited;?>
             </td>
             <td>
                 <?php echo $proposal;?>
@@ -1837,6 +1853,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <th>No Hp</th>
                     <th>Alamat</th>
                     <th>Tanggal</th>
+                    <th>Package</th>
+                    <th>Layout</th>
+                    <th>Quota</th>
+                    <th>Unlimited</th>
                     <th>Proposal</th>
                     <th>Actions</th>
                 </tr>
@@ -1850,7 +1870,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer LIMIT $start_from, $records_per_page";
+                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.nama_package,detail_pemesanan.id_layout,layout.nama_layout,detail_pemesanan.id_quota,quota.nama_quota,detail_pemesanan.id_unlimited,unlimited.nama_unlimited,pemesanan.proposal FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan=detail_pemesanan.id_pemesanan JOIN layout ON detail_pemesanan.id_layout=layout.id_layout JOIN quota ON detail_pemesanan.id_quota=quota.id_quota JOIN unlimited ON detail_pemesanan.id_unlimited=unlimited.id_unlimited LIMIT $start_from, $records_per_page";
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -1859,6 +1879,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
                         $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+                        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
+                        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
+                        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+                        $unlimited=isset($row['nama_unlimited']) ? $row ['nama_unlimited']:'';
                         $proposal=isset($row['proposal']) ? $row ['proposal']:'';
                         ?>
                         <tr>
@@ -1876,6 +1900,18 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                             </td>
                             <td>
                                 <?php echo $tanggalacara;?>
+                            </td>
+                            <td>
+                                <?php echo $package;?>
+                            </td>
+                            <td>
+                                <?php echo $layout;?>
+                            </td>
+                            <td>
+                                <?php echo $quota;?>
+                            </td>
+                            <td>
+                                <?php echo $unlimited;?>
                             </td>
                             <td>
                                 <?php echo $proposal;?>
