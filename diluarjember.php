@@ -646,7 +646,7 @@ if (isset($_POST['submit'])) {
         }
     </script>
 
-<script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const packageDropdown = document.getElementById("package");
             const paperframe4rCheckbox = document.getElementById("paperframe-4r");
@@ -674,11 +674,22 @@ if (isset($_POST['submit'])) {
                     layout360Checkbox.disabled = false;
 
                     quotaRadio.disabled = true;
+                } else {
+
+                    quotaRadio.disabled = !(paperframe4rCheckbox.checked || paperframe2rCheckbox.checked);
                 }
 
                 if (layout360Checkbox.checked) {
                     quotaRadio.disabled = false;
                 }
+            });
+
+            paperframe4rCheckbox.addEventListener("change", function () {
+                quotaRadio.disabled = !paperframe4rCheckbox.checked;
+            });
+
+            paperframe2rCheckbox.addEventListener("change", function () {
+                quotaRadio.disabled = !paperframe2rCheckbox.checked;
             });
         });
     </script>

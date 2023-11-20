@@ -59,8 +59,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $proposal;?>
             </td>
             <td>
-                <a href="#" class="btn-selesai" data-id="<?php echo $id; ?>"><i class="fa fa-check"></i></a>
-                <a href="#" class="btn-belum" data-id="<?php echo $id; ?>"><i class="fa fa-times"></i></a>
+                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
             </td>
         </tr>
         <?php
@@ -1691,7 +1690,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .tabel-laporan {
-            width: 900px;
+            width: 1000px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1700,7 +1699,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
             margin-top: 50px;
-            margin-left: 200px;
+            margin-left: 170px;
         }
 
         .tabel-laporan h1 {
@@ -1718,7 +1717,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .tabel-laporan th,
         .tabel-laporan td {
-            padding: 15px;
+            padding: 17px;
             text-align: center;
             border-bottom: 1px solid #dee2e6;
         }
