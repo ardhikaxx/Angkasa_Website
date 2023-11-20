@@ -869,6 +869,7 @@
             margin-top: 150px;
             position: relative;
             overflow: hidden;
+            transition: background-image 5s ease;
         }
 
         .content::before {
@@ -956,6 +957,24 @@
             font-size: 30px;
             padding: 10px;
             font-weight: 800;
+        }
+
+        .btn-promo {
+            margin: 0 auto;
+            margin-top: 50px;
+            padding: 10px;
+            text-align: center;
+            width: 200px;
+            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-promo a {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
         }
 
         .notification {
@@ -1078,6 +1097,9 @@
                 <div class="harga-promo">
                     <h1>Rp 1.800.000</h1>
                 </div>
+            </div>
+            <div class="btn-promo">
+                <a href="#">Pesan Sekarang</a>
             </div>
         </div>
     </div>
@@ -1244,14 +1266,19 @@
             ];
 
             const content = document.getElementById('content-promo');
+            let currentIndex = 0;
 
             function changeBackgroundImage() {
-                const randomIndex = Math.floor(Math.random() * imageUrls.length);
-                const imageUrl = imageUrls[randomIndex];
+                const imageUrl = imageUrls[currentIndex];
                 content.style.backgroundImage = `url('${imageUrl}')`;
             }
 
-            setInterval(changeBackgroundImage, 3000);
+            function rotateBackgroundImage() {
+                changeBackgroundImage();
+                currentIndex = (currentIndex + 1) % imageUrls.length;
+            }
+
+            setInterval(rotateBackgroundImage, 3000);
         });
     </script>
 
