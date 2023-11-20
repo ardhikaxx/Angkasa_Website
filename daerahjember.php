@@ -552,6 +552,11 @@ function upload()
             font-size: 17px;
             font-weight: 800;
         }
+
+        #quota:disabled+label {
+            color: #999;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -587,7 +592,8 @@ function upload()
 
                     <div class="input-container">
                         <label for="phone">Nomer Telepon:</label>
-                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444" oninput="validateNumberInput(event)" required>
+                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
+                            oninput="validateNumberInput(event)" required>
                     </div>
 
                     <div class="input-container">
@@ -596,7 +602,8 @@ function upload()
                             placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
                     </div>
 
-                    <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".</div>
+                    <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
+                    </div>
                     <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="txt_date" required>
@@ -819,23 +826,65 @@ function upload()
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            const packageDropdown = document.getElementById("package");
+            const paperframe4rCheckbox = document.getElementById("paperframe-4r");
+            const paperframe2rCheckbox = document.getElementById("paperframe-2r");
+            const layout360Checkbox = document.getElementById("layout-360");
+            const quotaRadio = document.getElementById("quota");
+
+            quotaRadio.disabled = true;
+
+            layout360Checkbox.addEventListener("change", function () {
+                quotaRadio.disabled = layout360Checkbox.checked;
+            });
+
+            packageDropdown.addEventListener("change", function () {
+                const selectedPackage = packageDropdown.value;
+
+                paperframe4rCheckbox.disabled = true;
+                paperframe2rCheckbox.disabled = true;
+                layout360Checkbox.disabled = true;
+
+                if (selectedPackage === "Self Photobox" || selectedPackage === "Self Photo" || selectedPackage === "Manual Photobooth") {
+                    paperframe4rCheckbox.disabled = false;
+                    paperframe2rCheckbox.disabled = false;
+                } else if (selectedPackage === "360 Videobooth") {
+                    layout360Checkbox.disabled = false;
+
+                    quotaRadio.disabled = true;
+                }
+
+                if (layout360Checkbox.checked) {
+                    quotaRadio.disabled = false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
             function toggleVisibility() {
                 var radioButtonValue = document.querySelector("input[name='paket']:checked").value;
                 var layoutCheckbox4R = document.getElementById("paperframe-4r");
                 var layoutCheckbox2R = document.getElementById("paperframe-2r");
+                var layoutCheckbox360 = document.getElementById("layout-360");
                 var is4RChecked = layoutCheckbox4R.checked;
                 var is2RChecked = layoutCheckbox2R.checked;
+                var is360Checked = layoutCheckbox360.checked;
 
                 if (radioButtonValue === "quota") {
                     document.getElementById("quota-2R-dropdown").style.display = is2RChecked ? "block" : "none";
                     document.getElementById("unlimited-2R-dropdown").style.display = "none";
                     document.getElementById("quota-4R-dropdown").style.display = is4RChecked ? "block" : "none";
                     document.getElementById("unlimited-4R-dropdown").style.display = "none";
+                    document.getElementById("quota").disabled = false;
                 } else if (radioButtonValue === "unlimited") {
                     document.getElementById("quota-2R-dropdown").style.display = "none";
                     document.getElementById("unlimited-2R-dropdown").style.display = is2RChecked ? "block" : "none";
                     document.getElementById("quota-4R-dropdown").style.display = "none";
                     document.getElementById("unlimited-4R-dropdown").style.display = is4RChecked ? "block" : "none";
+                    document.getElementById("quota").disabled = is360Checked;
+                    document.getElementById("unlimited-360-dropdown").style.display = is360Checked ? "block" : "none";
                 }
             }
 
@@ -888,8 +937,8 @@ function upload()
 
             layout360Checkbox.addEventListener("click", function () {
                 if (layout360Checkbox.checked) {
-                    quotaUnlimitedDropdown.style.display = "none";
-                    unlimited360Dropdown.style.display = "block";
+                    quotaUnlimitedDropdown.style.display = "block";
+                    unlimited360Dropdown.style.display = "none";
                 } else {
                     unlimited360Dropdown.style.display = "none";
                 }
