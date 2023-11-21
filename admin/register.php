@@ -149,7 +149,7 @@ if (isset($_POST['register'])) {
 
         .navbar__menu {
             position: relative;
-            margin-top: 250px;
+            margin-top: 140px;
         }
 
         .navbar__item:last-child:before {
@@ -1898,10 +1898,16 @@ if (isset($_POST['register'])) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
                 <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+            </li>
+            <li class="navbar__item">
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>

@@ -118,7 +118,7 @@ if (isset($_GET['successMessage'])) {
 
         .navbar__menu {
             position: relative;
-            margin-top: 250px;
+            margin-top: 140px;
         }
 
         .navbar__item:last-child:before {
@@ -1633,7 +1633,7 @@ if (isset($_GET['successMessage'])) {
             border-radius: 15px;
             text-align: center;
         }
-        
+
         .pemesanan-count {
             display: flex;
             flex-direction: column;
@@ -1858,11 +1858,16 @@ if (isset($_GET['successMessage'])) {
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+            </li>
+            <li class="navbar__item">
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -1986,16 +1991,16 @@ if (isset($_GET['successMessage'])) {
                 <h3>Grafik Pemesanan</h3>
                 <?php
                 $query = "SELECT proposal,nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
-                GROUP BY nama_package,proposal";
+                GROUP BY nama_package, proposal";
 
                 $result = $koneksi->query($query);
 
                 $packageData = array("labels" => array(), "data" => array());
 
                 while ($row = $result->fetch_assoc()) {
-                 $label = $row["nama_package"] . $row["proposal"]; 
-                 $packageData["labels"][] = $label;
-                 $packageData["data"][] = $row["jumlah_pemesanan"];
+                    $label = $row["nama_package"] . $row["proposal"];
+                    $packageData["labels"][] = $label;
+                    $packageData["data"][] = $row["jumlah_pemesanan"];
                 }
 
                 $packageDataJSON = json_encode($packageData);

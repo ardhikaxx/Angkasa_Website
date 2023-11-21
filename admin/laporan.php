@@ -163,7 +163,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .navbar__menu {
             position: relative;
-            margin-top: 250px;
+            margin-top: 140px;
         }
 
         .navbar__item:last-child:before {
@@ -1609,19 +1609,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             }
         }
 
-        .content {
-            width: 950px;
-            margin: 0 auto;
-            background-color: #EBECF0 0.5;
-            backdrop-filter: blur(5px);
-            font-family: "Poppins", sans-serif;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin-top: 50px;
-            margin-left: 200px;
-        }
-
         .modal {
             background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
@@ -1686,7 +1673,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .tabel-laporan {
-            width: 1000px;
+            width: 1100px;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1694,8 +1681,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
-            margin-top: 50px;
-            margin-left: 170px;
+            margin-top: 20px;
+            margin-left: 120px;
         }
 
         .tabel-laporan h1 {
@@ -1714,8 +1701,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         .tabel-laporan th,
         .tabel-laporan td {
             padding: 17px;
-            text-align: center;
-            border-bottom: 1px solid #dee2e6;
+            width: 150px;
+            text-align: left;
+            border-bottom: 1.5px solid #ccc;
         }
 
         .tabel-akun tr {
@@ -1728,7 +1716,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .btn-info {
-            background-color: #FFB800;
+            background-color: #00C82E;
             color: #fff;
             border-radius: 10px;
             padding: 8px 15px;
@@ -1810,11 +1798,16 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+            </li>
+            <li class="navbar__item">
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -1914,7 +1907,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $unlimited;?>
                             </td>
                             <td>
-                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-check-circle"></i></a>
                             </td>
                         </tr>
                         <?php

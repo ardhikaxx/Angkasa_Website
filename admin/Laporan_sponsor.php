@@ -8,30 +8,45 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-
 function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
-    $query = "SELECT * FROM user WHERE nama_lengkap LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
     $no = $start_from + 1;
 
     while ($row = mysqli_fetch_array($result)) {
-        $id = isset($row['id_user']) ? $row['id_user'] : '';
-        $useremail = isset($row['email']) ? $row['email'] : '';
-        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
-        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
-        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
+        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
+        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
+        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
         ?>
         <tr>
-            <td><?php echo $no; ?></td>
-            <td><?php echo $usernamalengkap; ?></td>
-            <td><?php echo $useremail; ?></td>
-            <td><?php echo $usertelepon; ?></td>
-            <td><?php echo $userjabatan; ?></td>
             <td>
-                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
-                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $namalengkapcustomer; ?>
+            </td>
+            <td>
+                <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                <?php echo $alamatacara; ?>
+            </td>
+            <td>
+                <?php echo $tanggalacara;?>
+            </td>
+            <td>
+                <p>Proposal</p>
+            </td>
+            <td>
+                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
             </td>
         </tr>
         <?php
@@ -44,7 +59,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
 <head>
     <meta charset="UTF-8">
-    <title>Angkasa | Pengaturan Page</title>
+    <title>Angkasa | Laporan Page</title>
     <title>Navbar</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -1425,7 +1440,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 transform: scale(1, 1);
             }
         }
-
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
@@ -1586,110 +1600,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             }
         }
 
-        .content-settings {
-            width: 950px;
-            margin: 0 auto;
-            background-color: #EBECF0 0.5;
-            backdrop-filter: blur(5px);
-            font-family: "Poppins", sans-serif;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin-top: 50px;
-            margin-left: 200px;
-        }
-
-        .content-settings h1 {
-            margin-bottom: 20px;
-            font-size: 25px;
-            color: #000;
-            font-weight: 800;
-        }
-
-        .content-settings table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .content-settings th,
-        .content-settings td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .tabel-akun tr {
-            margin-top: 20px;
-        }
-
-        .content-settings th {
-            background-color: #1A2226;
-            color: #fff;
-        }
-
-        .btn-edit {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 10px;
-            padding: 5px 10px;
-            margin-right: 10px;
-            text-decoration: none;
-        }
-
-        .btn-edit i {
-            font-size: 15px;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: #fff;
-            border-radius: 10px;
-            padding: 5px 10px;
-            text-decoration: none;
-        }
-
-        .btn-delete i {
-            font-size: 15px;
-        }
-
-        .btn-edit:hover,
-        .btn-delete:hover {
-            opacity: 0.9;
-        }
-
-        input[type="text"] {
-            width: 250px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: rgba(0, 0, 0, 0.15);
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            border-radius: 15px;
-            border: none;
-            outline: none;
-            margin: 10px;
-        }
-
-        button {
-            background-color: #1A2226;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            margin: 10px;
-        }
-
-        .search button:hover {
-            background-color: #000;
-        }
-
-        .search-icon {
-            margin-right: 5px;
-        }
-
         .modal {
             background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
@@ -1719,7 +1629,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             transition: all 0.4s ease;
             text-rendering: optimizeLegibility;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-            margin-bottom: -5px;
         }
 
         .btn-confirm {
@@ -1754,182 +1663,100 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             display: none;
         }
 
-        .modal-edit {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+        .tabel-laporan {
+            width: 1100px;
+            margin: 0 auto;
+            background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .edit-content {
-            background-color: #EBECF0;
-            color: #000;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
             font-family: "Poppins", sans-serif;
-            border: 0;
-            width: 350px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.5s;
-        }
-
-        .edit-content button {
-            padding: 10px 20px;
             margin-top: 20px;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-bottom: -5px;
+            margin-left: 120px;
         }
 
-        .edit-content button#confirmEditYes {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .edit-content button#confirmEditYes:hover {
-            background-color: #45a049;
-        }
-
-        .edit-content button#confirmEditNo {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .edit-content button#confirmEditNo:hover {
-            background-color: #da190b;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-delete {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content-delete {
-            background-color: #EBECF0;
+        .tabel-laporan h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
             color: #000;
-            position: absolute;
-            font-family: "Poppins", sans-serif;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border: 0;
-            width: 350px;
+            font-weight: 800;
+        }
+
+        .tabel-laporan table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th,
+        .tabel-laporan td {
+            padding: 17px;
+            width: 250px;
+            text-align: left;
+            border-bottom: 1.5px solid #ccc;
+        }
+
+        .tabel-akun tr {
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .btn-info {
+            background-color: #FFB800;
+            color: #fff;
+            border-radius: 10px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-selesai,
+        .btn-belum:hover {
+            opacity: 0.9;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
             border-radius: 15px;
-            text-align: center;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content-delete h2 {
-            margin: 0;
-        }
-
-        .modal-content-delete p {
-            margin: 10px 0;
-        }
-
-        .modal-content-delete button {
-            padding: 10px 20px;
-            margin: 10px;
             border: none;
+            outline: none;
+            margin: 10px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
             border-radius: 15px;
             cursor: pointer;
+            margin: 10px;
         }
 
-        .modal-content-delete button#confirmDeleteYes {
-            background-color: #f44336;
-            color: white;
+        .search button:hover {
+            background-color: #333;
         }
 
-        .modal-content-delete button#confirmDeleteYes:hover {
-            background-color: #da190b;
-        }
-
-        .modal-content-delete button#confirmDeleteNo {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .modal-content-delete button#confirmDeleteNo:hover {
-            background-color: #45a049;
-        }
-
-        .notification {
-            position: fixed;
-            font-family: "Poppins", sans-serif;
-            font-size: 18px;
-            top: 20px;
-            left: 53%;
-            transform: translateX(-50%);
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .notification.show {
-            opacity: 1;
-        }
-
-        .notification-noChange {
-            position: fixed;
-            font-family: "Poppins", sans-serif;
-            font-size: 18px;
-            top: 20px;
-            left: 53%;
-            transform: translateX(-50%);
-            background-color: #f44336;
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .notification-noChange.show {
-            opacity: 1;
+        .search-icon {
+            margin-right: 5px;
         }
 
         #page-links {
             text-align: center;
             margin-top: 20px;
         }
+
         #page-links a {
             text-decoration: none;
             color: #000;
@@ -1938,10 +1765,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             border-radius: 5px;
             margin: 0 5px;
         }
+
         #page-links a:hover {
             background-color: #000;
             color: #fff;
         }
+
         #page-links a.active {
             background-color: #000;
             color: #fff;
@@ -1987,11 +1816,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         </div>
     </div>
 
-    <div class="content-settings">
-        <h1>Pengaturan Admin</h1>
+    <div class="tabel-laporan">
+        <h1>Laporan Sponsor</h1>
         <form method="GET">
-            <input type="text" name="search" id="search" id="search" placeholder="Cari Nama Lengkap user"
-                autocomplete="off">
+            <input type="text" name="search" id="search" placeholder="Cari Nama Customer" autocomplete="off">
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
@@ -2000,10 +1828,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Lengkap</th>
-                    <th>Email</th>
+                    <th>Nama Cust</th>
                     <th>No Hp</th>
-                    <th>Jabatan</th>
+                    <th>Alamat</th>
+                    <th>Tanggal</th>
+                    <th>Proposal</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -2016,73 +1845,65 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query = "SELECT id_user, nama_lengkap, email, no_hp, jenis_kelamin, jabatan FROM user LIMIT $start_from, $records_per_page";
+                    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal,
+                    pemesanan.nama_package,layout.id_layout,layout.nama_layout,COALESCE(quota.id_quota, '') AS id_quota,
+                    COALESCE(quota.nama_quota, '') AS nama_quota,COALESCE(unlimited.id_unlimited, '') AS id_unlimited,
+                    COALESCE(unlimited.nama_unlimited, '') AS nama_unlimited FROM pemesanan 
+                    JOIN customer ON pemesanan.id_customer = customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
+                    JOIN layout ON detail_pemesanan.id_layout = layout.id_layout LEFT JOIN quota ON detail_pemesanan.id_quota = quota.id_quota 
+                    LEFT JOIN unlimited ON detail_pemesanan.id_unlimited = unlimited.id_unlimited LIMIT $start_from, $records_per_page";
+
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
-                        $id = isset($row['id_user']) ? $row['id_user'] : '';
-                        $usernamalengkap = isset($row['nama_lengkap']) ? $row['nama_lengkap'] : '';
-                        $useremail = isset($row['email']) ? $row['email'] : '';
-                        $usertelepon = isset($row['no_hp']) ? $row['no_hp'] : '';
-                        $userjabatan = isset($row['jabatan']) ? $row['jabatan'] : '';
+                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+                        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
+                        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
+                        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+                        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
                         ?>
                         <tr>
                             <td>
                                 <?php echo $no; ?>
                             </td>
                             <td>
-                                <?php echo $usernamalengkap; ?>
+                                <?php echo $namalengkapcustomer; ?>
                             </td>
                             <td>
-                                <?php echo $useremail; ?>
+                                <?php echo $teleponcustomer; ?>
                             </td>
                             <td>
-                                <?php echo $usertelepon; ?>
+                                <?php echo $alamatacara; ?>
                             </td>
                             <td>
-                                <?php echo $userjabatan; ?>
+                                <?php echo $tanggalacara;?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                                <p>Proposal</p>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
                             </td>
                         </tr>
-                    </tbody>
-                    <?php
-                    $no++;
+                        <?php
+                        $no++;
                     }
                 }
                 ?>
+            </tbody>
         </table>
         <div id="page-links">
             <?php
-            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_user FROM user"));
+            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_pemesanan FROM pemesanan"));
             $total_pages = ceil($total_records / $records_per_page);
             for ($i = 1; $i <= $total_pages; $i++) {
                 echo '<a href="?page=' . $i . '">' . $i . '</a> ';
             }
             ?>
-        </div>
-    </div>
-
-    <div id="notification" class="notification"></div>
-    <div id="notification-noChange" class="notification-noChange"></div>
-
-    <div id="myModal" class="modal-edit">
-        <div class="edit-content">
-            <p>Apakah Anda yakin ingin mengedit data ini?</p>
-            <button id="confirmEditYes">Ya</button>
-            <button id="confirmEditNo">Tidak</button>
-            <input type="hidden" id="userIdToEdit">
-        </div>
-    </div>
-
-    <div class="modal-delete">
-        <div class="modal-content-delete">
-            <h2>Konfirmasi Hapus</h2>
-            <p>Apakah Anda yakin ingin menghapus data ini?</p>
-            <button id="confirmDeleteYes">Ya</button>
-            <button id="confirmDeleteNo">Tidak</button>
         </div>
     </div>
 
@@ -2110,98 +1931,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         confirmLogoutBtn.addEventListener('click', function () {
             window.location.href = '/Angkasa_Website/logout.php';
         });
-    </script>
-
-    <script>
-        const editButtons = document.querySelectorAll(".btn-edit");
-        const modal = document.getElementById("myModal");
-        const confirmEditYes = document.getElementById("confirmEditYes");
-        const confirmEditNo = document.getElementById("confirmEditNo");
-
-        editButtons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                const userId = this.getAttribute("data-id");
-                document.getElementById("userIdToEdit").value = userId;
-                modal.style.display = "block";
-            });
-        });
-
-        confirmEditYes.addEventListener("click", function () {
-            const userId = document.getElementById("userIdToEdit").value;
-            if (userId) {
-                window.location.href = "edit.php?id=" + userId;
-            }
-            modal.style.display = "none";
-        });
-
-        confirmEditNo.addEventListener("click", function () {
-            modal.style.display = "none";
-        });
-    </script>
-
-    <script>
-        const deleteButtons = document.querySelectorAll(".btn-delete");
-        const modalDelete = document.querySelector(".modal-delete");
-        const confirmDeleteYes = document.getElementById("confirmDeleteYes");
-        const confirmDeleteNo = document.getElementById("confirmDeleteNo");
-
-        deleteButtons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                const userId = this.getAttribute("data-id");
-                showModalDelete(userId);
-            });
-        });
-
-        function showModalDelete(userId) {
-            modalDelete.style.display = "block";
-
-            confirmDeleteYes.addEventListener("click", function () {
-                window.location.href = "hapus.php?id=" + userId;
-            });
-
-            confirmDeleteNo.addEventListener("click", function () {
-                closeModalDelete();
-            });
-        }
-
-        function closeModalDelete() {
-            modalDelete.style.display = "none";
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const successMessage = urlParams.get('successMessage');
-            const noChangeMessage = urlParams.get('NoChageMessage');
-
-            if (successMessage) {
-                displayNotification(successMessage, 'notification');
-            }
-
-            if (noChangeMessage) {
-                displayNotification(noChangeMessage, 'notification-noChange');
-            }
-        });
-
-        function displayNotification(message, elementId) {
-            const notification = document.getElementById(elementId);
-            notification.innerText = message;
-            notification.style.display = 'block';
-
-            setTimeout(function () {
-                notification.classList.add('show');
-            }, 100);
-
-            setTimeout(function () {
-                notification.classList.remove('show');
-                setTimeout(function () {
-                    notification.style.display = 'none';
-                }, 500);
-            }, 5000);
-        }
     </script>
 </body>
 
