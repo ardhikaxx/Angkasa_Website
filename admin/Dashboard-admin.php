@@ -1985,7 +1985,7 @@ if (isset($_GET['successMessage'])) {
             <div class="grafik-pemesanan">
                 <h3>Grafik Package</h3>
                 <?php
-                $query = "SELECT nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
+                $query = "SELECT id_pemesanan,nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
                 GROUP BY pemesanan.nama_package";
 
                 $result = $koneksi->query($query);
