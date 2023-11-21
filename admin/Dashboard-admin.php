@@ -1983,17 +1983,19 @@ if (isset($_GET['successMessage'])) {
 
             </div>
             <div class="grafik-pemesanan">
-                <h3>Grafik Package</h3>
+                <h3>Grafik Pemesanan</h3>
                 <?php
-                $query = "SELECT id_pemesanan,nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
-                GROUP BY pemesanan.nama_package";
+                $query = "SELECT proposal,nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
+                GROUP BY nama_package,proposal";
 
                 $result = $koneksi->query($query);
 
-                $packageData = array();
+                $packageData = array("labels" => array(), "data" => array());
+
                 while ($row = $result->fetch_assoc()) {
-                    $packageData["labels"][] = $row["nama_package"];
-                    $packageData["data"][] = $row["jumlah_pemesanan"];
+                 $label = $row["nama_package"] . $row["proposal"]; 
+                 $packageData["labels"][] = $label;
+                 $packageData["data"][] = $row["jumlah_pemesanan"];
                 }
 
                 $packageDataJSON = json_encode($packageData);
