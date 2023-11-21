@@ -280,7 +280,7 @@
             font-size: 20px;
             font-family: "Poppins", sans-serif;
             margin-top: -35px;
-            margin-bottom: 25px;
+            margin-bottom: 45px;
         }
 
         .continue-button {
@@ -291,7 +291,8 @@
             transition: background-color 0.5s ease, color 0.5s ease, border 0.5s ease;
             font-weight: 800;
             font-size: 15px;
-            padding: 10px 20px;
+            padding: 15px;
+            margin-top: 50px;
             border-radius: 50px;
             cursor: pointer;
             width: 300px;
@@ -1033,8 +1034,7 @@
     <div class="dashboard">
         <div class="left-content">
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
-            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.
-                🚀✨</p>
+            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.</p>
             <a href="#content-promo" class="continue-button">Promo Bulan Ini <i class="fas fa-tags"></i></a>
         </div>
         <div class="right-content">
