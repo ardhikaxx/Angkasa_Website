@@ -1990,16 +1990,15 @@ if (isset($_GET['successMessage'])) {
             <div class="grafik-pemesanan">
                 <h3>Grafik Pemesanan</h3>
                 <?php
-                $query = "SELECT proposal,nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan
-                GROUP BY nama_package, proposal";
+                $query = "SELECT nama_package, COUNT(*) AS jumlah_pemesanan FROM pemesanan  WHERE pemesanan.nama_package IN ('Self Photobox', 'Self Photo', 'Manual Photobooth', '360 Videobooth')
+                GROUP BY nama_package";
 
                 $result = $koneksi->query($query);
 
-                $packageData = array("labels" => array(), "data" => array());
+                $packageData = array();
 
                 while ($row = $result->fetch_assoc()) {
-                    $label = $row["nama_package"] . $row["proposal"];
-                    $packageData["labels"][] = $label;
+                    $packageData["labels"][] = $row["nama_package"];
                     $packageData["data"][] = $row["jumlah_pemesanan"];
                 }
 
