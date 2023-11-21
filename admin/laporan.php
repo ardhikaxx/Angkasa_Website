@@ -23,7 +23,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
         $package=isset($row['nama_package']) ? $row ['nama_package']:'';
         $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-        $proposal = isset($row['proposal']) ? $row ['proposal']:'';
+        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
         ?>
         <tr>
             <td>
@@ -48,7 +49,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $layout;?>
             </td>
             <td>
-                <?php echo $proposal;?>
+                <?php echo $quota;?>
+            </td>
+            <td>
+                <?php echo $unlimited;?>
             </td>
             <td>
                 <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
@@ -1846,7 +1850,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <th>Tanggal</th>
                     <th>Package</th>
                     <th>Layout</th>
-                    <th>Proposal</th>
+                    <th>Quota</th>
+                    <th>Unlimited</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -1859,7 +1864,14 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query="SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.nama_package,layout.id_layout,layout.nama_layout,pemesanan.proposal FROM pemesanan JOIN customer ON pemesanan.id_customer=customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan=detail_pemesanan.id_pemesanan JOIN layout ON detail_pemesanan.id_layout=layout.id_layout LIMIT $start_from, $records_per_page";
+                    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal,
+                    pemesanan.nama_package,layout.id_layout,layout.nama_layout,COALESCE(quota.id_quota, '') AS id_quota,
+                    COALESCE(quota.nama_quota, '') AS nama_quota,COALESCE(unlimited.id_unlimited, '') AS id_unlimited,
+                    COALESCE(unlimited.nama_unlimited, '') AS nama_unlimited FROM pemesanan 
+                    JOIN customer ON pemesanan.id_customer = customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
+                    JOIN layout ON detail_pemesanan.id_layout = layout.id_layout LEFT JOIN quota ON detail_pemesanan.id_quota = quota.id_quota 
+                    LEFT JOIN unlimited ON detail_pemesanan.id_unlimited = unlimited.id_unlimited LIMIT $start_from, $records_per_page";
+
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
                     while ($row = mysqli_fetch_array($result)) {
@@ -1870,7 +1882,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
                         $package=isset($row['nama_package']) ? $row ['nama_package']:'';
                         $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-                        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+                        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
+                        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
                         ?>
                         <tr>
                             <td>
@@ -1895,7 +1908,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $layout;?>
                             </td>
                             <td>
-                                <?php echo $proposal;?>
+                                <?php echo $quota;?>
+                            </td>
+                            <td>
+                                <?php echo $unlimited;?>
                             </td>
                             <td>
                                 <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
