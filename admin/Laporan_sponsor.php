@@ -43,7 +43,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                <?php echo $proposal;?>
             </td>
             <td>
-                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+                <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
             </td>
         </tr>
         <?php
@@ -1875,7 +1875,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $proposal;?>
                             </td>
                             <td>
-                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+                                <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
                             </td>
                         </tr>
                         <?php
