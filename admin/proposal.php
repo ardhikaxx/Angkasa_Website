@@ -9,11 +9,11 @@ if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-$id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+$id = isset($_GET['id_pemesanan']) ? $_GET['id_pemesanan'] : null;
 
-$data = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-from customer join pemesanan on customer.id_customer=pemesanan.id_customer WHERE pemesanan.proposal IS NOT NULL";
-$result = mysqli_query($koneksi, $data);
+$query_proposal = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
+from customer join pemesanan on customer.id_customer=pemesanan.id_customer WHERE pemesanan.proposal IS NOT NULL AND pemesanan.id_pemesanan = '$id'";
+$result = mysqli_query($koneksi, $query_proposal);
 
 while($row = mysqli_fetch_array($result)) {
 

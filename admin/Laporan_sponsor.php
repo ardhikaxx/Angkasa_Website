@@ -1876,7 +1876,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $proposal;?>
                             </td>
                             <td>
-                                <a href="proposal.php?id=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a></td>
+                                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a></td>
                         </tr>
                         <?php
                         $no++;
