@@ -8,37 +8,46 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
+function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
+{
+    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    $result = mysqli_query($koneksi, $query);
 
-if (isset($_POST['register'])) {
-    $fullname = $_POST['txt_nama'];
-    $email = $_POST['txt_email'];
-    $nohp = $_POST['txt_phone'];
-    $jeniskelamin = $_POST['txt_gender'];
-    $pass = $_POST['txt_pass'];
-    $jabatan=$_POST['id_jabatan'];
+    $no = $start_from + 1;
 
-    $queryNamaLengkap = "SELECT * FROM user WHERE nama_lengkap = '$fullname'";
-    $resultNamaLengkap = mysqli_query($koneksi, $queryNamaLengkap);
-    $queryEmail = "SELECT * FROM user WHERE email = '$email'";
-    $resultEmail = mysqli_query($koneksi, $queryEmail);
-    $queryNoHP = "SELECT * FROM user WHERE no_hp = '$nohp'";
-    $resultNoHP = mysqli_query($koneksi, $queryNoHP);
-    if (empty(trim($fullname)) || empty(trim($email)) || empty(trim($nohp)) || empty(trim($jeniskelamin)) || empty(trim($pass))) {
-        $error = ("Silahkan input semua informasi yang diperlukan");
-    } elseif (mysqli_num_rows($resultNamaLengkap) > 0) {
-        $error = ("Nama lengkap sudah terdaftar.");
-    } elseif (mysqli_num_rows($resultEmail) > 0) {
-        $error = ("Alamat email sudah terdaftar.");
-    } elseif (mysqli_num_rows($resultNoHP) > 0) {
-        $error = ("Nomor telepon sudah terdaftar.");
-    } else {
-        $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
-        $result = mysqli_query($koneksi, $query);
-        if ($result) {
-            header("Location: dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.");
-        } else {
-            $error = ("Registrasi gagal. Silahkan coba lagi nanti.");
-        }
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+        ?>
+        <tr>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $namalengkapcustomer; ?>
+            </td>
+            <td>
+                <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                <?php echo $alamatacara; ?>
+            </td>
+            <td>
+                <?php echo $tanggalacara;?>
+            </td>
+            <td>
+                <?php echo $proposal;?>
+            </td>
+            <td>
+                <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+            </td>
+        </tr>
+        <?php
+        $no++;
     }
 }
 ?>
@@ -47,23 +56,16 @@ if (isset($_POST['register'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Angkasa | Register Admin Page</title>
+    <title>Angkasa | Laporan Sponsor Page</title>
     <title>Navbar</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap">
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
             background-color: #EBECF0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            position: relative;
         }
 
         html {
@@ -1435,7 +1437,6 @@ if (isset($_POST['register'])) {
                 transform: scale(1, 1);
             }
         }
-
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
@@ -1596,156 +1597,6 @@ if (isset($_POST['register'])) {
             }
         }
 
-        .register-box {
-            text-align: center;
-            width: 350px;
-            height: 460px;
-            background-color: #EBECF0 0.5;
-            backdrop-filter: blur(5px);
-            padding: 15px;
-            padding-top: 23px;
-            padding-bottom: 23px;
-            border-radius: 15px;
-            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .register-box:hover {
-            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
-        }
-
-        .register-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            font-family: "Montserrat", sans-serif;
-            letter-spacing: -0.2px;
-            font-size: 16px;
-            text-shadow: 1px 1px 1px #FFF;
-        }
-
-        .segment {
-            text-align: center;
-            max-width: 200px;
-            margin: 0 auto;
-            padding: 5px 0;
-        }
-
-        .segment h1 {
-            font-size: 35px;
-            margin-bottom: 5px;
-            font-weight: 800;
-            margin-top: -30px;
-        }
-
-
-        button,
-        input {
-            border: 0;
-            outline: 0;
-            font-size: 16px;
-            border-radius: 320px;
-            padding: 15px;
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        input {
-            margin-right: 8px;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.2s ease-in-out;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-
-        .password {
-            margin-right: 10.7px;
-        }
-
-        #showPassword {
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-            margin-left: -40px;
-        }
-
-        .btn-register {
-            margin-top: -8px;
-            color: #61677C;
-            font-weight: bold;
-            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-register:hover {
-            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
-        }
-
-        .btn-register:active {
-            box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
-        }
-
-        .btn-register {
-            display: block;
-            width: 100%;
-            color: #000000;
-        }
-
-        .notification {
-            display: none;
-            position: fixed;
-            top: 10%;
-            left: 53%;
-            transform: translate(50%, -50%) scale(0.2);
-            background-color: #000;
-            color: #fff;
-            font-family: "Poppins", sans-serif;
-            text-align: center;
-            padding: 15px 20px;
-            border-radius: 50px;
-            opacity: 0;
-            z-index: 999;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes notificationFadeIn {
-            0% {
-                transform: translate(50%, -50%) scale(0.2);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translate(50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes notificationFadeOut {
-            0% {
-                transform: translate(50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translate(50%, -50%) scale(0.2);
-                opacity: 0;
-            }
-        }
-
         .modal {
             background-color: #EBECF0;
             font-family: "Poppins", sans-serif;
@@ -1809,80 +1660,117 @@ if (isset($_POST['register'])) {
             display: none;
         }
 
-        .notification-password {
-            color: red;
-            font-size: 12px;
-            animation: fadeOut 5s ease-in-out;
+        .tabel-laporan {
+            width: 1100px;
+            margin: 0 auto;
+            background-color: #EBECF0 0.5;
+            backdrop-filter: blur(5px);
+            font-family: "Poppins", sans-serif;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-left: 120px;
+        }
+
+        .tabel-laporan h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
+            color: #000;
+            font-weight: 800;
+        }
+
+        .tabel-laporan table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th,
+        .tabel-laporan td {
+            padding: 17px;
+            width: 250px;
+            text-align: left;
+            border-bottom: 1.5px solid #ccc;
+        }
+
+        .tabel-akun tr {
+            margin-top: 20px;
+        }
+
+        .tabel-laporan th {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .btn-info {
+            background-color: #FFB800;
+            color: #fff;
+            border-radius: 10px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .btn-selesai,
+        .btn-belum:hover {
+            opacity: 0.9;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .search button:hover {
+            background-color: #333;
+        }
+
+        .search-icon {
+            margin-right: 5px;
+        }
+
+        #page-links {
             text-align: center;
-            margin-right: -25px;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 20px;
         }
 
-        .gender-select {
-            width: 100%;
-            padding: 15px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-            outline: none;
-            border-radius: 50px;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            transition: border-color 0.3s;
-            text-align: left;
-            color: #61677C;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: transparent;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+        #page-links a {
+            text-decoration: none;
             color: #000;
-        }
-
-        .jabatan-select {
-            width: 100%;
-            padding: 15px 15px;
-            font-size: 16px;
-            border: none;
+            padding: 5px 10px;
+            border: 2px solid #000;
             border-radius: 5px;
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-            outline: none;
-            border-radius: 50px;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            transition: border-color 0.3s;
-            text-align: left;
-            color: #61677C;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: transparent;
+            margin: 0 5px;
         }
 
-        .select-wrapper {
-            position: relative;
+        #page-links a:hover {
+            background-color: #000;
+            color: #fff;
         }
 
-        .select-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: #000;
+        #page-links a.active {
+            background-color: #000;
+            color: #fff;
         }
     </style>
 </head>
@@ -1928,129 +1816,91 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 
-    <div id="notification" class="notification">
-        <span id="notification-content"></span>
-    </div>
-
-    <div class="register-box">
-        <form action="register.php" method="POST" class="register-container" onsubmit="return validateForm();">
-            <div class="segment">
-                <h1>Register</h1>
-            </div>
-            <label class="nama-lengkap">
-                <input type="text" placeholder="Masukkan Nama Lengkap" name="txt_nama" autocomplete="off">
-            </label>
-            <label class="email">
-                <input type="email" placeholder="Masukkan email" name="txt_email" autocomplete="off">
-            </label>
-            <label class="nomer-telp">
-                <input type="text" placeholder="Masukan Nomor telepon" name="txt_phone" id="phoneInput"
-                    autocomplete="off">
-            </label>
-            <label class="gender">
-                <div class="select-wrapper">
-                    <select name="txt_gender" id="txt_gender" class="gender-select">
-                        <option value="" disabled selected>Jenis Kelamin</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                    <div class="select-icon">
-                        <i class="fas fa-caret-down"></i>
-                    </div>
-                </div>
-            </label>
-            <label class="jabatan">
-                <div class="select-wrapper">
-                    <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option value="" disabled selected>Jabatan</option>
-                        <option >Admin</option>
-                        <option >Karyawan</option>
-                    </select>
-                    <div class="select-icon">
-                        <i class="fas fa-caret-down"></i>
-                    </div>
-                </div>
-            </label>
-            <label class="password">
-                <input type="password" id="password" placeholder="Masukkan Password" name="txt_pass"
-                    oninput="validatePassword(this)">
-                <span id="showPassword" onclick="togglePasswordVisibility('password', 'passwordIcon')">
-                    <i id="passwordIcon" class="fas fa-eye"></i>
-                </span>
-                <p id="passwordLengthError" class="notification-password"></p>
-            </label>
-            <button class="btn-register" type="submit" name="register" value="Register">Register</button>
+    <div class="tabel-laporan">
+        <h1>Laporan Promo</h1>
+        <form method="GET">
+            <input type="text" name="search" id="search" placeholder="Cari Nama Customer" autocomplete="off">
+            <button class="search" type="submit">
+                <i class="fas fa-search search-icon"></i> Cari
+            </button>
         </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Cust</th>
+                    <th>No Hp</th>
+                    <th>Alamat</th>
+                    <th>Tanggal</th>
+                    <th>Nama Promo</th>
+                    <th>Harga Promo</th>
+                </tr>
+            </thead>
+            <tbody class="tabel-akun">
+                <?php
+                $records_per_page = 5;
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $start_from = ($current_page - 1) * $records_per_page;
+                if (isset($_GET['search'])) {
+                    $searchquery = $_GET['search'];
+                    cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
+                } else {
+                    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
+                    from customer join pemesanan on customer.id_customer=pemesanan.id_customer WHERE pemesanan.proposal IS NOT NULL LIMIT $start_from, $records_per_page";
+
+                    $result = mysqli_query($koneksi, $query);
+                    $no = $start_from + 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
+                        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                nama customer
+                            </td>
+                            <td>
+                                <?php echo $teleponcustomer; ?>
+                            </td>
+                            <td>
+                                <?php echo $alamatacara; ?>
+                            </td>
+                            <td>
+                                <?php echo $tanggalacara;?>
+                            </td>
+                            <td>
+                                nama promo
+                            </td>
+                            <td>
+                                harga promo
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+        <div id="page-links">
+            <?php
+            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_pemesanan FROM pemesanan"));
+            $total_pages = ceil($total_records / $records_per_page);
+            for ($i = 1; $i <= $total_pages; $i++) {
+                echo '<a href="?page=' . $i . '">' . $i . '</a> ';
+            }
+            ?>
+        </div>
     </div>
 
     <script src='https://unpkg.com/feather-icons'></script>
     <script>feather.replace()</script>
-    <script>
-        function togglePasswordVisibility(inputId, iconId) {
-            const passwordInput = document.getElementById(inputId);
-            const showPasswordIcon = document.getElementById(iconId);
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                showPasswordIcon.classList.remove("fa-eye");
-                showPasswordIcon.classList.add("fa-eye-slash");
-            } else {
-                passwordInput.type = "password";
-                showPasswordIcon.classList.remove("fa-eye-slash");
-                showPasswordIcon.classList.add("fa-eye");
-            }
-        }
-    </script>
-
-    <script>
-        function showNotification(message) {
-            var notification = document.getElementById('notification');
-            var notificationContent = document.getElementById('notification-content');
-
-            notificationContent.innerHTML = message;
-            notification.style.display = 'block';
-
-            setTimeout(function () {
-                closeNotification();
-            }, 3000);
-        }
-
-        function closeNotification() {
-            var notification = document.getElementById('notification');
-            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-
-            setTimeout(function () {
-                notification.style.display = 'none';
-                notification.style.animation = '';
-
-                document.getElementsByName('txt_nama')[0].value = '';
-                document.getElementsByName('txt_email')[0].value = '';
-                document.getElementsByName('txt_phone')[0].value = '';
-                document.getElementById('txt_gender').value = '';
-                document.getElementsByName('txt_pass')[0].value = '';
-            }, 500);
-        }
-
-        function validateForm() {
-            var fullname = document.getElementsByName('txt_nama')[0].value;
-            var email = document.getElementsByName('txt_email')[0].value;
-            var nohp = document.getElementsByName('txt_phone')[0].value;
-            var jeniskelamin = document.getElementById('txt_gender').value;
-            var pass = document.getElementsByName('txt_pass')[0].value;
-
-            if (fullname === '' || email === '' || nohp === '' || jeniskelamin === '' || pass === '') {
-                showNotification("Silahkan input semua informasi yang diperlukan");
-                return false;
-            }
-            return true;
-        }
-
-        <?php
-        if (!empty($error)) {
-            echo 'showNotification' . $error;
-        }
-        ?>
-    </script>
 
     <script>
         const logoutLink = document.getElementById('logout');
@@ -2072,41 +1922,6 @@ if (isset($_POST['register'])) {
 
         confirmLogoutBtn.addEventListener('click', function () {
             window.location.href = '/Angkasa_Website/logout.php';
-        });
-    </script>
-
-    <script>
-        const phoneInput = document.getElementById('phoneInput');
-
-        phoneInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    </script>
-
-    <script>
-        function validatePassword(input) {
-            input.value = input.value.replace(/[^a-zA-Z0-9]/g, '');
-        }
-    </script>
-
-    <script>
-        const passwordInput = document.getElementById('password');
-        const passwordLengthError = document.getElementById('passwordLengthError');
-
-        passwordInput.addEventListener('input', function () {
-            const password = this.value;
-            if (password.length < 6) {
-                const missingChars = 6 - password.length;
-                passwordLengthError.textContent = `*Panjang password terdiri dari 6-8 karakter. Kurang ${missingChars} karakter.`;
-                passwordLengthError.style.display = 'block';
-            } else if (password.length > 8) {
-                passwordLengthError.textContent = `*Password terlalu panjang. Maksimal 8 karakter.`;
-                passwordLengthError.style.display = 'block';
-                this.value = password.slice(0, 8);
-            } else {
-                passwordLengthError.textContent = '';
-                passwordLengthError.style.display = 'none';
-            }
         });
     </script>
 </body>

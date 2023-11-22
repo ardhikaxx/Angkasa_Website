@@ -1,10 +1,5 @@
 <?php
 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
-    exit;
-}
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
@@ -142,45 +137,12 @@ if (!$koneksi) {
             font-weight: bold;
             color: #000;
         }
-
-        .jabatan-select {
-            width: 100%;
-            padding: 15px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #EBECF0;
-            text-shadow: 1px 1px 0 #FFF;
-            outline: none;
-            border-radius: 50px;
-            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            transition: border-color 0.3s;
-            text-align: left;
-            color: #61677C;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: transparent;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: #000;
-        }
     </style>
 </head>
 
 <body>
     <div class="edit-box">
-        <form action="edit.php" method="POST" class="edit-container">
+        <form action="Edit_PaketLayout.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page</h1>
                 <?php
@@ -197,61 +159,36 @@ if (!$koneksi) {
                     $query = "SELECT * FROM user WHERE id_user = '$id'";
                     $result = mysqli_query($koneksi, $query);
                     $existingData = mysqli_fetch_array($result);
-                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp  && $existingData['jabatan']==$userjabatan) {
-                        echo '<script>window.location.href = "settings.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
+                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp && $existingData['jabatan'] == $userjabatan) {
+                        echo '<script>window.location.href = "Paket_layout.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
                     } else {
 
-                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                        $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
+                        $result = mysqli_query($koneksi, $query);
+                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                    }
                 }
-            }
 
                 $id = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
                 $data = mysqli_fetch_array($query);
                 ?>
             </div>
-            <label class="nama-lengkap">
+            <label class="nama-promo">
                 <input type="hidden" name="txt_id" value="<?php echo $data['id_user']; ?>">
-                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_lengkap']; ?>">
+                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_promo']; ?>"
+                    readonly>
             </label>
-            <label class="email">
-                <input type="email" name="txt_email" autocomplete="off" value="<?php echo $data['email']; ?>">
-            </label>
-            <label class="nomer-telp">
-                <input type="text" name="txt_phone" id="phoneInput" autocomplete="off"
-                    value="<?php echo $data['no_hp']; ?>">
-            </label>
-            <label class="jabatan">
-                <div class="select-wrapper">
-                    <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option value="<?php echo $data['jabatan']; ?>">
-                            <?php echo $data['jabatan']; ?>
-                        </option>
-                        <option value="admin">Admin</option>
-                        <option value="karyawan">Karyawan</option>
-                    </select>
-                    <div class="select-icon">
-                        <i class="fas fa-caret-down"></i>
-                    </div>
-                </div>
+            <label class="harga-promo">
+                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_promo']; ?>">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
-            <a class="btn-back" href="settings.php">
+            <a class="btn-back" href="Paket_layout.php">
                 <span class="btn-back-icon">&#x21A9;</span>
-                <span>Kembali</span>
+                <span>Edit</span>
             </a>
         </form>
     </div>
-
-    <script>
-        const phoneInput = document.getElementById('phoneInput');
-
-        phoneInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    </script>
 </body>
 
 </html>

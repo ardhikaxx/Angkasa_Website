@@ -896,7 +896,7 @@ if (!$koneksi) {
 
         .content-promo h3 {
             margin-left: -117px;
-            margin-top: -45px;
+            margin-top: -55px;
             background: #fff;
             padding: 10px;
             height: 15px;
@@ -1133,7 +1133,6 @@ if (!$koneksi) {
                     $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = '$id_promo'";
 
                     $stmt = mysqli_query($koneksi, $query);
-                     // Menggunakan bulan sebagai ID promo
                     $data = mysqli_fetch_object($stmt);
                     ?>
                 </div>

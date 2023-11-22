@@ -20,8 +20,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
         ?>
         <tr>
             <td>
@@ -37,10 +37,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $alamatacara; ?>
             </td>
             <td>
-                <?php echo $tanggalacara;?>
+                <?php echo $tanggalacara; ?>
             </td>
             <td>
-               <?php echo $proposal;?>
+                <?php echo $proposal; ?>
             </td>
             <td>
                 <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
@@ -56,7 +56,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
 <head>
     <meta charset="UTF-8">
-    <title>Angkasa | Laporan Page</title>
+    <title>Angkasa | Laporan Sponsor Page</title>
     <title>Navbar</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -151,7 +151,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .navbar__menu {
             position: relative;
-            margin-top: 140px;
+            margin-top: 90px;
         }
 
         .navbar__item:last-child:before {
@@ -1437,6 +1437,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 transform: scale(1, 1);
             }
         }
+
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
@@ -1786,16 +1787,21 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Pemesanan</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
-                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
+                <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i
+                        data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -1842,8 +1848,16 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
+                    $current_month = date('m');
+                    $current_year = date('Y');
+
                     $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-                    from customer join pemesanan on customer.id_customer=pemesanan.id_customer WHERE pemesanan.proposal IS NOT NULL LIMIT $start_from, $records_per_page";
+                                FROM customer 
+                                JOIN pemesanan ON customer.id_customer=pemesanan.id_customer 
+                                WHERE pemesanan.proposal IS NOT NULL 
+                                AND MONTH(pemesanan.tanggal_acara) = $current_month
+                                AND YEAR(pemesanan.tanggal_acara) = $current_year
+                                LIMIT $start_from, $records_per_page";
 
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
@@ -1852,8 +1866,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-                        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
                         ?>
                         <tr>
                             <td>
@@ -1869,13 +1883,14 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $alamatacara; ?>
                             </td>
                             <td>
-                                <?php echo $tanggalacara;?>
+                                <?php echo $tanggalacara; ?>
                             </td>
                             <td>
-                                <?php echo $proposal;?>
+                                <?php echo $proposal; ?>
                             </td>
                             <td>
-                                <a href="" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+                                <a href="" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i>
+                                    Info</a>
                             </td>
                         </tr>
                         <?php

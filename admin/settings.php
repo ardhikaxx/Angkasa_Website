@@ -30,8 +30,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <td><?php echo $usertelepon; ?></td>
             <td><?php echo $userjabatan; ?></td>
             <td>
-                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>">Edit</a>
-                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>">Hapus</a>
+                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
             </td>
         </tr>
         <?php
@@ -139,7 +139,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .navbar__menu {
             position: relative;
-            margin-top: 140px;
+            margin-top: 90px;
         }
 
         .navbar__item:last-child:before {
@@ -1960,16 +1960,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Pemesanan</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
-                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
+                <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
                 <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>

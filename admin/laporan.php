@@ -20,11 +20,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
-        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
-        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
+        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+        $package = isset($row['nama_package']) ? $row['nama_package'] : '';
+        $layout = isset($row['nama_layout']) ? $row['nama_layout'] : '';
+        $quota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+        $unlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
         ?>
         <tr>
             <td>
@@ -40,19 +40,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $alamatacara; ?>
             </td>
             <td>
-                <?php echo $tanggalacara;?>
+                <?php echo $tanggalacara; ?>
             </td>
             <td>
-                <?php echo $package;?>
+                <?php echo $package; ?>
             </td>
             <td>
-                <?php echo $layout;?>
+                <?php echo $layout; ?>
             </td>
             <td>
-                <?php echo $quota;?>
+                <?php echo $quota; ?>
             </td>
             <td>
-                <?php echo $unlimited;?>
+                <?php echo $unlimited; ?>
             </td>
         </tr>
         <?php
@@ -1446,6 +1446,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 transform: scale(1, 1);
             }
         }
+
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
@@ -1795,16 +1796,21 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
             </li>
             <li class="navbar__item">
+                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Pemesanan</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="Laporan_sponsor.php" class="navbar__link"><i data-feather="pocket"></i><span>Sponsor</span></a>
             </li>
             <li class="navbar__item">
-                <a href="laporan.php" class="navbar__link"><i data-feather="folder"></i><span>Laporan</span></a>
+                <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i
+                        data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -1853,13 +1859,18 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
+                    $current_month = date('m');
+                    $current_year = date('Y');
+
                     $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal,
                     pemesanan.nama_package,layout.id_layout,layout.nama_layout,COALESCE(quota.id_quota, '') AS id_quota,
                     COALESCE(quota.nama_quota, '') AS nama_quota,COALESCE(unlimited.id_unlimited, '') AS id_unlimited,
                     COALESCE(unlimited.nama_unlimited, '') AS nama_unlimited FROM pemesanan 
                     JOIN customer ON pemesanan.id_customer = customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
                     JOIN layout ON detail_pemesanan.id_layout = layout.id_layout LEFT JOIN quota ON detail_pemesanan.id_quota = quota.id_quota 
-                    LEFT JOIN unlimited ON detail_pemesanan.id_unlimited = unlimited.id_unlimited LIMIT $start_from, $records_per_page";
+                    LEFT JOIN unlimited ON detail_pemesanan.id_unlimited = unlimited.id_unlimited 
+                    WHERE YEAR(pemesanan.tanggal_acara) = $current_year AND MONTH(pemesanan.tanggal_acara) = $current_month
+                    LIMIT $start_from, $records_per_page";
 
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
@@ -1868,11 +1879,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-                        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
-                        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-                        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
-                        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
+                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                        $package = isset($row['nama_package']) ? $row['nama_package'] : '';
+                        $layout = isset($row['nama_layout']) ? $row['nama_layout'] : '';
+                        $quota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                        $unlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                         ?>
                         <tr>
                             <td>
@@ -1888,19 +1899,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $alamatacara; ?>
                             </td>
                             <td>
-                                <?php echo $tanggalacara;?>
+                                <?php echo $tanggalacara; ?>
                             </td>
                             <td>
-                                <?php echo $package;?>
+                                <?php echo $package; ?>
                             </td>
                             <td>
-                                <?php echo $layout;?>
+                                <?php echo $layout; ?>
                             </td>
                             <td>
-                                <?php echo $quota;?>
+                                <?php echo $quota; ?>
                             </td>
                             <td>
-                                <?php echo $unlimited;?>
+                                <?php echo $unlimited; ?>
                             </td>
                         </tr>
                         <?php

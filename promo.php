@@ -388,7 +388,7 @@ if (isset($_POST['submit'])) {
     <form method="POST" action="" enctype="multipart/form-data">
         <div class="pack-jember" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">
             <div class="container-pemesanan">
-                <h1>Pemesanan Didaerah Jember</h1>
+                <h1>Pemesanan Khusus Promo</h1>
                 <div class="input-container">
                     <label for="name">Nama Lengkap:</label>
                     <input type="text" id="name" name="txt_nama" placeholder="Contoh: Jhon Doe" required>

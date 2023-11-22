@@ -1,14 +1,3 @@
-<?php
-$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
-    exit;
-}
-if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +6,7 @@ if (!$koneksi) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
-    <title>Angkasa | Edit Page</title>
+    <title>Angkasa | Tambah Page</title>
     <style>
         body {
             background-color: #EBECF0;
@@ -27,9 +16,10 @@ if (!$koneksi) {
             height: 100vh;
             margin: 0;
             position: relative;
+            font-family: "Poppins", sans-serif;
         }
 
-        .edit-box {
+        .tambah-paket {
             text-align: center;
             width: 300px;
             height: 470px;
@@ -41,22 +31,6 @@ if (!$koneksi) {
             transition: box-shadow 0.3s ease;
         }
 
-        .edit-box:hover {
-            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
-        }
-
-        .edit-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            font-family: "Poppins", sans-serif;
-            letter-spacing: -0.2px;
-            font-size: 16px;
-            text-shadow: 1px 1px 1px #FFF;
-        }
-
         .segment {
             text-align: center;
             max-width: 200px;
@@ -65,13 +39,13 @@ if (!$koneksi) {
         }
 
         .segment h1 {
-            font-size: 35px;
+            font-size: 24px;
             margin-bottom: 5px;
             font-weight: 800;
-            margin-top: -30px;
+            margin-top: -10px;
         }
 
-        .btn-simpan,
+        .btn-tambah,
         input {
             border: 0;
             outline: 0;
@@ -84,7 +58,7 @@ if (!$koneksi) {
 
         label {
             display: block;
-            margin-bottom: 24px;
+            margin-bottom: 15px;
             width: 100%;
         }
 
@@ -98,7 +72,7 @@ if (!$koneksi) {
             -webkit-appearance: none;
         }
 
-        .btn-simpan {
+        .btn-tambah {
             font-weight: bold;
             box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
             transition: all 0.2s ease-in-out;
@@ -109,11 +83,11 @@ if (!$koneksi) {
             color: #000000;
         }
 
-        .btn-simpan:hover {
+        .btn-tambah:hover {
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
         }
 
-        .btn-simpan:active {
+        .btn-tambah:active {
             box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
         }
 
@@ -124,8 +98,9 @@ if (!$koneksi) {
             cursor: pointer;
             font-weight: 600;
             display: block;
-            width: 250px;
+            width: 270px;
             margin-top: 25px;
+            margin-left: 5px;
             padding: 10px;
             color: #000000;
             border-radius: 50px;
@@ -143,7 +118,7 @@ if (!$koneksi) {
             color: #000;
         }
 
-        .jabatan-select {
+        .layout-select {
             width: 100%;
             padding: 15px 15px;
             font-size: 16px;
@@ -175,70 +150,107 @@ if (!$koneksi) {
             pointer-events: none;
             color: #000;
         }
+
+        .input-container.quota-unlimited {
+            display: flex;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .input-container.quota-unlimited label {
+            margin-bottom: 15px;
+        }
+
+        .radio-quota-unlimited {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            margin-top: -8px;
+        }
+
+        .radio-quota-unlimited input[type="radio"] {
+            display: none;
+        }
+
+        .radio-quota-unlimited label {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited label:before {
+            font-family: "FontAwesome";
+            content: "\f096";
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-quota-unlimited input[type="radio"]:checked+label:before {
+            content: "\f046";
+        }
+
+        .nama-quota,
+        .harga-quota,
+        .nama-unlimited,
+        .harga-unlimited {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
-    <div class="edit-box">
-        <form action="edit.php" method="POST" class="edit-container">
+    <div class="tambah-paket">
+        <form action="Tambah_PaketLayout.php" class="tambah-container">
             <div class="segment">
-                <h1>Edit Page</h1>
-                <?php
-                $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-
-                if (isset($_POST['simpan'])) {
-                    $userMail = $_POST['txt_email'];
-                    $userNohp = $_POST['txt_phone'];
-                    $userName = $_POST['txt_nama'];
-                    $userjabatan = $_POST['id_jabatan'];
-
-                    $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
-
-                    $query = "SELECT * FROM user WHERE id_user = '$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    $existingData = mysqli_fetch_array($result);
-                    if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp  && $existingData['jabatan']==$userjabatan) {
-                        echo '<script>window.location.href = "settings.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
-                    } else {
-
-                    $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Telah Selesai";</script>';
-                }
-            }
-
-                $id = isset($_GET['id']) ? $_GET['id'] : null;
-                $query = mysqli_query($koneksi, "SELECT * FROM user where id_user='$id'");
-                $data = mysqli_fetch_array($query);
-                ?>
+                <h1>Tambah <br> Paket Layout</h1>
             </div>
-            <label class="nama-lengkap">
-                <input type="hidden" name="txt_id" value="<?php echo $data['id_user']; ?>">
-                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_lengkap']; ?>">
-            </label>
-            <label class="email">
-                <input type="email" name="txt_email" autocomplete="off" value="<?php echo $data['email']; ?>">
-            </label>
-            <label class="nomer-telp">
-                <input type="text" name="txt_phone" id="phoneInput" autocomplete="off"
-                    value="<?php echo $data['no_hp']; ?>">
-            </label>
-            <label class="jabatan">
+            <label class="pilih-layout">
                 <div class="select-wrapper">
-                    <select name="id_jabatan" id="txt_jabatan" class="jabatan-select">
-                        <option value="<?php echo $data['jabatan']; ?>">
-                            <?php echo $data['jabatan']; ?>
-                        </option>
-                        <option value="admin">Admin</option>
-                        <option value="karyawan">Karyawan</option>
+                    <select name="" class="layout-select">
+                        <option value="" disabled selected>Pilih Layout</option>
+                        <option value="1">PaperFrame 4R</option>
+                        <option value="2">PaperFrame 2R</option>
+                        <option value="3">360 Videobooth</option>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
                     </div>
                 </div>
             </label>
-            <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
-            <a class="btn-back" href="settings.php">
+            <label class="quota-unlimited">
+                <div class="input-container" id="quota-unlimited">
+                    <label>Pilih Paket:</label>
+                    <div class="radio-quota-unlimited">
+                        <input type="radio" id="quota" name="paket" value="quota" onchange="showQuota()">
+                        <label for="quota">Quota</label>
+                        <input type="radio" id="unlimited" name="paket" value="unlimited" onchange="showUnlimited()">
+                        <label for="unlimited">Unlimited</label>
+                    </div>
+                </div>
+            </label>
+            <label class="nama-quota">
+                <input type="text" name="txt_nama_quota" autocomplete="off" value="" placeholder="Masukkan Nama Quota">
+            </label>
+
+            <label class="harga-quota">
+                <input type="text" name="txt_harga_quota" autocomplete="off" value=""
+                    placeholder="Masukkan Harga Quota">
+            </label>
+
+            <label class="nama-unlimited">
+                <input type="text" name="txt_nama_unlimited" autocomplete="off" value=""
+                    placeholder="Masukkan Nama Unlimited">
+            </label>
+
+            <label class="harga-unlimited">
+                <input type="text" name="txt_harga_unlimited" autocomplete="off" value=""
+                    placeholder="Masukkan Harga Unlimited">
+            </label>
+
+            <button class="btn-tambah" type="submit" name="tambah" value="Tambah">Tambah</button>
+            <a class="btn-back" href="Paket_layout.php">
                 <span class="btn-back-icon">&#x21A9;</span>
                 <span>Kembali</span>
             </a>
@@ -246,11 +258,19 @@ if (!$koneksi) {
     </div>
 
     <script>
-        const phoneInput = document.getElementById('phoneInput');
+        function showQuota() {
+            document.querySelector('.nama-quota').style.display = 'block';
+            document.querySelector('.harga-quota').style.display = 'block';
+            document.querySelector('.nama-unlimited').style.display = 'none';
+            document.querySelector('.harga-unlimited').style.display = 'none';
+        }
 
-        phoneInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
+        function showUnlimited() {
+            document.querySelector('.nama-quota').style.display = 'none';
+            document.querySelector('.harga-quota').style.display = 'none';
+            document.querySelector('.nama-unlimited').style.display = 'block';
+            document.querySelector('.harga-unlimited').style.display = 'block';
+        }
     </script>
 </body>
 
