@@ -1,105 +1,33 @@
 <?php
-// $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
 
-// if ($koneksi->connect_error) {
-//     die("Koneksi gagal: " . $koneksi->connect_error);
-// }
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
+}
+$id_promo = $_GET['id'];
 
-// if (isset($_POST['submit'])) {
-//     $namacustomer = isset($_POST['txt_nama']) ? $_POST['txt_nama'] : '';
-//     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
-//     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
-//     $tanggalacara = isset($_POST['txt_date']) ? $_POST['txt_date'] : '';
-//     $pilihanpackage = isset($_POST['txt_package']) ? $_POST['txt_package'] : '';
-//     $pilihpaketlayout = isset($_POST['paket-layout']) ? $_POST['paket-layout'] : '';
-//     $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
-//     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
-//     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
-//     // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
-//     $today = date("Y-m-d");
-//     if ($tanggalacara < $today) {
-//         header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
-//         exit();
-//     } else {
-//         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
-//         $check_date_result = mysqli_query($koneksi, $check_date_query);
+if (isset($_POST['submit'])) {
+    $namacustomer = $_POST['txt_nama'] ;
+    $nohp = $_POST['txt_phone'] ;
+    $alamatacara = $_POST['txt_address'] ;
+            $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
+            $result=mysqli_query($koneksi,$query_customer);
+            $result_customer = mysqli_query($koneksi, $query_customer);
+            if ($result_customer) {
+                $last_inserted_customer_id = mysqli_insert_id($koneksi);
+                $query_promo = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara,id_promo) VALUES ('','$last_inserted_customer_id','$alamatacara','$id_promo')";
+                $result_pemesanan = mysqli_query($koneksi, $query_promo);
 
-
-
-//         if (mysqli_num_rows($check_date_result) > 0) {
-//             header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
-//             exit();
-//         } else {
-//             $gambar = upload();
-//             if (!$gambar) {
-//                 return false;
-//             }
-
-
-//             $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
-//             $result_customer = mysqli_query($koneksi, $query_customer);
-//             if ($result_customer) {
-//                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
-//                 $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar')";
-//                 $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
-//                 if ($result_pemesanan) {
-//                     $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
-//                     foreach ($pilihpaketlayout as $key => $value) {
-//                         if ($_POST['paket'] == "quota") {
-//                             $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', '$quota[$value]', null)";
-//                             $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-//                         } else if (($_POST["paket"] == "unlimited")) {
-//                             $query_detail_pemesanan = "INSERT INTO detail_pemesanan (id_pemesanan, id_layout, id_quota, id_unlimited) VALUES ('$last_inserted_pemesanan_id','$value', null, '$unlimited[$value]')";
-//                             $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
-//                         }
-//                     }
-
-//                     if ($result_detail_pemesanan) {
-//                         $koneksi->commit();
-//                         header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
-//                         exit();
-//                     } else {
-//                         $conn->rollback();
-//                         $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
-//                     }
-
-//                 }
-//             }
-//         }
-//     }
-// } else {
-//     $error = "Gagal menyisipkan data ke tabel layout.";
-// }
-// function upload()
-// {
-//     $namaFile = $_FILES['gambar']['name'];
-//     $ukuranFile = $_FILES['gambar']['size'];
-//     $error = $_FILES['gambar']['error'];
-//     $tmpName = $_FILES['gambar']['tmp_name'];
-
-//     if ($error === 4) {
-//         header("Location: daerahjember.php?WarningMessage=pilih gambar terlebih dahulu!");
-//         exit();
-//     }
-
-//     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-//     $ekstensiGambar = explode('.', $namaFile);
-//     $ekstensiGambar = strtolower(end($ekstensiGambar));
-//     if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-//         header("Location: daerahjember.php?WarningMessage=Yang anda upload bukan gambar!");
-//         exit();
-//     }
-
-//     if ($ukuranFile > 1000000) {
-//         header("Location: daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
-//         exit();
-//     }
-//     $namaFileBaru = uniqid();
-//     $namaFileBaru .= '.';
-//     $namaFileBaru .= $ekstensiGambar;
-//     move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
-//     return $namaFileBaru;
-// }
+                if ($result_pemesanan) {
+                    $koneksi->commit();
+                    header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                    exit();
+                } else {
+                    $conn->rollback();
+                    $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                }
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -462,10 +390,6 @@
             <div class="container-pemesanan">
                 <h1>Pemesanan Didaerah Jember</h1>
                 <div class="input-container">
-                    <input type="text" id="nama-promo" value="<?php echo $nama_promo; ?>" readonly>
-                    <input type="text" id="harga-promo" value="<?php echo $harga_promo; ?>" readonly>
-                </div>
-                <div class="input-container">
                     <label for="name">Nama Lengkap:</label>
                     <input type="text" id="name" name="txt_nama" placeholder="Contoh: Jhon Doe" required>
                 </div>
@@ -483,37 +407,6 @@
                 </div>
 
                 <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
-                </div>
-                <div class="input-container">
-                    <label for="date">Tanggal Acara:</label>
-                    <input type="date" id="date" name="txt_date" required>
-                </div>
-
-                <div class="harga-paket">
-                    <h3>Total Pembayaran:</h3>
-                    <p id="total-price">Rp. 0,-</p>
-                </div>
-
-                <div class="input-container">
-                    <label for="metode-pembayaran">Pilih Metode Pembayaran:</label>
-                    <select id="payment" name="txt_payment" onchange="showPaymentDetails()">
-                        <option value="" disabled selected>Pilih Pembayaran</option>
-                        <option value="Dana">Dana</option>
-                        <option value="Transfer Bank">Transfer Bank</option>
-                    </select>
-                </div>
-
-                <div id="danaDetails" class="hidden">
-                    <p id="nomorDana"></p>
-                </div>
-
-                <div id="bankDetails" class="hidden">
-                    <p id="nomorRekening"></p>
-                </div>
-
-                <div class="input-container">
-                    <label for="proof">Kirim Bukti Pembayaran:</label>
-                    <input type="file" id="proof" name="gambar" required>
                 </div>
                 <button class="submit-button" id="submit" type="submit" name="submit">Pesan</button>
             </div>
@@ -537,219 +430,6 @@
             var numericValue = inputValue.replace(/\D/g, '');
             event.target.value = numericValue;
         }
-    </script>
-
-    <script>
-        function updateTotal() {
-            var total = 0;
-
-            ['quota-2R', 'quota-4R'].forEach(function (dropdownId) {
-                var selectedOption = document.getElementById(dropdownId).value;
-                if (selectedOption !== "") {
-                    total += parseFloat(document.getElementById(dropdownId).options[document.getElementById(dropdownId).selectedIndex].getAttribute('data-price'));
-                }
-            });
-
-            ['unlimited-2R', 'unlimited-4R', 'unlimited-360'].forEach(function (dropdownId) {
-                var selectedOption = document.getElementById(dropdownId).value;
-                if (selectedOption !== "") {
-                    total += parseFloat(document.getElementById(dropdownId).options[document.getElementById(dropdownId).selectedIndex].getAttribute('data-price'));
-                }
-            });
-
-            var formattedTotal = "Rp. " + total.toLocaleString('id-ID') + ",-";
-            document.getElementById('total-price').innerHTML = formattedTotal;
-        }
-    </script>
-
-    <script>
-        function handleCheckboxClick(checkbox) {
-            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
-
-            checkboxes.forEach((cb) => {
-                if (cb !== checkbox) {
-                    cb.disabled = true;
-                }
-            });
-
-            checkbox.disabled = false;
-        }
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const packageDropdown = document.getElementById("package");
-            const paperframe4rCheckbox = document.getElementById("paperframe-4r");
-            const paperframe2rCheckbox = document.getElementById("paperframe-2r");
-            const layout360Checkbox = document.getElementById("layout-360");
-            const quotaRadio = document.getElementById("quota");
-
-            quotaRadio.disabled = true;
-
-            layout360Checkbox.addEventListener("change", function () {
-                quotaRadio.disabled = layout360Checkbox.checked;
-            });
-
-            packageDropdown.addEventListener("change", function () {
-                const selectedPackage = packageDropdown.value;
-
-                paperframe4rCheckbox.disabled = true;
-                paperframe2rCheckbox.disabled = true;
-                layout360Checkbox.disabled = true;
-
-                if (selectedPackage === "Self Photobox" || selectedPackage === "Self Photo" || selectedPackage === "Manual Photobooth") {
-                    paperframe4rCheckbox.disabled = false;
-                    paperframe2rCheckbox.disabled = false;
-                } else if (selectedPackage === "360 Videobooth") {
-                    layout360Checkbox.disabled = false;
-
-                    quotaRadio.disabled = true;
-                } else {
-
-                    quotaRadio.disabled = !(paperframe4rCheckbox.checked || paperframe2rCheckbox.checked);
-                }
-
-                if (layout360Checkbox.checked) {
-                    quotaRadio.disabled = false;
-                }
-            });
-
-            paperframe4rCheckbox.addEventListener("change", function () {
-                quotaRadio.disabled = !paperframe4rCheckbox.checked;
-            });
-
-            paperframe2rCheckbox.addEventListener("change", function () {
-                quotaRadio.disabled = !paperframe2rCheckbox.checked;
-            });
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            function toggleVisibility() {
-                var radioButtonValue = document.querySelector("input[name='paket']:checked").value;
-                var layoutCheckbox4R = document.getElementById("paperframe-4r");
-                var layoutCheckbox2R = document.getElementById("paperframe-2r");
-                var layoutCheckbox360 = document.getElementById("layout-360");
-                var is4RChecked = layoutCheckbox4R.checked;
-                var is2RChecked = layoutCheckbox2R.checked;
-                var is360Checked = layoutCheckbox360.checked;
-
-                if (radioButtonValue === "quota") {
-                    document.getElementById("quota-2R-dropdown").style.display = is2RChecked ? "block" : "none";
-                    document.getElementById("unlimited-2R-dropdown").style.display = "none";
-                    document.getElementById("quota-4R-dropdown").style.display = is4RChecked ? "block" : "none";
-                    document.getElementById("unlimited-4R-dropdown").style.display = "none";
-                    document.getElementById("quota").disabled = false;
-                } else if (radioButtonValue === "unlimited") {
-                    document.getElementById("quota-2R-dropdown").style.display = "none";
-                    document.getElementById("unlimited-2R-dropdown").style.display = is2RChecked ? "block" : "none";
-                    document.getElementById("quota-4R-dropdown").style.display = "none";
-                    document.getElementById("unlimited-4R-dropdown").style.display = is4RChecked ? "block" : "none";
-                    document.getElementById("quota").disabled = is360Checked;
-                    document.getElementById("unlimited-360-dropdown").style.display = is360Checked ? "block" : "none";
-                }
-            }
-
-            var radioButtons = document.getElementsByName("paket");
-
-            radioButtons.forEach(function (radioButton) {
-                radioButton.addEventListener("change", function () {
-                    toggleVisibility();
-                });
-            });
-
-            var layoutCheckboxes = document.getElementById("checkbox");
-
-            layoutCheckboxes.addEventListener("change", function () {
-                toggleVisibility();
-            });
-
-            var initialSelectedRadio = document.querySelector("input[name='paket']:checked");
-            if (initialSelectedRadio) {
-                toggleVisibility();
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var paperframe4rCheckbox = document.getElementById("paperframe-4r");
-            var paperframe2rCheckbox = document.getElementById("paperframe-2r");
-            var layout360Checkbox = document.getElementById("layout-360");
-            var quotaUnlimitedDropdown = document.querySelector(".quota-unlimited");
-            var unlimited360Dropdown = document.getElementById("unlimited-360-dropdown");
-
-            paperframe4rCheckbox.addEventListener("click", function () {
-                if (paperframe4rCheckbox.checked) {
-                    quotaUnlimitedDropdown.style.display = "block";
-                    unlimited360Dropdown.style.display = "none";
-                } else {
-                    quotaUnlimitedDropdown.style.display = "none";
-                }
-            });
-
-            paperframe2rCheckbox.addEventListener("click", function () {
-                if (paperframe2rCheckbox.checked) {
-                    quotaUnlimitedDropdown.style.display = "block";
-                    unlimited360Dropdown.style.display = "none";
-                } else {
-                    quotaUnlimitedDropdown.style.display = "none";
-                }
-            });
-
-            layout360Checkbox.addEventListener("click", function () {
-                if (layout360Checkbox.checked) {
-                    quotaUnlimitedDropdown.style.display = "block";
-                    unlimited360Dropdown.style.display = "none";
-                } else {
-                    unlimited360Dropdown.style.display = "none";
-                }
-            });
-        });
-    </script>
-
-    <script>
-        function showPaymentDetails() {
-            var paymentMethod = document.getElementById("payment").value;
-            var nomorDana = document.getElementById("nomorDana");
-            var nomorRekening = document.getElementById("nomorRekening");
-
-            nomorDana.parentNode.classList.add("hidden");
-            nomorRekening.parentNode.classList.add("hidden");
-
-            if (paymentMethod === "Dana") {
-                nomorDana.innerHTML = "Nomor Dana (Yanuar Ardhika): 085933648537";
-                nomorDana.parentNode.classList.remove("hidden");
-            } else if (paymentMethod === "Transfer Bank") {
-                nomorRekening.innerHTML = "Nomor Rekening Mandiri (YANUAR ARDHIKA): 1430026836864";
-                nomorRekening.parentNode.classList.remove("hidden");
-            }
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const WarningMessage = urlParams.get('WarningMessage');
-
-            if (WarningMessage) {
-                const notification = document.getElementById('notification');
-                notification.innerText = WarningMessage;
-                notification.style.display = 'block';
-
-                setTimeout(function () {
-                    notification.classList.add('show');
-                }, 100);
-
-                setTimeout(function () {
-                    notification.classList.remove('show');
-                    setTimeout(function () {
-                        notification.style.display = 'none';
-                    }, 500);
-                }, 5000);
-            }
-        });
     </script>
 
     <script>

@@ -1129,23 +1129,21 @@ if (!$koneksi) {
                 <div class="header-promo">
                     <h1>Promo Bulan Ini</h1>
                     <?php
-                    $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = ?";
+                    $id_promo = date('m');
+                    $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = '$id_promo'";
 
-                    $stmt = mysqli_prepare($koneksi, $query);
-                    $id_promo = date('m'); // Menggunakan bulan sebagai ID promo
-                    mysqli_stmt_bind_param($stmt, 's', $id_promo);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_bind_result($stmt, $nama_promo, $harga_promo);
-                    mysqli_stmt_fetch($stmt);
+                    $stmt = mysqli_query($koneksi, $query);
+                     // Menggunakan bulan sebagai ID promo
+                    $data = mysqli_fetch_object($stmt);
                     ?>
                 </div>
-                <textarea id="paket-promo" rows="1" readonly><?php echo $nama_promo; ?></textarea>
+                <textarea id="paket-promo" rows="1" readonly><?php echo $data->nama_promo; ?></textarea>
                 <div class="harga-promo">
-                    <input type="text" value="Rp. <?php echo $harga_promo; ?>" readonly>
+                    <input type="text" value="Rp. <?php echo  $data->harga_promo; ?>" readonly>
                 </div>
             </div>
             <div class="btn-promo">
-                <a href="promo.php">Pesan Sekarang</a>
+                <a href="promo.php?id=<?php echo $id_promo; ?>">Pesan Sekarang</a>
             </div>
         </div>
     </div>
