@@ -965,7 +965,7 @@ if (!$koneksi) {
             color: #000;
             width: 450px;
             height: 65px;
-            margin-top: 20px;
+            margin-top: 40px;
             margin-bottom: 20px;
             text-align: center;
             font-size: 23px;
@@ -989,7 +989,7 @@ if (!$koneksi) {
             color: #fff;
             font-size: 30px;
             padding: 10px;
-            padding-left: 80px;
+            padding-left: 50px;
             font-weight: 800;
         }
 
@@ -1068,7 +1068,7 @@ if (!$koneksi) {
     <div class="dashboard">
         <div class="left-content">
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
-            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.
+            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Wujudkan Kisah Eksklusifmu.
             </p>
             <a href="#content-promo" class="continue-button">Promo Bulan Ini <i class="fas fa-tags"></i></a>
         </div>
@@ -1180,7 +1180,7 @@ if (!$koneksi) {
             </div>
             <div class="detail-map" data-aos="fade-left" data-aos-easing="ease" data-aos-duration="600">
                 <h2>Contact Us</h2>
-                <p>Ketika anda kesulitan, anda dapat mengeklik untuk menghubungi kontak yang tersedia.</p>
+                <p>Ketika anda mengalami kesulitan, anda dapat mengklik untuk menghubungi kontak yang tersedia.</p>
                 <ul>
                     <li>
                         <a href="https://api.whatsapp.com/send/?phone=6287752874282&text&type=phone_number&app_absent=0"
@@ -1257,6 +1257,9 @@ if (!$koneksi) {
                         </li>
                         <li>
                             <a href="sponsor.php" title="Sponsor">Sponsor</a>
+                        </li>
+                        <li>
+                            <a href="" title="Promo">Promo</a>
                         </li>
                     </ul>
                 </section>
