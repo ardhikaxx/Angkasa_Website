@@ -54,9 +54,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <td>
                 <?php echo $unlimited;?>
             </td>
-            <td>
-                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
-            </td>
         </tr>
         <?php
         $no++;
@@ -1845,7 +1842,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <th>Layout</th>
                     <th>Quota</th>
                     <th>Unlimited</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">
@@ -1905,9 +1901,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                             </td>
                             <td>
                                 <?php echo $unlimited;?>
-                            </td>
-                            <td>
-                                <a href="#" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-check-circle"></i></a>
                             </td>
                         </tr>
                         <?php
