@@ -1,3 +1,9 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -853,7 +859,7 @@
 
         .content {
             width: 650px;
-            height: 370px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -886,6 +892,21 @@
         .content-promo {
             position: relative;
             z-index: 1;
+        }
+
+        .content-promo h3 {
+            margin-left: -117px;
+            margin-top: -45px;
+            background: #fff;
+            padding: 10px;
+            height: 15px;
+            width: 230px;
+            font-size: 17px;
+            font-weight: 700;
+            font-style: italic;
+            border-radius: 10px;
+            text-align: center;
+            color: red;
         }
 
         .bulan-pack {
@@ -935,17 +956,24 @@
         }
 
         #paket-promo {
+            background: none;
+            font-family: "Poppins", sans-serif;
+            border: none;
+            outline: none;
+            overflow: hidden;
+            resize: none;
             color: #000;
-            margin: 25px;
+            width: 450px;
+            height: 65px;
+            margin-top: 20px;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 26px;
+            font-size: 23px;
             font-weight: 800;
-            padding-left: 25px;
             padding-right: 25px;
         }
 
         .harga-promo {
-            text-align: center;
             background: linear-gradient(to right, #E7B76F, #9D6E1C);
             margin-top: 35px;
             border-radius: 15px;
@@ -954,9 +982,14 @@
             margin-bottom: -60px;
         }
 
-        .harga-promo h1 {
+        .harga-promo input {
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
             font-size: 30px;
             padding: 10px;
+            padding-left: 80px;
             font-weight: 800;
         }
 
@@ -966,6 +999,7 @@
             padding: 10px;
             text-align: center;
             width: 200px;
+            margin-top: 70px;
             background: linear-gradient(to right, #E7B76F, #9D6E1C);
             border-radius: 10px;
             cursor: pointer;
@@ -1034,7 +1068,8 @@
     <div class="dashboard">
         <div class="left-content">
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
-            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.</p>
+            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Sebuah Kisah.
+            </p>
             <a href="#content-promo" class="continue-button">Promo Bulan Ini <i class="fas fa-tags"></i></a>
         </div>
         <div class="right-content">
@@ -1086,20 +1121,31 @@
 
     <div class="content" id="content-promo" data-aos="fade-down" data-aos-easing="ease" data-aos-duration="600">
         <div class="content-promo">
+            <h3>*Khusus Daerah Jember</h3>
             <div class="bulan-pack">
                 <span id="bulan"></span>
             </div>
             <div class="promo-pack">
                 <div class="header-promo">
                     <h1>Promo Bulan Ini</h1>
+                    <?php
+                    $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = ?";
+
+                    $stmt = mysqli_prepare($koneksi, $query);
+                    $id_promo = date('m'); // Menggunakan bulan sebagai ID promo
+                    mysqli_stmt_bind_param($stmt, 's', $id_promo);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $nama_promo, $harga_promo);
+                    mysqli_stmt_fetch($stmt);
+                    ?>
                 </div>
-                <h2 id="paket-promo">Unlimited 3 Hour 360 & 3 Hour Photobooth</h2>
+                <textarea id="paket-promo" rows="1" readonly><?php echo $nama_promo; ?></textarea>
                 <div class="harga-promo">
-                    <h1>Rp 1.800.000</h1>
+                    <input type="text" value="Rp. <?php echo $harga_promo; ?>" readonly>
                 </div>
             </div>
             <div class="btn-promo">
-                <a href="#">Pesan Sekarang</a>
+                <a href="promo.php">Pesan Sekarang</a>
             </div>
         </div>
     </div>
