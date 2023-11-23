@@ -1881,7 +1881,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $teleponcustomer; ?>
                             </td>
                             <td>
-                                <?php echo $alamatacara; ?>
+                                <?php echo $alamatacara;?>
                             </td>
                             <td>
                                 <?php echo $tanggalacara; ?>
