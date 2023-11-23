@@ -145,27 +145,27 @@ if (!$koneksi) {
     <div class="edit-box">
         <form action="Edit_PaketLayout.php" method="POST" class="edit-container">
             <div class="segment">
-                <h1>Edit Page Quota</h1>
+                <h1>Edit Page Unlimited</h1>
                 <?php
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $idquota=$_GET['id'];
-                $query = mysqli_query($koneksi, "SELECT * FROM quota where id_quota='$idquota'");
+                $idunlimited=$_GET['id'];
+                $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_unlimited='$idunlimited'");
                 $data = mysqli_fetch_array($query);
 
                 if (isset($_POST['simpan'])) {
-                    $namaquota = $_POST['txt_nama'];
-                    $hargaquota = $_POST['txt_harga'];
+                    $namaunlimited = $_POST['txt_nama'];
+                    $hargaunlimited = $_POST['txt_harga'];
 
                     $id = isset($_POST['txt_id']) ? $_POST['txt_id'] : null;
 
-                    $query = "SELECT * FROM quota WHERE id_quota = '$id'";
+                    $query = "SELECT * FROM unlimited WHERE id_unlimited = '$id'";
                     $result = mysqli_query($koneksi, $query);
                     $existingData = mysqli_fetch_array($result);
-                    if ($existingData['nama_quota'] == $namaquota && $existingData['harga_quota'] == $hargaquota) {
+                    if ($existingData['nama_unlimited'] == $namaunlimited && $existingData['harga_unlimited'] == $hargaunlimited) {
                         echo '<script>window.location.href = "Paket_layout.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
                     } else {
 
-                    $query = "UPDATE quota SET nama_quota='$namaquota', harga_quota='$hargaquota' WHERE id_quota='$id'";
+                    $query = "UPDATE unlimited SET nama_unlimited='$namaunlimited', harga_unlimited='$hargaunlimited' WHERE id_unlimited='$id'";
                     $result = mysqli_query($koneksi, $query);
                     echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
                 }

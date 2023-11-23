@@ -2246,7 +2246,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $query = "SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_quota']) ? $row['id_quota'] : '';
+                            $idquota = isset($row['id_quota']) ? $row['id_quota'] : '';
                             $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
                             $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
                             ?>
@@ -2261,8 +2261,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $hargaquota; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="Edit_PaketLayout.php" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2290,7 +2290,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $idunlimited = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
                             $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                             $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
                             ?>
@@ -2304,7 +2304,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2330,10 +2330,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <tr>
                         <?php
                         $no = 1;
-                        $query = "SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
+                        $query = "SELECT id_quota,nama_quota,harga_quota from quota where id_layout='2'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_quota']) ? $row['id_quota'] : '';
+                            $idquota = isset($row['id_quota']) ? $row['id_quota'] : '';
                             $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
                             $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
                             ?>
@@ -2348,7 +2348,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $hargaquota; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="Edit_PaketLayout.php" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2374,10 +2374,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <tr>
                         <?php
                         $no = 1;
-                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='2'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $idunlimited = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
                             $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                             $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
                             ?>
@@ -2391,7 +2391,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2417,10 +2417,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <tr>
                         <?php
                         $no = 1;
-                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='3'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
-                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $idunlimited = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
                             $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                             $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
                             ?>
@@ -2434,7 +2434,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
