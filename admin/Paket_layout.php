@@ -2126,10 +2126,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
     <div class="tabel-paket-layout">
         <div class="tabel-quota">
-            <h2>Tabel Quota</h2>
+            <h2>Tabel Quota PaperFrame 4R</h2>
             <table>
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th id="namaquota">Nama Quota</th>
                         <th id="hargaquota">Harga Quota</th>
                         <th id="actionquota">Action</th>
@@ -2137,21 +2138,37 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Quota 1</td>
-                        <td>1000</td>
+                        <?php
+                        $no=1;
+                        $query="SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id = isset($row['id_quota']) ? $row['id_quota'] : '';
+                            $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                            $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
+                            ?>
+                        
+                        <td><?php echo $no;?></td>
+                        <td><?php echo $namaquota;?></td>
+                        <td><?php echo $hargaquota;?></td>
                         <td>
                             <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
                             <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
+                    <?php
+                        $no++;
+                        }
+                        ?>
                 </tbody>
             </table>
         </div>
         <div class="tabel-unlimited">
-            <h2>Tabel Unlimited</h2>
+            <h2>Tabel Unlimited PaperFrame 4R</h2>
             <table>
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th id="namaunlimited">Nama Unlimited</th>
                         <th id="hargaunlimited">Harga Unlimited</th>
                         <th id="actionunlimited">Action</th>
@@ -2159,13 +2176,27 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Unlimited 1</td>
-                        <td>1000</td>
+                    <?php
+                        $no=1;
+                        $query="SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                            ?>
+                        <td><?php echo $no;?></td>
+                        <td><?php echo $namaunlimited;?></td>
+                        <td><?php echo $hargaunlimited;?></td>
                         <td>
                             <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
                             <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
+                    <?php
+                        $no++;
+                        }
+                        ?>
                 </tbody>
             </table>
         </div>
