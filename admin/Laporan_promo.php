@@ -1876,7 +1876,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $namapromo;?>
                             </td>
                             <td>
-                                <?php echo $hargapromo;?>
+                                <?php echo "Rp. " . number_format($hargapromo, 0, ',', '.'); ?>
                             </td>
                         </tr>
                         <?php

@@ -65,6 +65,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
     <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
     <style>
         body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
             background-color: #EBECF0;
         }
 
@@ -1675,7 +1678,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             display: grid;
             place-items: start;
             place-content: start;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             flex-wrap: wrap;
             gap: 5px;
         }
@@ -1685,7 +1688,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             width: 450px;
             padding: 20px;
             border-radius: 15px;
-            margin-left: 10px;
+            margin-top: 20px;
+            margin-left: 15px;
             max-height: 400px;
             overflow-y: auto;
         }
@@ -1717,15 +1721,20 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .tabel-quota th {
-            font-size: 20px;
+            font-size: 18px;
             position: sticky;
             top: 0px;
+        }
+
+        .tabel-quota #no-quota {
+            background-color: #fff;
+            color: #000;
+            border-top-left-radius: 10px;
         }
 
         .tabel-quota #namaquota {
             background-color: #fff;
             color: #000;
-            border-top-left-radius: 10px;
         }
 
         .tabel-quota #hargaquota {
@@ -1773,7 +1782,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             width: 450px;
             padding: 20px;
             border-radius: 15px;
-            margin-left: 10px;
+            margin-top: 20px;
+            margin-left: -25px;
             max-height: 400px;
             overflow-y: auto;
         }
@@ -1805,15 +1815,20 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .tabel-unlimited th {
-            font-size: 20px;
+            font-size: 18px;
             position: sticky;
             top: 0px;
+        }
+
+        .tabel-unlimited #no-unlimited {
+            background-color: #fff;
+            color: #000;
+            border-top-left-radius: 10px;
         }
 
         .tabel-unlimited #namaunlimited {
             background-color: #fff;
             color: #000;
-            border-top-left-radius: 10px;
         }
 
         .tabel-unlimited #hargaunlimited {
@@ -1831,18 +1846,100 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             background-color: transparent;
         }
 
-        .btn-tambah {
+        .tabel-unlimited-360 {
             background: #000;
+            width: 450px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-left: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .tabel-unlimited-360 h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+            padding: 10px;
+        }
+
+        .tabel-unlimited-360 table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            color: #fff;
+        }
+
+        .tabel-unlimited-360 th,
+        .tabel-unlimited-360 td {
+            border-bottom: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        .tabel-unlimited-360 td {
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .tabel-unlimited-360 th {
+            font-size: 18px;
+            position: sticky;
+            top: 0px;
+        }
+
+        .tabel-unlimited-360 #no-unlimited {
+            background-color: #fff;
+            color: #000;
+            border-top-left-radius: 10px;
+        }
+
+        .tabel-unlimited-360 #namaunlimited {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .tabel-unlimited-360 #hargaunlimited {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .tabel-unlimited-360 #actionunlimited {
+            background-color: #fff;
+            color: #000;
+            border-top-right-radius: 10px;
+        }
+
+        .tabel-unlimited-360 tr {
+            background-color: transparent;
+        }
+
+        .btn-tambah {
+            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px 25px;
             border-radius: 15px;
-            margin-left: 15px;
             cursor: pointer;
+            position: fixed;
+            justify-content: bottom;
+            align-items: bottom;
+            z-index: 999;
+            bottom: 20px;
+            right: 20px;
         }
 
         .btn-tambah a {
             color: #fff;
             text-decoration: none;
+        }
+
+        .btn-tambah i {
+            color: #fff;
+            text-decoration: none;
             font-size: 26px;
+            font-weight: bold;
+            text-shadow: #000;
         }
 
         .modal {
@@ -2084,7 +2181,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 </head>
 
 <body>
-    <nav   nav class="navbar">
+    <nav nav class="navbar">
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
@@ -2103,10 +2200,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus-circle"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i
+                        data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2124,13 +2223,17 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         </div>
     </div>
 
+    <div class="btn-tambah">
+        <a href="Tambah_PaketLayout.php"><i class="fas fa-plus"></i></a>
+    </div>
+
     <div class="tabel-paket-layout">
         <div class="tabel-quota">
             <h2>Tabel Quota PaperFrame 4R</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th id="no-quota">No</th>
                         <th id="namaquota">Nama Quota</th>
                         <th id="hargaquota">Harga Quota</th>
                         <th id="actionquota">Action</th>
@@ -2139,24 +2242,30 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <tbody>
                     <tr>
                         <?php
-                        $no=1;
-                        $query="SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
+                        $no = 1;
+                        $query = "SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
                             $id = isset($row['id_quota']) ? $row['id_quota'] : '';
                             $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
                             $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
                             ?>
-                        
-                        <td><?php echo $no;?></td>
-                        <td><?php echo $namaquota;?></td>
-                        <td><?php echo $hargaquota;?></td>
-                        <td>
-                            <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
-                            <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <?php
+
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namaquota; ?>
+                            </td>
+                            <td>
+                                <?php echo $hargaquota; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
                         $no++;
                         }
                         ?>
@@ -2168,7 +2277,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <table>
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th id="no-unlimited">No</th>
                         <th id="namaunlimited">Nama Unlimited</th>
                         <th id="hargaunlimited">Harga Unlimited</th>
                         <th id="actionunlimited">Action</th>
@@ -2176,32 +2285,165 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 </thead>
                 <tbody>
                     <tr>
-                    <?php
-                        $no=1;
-                        $query="SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        <?php
+                        $no = 1;
+                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
                         $result = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($result)) {
                             $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
                             $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                             $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
                             ?>
-                        <td><?php echo $no;?></td>
-                        <td><?php echo $namaunlimited;?></td>
-                        <td><?php echo $hargaunlimited;?></td>
-                        <td>
-                            <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
-                            <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <?php
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namaunlimited; ?>
+                            </td>
+                            <td>
+                                <?php echo $hargaunlimited; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
                         $no++;
                         }
                         ?>
                 </tbody>
             </table>
         </div>
-        <div class="btn-tambah">
-            <a href="Tambah_PaketLayout.php"><i class="fas fa-plus"></i></a>
+        <div class="tabel-quota">
+            <h2>Tabel Quota PaperFrame 2R</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="no-quota">No</th>
+                        <th id="namaquota">Nama Quota</th>
+                        <th id="hargaquota">Harga Quota</th>
+                        <th id="actionquota">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php
+                        $no = 1;
+                        $query = "SELECT id_quota,nama_quota,harga_quota from quota where id_layout='1'";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id = isset($row['id_quota']) ? $row['id_quota'] : '';
+                            $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                            $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
+                            ?>
+
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namaquota; ?>
+                            </td>
+                            <td>
+                                <?php echo $hargaquota; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                        }
+                        ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="tabel-unlimited">
+            <h2>Tabel Unlimited PaperFrame 2R</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="no-unlimited">No</th>
+                        <th id="namaunlimited">Nama Unlimited</th>
+                        <th id="hargaunlimited">Harga Unlimited</th>
+                        <th id="actionunlimited">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php
+                        $no = 1;
+                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                            ?>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namaunlimited; ?>
+                            </td>
+                            <td>
+                                <?php echo $hargaunlimited; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                        }
+                        ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="tabel-unlimited-360">
+            <h2>Tabel Unlimited 360 Videobooth</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="no-unlimited">No</th>
+                        <th id="namaunlimited">Nama Unlimited</th>
+                        <th id="hargaunlimited">Harga Unlimited</th>
+                        <th id="actionunlimited">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php
+                        $no = 1;
+                        $query = "SELECT id_unlimited,nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                        $result = mysqli_query($koneksi, $query);
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id = isset($row['id_unlimited']) ? $row['id_unlimited'] : '';
+                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                            ?>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namaunlimited; ?>
+                            </td>
+                            <td>
+                                <?php echo $hargaunlimited; ?>
+                            </td>
+                            <td>
+                                <a href="#" class="btn-edit" data-id="<?php echo $id; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
+                        }
+                        ?>
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -20,11 +20,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
-        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
-        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
+        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+        $package = isset($row['nama_package']) ? $row['nama_package'] : '';
+        $layout = isset($row['nama_layout']) ? $row['nama_layout'] : '';
+        $quota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+        $unlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
         ?>
         <tr>
             <td>
@@ -40,19 +40,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $alamatacara; ?>
             </td>
             <td>
-                <?php echo $tanggalacara;?>
+                <?php echo $tanggalacara; ?>
             </td>
             <td>
-                <?php echo $package;?>
+                <?php echo $package; ?>
             </td>
             <td>
-                <?php echo $layout;?>
+                <?php echo $layout; ?>
             </td>
             <td>
-                <?php echo $quota;?>
+                <?php echo $quota; ?>
             </td>
             <td>
-                <?php echo $unlimited;?>
+                <?php echo $unlimited; ?>
             </td>
         </tr>
         <?php
@@ -160,7 +160,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .navbar__menu {
             position: relative;
-            margin-top: 140px;
+            margin-top: 90px;
         }
 
         .navbar__item:last-child:before {
@@ -1446,6 +1446,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 transform: scale(1, 1);
             }
         }
+
         .navbar__item:first-child:nth-last-child(11):nth-child(4):hover~li:last-child:before,
         .navbar__item:first-child:nth-last-child(11)~li:nth-child(4):hover~li:last-child:before {
             top: 27.2727272727%;
@@ -1785,7 +1786,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 </head>
 
 <body>
-<nav   nav class="navbar">
+    <nav class="navbar">
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
@@ -1804,10 +1805,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i
+                        data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus-circle"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i
+                        data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -1832,6 +1835,21 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
+            <select name="monthFilter">
+                <option value="">Semua</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
         </form>
         <table>
             <thead>
@@ -1871,11 +1889,11 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-                        $package=isset($row['nama_package']) ? $row ['nama_package']:'';
-                        $layout=isset($row['nama_layout']) ? $row ['nama_layout']:'';
-                        $quota=isset($row['nama_quota']) ? $row ['nama_quota']:'';
-                        $unlimited=isset($row ['nama_unlimited']) ? $row ['nama_unlimited']:'';
+                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                        $package = isset($row['nama_package']) ? $row['nama_package'] : '';
+                        $layout = isset($row['nama_layout']) ? $row['nama_layout'] : '';
+                        $quota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                        $unlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
                         ?>
                         <tr>
                             <td>
@@ -1891,19 +1909,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $alamatacara; ?>
                             </td>
                             <td>
-                                <?php echo $tanggalacara;?>
+                                <?php echo $tanggalacara; ?>
                             </td>
                             <td>
-                                <?php echo $package;?>
+                                <?php echo $package; ?>
                             </td>
                             <td>
-                                <?php echo $layout;?>
+                                <?php echo $layout; ?>
                             </td>
                             <td>
-                                <?php echo $quota;?>
+                                <?php echo $quota; ?>
                             </td>
                             <td>
-                                <?php echo $unlimited;?>
+                                <?php echo $unlimited; ?>
                             </td>
                         </tr>
                         <?php

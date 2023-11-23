@@ -942,7 +942,7 @@ if (!$koneksi) {
             text-align: center;
             margin: 0 auto;
             background: linear-gradient(to right, #E7B76F, #9D6E1C);
-            margin-top: -50px;
+            margin-top: -65px;
             width: 300px;
             height: 45px;
             border-radius: 15px;
@@ -1068,7 +1068,8 @@ if (!$koneksi) {
     <div class="dashboard">
         <div class="left-content">
             <h1 class="dashboard-title">Angkasa<br>Photobooth</h1>
-            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Wujudkan Kisah Eksklusifmu.
+            <p class="dashboard-subtitle">Ciptakan Memori Abadi dengan Angkasa Photobooth. Setiap Klik, Wujudkan Kisah
+                Eksklusifmu.
             </p>
             <a href="#content-promo" class="continue-button">Promo Bulan Ini <i class="fas fa-tags"></i></a>
         </div>
@@ -1136,9 +1137,11 @@ if (!$koneksi) {
                     $data = mysqli_fetch_object($stmt);
                     ?>
                 </div>
-                <textarea id="paket-promo" rows="1" readonly><?php echo $data->nama_promo; ?></textarea>
+                <textarea id="paket-promo" rows="1" readonly>
+                    <?php echo $data->nama_promo; ?>
+                </textarea>
                 <div class="harga-promo">
-                    <input type="text" value="Rp. <?php echo  $data->harga_promo; ?>" readonly>
+                    <input type="text" value="Rp. <?php echo number_format($data->harga_promo, 0, ',', '.'); ?>" readonly>
                 </div>
             </div>
             <div class="btn-promo">
