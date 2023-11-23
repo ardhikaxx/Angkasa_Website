@@ -2479,7 +2479,7 @@ if (!$koneksi) {
 
             if (Id && type) {
                 if (type === "quota") {
-                    window.location.href = "Edit_PaketLayout.php?id=" + Id;
+                    window.location.href = "Edit_PaketQuota.php?id=" + Id;
                 } else if (type === "unlimited") {
                     window.location.href = "Edit_PaketUnlimited.php?id=" + Id;
                 }
