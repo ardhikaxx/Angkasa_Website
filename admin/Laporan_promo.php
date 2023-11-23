@@ -20,8 +20,8 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+        $namapromo=isset($row['nama_promo']) ? $row ['nama_promo']:'';
+        $hargapromo=isset($row['harga_promo'])? $row ['harga_promo']:'';
         ?>
         <tr>
             <td>
@@ -37,13 +37,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $alamatacara; ?>
             </td>
             <td>
-                <?php echo $tanggalacara;?>
+                <?php echo $namapromo;?>
             </td>
             <td>
-                <?php echo $proposal;?>
-            </td>
-            <td>
-                <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
+                <?php echo $hargapromo;?>
             </td>
         </tr>
         <?php
@@ -1831,7 +1828,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     <th>Nama Cust</th>
                     <th>No Hp</th>
                     <th>Alamat</th>
-                    <th>Tanggal</th>
                     <th>Nama Promo</th>
                     <th>Harga Promo</th>
                 </tr>
@@ -1845,8 +1841,13 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-                    from customer join pemesanan on customer.id_customer=pemesanan.id_customer WHERE pemesanan.proposal IS NOT NULL LIMIT $start_from, $records_per_page";
+                    $query = "SELECT pemesanan.id_pemesanan, customer.nama_cust, customer.no_hp, pemesanan.alamat_acara, pemesanan.tanggal_acara, pemesanan.id_promo, promo.nama_promo, promo.harga_promo
+                    FROM customer
+                    JOIN pemesanan ON customer.id_customer = pemesanan.id_customer
+                    JOIN promo ON pemesanan.id_promo = promo.id_promo
+                    WHERE pemesanan.id_promo IS NOT NULL
+                    LIMIT $start_from, $records_per_page";
+
 
                     $result = mysqli_query($koneksi, $query);
                     $no = $start_from + 1;
@@ -1855,15 +1856,15 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
                         $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
                         $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara=isset($row['tanggal_acara']) ? $row ['tanggal_acara'] : '';
-                        $proposal=isset($row['proposal']) ? $row ['proposal']:'';
+                        $namapromo=isset($row['nama_promo']) ? $row ['nama_promo']:'';
+                        $hargapromo=isset($row['harga_promo'])? $row ['harga_promo']:'';
                         ?>
                         <tr>
                             <td>
                                 <?php echo $no; ?>
                             </td>
                             <td>
-                                nama customer
+                                <?php echo $namalengkapcustomer;?>
                             </td>
                             <td>
                                 <?php echo $teleponcustomer; ?>
@@ -1872,13 +1873,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 <?php echo $alamatacara; ?>
                             </td>
                             <td>
-                                <?php echo $tanggalacara;?>
+                                <?php echo $namapromo;?>
                             </td>
                             <td>
-                                nama promo
-                            </td>
-                            <td>
-                                harga promo
+                                <?php echo $hargapromo;?>
                             </td>
                         </tr>
                         <?php
