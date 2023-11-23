@@ -965,7 +965,7 @@ if (!$koneksi) {
             color: #000;
             width: 450px;
             height: 65px;
-            margin-top: 20px;
+            margin-top: 40px;
             margin-bottom: 20px;
             text-align: center;
             font-size: 23px;
@@ -989,7 +989,7 @@ if (!$koneksi) {
             color: #fff;
             font-size: 30px;
             padding: 10px;
-            padding-left: 80px;
+            padding-left: 50px;
             font-weight: 800;
         }
 
