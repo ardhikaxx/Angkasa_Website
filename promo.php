@@ -10,8 +10,8 @@ if (isset($_POST['submit'])) {
     $namacustomer = $_POST['txt_nama'] ;
     $nohp = $_POST['txt_phone'] ;
     $alamatacara = $_POST['txt_address'] ;
+
             $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
-            $result=mysqli_query($koneksi,$query_customer);
             $result_customer = mysqli_query($koneksi, $query_customer);
             if ($result_customer) {
                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
