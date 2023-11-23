@@ -2219,8 +2219,10 @@ if (!$koneksi) {
                                 <?php echo $hargaquota; ?>
                             </td>
                             <td>
-                                <a href="Edit_PaketLayout.php" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>"><i
+                                        class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2262,7 +2264,7 @@ if (!$koneksi) {
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2306,7 +2308,8 @@ if (!$koneksi) {
                                 <?php echo $hargaquota; ?>
                             </td>
                             <td>
-                                <a href="Edit_PaketLayout.php" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>"><i
+                                        class="fa fa-edit" data-type="quota"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2349,7 +2352,7 @@ if (!$koneksi) {
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2392,7 +2395,7 @@ if (!$koneksi) {
                                 <?php echo $hargaunlimited; ?>
                             </td>
                             <td>
-                                <a href="Edit_PaketUnlimited.php" class="btn-edit" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
                                 <a href="#" class="btn-delete" data-id="<?php echo $id; ?>"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2413,7 +2416,8 @@ if (!$koneksi) {
             <p>Apakah Anda yakin ingin mengedit data ini?</p>
             <button id="confirmEditYes">Ya</button>
             <button id="confirmEditNo">Tidak</button>
-            <input type="hidden" id="userIdToEdit">
+            <input type="hidden" id="IdToEdit">
+            <input type="hidden" id="TypeToEdit">
         </div>
     </div>
 
@@ -2461,45 +2465,26 @@ if (!$koneksi) {
         editButtons.forEach(button => {
             button.addEventListener("click", function (event) {
                 event.preventDefault();
-                const userId = this.getAttribute("data-id");
-                document.getElementById("userIdToEdit").value = userId;
+                const Id = this.getAttribute("data-id");
+                const type = this.getAttribute("data-type");
+                document.getElementById("IdToEdit").value = Id;
+                document.getElementById("TypeToEdit").value = type;
                 modal.style.display = "block";
             });
         });
 
         confirmEditYes.addEventListener("click", function () {
-            const userId = document.getElementById("userIdToEdit").value;
-            if (userId) {
-                window.location.href = "Edit_PaketLayout.php?id=" + userId;
+            const Id = document.getElementById("IdToEdit").value;
+            const type = document.getElementById("TypeToEdit").value;
+
+            if (Id && type) {
+                if (type === "quota") {
+                    window.location.href = "Edit_PaketLayout.php?id=" + Id;
+                } else if (type === "unlimited") {
+                    window.location.href = "Edit_PaketUnlimited.php?id=" + Id;
+                }
             }
-            modal.style.display = "none";
-        });
 
-        confirmEditNo.addEventListener("click", function () {
-            modal.style.display = "none";
-        });
-    </script>
-
-    <script>
-        const editButtons = document.querySelectorAll(".btn-edit");
-        const modal = document.getElementById("myModal");
-        const confirmEditYes = document.getElementById("confirmEditYes");
-        const confirmEditNo = document.getElementById("confirmEditNo");
-
-        editButtons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                const userId = this.getAttribute("data-id");
-                document.getElementById("userIdToEdit").value = userId;
-                modal.style.display = "block";
-            });
-        });
-
-        confirmEditYes.addEventListener("click", function () {
-            const userId = document.getElementById("userIdToEdit").value;
-            if (userId) {
-                window.location.href = "edit.php?id=" + userId;
-            }
             modal.style.display = "none";
         });
 
