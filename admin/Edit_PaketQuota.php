@@ -28,7 +28,7 @@ if (!$koneksi) {
         .edit-box {
             text-align: center;
             width: 300px;
-            height: 470px;
+            height: 350px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -61,7 +61,7 @@ if (!$koneksi) {
         }
 
         .segment h1 {
-            font-size: 35px;
+            font-size: 26px;
             margin-bottom: 5px;
             font-weight: 800;
             margin-top: -30px;
@@ -143,12 +143,12 @@ if (!$koneksi) {
 
 <body>
     <div class="edit-box">
-        <form action="Edit_PaketLayout.php" method="POST" class="edit-container">
+        <form action="Edit_PaketQuota.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page Quota</h1>
                 <?php
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $idquota=$_GET['id'];
+                $idquota = $_GET['id'];
                 $query = mysqli_query($koneksi, "SELECT * FROM quota where id_quota='$idquota'");
                 $data = mysqli_fetch_array($query);
 
@@ -165,11 +165,11 @@ if (!$koneksi) {
                         echo '<script>window.location.href = "Paket_layout.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
                     } else {
 
-                    $query = "UPDATE quota SET nama_quota='$namaquota', harga_quota='$hargaquota' WHERE id_quota='$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                        $query = "UPDATE quota SET nama_quota='$namaquota', harga_quota='$hargaquota' WHERE id_quota='$id'";
+                        $result = mysqli_query($koneksi, $query);
+                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                    }
                 }
-            }
                 ?>
             </div>
             <label class="nama-promo">
@@ -178,15 +178,21 @@ if (!$koneksi) {
                     readonly>
             </label>
             <label class="harga-promo">
-                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_quota']; ?>">
+                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_quota']; ?>"
+                    oninput="validateNumberInput(this)">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
             <a class="btn-back" href="Paket_layout.php">
                 <span class="btn-back-icon">&#x21A9;</span>
-                <span>Edit</span>
+                <span>Kembali</span>
             </a>
         </form>
     </div>
+    <script>
+        function validateNumberInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+    </script>
 </body>
 
 </html>

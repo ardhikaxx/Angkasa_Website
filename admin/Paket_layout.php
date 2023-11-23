@@ -2216,7 +2216,7 @@ if (!$koneksi) {
                                 <?php echo $namaquota; ?>
                             </td>
                             <td>
-                                <?php echo $hargaquota; ?>
+                                <?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i
@@ -2261,7 +2261,7 @@ if (!$koneksi) {
                                 <?php echo $namaunlimited; ?>
                             </td>
                             <td>
-                                <?php echo $hargaunlimited; ?>
+                                <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
@@ -2305,7 +2305,7 @@ if (!$koneksi) {
                                 <?php echo $namaquota; ?>
                             </td>
                             <td>
-                                <?php echo $hargaquota; ?>
+                                <?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>"><i
@@ -2349,7 +2349,7 @@ if (!$koneksi) {
                                 <?php echo $namaunlimited; ?>
                             </td>
                             <td>
-                                <?php echo $hargaunlimited; ?>
+                                <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
@@ -2392,7 +2392,7 @@ if (!$koneksi) {
                                 <?php echo $namaunlimited; ?>
                             </td>
                             <td>
-                                <?php echo $hargaunlimited; ?>
+                                <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>

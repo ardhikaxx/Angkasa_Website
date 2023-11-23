@@ -28,7 +28,7 @@ if (!$koneksi) {
         .edit-box {
             text-align: center;
             width: 300px;
-            height: 470px;
+            height: 350px;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -61,7 +61,7 @@ if (!$koneksi) {
         }
 
         .segment h1 {
-            font-size: 35px;
+            font-size: 26px;
             margin-bottom: 5px;
             font-weight: 800;
             margin-top: -30px;
@@ -143,12 +143,12 @@ if (!$koneksi) {
 
 <body>
     <div class="edit-box">
-        <form action="Edit_PaketLayout.php" method="POST" class="edit-container">
+        <form action="Edit_PaketUnlimited.php" method="POST" class="edit-container">
             <div class="segment">
                 <h1>Edit Page Unlimited</h1>
                 <?php
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $idunlimited=$_GET['id'];
+                $idunlimited = $_GET['id'];
                 $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_unlimited='$idunlimited'");
                 $data = mysqli_fetch_array($query);
 
@@ -165,28 +165,34 @@ if (!$koneksi) {
                         echo '<script>window.location.href = "Paket_layout.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
                     } else {
 
-                    $query = "UPDATE unlimited SET nama_unlimited='$namaunlimited', harga_unlimited='$hargaunlimited' WHERE id_unlimited='$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                        $query = "UPDATE unlimited SET nama_unlimited='$namaunlimited', harga_unlimited='$hargaunlimited' WHERE id_unlimited='$id'";
+                        $result = mysqli_query($koneksi, $query);
+                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                    }
                 }
-            }
                 ?>
             </div>
-            <label class="nama-promo">
+            <label class="nama-unlimited">
                 <input type="hidden" name="txt_id" value="<?php echo $data['id_unlimited']; ?>">
                 <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_unlimited']; ?>"
                     readonly>
             </label>
-            <label class="harga-promo">
-                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_unlimited']; ?>">
+            <label class="harga-unlimited">
+                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_unlimited'] ?>" oninput="validateNumberInput(this)">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
             <a class="btn-back" href="Paket_layout.php">
                 <span class="btn-back-icon">&#x21A9;</span>
-                <span>Edit</span>
+                <span>Kembali</span>
             </a>
         </form>
     </div>
+
+    <script>
+        function validateNumberInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+    </script>
 </body>
 
 </html>
