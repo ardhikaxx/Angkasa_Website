@@ -8,48 +8,6 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
-{
-    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
-    $result = mysqli_query($koneksi, $query);
-
-    $no = $start_from + 1;
-
-    while ($row = mysqli_fetch_array($result)) {
-        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
-        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
-        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
-        ?>
-        <tr>
-            <td>
-                <?php echo $no; ?>
-            </td>
-            <td>
-                <?php echo $namalengkapcustomer; ?>
-            </td>
-            <td>
-                <?php echo $teleponcustomer; ?>
-            </td>
-            <td>
-                <?php echo $alamatacara; ?>
-            </td>
-            <td>
-                <?php echo $tanggalacara; ?>
-            </td>
-            <td>
-                <?php echo $proposal; ?>
-            </td>
-            <td>
-                <a href="proposal.php" class="btn-info" data-id="<?php echo $id; ?>"><i class="fa fa-info-circle"></i> Info</a>
-            </td>
-        </tr>
-        <?php
-        $no++;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

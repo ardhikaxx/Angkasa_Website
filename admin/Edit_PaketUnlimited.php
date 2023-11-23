@@ -173,12 +173,12 @@ if (!$koneksi) {
                 ?>
             </div>
             <label class="nama-promo">
-                <input type="hidden" name="txt_id" value="<?php echo $data['id_quota']; ?>">
-                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_quota']; ?>"
+                <input type="hidden" name="txt_id" value="<?php echo $data['id_unlimited']; ?>">
+                <input type="text" name="txt_nama" autocomplete="off" value="<?php echo $data['nama_unlimited']; ?>"
                     readonly>
             </label>
             <label class="harga-promo">
-                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_quota']; ?>">
+                <input type="text" name="txt_harga" autocomplete="off" value="<?php echo $data['harga_unlimited']; ?>">
             </label>
             <button class="btn-simpan" type="submit" name="simpan" value="Simpan">Simpan</button>
             <a class="btn-back" href="Paket_layout.php">
