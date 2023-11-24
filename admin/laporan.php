@@ -10,7 +10,13 @@ if (!$koneksi) {
 }
 function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
-    $query = "SELECT * FROM customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    $query = " SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal,
+    pemesanan.nama_package,layout.id_layout,layout.nama_layout,COALESCE(quota.id_quota, '') AS id_quota,
+    COALESCE(quota.nama_quota, '') AS nama_quota,COALESCE(unlimited.id_unlimited, '') AS id_unlimited,
+    COALESCE(unlimited.nama_unlimited, '') AS nama_unlimited FROM pemesanan 
+    JOIN customer ON pemesanan.id_customer = customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
+    JOIN layout ON detail_pemesanan.id_layout = layout.id_layout LEFT JOIN quota ON detail_pemesanan.id_quota = quota.id_quota 
+    LEFT JOIN unlimited ON detail_pemesanan.id_unlimited = unlimited.id_unlimited WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
     $no = $start_from + 1;
