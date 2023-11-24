@@ -1,3 +1,31 @@
+<?php
+$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
+}
+if (isset($_POST['tambah'])) {
+    $pilihpaketlayout = isset($_POST['paket_layout']) ? $_POST['paket_layout'] : '';
+    $namaquota=isset($_POST['txt_nama_quota']) ? $_POST ['txt_nama_quota']:'';
+    $hargaquota=isset($_POST['txt_harga_quota']) ? $_POST ['txt_harga_quota']:'';
+    $namaunlimited=isset($_POST['txt_nama_unlimited']) ? $_POST ['txt_nama_unlimited']:'';
+    $hargaunlimited=isset($_POST['txt_harga_unlimited']) ? $_POST ['txt_harga_unlimited']:'';
+
+    if ($_POST['paket'] == "quota") {
+        $query_quota = "INSERT INTO quota (nama_quota, harga_quota, id_layout) VALUES ('$namaquota', '$hargaquota', '$pilihpaketlayout')";
+        $stmt_quota = mysqli_prepare($koneksi, $query_quota);
+        mysqli_stmt_execute($stmt_quota);
+        $result_detail = mysqli_stmt_get_result($stmt_quota);
+        header("Location: Paket_layout.php?successMessage=Penmabahan data baru telah berhasil.");
+    } else if ($_POST["paket"] == "unlimited") {
+        $query_unlimited = "INSERT INTO unlimited (nama_unlimited, harga_unlimited, id_layout) VALUES ('$namaunlimited', '$hargaunlimited', '$pilihpaketlayout')";
+        $stmt_unlimited = mysqli_prepare($koneksi, $query_unlimited);
+        mysqli_stmt_execute($stmt_unlimited);
+        $result_detail = mysqli_stmt_get_result($stmt_unlimited);
+        header("Location: Paket_layout.php?successMessage=Penmabahan data baru telah berhasil.");
+    }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -202,17 +230,23 @@
 
 <body>
     <div class="tambah-paket">
-        <form action="Tambah_PaketLayout.php" class="tambah-container">
+        <form action="Tambah_PaketLayout.php" method="post" class="tambah-container">
             <div class="segment">
                 <h1>Tambah <br> Paket Layout</h1>
             </div>
             <label class="pilih-layout">
                 <div class="select-wrapper">
-                    <select name="" class="layout-select">
+                    <select name="paket_layout" class="layout-select">
                         <option value="" disabled selected>Pilih Layout</option>
-                        <option value="1">PaperFrame 4R</option>
-                        <option value="2">PaperFrame 2R</option>
-                        <option value="3">360 Videobooth</option>
+                        <?php
+                            $query = mysqli_query($koneksi, "SELECT * FROM layout");
+
+                            while ($data = mysqli_fetch_array($query)) {
+                                ?>
+                                <option value="<?= $data['id_layout'] ?>">
+                                    <?= $data['nama_layout'] ?>
+                                </option>
+                            <?php } ?>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
