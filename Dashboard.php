@@ -896,7 +896,7 @@ if (!$koneksi) {
 
         .content-promo h3 {
             margin-left: -117px;
-            margin-top: -55px;
+            margin-top: -65px;
             background: #fff;
             padding: 10px;
             height: 15px;
@@ -958,10 +958,6 @@ if (!$koneksi) {
         #paket-promo {
             background: none;
             font-family: "Poppins", sans-serif;
-            border: none;
-            outline: none;
-            overflow: hidden;
-            resize: none;
             color: #000;
             width: 450px;
             height: 65px;
@@ -970,7 +966,18 @@ if (!$koneksi) {
             text-align: center;
             font-size: 23px;
             font-weight: 800;
-            padding-right: 25px;
+        }
+
+        #nama-promo-panjang {
+            font-family: "Poppins", sans-serif;
+            color: #000;
+            width: 450px;
+            height: 65px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 23px;
+            font-weight: 800;
         }
 
         .harga-promo {
@@ -979,7 +986,7 @@ if (!$koneksi) {
             border-radius: 15px;
             width: 300px;
             margin: 0 auto;
-            margin-bottom: -60px;
+            margin-bottom: -40px;
         }
 
         .harga-promo input {
@@ -988,9 +995,17 @@ if (!$koneksi) {
             outline: none;
             color: #fff;
             font-size: 30px;
-            padding: 10px;
-            padding-left: 50px;
             font-weight: 800;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            font-size: 25px;
+        }
+
+        #harga-promo {
+            font-weight: 800;
+            padding-left: 54px;
         }
 
         .btn-promo {
@@ -1137,11 +1152,13 @@ if (!$koneksi) {
                     $data = mysqli_fetch_object($stmt);
                     ?>
                 </div>
-                <textarea id="paket-promo" rows="1" readonly>
-                    <?php echo $data->nama_promo; ?>
-                </textarea>
+                <div id="container">
+                    <input id="paket-promo" value="<?php echo $data->nama_promo; ?>" readonly>
+                    <div id="nama-promo-panjang"></div>
+                </div>
                 <div class="harga-promo">
-                    <input type="text" value="Rp. <?php echo number_format($data->harga_promo, 0, ',', '.'); ?>" readonly>
+                    <input type="text" id="harga-promo"
+                        value="Rp. <?php echo number_format($data->harga_promo, 0, ',', '.'); ?>" readonly>
                 </div>
             </div>
             <div class="btn-promo">
@@ -1303,6 +1320,29 @@ if (!$koneksi) {
 
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        // Fungsi untuk memeriksa panjang nama dan menangani tampilan
+        function cekPanjangNama() {
+            var inputElement = document.getElementById('paket-promo');
+            var namaPromo = inputElement.value;
+            var containerElement = document.getElementById('container');
+            var namaPanjangElement = document.getElementById('nama-promo-panjang');
+
+            // Tentukan panjang maksimum yang diizinkan (misalnya, 10 karakter)
+            var panjangMaksimum = 10;
+
+            if (namaPromo.length > panjangMaksimum) {
+                inputElement.style.display = 'none'; // Sembunyikan input
+                namaPanjangElement.innerHTML = namaPromo; // Tampilkan nama panjang
+            } else {
+                inputElement.style.display = 'block'; // Tampilkan input jika tidak panjang
+                namaPanjangElement.innerHTML = '';
+            }
+        }
+
+        window.onload = cekPanjangNama;
     </script>
 
     <script>

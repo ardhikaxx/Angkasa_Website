@@ -167,14 +167,21 @@
         }
 
         .pack-title p {
-            margin-top: 5px;
+            margin-top: 10px;
             font-family: "Poppins", sans-serif;
+            font-size: 18px;
+        }
+
+        .pack-title #klick {
+            font-size: 20px;
+            font-weight: 800;
         }
 
         .pack-title h1 {
             margin-bottom: 5px;
             font-family: "Poppins", sans-serif;
-            font-weight: bold;
+            font-size: 36px;
+            font-weight: 800;
         }
 
         .photo-gallery {
@@ -245,7 +252,7 @@
         <div class="pack-title">
             <h1>Gallery</h1>
             <p>Berikut ini adalah contoh hasil dari foto-foto kami</p>
-            <p><span class="cursor-pointer">👉</span> Klik foto untuk melihat detail</p>
+            <p id="klick"><span class="cursor-pointer">👉</span> Klik foto untuk melihat detail</p>
         </div>
     </div>
 

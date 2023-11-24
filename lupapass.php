@@ -84,15 +84,15 @@
             display: flex;
             align-items: center;
             padding: 10px;
-            font-size: 25;
         }
 
         .captcha-box #captcha {
             font-size: 24px;
             font-weight: 800;
-            padding-left: 94px;
+            padding-left: 30px;
             padding-top: 5px;
             padding-bottom: 5px;
+            letter-spacing: 10px;
         }
 
         .refresh-button {

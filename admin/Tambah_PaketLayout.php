@@ -258,6 +258,32 @@
     </div>
 
     <script>
+        function handleLayoutSelection() {
+            var layoutSelect = document.querySelector('.layout-select');
+
+            var selectedLayout = layoutSelect.options[layoutSelect.selectedIndex].value;
+
+            var quotaUnlimited = document.querySelector('.quota-unlimited');
+
+            var namaUnlimited = document.querySelector('.nama-unlimited');
+
+            var hargaUnlimited = document.querySelector('.harga-unlimited');
+
+            if (selectedLayout === '3') {
+                quotaUnlimited.style.display = 'none';
+                namaUnlimited.style.display = 'block';
+                hargaUnlimited.style.display = 'block';
+            } else {
+                quotaUnlimited.style.display = 'block';
+                namaUnlimited.style.display = 'none';
+                hargaUnlimited.style.display = 'none';
+            }
+        }
+
+        document.querySelector('.layout-select').addEventListener('change', handleLayoutSelection);
+    </script>
+
+    <script>
         function showQuota() {
             document.querySelector('.nama-quota').style.display = 'block';
             document.querySelector('.harga-quota').style.display = 'block';
