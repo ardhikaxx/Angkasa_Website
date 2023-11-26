@@ -32,7 +32,7 @@ if (isset($_POST['register'])) {
     } elseif (mysqli_num_rows($resultNoHP) > 0) {
         $error = ("Nomor telepon sudah terdaftar.");
     } else {
-        $query = "INSERT INTO user VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
+        $query = "INSERT INTO user (id_user,nama_lengkap,email,no_hp,jenis_kelamin,password,jabatan) VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
         $result = mysqli_query($koneksi, $query);
         if ($result) {
             header("Location: dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.");

@@ -1,9 +1,16 @@
 <?php
 require('koneksi.php');
 $error = "";
+$max_attempts = 5;
+session_start();
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+}
+
 if (isset($_POST['submit'])) {
     $email = $_POST['txt_email'];
     $password = $_POST['txt_pass'];
+
     if (!empty(trim($email)) && !empty(trim($password))) {
         $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
 
@@ -17,15 +24,23 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($result) > 0) {
             $userRow = mysqli_fetch_assoc($result);
             $jabatan = $userRow['jabatan'];
-            session_start();
+
             if ($jabatan === 'Admin') {
                 $_SESSION['user'] = $userRow['nama_lengkap'];
+                $_SESSION['login_attempts'] = 0; 
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
                 header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
             } else {
                 $error = '("Karyawan tidak memiliki akses masuk")';
             }
         } else {
+            $_SESSION['login_attempts']++;
+
+            if ($_SESSION['login_attempts'] >= $max_attempts) {
+                header("Location: lupapass.php");
+                exit();
+            }
+
             $error = '("email atau password salah.");';
         }
 
@@ -36,6 +51,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

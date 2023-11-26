@@ -20,7 +20,7 @@ if (isset($_POST['tambah'])) {
         $stmt_quota = mysqli_prepare($koneksi, $query_quota);
         mysqli_stmt_execute($stmt_quota);
         $result_detail = mysqli_stmt_get_result($stmt_quota);
-        header("Location: Paket_layout.php?successMessage=Penmabahan data baru telah berhasil.");
+        header("Location: Paket_layout.php?successMessage=Penambahan data baru telah berhasil.");
     } else if ($_POST["paket"] == "unlimited") {
         $query_unlimited = "INSERT INTO unlimited (nama_unlimited, harga_unlimited, id_layout) VALUES ('$namaunlimited', '$hargaunlimited', '$pilihpaketlayout')";
         $stmt_unlimited = mysqli_prepare($koneksi, $query_unlimited);
