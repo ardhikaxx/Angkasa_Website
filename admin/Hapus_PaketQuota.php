@@ -5,5 +5,5 @@ if (!$koneksi) {
 }
 $idquota=$_GET['id'];
 mysqli_query($koneksi, "DELETE FROM quota WHERE id_quota='$idquota'") or die (mysql_error());
-header('Location:Paket_layout.php');
+header("Location:Paket_layout.php?deleteMessage=Data+Quota+Telah+Dihapus!");
 ?>
