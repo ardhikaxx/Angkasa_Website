@@ -1,6 +1,10 @@
 <?php
 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: /Angkasa_Website/login.php");
+    exit;
+}
 if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
 }
