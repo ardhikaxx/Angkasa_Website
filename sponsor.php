@@ -5,6 +5,7 @@ if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
 }
 if (isset($_POST['submit'])) {
+    $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
     $namacustomer = isset($_POST['txt_name']) ? $_POST['txt_name'] : '';
     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
@@ -34,7 +35,7 @@ if (isset($_POST['submit'])) {
             $result_customer = mysqli_query($koneksi, $query_customer);
             if ($result_customer) {
                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
-                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara,proposal) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$proposal')";
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara,proposal,status) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$proposal','$status')";
                 $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
                 if ($result_pemesanan) {
                     $koneksi->commit();
@@ -406,6 +407,7 @@ function upload()
             <div class="container-pemesanan">
                 <h1>Form Pengajuan Sponsor</h1>
                 <div class="input-container">
+                    <input type="hidden" name="txt_status" value="Belum">
                     <label for="name">Nama Lengkap:</label>
                     <input type="text" id="name" name="txt_name" placeholder="Contoh: Jhon Doe" required>
                 </div>

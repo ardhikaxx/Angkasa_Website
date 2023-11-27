@@ -7,6 +7,7 @@ if ($koneksi->connect_error) {
 $id_promo = $_GET['id'];
 
 if (isset($_POST['submit'])) {
+    $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
     $namacustomer = $_POST['txt_nama'] ;
     $nohp = $_POST['txt_phone'] ;
     $alamatacara = $_POST['txt_address'] ;
@@ -15,7 +16,7 @@ if (isset($_POST['submit'])) {
             $result_customer = mysqli_query($koneksi, $query_customer);
             if ($result_customer) {
                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
-                $query_promo = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara,id_promo) VALUES ('','$last_inserted_customer_id','$alamatacara','$id_promo')";
+                $query_promo = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara,id_promo,status) VALUES ('','$last_inserted_customer_id','$alamatacara','$id_promo','$status')";
                 $result_pemesanan = mysqli_query($koneksi, $query_promo);
 
                 if ($result_pemesanan) {
@@ -390,6 +391,7 @@ if (isset($_POST['submit'])) {
             <div class="container-pemesanan">
                 <h1>Pemesanan Khusus Promo</h1>
                 <div class="input-container">
+                    <input type="hidden" name="txt_status" value="Belum">
                     <label for="name">Nama Lengkap:</label>
                     <input type="text" id="name" name="txt_nama" placeholder="Contoh: Jhon Doe" required>
                 </div>

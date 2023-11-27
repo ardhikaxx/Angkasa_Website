@@ -1856,8 +1856,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                                 FROM customer 
                                 JOIN pemesanan ON customer.id_customer=pemesanan.id_customer 
                                 WHERE pemesanan.proposal IS NOT NULL 
-                                AND MONTH(pemesanan.tanggal_acara) = $current_month
-                                AND YEAR(pemesanan.tanggal_acara) = $current_year
                                 LIMIT $start_from, $records_per_page";
 
                     $result = mysqli_query($koneksi, $query);

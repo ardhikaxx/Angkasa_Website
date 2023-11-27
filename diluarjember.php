@@ -5,6 +5,7 @@ if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
 }
 if (isset($_POST['submit'])) {
+    $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
     $namacustomer = isset($_POST['name']) ? $_POST['name'] : '';
     $nohp = isset($_POST['phone']) ? $_POST['phone'] : '';
     $alamatacara = isset($_POST['address']) ? $_POST['address'] : '';
@@ -32,7 +33,7 @@ if (isset($_POST['submit'])) {
             $result_customer = mysqli_query($koneksi, $query_customer);
             if ($result_customer) {
                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
-                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage')";
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,status) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage','$status')";
                 $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
                 if ($result_pemesanan) {
                     $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
@@ -457,6 +458,7 @@ if (isset($_POST['submit'])) {
                 <div id="step-1">
                     <h1>Pemesanan Diluar Daerah Jember</h1>
                     <div class="input-container">
+                        <input type="hidden" name="txt_status" value="Belum">
                         <label for="name">Nama Lengkap:</label>
                         <input type="text" id="name" name="name" placeholder="Contoh: Jhon Doe" required>
                     </div>
