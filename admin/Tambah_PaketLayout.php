@@ -10,10 +10,10 @@ if ($koneksi->connect_error) {
 }
 if (isset($_POST['tambah'])) {
     $pilihpaketlayout = isset($_POST['paket_layout']) ? $_POST['paket_layout'] : '';
-    $namaquota=isset($_POST['txt_nama_quota']) ? $_POST ['txt_nama_quota']:'';
-    $hargaquota=isset($_POST['txt_harga_quota']) ? $_POST ['txt_harga_quota']:'';
-    $namaunlimited=isset($_POST['txt_nama_unlimited']) ? $_POST ['txt_nama_unlimited']:'';
-    $hargaunlimited=isset($_POST['txt_harga_unlimited']) ? $_POST ['txt_harga_unlimited']:'';
+    $namaquota = isset($_POST['txt_nama_quota']) ? $_POST['txt_nama_quota'] : '';
+    $hargaquota = isset($_POST['txt_harga_quota']) ? $_POST['txt_harga_quota'] : '';
+    $namaunlimited = isset($_POST['txt_nama_unlimited']) ? $_POST['txt_nama_unlimited'] : '';
+    $hargaunlimited = isset($_POST['txt_harga_unlimited']) ? $_POST['txt_harga_unlimited'] : '';
 
     if ($_POST['paket'] == "quota") {
         $query_quota = "INSERT INTO quota (nama_quota, harga_quota, id_layout) VALUES ('$namaquota', '$hargaquota', '$pilihpaketlayout')";
@@ -28,7 +28,7 @@ if (isset($_POST['tambah'])) {
         $result_detail = mysqli_stmt_get_result($stmt_unlimited);
         header("Location: Paket_layout.php?successMessage=Penambahan Data Baru Berhasil.");
     }
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -229,6 +229,11 @@ if (isset($_POST['tambah'])) {
         .harga-unlimited {
             display: none;
         }
+
+        #quota:disabled+label {
+            color: #999;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
@@ -243,14 +248,14 @@ if (isset($_POST['tambah'])) {
                     <select name="paket_layout" class="layout-select">
                         <option value="" disabled selected>Pilih Layout</option>
                         <?php
-                            $query = mysqli_query($koneksi, "SELECT * FROM layout");
+                        $query = mysqli_query($koneksi, "SELECT * FROM layout");
 
-                            while ($data = mysqli_fetch_array($query)) {
-                                ?>
-                                <option value="<?= $data['id_layout'] ?>">
-                                    <?= $data['nama_layout'] ?>
-                                </option>
-                            <?php } ?>
+                        while ($data = mysqli_fetch_array($query)) {
+                            ?>
+                            <option value="<?= $data['id_layout'] ?>">
+                                <?= $data['nama_layout'] ?>
+                            </option>
+                        <?php } ?>
                     </select>
                     <div class="select-icon">
                         <i class="fas fa-caret-down"></i>
@@ -296,29 +301,29 @@ if (isset($_POST['tambah'])) {
     </div>
 
     <script>
-        function handleLayoutSelection() {
-            var layoutSelect = document.querySelector('.layout-select');
+        var selectLayout = document.querySelector('.layout-select');
+        var radioQuota = document.getElementById('quota');
+        var radioUnlimited = document.getElementById('unlimited');
 
-            var selectedLayout = layoutSelect.options[layoutSelect.selectedIndex].value;
-
-            var quotaUnlimited = document.querySelector('.quota-unlimited');
-
-            var namaUnlimited = document.querySelector('.nama-unlimited');
-
-            var hargaUnlimited = document.querySelector('.harga-unlimited');
+        selectLayout.addEventListener('change', function () {
+            var selectedLayout = selectLayout.value;
 
             if (selectedLayout === '3') {
-                quotaUnlimited.style.display = 'none';
-                namaUnlimited.style.display = 'block';
-                hargaUnlimited.style.display = 'block';
+                radioQuota.disabled = true;
+                radioUnlimited.disabled = false;
             } else {
-                quotaUnlimited.style.display = 'block';
-                namaUnlimited.style.display = 'none';
-                hargaUnlimited.style.display = 'none';
+                radioQuota.disabled = false;
+                radioUnlimited.disabled = false;
             }
+        });
+
+        function showQuota() {
+            console.log('Quota selected');
         }
 
-        document.querySelector('.layout-select').addEventListener('change', handleLayoutSelection);
+        function showUnlimited() {
+            console.log('Unlimited selected');
+        }
     </script>
 
     <script>
