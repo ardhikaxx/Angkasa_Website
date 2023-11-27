@@ -172,7 +172,7 @@ if (!$koneksi) {
 
                         $query = "UPDATE quota SET nama_quota='$namaquota', harga_quota='$hargaquota' WHERE id_quota='$id'";
                         $result = mysqli_query($koneksi, $query);
-                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Berhasil";</script>';
                     }
                 }
                 ?>

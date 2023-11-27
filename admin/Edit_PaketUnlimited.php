@@ -172,7 +172,7 @@ if (!$koneksi) {
 
                         $query = "UPDATE unlimited SET nama_unlimited='$namaunlimited', harga_unlimited='$hargaunlimited' WHERE id_unlimited='$id'";
                         $result = mysqli_query($koneksi, $query);
-                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                        echo '<script>window.location.href = "Paket_layout.php?successMessage=Pembaruan Data Berhasil";</script>';
                     }
                 }
                 ?>
