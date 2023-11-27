@@ -560,6 +560,38 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
             margin: 0;
             padding: 3px;
         }
+
+        .input-container {
+            width: 300px;
+            display: flex;
+            align-items: center;
+        }
+
+        #nama {
+            width: 100px;
+            margin-right: -10px;
+        }
+
+        #harga {
+            width: 100px;
+        }
+
+        input[type="text"] {
+            background: none;
+            color: #fff;
+            border: none;
+            outline: none;
+            font-size: 20px;
+            display: flex;
+        }
+
+        #nama {
+            width: 250px;
+        }
+
+        #harga {
+            width: 250px;
+        }
     </style>
 </head>
 
@@ -577,8 +609,8 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                 </div>
             </li>
             <li><a href="ourpackage.php" id="Our-Package" class="active-link">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery" >Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami" >Tentang Kami</a></li>
+            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
@@ -708,47 +740,55 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                         <h2>PaperFrame 4R</h2>
                         <div class="options">
                             <div class="option">
-                            <h3>Quota</h3>
-                            <ul>
-                            <?php
-                        $no = 1;
-                        $query = "SELECT nama_quota,harga_quota from quota where id_layout='1'";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
-                            $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
-                            ?>
-                            <li><strong>
-                                <input type="text" value="<?php echo $namaquota; ?>" readonly>
-                                <input type="text" value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>" readonly>
-                        </strong></li>
-                        </tr>
-                        <?php
-                        $no++;
-                        }
-                        ?>
+                                <h3>Quota</h3>
+                                <ul>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT nama_quota,harga_quota from quota where id_layout='1'";
+                                    $result = mysqli_query($koneksi, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                                        $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
+                                        ?>
+                                        <li><strong>
+                                                <div class="input-container">
+                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="harga"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        readonly>
+                                                </div>
+                                            </strong></li>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                             <div class="option">
                                 <h3>Unlimited</h3>
                                 <ul>
-                                <?php
-                        $no = 1;
-                        $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
-                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
-                            ?>
-                            <li><strong>
-                                <input type="text" value="<?php echo $namaunlimited; ?>" readonly>
-                                <input type="text" value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>" readonly>
-                        </strong></li>
-                        </tr>
-                        <?php
-                        $no++;
-                        }
-                        ?>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='1'";
+                                    $result = mysqli_query($koneksi, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                                        $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                                        ?>
+                                        <li><strong>
+                                                <div class="input-container">
+                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="harga"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        readonly>
+                                                </div>
+                                            </strong></li>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                         </div>
@@ -761,45 +801,53 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                             <div class="option">
                                 <h3>Quota</h3>
                                 <ul>
-                                <?php
-                        $no = 1;
-                        $query = "SELECT nama_quota,harga_quota from quota where id_layout='2'";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
-                            $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
-                            ?>
-                            <li><strong>
-                                <input type="text" value="<?php echo $namaquota; ?>" readonly>
-                                <input type="text" value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>" readonly>
-                        </strong></li>
-                        </tr>
-                        <?php
-                        $no++;
-                        }
-                        ?>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT nama_quota,harga_quota from quota where id_layout='2'";
+                                    $result = mysqli_query($koneksi, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $namaquota = isset($row['nama_quota']) ? $row['nama_quota'] : '';
+                                        $hargaquota = isset($row['harga_quota']) ? $row['harga_quota'] : '';
+                                        ?>
+                                        <li><strong>
+                                                <div class="input-container">
+                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="harga"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        readonly>
+                                                </div>
+                                            </strong></li>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                             <div class="option">
                                 <h3>Unlimited</h3>
                                 <ul>
-                                <?php
-                        $no = 1;
-                        $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='2'";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
-                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
-                            ?>
-                            <li><strong>
-                                <input type="text" value="<?php echo $namaunlimited; ?>" readonly>
-                                <input type="text" value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>" readonly>
-                        </strong></li>
-                        </tr>
-                        <?php
-                        $no++;
-                        }
-                        ?>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='2'";
+                                    $result = mysqli_query($koneksi, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                                        $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                                        ?>
+                                        <li><strong>
+                                                <div class="input-container">
+                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="harga"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        readonly>
+                                                </div>
+                                            </strong></li>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                         </div>
@@ -814,23 +862,27 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                             <div class="option">
                                 <h3>Unlimited</h3>
                                 <ul>
-                                <?php
-                        $no = 1;
-                        $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='3'";
-                        $result = mysqli_query($koneksi, $query);
-                        while ($row = mysqli_fetch_array($result)) {
-                            $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
-                            $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
-                            ?>
-                            <li><strong>
-                                <input type="text" value="<?php echo $namaunlimited; ?>" readonly>
-                                <input type="text" value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>" readonly>
-                        </strong></li>
-                        </tr>
-                        <?php
-                        $no++;
-                        }
-                        ?>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT nama_unlimited,harga_unlimited from unlimited where id_layout='3'";
+                                    $result = mysqli_query($koneksi, $query);
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $namaunlimited = isset($row['nama_unlimited']) ? $row['nama_unlimited'] : '';
+                                        $hargaunlimited = isset($row['harga_unlimited']) ? $row['harga_unlimited'] : '';
+                                        ?>
+                                        <li><strong>
+                                                <div class="input-container">
+                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="harga"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        readonly>
+                                                </div>
+                                            </strong></li>
+                                        </tr>
+                                        <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </ul>
                             </div>
                         </div>

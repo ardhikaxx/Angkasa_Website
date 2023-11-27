@@ -494,14 +494,15 @@ if (!$koneksi) {
             font-size: 1rem;
             margin: 30px 0 10px 10px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.4s, color 0.4s;
+            border: 2px solid black;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn:hover {
-            background: #000;
+            background-color: #000;
             color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            border-color: white;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
         }
 
         .gallery-pack {
