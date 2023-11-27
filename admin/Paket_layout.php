@@ -2243,10 +2243,8 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i
-                                        class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i
-                                        class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2288,10 +2286,8 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
-                                        class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
-                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2334,10 +2330,8 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"
-                                        data-type="quota"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i
-                                        class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2379,10 +2373,8 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
-                                        class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
-                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2424,10 +2416,8 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
-                                        class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
-                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
