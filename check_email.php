@@ -16,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $namaLengkap = $row['nama_lengkap'];
         $_SESSION['email'] = $email;
-        echo '<script>window.location.href = "editpass.php?successMessage=Selamat, ' . $namaLengkap . ', Anda berhasil diverifikasi!";</script>';
+        echo '<script>window.location.href = "editpass.php?successMessage=Selamat, ' . $namaLengkap . ', Anda Berhasil diverifikasi!";</script>';
     } else {
-        echo '<script>window.location.href = "lupapass.php?successMessage=Email yang anda masukkan tidak valid";</script>';
+        echo '<script>window.location.href = "lupapass.php?successMessage=Email Yang Anda Masukkan Tidak Valid";</script>';
     }
 } else {
-    echo "Metode permintaan tidak valid.";
+    echo "Metode Permintaan Tidak Valid.";
 }
 ?>

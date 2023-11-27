@@ -336,7 +336,7 @@
 
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
-            <p>Apakah Anda yakin ingin membatalkan pembuatan password baru?</p>
+            <p>Apakah Anda Yakin Ingin Membatalkan Pembuatan Password Baru?</p>
             <button id="confirm-yes" class="btn-yes">Iya</button>
             <button id="confirm-no" class="btn-no">Tidak</button>
         </div>

@@ -2101,7 +2101,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
-            <p>Apakah Anda yakin ingin mengedit data ini?</p>
+            <p>Apakah Anda Yakin Ingin Mengedit Data Ini?</p>
             <button id="confirmEditYes">Ya</button>
             <button id="confirmEditNo">Tidak</button>
             <input type="hidden" id="userIdToEdit">
@@ -2110,8 +2110,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
     <div class="modal-delete">
         <div class="modal-content-delete">
-            <h2>Konfirmasi Hapus</h2>
-            <p>Apakah Anda yakin ingin menghapus data ini?</p>
+            <p>Apakah Anda Yakin Ingin Menghapus Data Ini?</p>
             <button id="confirmDeleteYes">Ya</button>
             <button id="confirmDeleteNo">Tidak</button>
         </div>

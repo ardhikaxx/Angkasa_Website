@@ -35,7 +35,7 @@ if (isset($_POST['register'])) {
         $query = "INSERT INTO user (id_user,nama_lengkap,email,no_hp,jenis_kelamin,password,jabatan) VALUES ('', '$fullname', '$email', '$nohp', '$jeniskelamin', '$pass','$jabatan')";
         $result = mysqli_query($koneksi, $query);
         if ($result) {
-            header("Location: dashboard-admin.php?successMessage=Registrasi akun baru telah berhasil.");
+            header("Location: dashboard-admin.php?successMessage=Registrasi Akun Berhasil");
         } else {
             $error = ("Registrasi gagal. Silahkan coba lagi nanti.");
         }
@@ -2039,7 +2039,7 @@ if (isset($_POST['register'])) {
             var pass = document.getElementsByName('txt_pass')[0].value;
 
             if (fullname === '' || email === '' || nohp === '' || jeniskelamin === '' || pass === '') {
-                showNotification("Silahkan input semua informasi yang diperlukan");
+                showNotification("Silahkan Input Semua Informasi Yang Diperlukan! ");
                 return false;
             }
             return true;
@@ -2097,10 +2097,10 @@ if (isset($_POST['register'])) {
             const password = this.value;
             if (password.length < 6) {
                 const missingChars = 6 - password.length;
-                passwordLengthError.textContent = `*Panjang password terdiri dari 6-8 karakter. Kurang ${missingChars} karakter.`;
+                passwordLengthError.textContent = `*Panjang Password Terdiri Dari 6-8 Karakter. Kurang ${missingChars} Karakter.`;
                 passwordLengthError.style.display = 'block';
             } else if (password.length > 8) {
-                passwordLengthError.textContent = `*Password terlalu panjang. Maksimal 8 karakter.`;
+                passwordLengthError.textContent = `*Password Terlalu Panjang. Maksimal 8 Karakter.`;
                 passwordLengthError.style.display = 'block';
                 this.value = password.slice(0, 8);
             } else {

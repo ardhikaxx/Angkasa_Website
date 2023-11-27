@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
                 header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
             } else {
-                $error = '("Karyawan tidak memiliki akses masuk")';
+                $error = '("Karyawan Tidak Memiliki Akses Masuk")';
             }
         } else {
             $_SESSION['login_attempts']++;
@@ -41,13 +41,13 @@ if (isset($_POST['submit'])) {
                 exit();
             }
 
-            $error = '("email atau password salah.");';
+            $error = '("Email atau Password Salah.");';
         }
 
         mysqli_stmt_close($stmt);
         mysqli_close($koneksi);
     } else {
-        $error = '("Silahkan input email dan password.");';
+        $error = '("Silahkan Input Email dan Password.");';
     }
 }
 ?>

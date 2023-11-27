@@ -39,11 +39,11 @@ if (isset($_POST['submit'])) {
                 $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
                 if ($result_pemesanan) {
                     $koneksi->commit();
-                    header("Location: Dashboard.php?successMessage=Pemesanan telah berhasil.");
+                    header("Location: Dashboard.php?successMessage=Pemesanan Berhasil.");
                     exit();
                 } else {
                     $conn->rollback();
-                    $error = "Pemesanan gagal. Silahkan coba lagi nanti.";
+                    $error = "Pemesanan Gagal. Silahkan Coba Lagi Nanti.";
                 }
             }
         }

@@ -203,7 +203,7 @@ if (!$koneksi) {
 
                     $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";
                     $result = mysqli_query($koneksi, $query);
-                    echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Telah Selesai";</script>';
+                    echo '<script>window.location.href = "settings.php?successMessage=Pembaruan Data Berhasil";</script>';
                 }
             }
 
