@@ -153,7 +153,7 @@ if (!$koneksi) {
                 <h1>Edit Page Unlimited</h1>
                 <?php
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $idunlimited = $_GET['id'];
+                $idunlimited = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_unlimited='$idunlimited'");
                 $data = mysqli_fetch_array($query);
 

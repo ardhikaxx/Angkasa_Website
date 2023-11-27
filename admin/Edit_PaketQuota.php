@@ -153,7 +153,7 @@ if (!$koneksi) {
                 <h1>Edit Page Quota</h1>
                 <?php
                 $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
-                $idquota = $_GET['id'];
+                $idquota = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM quota where id_quota='$idquota'");
                 $data = mysqli_fetch_array($query);
 
