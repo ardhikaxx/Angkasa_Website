@@ -5,5 +5,5 @@ if (!$koneksi) {
 }
 $id=$_GET['id'];
 mysqli_query($koneksi, "DELETE FROM user  WHERE id_user='$id'") or die (mysql_error());
-header('Location:settings.php');
+header("Location:settings.php?deleteMessage=Data+User+Telah+Dihapus!");
 ?>

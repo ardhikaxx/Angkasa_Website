@@ -1733,6 +1733,20 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             opacity: 0.9;
         }
 
+        input {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            margin: 10px;
+        }
+
         input[type="text"] {
             width: 250px;
             padding: 10px;
@@ -1841,21 +1855,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
-            <select name="monthFilter">
-                <option value="">Semua</option>
-                <option value="01">Januari</option>
-                <option value="02">Februari</option>
-                <option value="03">Maret</option>
-                <option value="04">April</option>
-                <option value="05">Mei</option>
-                <option value="06">Juni</option>
-                <option value="07">Juli</option>
-                <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="11">November</option>
-                <option value="12">Desember</option>
-            </select>
+            <input type="date" name="tgl_mulai">
+            <input type="date" name="tgl_selesai">
+            <button type="submit" name="filter_tgl">Filter</button>
         </form>
         <table>
             <thead>

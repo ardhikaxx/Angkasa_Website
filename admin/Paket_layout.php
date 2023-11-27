@@ -2135,6 +2135,30 @@ if (!$koneksi) {
         .notification-noChange.show {
             opacity: 1;
         }
+
+        #notification-delete {
+            position: fixed;
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            width: 300px;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #notification-delete.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -2221,7 +2245,7 @@ if (!$koneksi) {
                             <td>
                                 <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>" data-type="quota"><i
                                         class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>"><i
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i
                                         class="fa fa-trash"></i></a>
                             </td>
                         </tr>
@@ -2264,8 +2288,10 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
+                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2308,9 +2334,10 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>"><i
-                                        class="fa fa-edit" data-type="quota"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idquota; ?>"><i class="fa fa-edit"
+                                        data-type="quota"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idquota; ?>" data-type="quota"><i
+                                        class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2352,8 +2379,10 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
-                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
+                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2395,8 +2424,10 @@ if (!$koneksi) {
                                 <?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i class="fa fa-edit"></i></a>
-                                <a href="" class="btn-delete" data-id="<?php echo $idunlimited; ?>"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn-edit" data-id="<?php echo $idunlimited; ?>" data-type="unlimited"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="#" class="btn-delete" data-id="<?php echo $idunlimited; ?>"
+                                    data-type="unlimited"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php
@@ -2410,6 +2441,10 @@ if (!$koneksi) {
 
     <div id="notification" class="notification"></div>
     <div id="notification-noChange" class="notification-noChange"></div>
+
+    <div id="notification-delete" style="display: none;">
+        <p id="deleteMessage"></p>
+    </div>
 
     <div id="myModal" class="modal-edit">
         <div class="edit-content">
@@ -2503,15 +2538,20 @@ if (!$koneksi) {
             button.addEventListener("click", function (event) {
                 event.preventDefault();
                 const userId = this.getAttribute("data-id");
-                showModalDelete(userId);
+                const type = this.getAttribute("data-type");
+                showModalDelete(userId, type);
             });
         });
 
-        function showModalDelete(userId) {
+        function showModalDelete(userId, type) {
             modalDelete.style.display = "block";
 
             confirmDeleteYes.addEventListener("click", function () {
-                window.location.href = "Hapus_PaketLayout.php?id=" + userId;
+                if (type === "quota") {
+                    window.location.href = "Hapus_PaketQuota.php?id=" + userId;
+                } else if (type === "unlimited") {
+                    window.location.href = "Hapus_PaketUnlimited.php?id=" + userId;
+                }
             });
 
             confirmDeleteNo.addEventListener("click", function () {
@@ -2555,6 +2595,32 @@ if (!$koneksi) {
                 }, 500);
             }, 5000);
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deleteMessage = urlParams.get('deleteMessage');
+
+            if (deleteMessage) {
+                const notification = document.getElementById('notification-delete');
+                const deleteMessageElement = document.getElementById('deleteMessage');
+                deleteMessageElement.innerText = deleteMessage;
+
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 

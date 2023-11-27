@@ -1946,6 +1946,30 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             background-color: #000;
             color: #fff;
         }
+
+        #notification-delete {
+            position: fixed;
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            width: 300px;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #notification-delete.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -1988,6 +2012,10 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <button id="confirmLogout" class="btn-confirm">Iya</button>
             <button id="cancelLogout" class="btn-cancel">Tidak</button>
         </div>
+    </div>
+
+    <div id="notification-delete" style="display: none;">
+        <p id="deleteMessage"></p>
     </div>
 
     <div class="content-settings">
@@ -2205,6 +2233,32 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 }, 500);
             }, 5000);
         }
+    </script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const deleteMessage = urlParams.get('deleteMessage');
+
+            if (deleteMessage) {
+                const notification = document.getElementById('notification-delete');
+                const deleteMessageElement = document.getElementById('deleteMessage');
+                deleteMessageElement.innerText = deleteMessage;
+
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 

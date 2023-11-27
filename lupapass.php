@@ -87,12 +87,41 @@
         }
 
         .captcha-box #captcha {
+            background-image: url('assets/bgcaptcha.jpg');
+            box-shadow: none;
+            color: #606060;
             font-size: 24px;
-            font-weight: 800;
-            padding-left: 30px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            letter-spacing: 10px;
+            font-style: italic;
+            font-weight: 550;
+            padding-left: 80px;
+            padding-top: 10px;
+            padding-bottom: 7px;
+            letter-spacing: 7px;
+            user-select: none;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -ms-user-drag: none;
+            user-drag: none;
+        }
+
+        #captcha-text {
+            font-style: italic;
+            transform: rotate(-10deg);
+            top: 0;
+            left: 0;
+        }
+
+        #captcha-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         .refresh-button {
@@ -245,6 +274,30 @@
         #notification-success.show {
             opacity: 1;
         }
+
+        #notification-failed {
+            position: fixed;
+            text-align: center;
+            font-family: "Poppins", sans-serif;
+            font-size: 18px;
+            width: 400px;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            background-color: #f44336;
+            color: #fff;
+            padding: 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        #notification-failed.show {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -275,6 +328,10 @@
 
     <div id="notification-success" style="display: none;">
         <p id="successMessage"></p>
+    </div>
+
+    <div id="notification-failed" style="display: none;">
+        <p id="failedMessage"></p>
     </div>
 
     <div id="confirmation-modal" class="modal">
@@ -393,6 +450,68 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const failedMessage = urlParams.get('failedMessage');
+
+            if (failedMessage) {
+                const notification = document.getElementById('notification-failed');
+                const failedMessageElement = document.getElementById('failedMessage');
+                failedMessageElement.innerText = failedMessage;
+
+                notification.style.display = 'block';
+
+                setTimeout(function () {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(function () {
+                    notification.classList.remove('show');
+                    setTimeout(function () {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
+
+<script>
+    var inputElement = document.getElementById('captcha');
+    var isBlocked = false;
+
+    // Mencegah kombinasi tombol pintasan (Ctrl+C, Ctrl+X, Ctrl+V)
+    inputElement.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 88 || e.keyCode === 86)) {
+            e.preventDefault();
+        }
+    });
+
+    // Menangani event paste untuk mencegah paste menggunakan Ctrl+V
+    inputElement.addEventListener('paste', function (e) {
+        e.preventDefault();
+    });
+
+    // Menangani event mousedown untuk mencegah penggunaan cursor
+    inputElement.addEventListener('mousedown', function (e) {
+        if (!isBlocked) {
+            e.preventDefault();
+            isBlocked = true;
+
+            // Re-enable the input after a short delay (e.g., 300 milliseconds)
+            setTimeout(function () {
+                isBlocked = false;
+            }, 300);
+        }
+    });
+
+    // Mencegah konteks menu muncul saat mengklik kanan
+    inputElement.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+</script>
 </body>
 
 </html>

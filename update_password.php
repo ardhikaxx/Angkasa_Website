@@ -24,13 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->execute()) {
                 echo '<script>window.location.href = "Login.php?successMessage=Password+baru+telah+berhasil+disimpan!";</script>';
             } else {
-                echo "Gagal mengupdate password.";
+                echo '<script>window.location.href = "lupapass.php?failedMessage=Gagal+mengupdate+password!";</script>';
             }
         } else {
-            echo "Password baru dan konfirmasi password tidak cocok.";
+            echo '<script>window.location.href = "lupapass.php?failedMessage=Password+baru+dan+konfirmasi+password+tidak+cocok!";</script>';
         }
     } else {
-        echo "Data POST tidak lengkap.";
+        echo '<script>alert("Data POST tidak lengkap.");</script>';
     }
 }
 

@@ -286,7 +286,7 @@ if (!$koneksi) {
             font-size: 20px;
             font-family: "Poppins", sans-serif;
             margin-top: -35px;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
         }
 
         .continue-button {
@@ -299,7 +299,7 @@ if (!$koneksi) {
             font-size: 15px;
             padding: 15px;
             margin-top: 50px;
-            border-radius: 50px;
+            border-radius: 10px;
             cursor: pointer;
             width: 300px;
             text-decoration: none;
