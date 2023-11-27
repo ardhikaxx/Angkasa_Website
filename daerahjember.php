@@ -657,7 +657,7 @@ function upload()
                         <select name="quota[2]" id="quota-2R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Quota</option>
                             <?php
-                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
@@ -673,7 +673,7 @@ function upload()
                         <select name="unlimited[2]" id="unlimited-2R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Unlimited</option>
                             <?php
-                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
@@ -689,7 +689,7 @@ function upload()
                         <select name="quota[1]" id="quota-4R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Quota</option>
                             <?php
-                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='2'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM quota where id_layout='1'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
@@ -705,7 +705,7 @@ function upload()
                         <select name="unlimited[1]" id="unlimited-4R" onchange="updateTotal()">
                             <option value="" disabled selected>Pilih Unlimited</option>
                             <?php
-                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='2'");
+                            $query = mysqli_query($koneksi, "SELECT * FROM unlimited where id_layout='1'");
 
                             while ($data = mysqli_fetch_array($query)) {
                                 ?>
