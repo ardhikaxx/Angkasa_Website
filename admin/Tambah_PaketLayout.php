@@ -15,18 +15,29 @@ if (isset($_POST['tambah'])) {
     $namaunlimited = isset($_POST['txt_nama_unlimited']) ? $_POST['txt_nama_unlimited'] : '';
     $hargaunlimited = isset($_POST['txt_harga_unlimited']) ? $_POST['txt_harga_unlimited'] : '';
 
-    if ($_POST['paket'] == "quota") {
-        $query_quota = "INSERT INTO quota (nama_quota, harga_quota, id_layout) VALUES ('$namaquota', '$hargaquota', '$pilihpaketlayout')";
-        $stmt_quota = mysqli_prepare($koneksi, $query_quota);
-        mysqli_stmt_execute($stmt_quota);
-        $result_detail = mysqli_stmt_get_result($stmt_quota);
-        header("Location: Paket_layout.php?successMessage=Penambahan Data Baru Berhasil.");
-    } else if ($_POST["paket"] == "unlimited") {
-        $query_unlimited = "INSERT INTO unlimited (nama_unlimited, harga_unlimited, id_layout) VALUES ('$namaunlimited', '$hargaunlimited', '$pilihpaketlayout')";
-        $stmt_unlimited = mysqli_prepare($koneksi, $query_unlimited);
-        mysqli_stmt_execute($stmt_unlimited);
-        $result_detail = mysqli_stmt_get_result($stmt_unlimited);
-        header("Location: Paket_layout.php?successMessage=Penambahan Data Baru Berhasil.");
+    if (empty($pilihpaketlayout)) {
+        $error = "Harap memilih layout terlebih dahulu.";
+    } elseif (empty($_POST['paket'])) {
+        $error = "Harap memilih paket (quota atau unlimited) terlebih dahulu.";
+    } elseif (
+        ($_POST['paket'] == "quota" && (empty($namaquota) || empty($hargaquota))) ||
+        ($_POST['paket'] == "unlimited" && (empty($namaunlimited) || empty($hargaunlimited)))
+    ) {
+        $error = "Harap mengisi nama dan harga " . ($_POST['paket'] == "quota" ? "quota" : "unlimited");
+    } else {
+        if ($_POST['paket'] == "quota") {
+            $query_quota = "INSERT INTO quota (nama_quota, harga_quota, id_layout) VALUES ('$namaquota', '$hargaquota', '$pilihpaketlayout')";
+            $stmt_quota = mysqli_prepare($koneksi, $query_quota);
+            mysqli_stmt_execute($stmt_quota);
+            $result_detail = mysqli_stmt_get_result($stmt_quota);
+            header("Location: Paket_layout.php?successMessage=Penambahan Data Baru Berhasil.");
+        } elseif ($_POST["paket"] == "unlimited") {
+            $query_unlimited = "INSERT INTO unlimited (nama_unlimited, harga_unlimited, id_layout) VALUES ('$namaunlimited', '$hargaunlimited', '$pilihpaketlayout')";
+            $stmt_unlimited = mysqli_prepare($koneksi, $query_unlimited);
+            mysqli_stmt_execute($stmt_unlimited);
+            $result_detail = mysqli_stmt_get_result($stmt_unlimited);
+            header("Location: Paket_layout.php?successMessage=Penambahan Data Baru Berhasil.");
+        }
     }
 }
 ?>
@@ -54,7 +65,7 @@ if (isset($_POST['tambah'])) {
         .tambah-paket {
             text-align: center;
             width: 300px;
-            height: 470px;
+            height: auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 20px;
@@ -234,6 +245,48 @@ if (isset($_POST['tambah'])) {
             color: #999;
             cursor: not-allowed;
         }
+
+        .notification {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.2);
+            background: #000;
+            color: #fff;
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+            padding: 15px 20px;
+            border-radius: 50px;
+            opacity: 0;
+            z-index: 999;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            animation: notificationFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes notificationFadeOut {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -299,6 +352,75 @@ if (isset($_POST['tambah'])) {
             </a>
         </form>
     </div>
+
+    <div id="notification" class="notification">
+        <span id="notification-content"></span>
+    </div>
+
+    <script>
+        function validateForm() {
+            var namaQuota = document.getElementsByName('txt_nama_quota')[0].value;
+            var hargaQuota = document.getElementsByName('txt_harga_quota')[0].value;
+            var namaUnlimited = document.getElementsByName('txt_nama_unlimited')[0].value;
+            var hargaUnlimited = document.getElementsByName('txt_harga_unlimited')[0].value;
+
+            if ((namaQuota === '' || hargaQuota === '') && (namaUnlimited === '' || hargaUnlimited === '')) {
+                showNotification("Harap mengisi nama dan harga quota atau nama dan harga unlimited");
+                return false;
+            }
+
+            if (namaQuota === '' && document.getElementById('quota').checked) {
+                showNotification("Harap mengisi nama quota");
+                return false;
+            }
+
+            if (hargaQuota === '' && document.getElementById('quota').checked) {
+                showNotification("Harap mengisi harga quota");
+                return false;
+            }
+
+            if (namaUnlimited === '' && document.getElementById('unlimited').checked) {
+                showNotification("Harap mengisi nama unlimited");
+                return false;
+            }
+
+            if (hargaUnlimited === '' && document.getElementById('unlimited').checked) {
+                showNotification("Harap mengisi harga unlimited");
+                return false;
+            }
+
+            return true;
+        }
+
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            var notificationContent = document.getElementById('notification-content');
+
+            notificationContent.innerHTML = message;
+            notification.style.display = 'block';
+
+            setTimeout(function () {
+                closeNotification();
+            }, 3000);
+        }
+
+        function closeNotification() {
+            var notification = document.getElementById('notification');
+
+            notification.style.animation = 'notificationFadeOut 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+
+            setTimeout(function () {
+                notification.style.display = 'none';
+                notification.style.animation = '';
+            }, 500);
+        }
+
+        <?php
+        if (!empty($error)) {
+            echo 'showNotification("' . $error . '");';
+        }
+        ?>
+    </script>
 
     <script>
         var selectLayout = document.querySelector('.layout-select');

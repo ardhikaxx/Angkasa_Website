@@ -1698,8 +1698,16 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         .tabel-laporan th {
-            background-color: #000;
+            background-color: #1A2226;
             color: #fff;
+        }
+
+        .tabel-laporan #no {
+            border-top-left-radius: 15px;
+        }
+
+        .tabel-laporan #harga {
+            border-top-right-radius: 15px;
         }
 
         .btn-info {
@@ -1731,7 +1739,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         button {
-            background-color: #000;
+            background-color: #1A2226;
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -1763,12 +1771,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         }
 
         #page-links a:hover {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
         }
 
         #page-links a.active {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
         }
     </style>
@@ -1826,12 +1834,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th id="no">No</th>
                     <th>Nama Cust</th>
                     <th>No Hp</th>
                     <th>Alamat</th>
                     <th>Nama Promo</th>
-                    <th>Harga Promo</th>
+                    <th id="harga">Harga Promo</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">

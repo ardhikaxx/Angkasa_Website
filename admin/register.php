@@ -1708,7 +1708,7 @@ if (isset($_POST['register'])) {
             display: none;
             position: fixed;
             top: 10%;
-            left: 53%;
+            left: 52%;
             transform: translate(50%, -50%) scale(0.2);
             background-color: #000;
             color: #fff;

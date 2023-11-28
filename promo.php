@@ -144,7 +144,7 @@ if (isset($_POST['submit'])) {
             box-shadow: none;
         }
 
-        button {
+        button, a {
             background-color: #131313;
             color: #fff;
             border: none;
@@ -174,6 +174,11 @@ if (isset($_POST['submit'])) {
         .submit-button {
             background-color: #4CAF50;
             margin-top: 10px;
+        }
+
+        .batal-button {
+            background: #000;
+            margin-top: 50px;
         }
 
         .checkbox-group {
@@ -411,6 +416,7 @@ if (isset($_POST['submit'])) {
                 <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
                 </div>
                 <button class="submit-button" id="submit" type="submit" name="submit">Pesan</button>
+                <a href="Dashboard.php" class="batal-button" id="batal">Batal</a>
             </div>
         </div>
         </div>

@@ -464,7 +464,8 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="input-container">
                         <label for="phone">Nomer Telepon:</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Contoh: 081222333444" required>
+                        <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
+                            oninput="validateNumberInput(event)" required>
                     </div>
                     <div class="input-container">
                         <label for="address">Alamat Acara:</label>
@@ -608,6 +609,14 @@ if (isset($_POST['submit'])) {
 
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        function validateNumberInput(event) {
+            var inputValue = event.target.value;
+            var numericValue = inputValue.replace(/\D/g, '');
+            event.target.value = numericValue;
+        }
     </script>
 
     <script>

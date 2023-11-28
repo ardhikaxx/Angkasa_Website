@@ -1642,7 +1642,7 @@ if (!$koneksi) {
         }
 
         .tabel-quota {
-            background: #000;
+            background: #1A2226;
             width: 450px;
             padding: 20px;
             border-radius: 15px;
@@ -1736,7 +1736,7 @@ if (!$koneksi) {
         }
 
         .tabel-unlimited {
-            background: #000;
+            background: #1A2226;
             width: 450px;
             padding: 20px;
             border-radius: 15px;
@@ -1805,7 +1805,7 @@ if (!$koneksi) {
         }
 
         .tabel-unlimited-360 {
-            background: #000;
+            background: #1A2226;
             width: 450px;
             padding: 20px;
             border-radius: 15px;
@@ -1874,7 +1874,8 @@ if (!$koneksi) {
         }
 
         .btn-tambah {
-            background: linear-gradient(to right, #E7B76F, #9D6E1C);
+            background: #1A2226;
+            /* background: linear-gradient(to right, #E7B76F, #9D6E1C); */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px 25px;
             border-radius: 15px;

@@ -1628,6 +1628,14 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             color: #fff;
         }
 
+        .content-settings #no {
+            border-top-left-radius: 15px;
+        }
+
+        .content-settings #action {
+            border-top-right-radius: 15px;
+        }
+
         .btn-edit {
             background-color: #007bff;
             color: #fff;
@@ -2030,12 +2038,12 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th id="no">No</th>
                     <th>Nama Lengkap</th>
                     <th>Email</th>
                     <th>No Hp</th>
                     <th>Jabatan</th>
-                    <th>Actions</th>
+                    <th id="action">Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">

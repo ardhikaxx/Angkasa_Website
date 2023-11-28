@@ -1789,8 +1789,16 @@ function semua ($koneksi,$start_from, $records_per_page)
         }
 
         .tabel-laporan th {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
+        }
+
+        .tabel-laporan #no {
+            border-top-left-radius: 15px;
+        }
+
+        .tabel-laporan #action {
+            border-top-right-radius: 15px;
         }
 
         .btn-info {
@@ -1805,6 +1813,20 @@ function semua ($koneksi,$start_from, $records_per_page)
         .btn-selesai,
         .btn-belum:hover {
             opacity: 0.9;
+        }
+
+        input {
+            width: 250px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #EBECF0;
+            text-shadow: 1px 1px 0 #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            margin: 10px;
         }
 
         input[type="text"] {
@@ -1822,7 +1844,7 @@ function semua ($koneksi,$start_from, $records_per_page)
         }
 
         button {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -1854,12 +1876,12 @@ function semua ($koneksi,$start_from, $records_per_page)
         }
 
         #page-links a:hover {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
         }
 
         #page-links a.active {
-            background-color: #000;
+            background: #1A2226;
             color: #fff;
         }
     </style>
@@ -1922,13 +1944,13 @@ function semua ($koneksi,$start_from, $records_per_page)
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th id="no">No</th>
                     <th>Nama Cust</th>
                     <th>No Hp</th>
                     <th>Alamat</th>
                     <th>Tanggal</th>
                     <th>Proposal</th>
-                    <th>Actions</th>
+                    <th id="action"></th>Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">
