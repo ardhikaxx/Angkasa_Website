@@ -24,8 +24,6 @@ while($row = mysqli_fetch_array($result)) {
     style   ="box-shadow: 2px 2px 8px #000000;"></object>
 
     <?php
-    
-    print_r($row);
 }
 
 mysqli_close($koneksi);

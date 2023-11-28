@@ -1660,7 +1660,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .tabel-laporan {
-            width: 1100px;
+            width: 1000px;
             height: auto;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
@@ -1670,7 +1670,7 @@ function cari_nama($koneksi, $nama_cari)
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
             margin-top: 20px;
-            margin-left: 120px;
+            margin-left: 170px;
         }
 
         .tabel-laporan h1 {
@@ -1695,9 +1695,10 @@ function cari_nama($koneksi, $nama_cari)
 
         .tabel-laporan th,
         .tabel-laporan td {
+            font-size: 15px;
+            width: 140px;
             padding: 17px;
-            width: 250px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1.5px solid #ccc;
         }
 

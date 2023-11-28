@@ -1826,9 +1826,10 @@ function semua($koneksi)
 
         .tabel-laporan th,
         .tabel-laporan td {
+            font-size: 15px;
             padding: 17px;
             width: 150px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1.5px solid #ccc;
         }
 

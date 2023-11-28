@@ -1764,6 +1764,7 @@ function semua($koneksi)
             border-radius: 15px;
             margin-top: 20px;
             margin-left: 120px;
+            
         }
 
         .tabel-laporan h1 {
@@ -1788,9 +1789,10 @@ function semua($koneksi)
 
         .tabel-laporan th,
         .tabel-laporan td {
+            font-size: 15px;
             padding: 17px;
             width: 250px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1.5px solid #ccc;
         }
 
