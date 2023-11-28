@@ -1931,7 +1931,11 @@ function semua($koneksi)
                     <th>Alamat</th>
                     <th>Tanggal</th>
                     <th>Proposal</th>
+<<<<<<< HEAD
                     <th id="action">Actions</th>
+=======
+                    <th>Actions</th>
+>>>>>>> 8f01d3ddc5f1fb1b21508bbfb58bc1670339c37a
                 </tr>
             </thead>
             <tbody class="tabel-akun">
