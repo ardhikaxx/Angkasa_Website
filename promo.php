@@ -291,7 +291,7 @@ if (isset($_POST['submit'])) {
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: 5px;
+            top: -3%;
             left: 50%;
             transform: translate(-50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -435,7 +435,7 @@ if (isset($_POST['submit'])) {
 
                 <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
                 </div>
-                <button class="submit-button" id="submit" type="submit" name="submit">Pesan</button>
+                <button class="submit-button" id="submit" type="submit" name="submit" disabled>Pesan</button>
                 <div class="btn-batal" >
                     <a href="Dashboard.php" class="batal-button" id="batal">Batal</a>
                 </div>
@@ -462,17 +462,20 @@ if (isset($_POST['submit'])) {
         }
     </script>
 
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', function () {
             const addressInput = document.getElementById('address');
             const addressWarning = document.getElementById('address-warning');
+            const submitButton = document.getElementById("submit");
 
             addressInput.addEventListener('blur', function () {
                 const addressValue = addressInput.value.toLowerCase();
                 if (!addressValue.includes('jember')) {
                     addressWarning.style.display = 'inline-block';
+                    submitButton.disabled = true;
                 } else {
                     addressWarning.style.display = 'none';
+                    submitButton.disabled = false;
                 }
             });
         });

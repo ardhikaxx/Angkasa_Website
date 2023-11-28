@@ -5,7 +5,7 @@ if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
 }
 if (isset($_POST['submit'])) {
-    $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
+    $status = isset($_POST['txt_status']) ? $_POST['txt_status'] : '';
     $namacustomer = isset($_POST['txt_name']) ? $_POST['txt_name'] : '';
     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
@@ -306,6 +306,12 @@ function upload()
             transition: background-color 0.3s;
         }
 
+        button:disabled {
+            background-color: #ccc;
+            color: #888;
+            cursor: not-allowed;
+        }
+
         .submit-button {
             background-color: #4CAF50;
             margin-top: 10px;
@@ -437,7 +443,7 @@ function upload()
                     <input type="file" id="proposal" name="proposal" accept=".pdf" required>
                     <div class="file-info" id="fileInfo"></div>
                 </div>
-                <button class="submit-button" type="submit" id="submit" name="submit">Pesan</button>
+                <button class="submit-button" type="submit" id="submit" name="submit" disabled>Pesan</button>
             </div>
         </div>
     </form>
@@ -446,6 +452,24 @@ function upload()
 
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputs = document.querySelectorAll('input');
+
+            const submitButton = document.getElementById('submit');
+
+            inputs.forEach(function (input) {
+                input.addEventListener('input', function () {
+                    const allInputsFilled = [...inputs].every(function (input) {
+                        return input.value.trim() !== '';
+                    });
+
+                    submitButton.disabled = !allInputsFilled;
+                });
+            });
+        });
     </script>
 
     <script>

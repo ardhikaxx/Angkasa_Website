@@ -442,7 +442,7 @@ function upload()
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: 5px;
+            top: -5%;
             left: 50%;
             transform: translate(-50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -604,8 +604,7 @@ function upload()
                             placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
                     </div>
 
-                    <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
-                    </div>
+                    <div class="toast" id="address-warning">Ubahlah alamat dengan menambahkan kata "Jember" agar lokasinya lebih jelas.</div>
                     <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="txt_date" required>

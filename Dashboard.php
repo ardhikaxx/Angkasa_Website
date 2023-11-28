@@ -934,7 +934,7 @@ if (!$koneksi) {
             width: 450px;
             margin-top: 20px;
             margin-bottom: 25px;
-            background: #EBECF0;
+            background: #fff;
             border-radius: 15px;
             padding: 10px;
         }
@@ -967,6 +967,8 @@ if (!$koneksi) {
             text-align: center;
             font-size: 23px;
             font-weight: 800;
+            border: none;
+            outline: none;
         }
 
         #nama-promo-panjang {
@@ -1153,7 +1155,7 @@ if (!$koneksi) {
                     $data = mysqli_fetch_object($stmt);
                     ?>
                 </div>
-                <div id="container">
+                <div id="container-promo">
                     <input id="paket-promo" value="<?php echo $data->nama_promo; ?>" readonly>
                     <div id="nama-promo-panjang"></div>
                 </div>

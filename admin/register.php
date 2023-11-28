@@ -1599,7 +1599,7 @@ if (isset($_POST['register'])) {
         .register-box {
             text-align: center;
             width: 350px;
-            height: 460px;
+            height: auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
             padding: 15px;
@@ -1635,9 +1635,9 @@ if (isset($_POST['register'])) {
 
         .segment h1 {
             font-size: 35px;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             font-weight: 800;
-            margin-top: -30px;
+            margin-top: -25px;
         }
 
 
@@ -1654,7 +1654,7 @@ if (isset($_POST['register'])) {
 
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             width: 100%;
         }
 
@@ -1681,13 +1681,16 @@ if (isset($_POST['register'])) {
         }
 
         .btn-register {
-            margin-top: -8px;
+            margin-top: -5px;
             color: #61677C;
             font-weight: bold;
             box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
             transition: all 0.2s ease-in-out;
             cursor: pointer;
             font-weight: 600;
+            width: 100%;
+            color: #000000;
+            margin-bottom: -10px;
         }
 
         .btn-register:hover {
@@ -1696,12 +1699,6 @@ if (isset($_POST['register'])) {
 
         .btn-register:active {
             box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
-        }
-
-        .btn-register {
-            display: block;
-            width: 100%;
-            color: #000000;
         }
 
         .notification {

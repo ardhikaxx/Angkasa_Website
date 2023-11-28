@@ -8,14 +8,14 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
+function cari_nama($koneksi, $nama_cari)
 {
     $query = "SELECT pemesanan.id_pemesanan, customer.nama_cust, customer.no_hp, pemesanan.alamat_acara, pemesanan.tanggal_acara, pemesanan.id_promo, promo.nama_promo, promo.harga_promo
     FROM customer JOIN pemesanan ON customer.id_customer = pemesanan.id_customer JOIN promo ON pemesanan.id_promo = promo.id_promo
-    WHERE pemesanan.id_promo IS NOT NULL and nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    WHERE pemesanan.id_promo IS NOT NULL and nama_cust LIKE '%$nama_cari%'";
     $result = mysqli_query($koneksi, $query);
 
-    $no = $start_from + 1;
+    $no = 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
@@ -1661,6 +1661,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .tabel-laporan {
             width: 1100px;
+            height: auto;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1683,6 +1684,13 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            display: block;
+        }
+        
+        .tabel-akun {
+            max-height: 340px;
+            overflow-y: auto;
+            display: block;
         }
 
         .tabel-laporan th,
@@ -1710,20 +1718,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             border-top-right-radius: 15px;
         }
 
-        .btn-info {
-            background-color: #FFB800;
-            color: #fff;
-            border-radius: 10px;
-            padding: 8px 15px;
-            margin-right: 10px;
-            text-decoration: none;
-        }
-
-        .btn-selesai,
-        .btn-belum:hover {
-            opacity: 0.9;
-        }
-
         input[type="text"] {
             width: 250px;
             padding: 10px;
@@ -1732,7 +1726,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            border-radius: 15px;
+            border-radius: 10px;
             border: none;
             outline: none;
             margin: 10px;
@@ -1743,7 +1737,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             color: #fff;
             border: none;
             padding: 10px 15px;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
             margin: 10px;
         }
@@ -1754,30 +1748,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 
         .search-icon {
             margin-right: 5px;
-        }
-
-        #page-links {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #page-links a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            margin: 0 5px;
-        }
-
-        #page-links a:hover {
-            background: #1A2226;
-            color: #fff;
-        }
-
-        #page-links a.active {
-            background: #1A2226;
-            color: #fff;
         }
     </style>
 </head>
@@ -1844,23 +1814,19 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             </thead>
             <tbody class="tabel-akun">
                 <?php
-                $records_per_page = 5;
-                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                $start_from = ($current_page - 1) * $records_per_page;
                 if (isset($_GET['search'])) {
                     $searchquery = $_GET['search'];
-                    cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
+                    cari_nama($koneksi, $searchquery);
                 } else {
                     $query = "SELECT pemesanan.id_pemesanan, customer.nama_cust, customer.no_hp, pemesanan.alamat_acara, pemesanan.tanggal_acara, pemesanan.id_promo, promo.nama_promo, promo.harga_promo
                     FROM customer
                     JOIN pemesanan ON customer.id_customer = pemesanan.id_customer
                     JOIN promo ON pemesanan.id_promo = promo.id_promo
-                    WHERE pemesanan.id_promo IS NOT NULL
-                    LIMIT $start_from, $records_per_page";
+                    WHERE pemesanan.id_promo IS NOT NULL";
 
 
                     $result = mysqli_query($koneksi, $query);
-                    $no = $start_from + 1;
+                    $no = 1;
                     while ($row = mysqli_fetch_array($result)) {
                         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
                         $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
@@ -1896,15 +1862,6 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 ?>
             </tbody>
         </table>
-        <div id="page-links">
-            <?php
-            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_pemesanan FROM pemesanan"));
-            $total_pages = ceil($total_records / $records_per_page);
-            for ($i = 1; $i <= $total_pages; $i++) {
-                echo '<a href="?page=' . $i . '">' . $i . '</a> ';
-            }
-            ?>
-        </div>
     </div>
 
     <script src='https://unpkg.com/feather-icons'></script>

@@ -8,13 +8,13 @@ if (!isset($_SESSION['user'])) {
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
+function cari_nama($koneksi, $nama_cari)
 {
     $query = " SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE nama_cust LIKE '%$nama_cari%' and pemesanan.proposal is not null LIMIT $start_from, $records_per_page";
+    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE nama_cust LIKE '%$nama_cari%' and pemesanan.proposal is not null";
     $result = mysqli_query($koneksi, $query);
 
-    $no = $start_from + 1;
+    $no = 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
@@ -44,20 +44,21 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $proposal; ?>
             </td>
             <td>
-            <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
+                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i>
+                    Info</a>
             </td>
         </tr>
         <?php
         $no++;
     }
 }
-function tanggal ($koneksi, $mulai,$selesai, $start_from, $records_per_page)
+function tanggal($koneksi, $mulai, $selesai)
 {
     $query = " SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE pemesanan.tanggal_acara BETWEEN '$mulai' and '$selesai' and pemesanan.proposal is not null LIMIT $start_from, $records_per_page";
+    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE pemesanan.tanggal_acara BETWEEN '$mulai' and '$selesai' and pemesanan.proposal is not null ";
     $result = mysqli_query($koneksi, $query);
 
-    $no = $start_from + 1;
+    $no = 1;
 
     while ($row = mysqli_fetch_array($result)) {
         $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
@@ -87,56 +88,57 @@ function tanggal ($koneksi, $mulai,$selesai, $start_from, $records_per_page)
                 <?php echo $proposal; ?>
             </td>
             <td>
-            <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
+                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i>
+                    Info</a>
             </td>
         </tr>
         <?php
         $no++;
     }
 }
-function semua ($koneksi,$start_from, $records_per_page)
+function semua($koneksi)
 {
     $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
                                 FROM customer 
                                 JOIN pemesanan ON customer.id_customer=pemesanan.id_customer 
-                                WHERE pemesanan.proposal IS NOT NULL 
-                                LIMIT $start_from, $records_per_page";
+                                WHERE pemesanan.proposal IS NOT NULL";
 
-                    $result = mysqli_query($koneksi, $query);
-                    $no = $start_from + 1;
-                    while ($row = mysqli_fetch_array($result)) {
-                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
-                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
-                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-                        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $no; ?>
-                            </td>
-                            <td>
-                                <?php echo $namalengkapcustomer; ?>
-                            </td>
-                            <td>
-                                <?php echo $teleponcustomer; ?>
-                            </td>
-                            <td>
-                                <?php echo $alamatacara;?>
-                            </td>
-                            <td>
-                                <?php echo $tanggalacara; ?>
-                            </td>
-                            <td>
-                                <?php echo $proposal; ?>
-                            </td>
-                            <td>
-                                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
-                            </td>
-                        </tr>
-                        <?php
-                        $no++;
+    $result = mysqli_query($koneksi, $query);
+    $no = 1;
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
+        ?>
+        <tr>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $namalengkapcustomer; ?>
+            </td>
+            <td>
+                <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                <?php echo $alamatacara; ?>
+            </td>
+            <td>
+                <?php echo $tanggalacara; ?>
+            </td>
+            <td>
+                <?php echo $proposal; ?>
+            </td>
+            <td>
+                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i>
+                    Info</a>
+            </td>
+        </tr>
+        <?php
+        $no++;
     }
 }
 ?>
@@ -1752,6 +1754,7 @@ function semua ($koneksi,$start_from, $records_per_page)
 
         .tabel-laporan {
             width: 1100px;
+            height: auto;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
             backdrop-filter: blur(5px);
@@ -1774,6 +1777,13 @@ function semua ($koneksi,$start_from, $records_per_page)
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            display: block;
+        }
+
+        .tabel-akun {
+            max-height: 340px;
+            overflow-y: auto;
+            display: block;
         }
 
         .tabel-laporan th,
@@ -1810,11 +1820,6 @@ function semua ($koneksi,$start_from, $records_per_page)
             text-decoration: none;
         }
 
-        .btn-selesai,
-        .btn-belum:hover {
-            opacity: 0.9;
-        }
-
         input {
             width: 250px;
             padding: 10px;
@@ -1823,7 +1828,7 @@ function semua ($koneksi,$start_from, $records_per_page)
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            border-radius: 15px;
+            border-radius: 10px;
             border: none;
             outline: none;
             margin: 10px;
@@ -1837,7 +1842,7 @@ function semua ($koneksi,$start_from, $records_per_page)
             background-color: #EBECF0;
             text-shadow: 1px 1px 0 #FFF;
             box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
-            border-radius: 15px;
+            border-radius: 10px;
             border: none;
             outline: none;
             margin: 10px;
@@ -1848,7 +1853,7 @@ function semua ($koneksi,$start_from, $records_per_page)
             color: #fff;
             border: none;
             padding: 10px 15px;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
             margin: 10px;
         }
@@ -1859,30 +1864,6 @@ function semua ($koneksi,$start_from, $records_per_page)
 
         .search-icon {
             margin-right: 5px;
-        }
-
-        #page-links {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #page-links a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            margin: 0 5px;
-        }
-
-        #page-links a:hover {
-            background: #1A2226;
-            color: #fff;
-        }
-
-        #page-links a.active {
-            background: #1A2226;
-            color: #fff;
         }
     </style>
 </head>
@@ -1939,7 +1920,7 @@ function semua ($koneksi,$start_from, $records_per_page)
             </button>
             <input type="date" name="tgl_mulai">
             <input type="date" name="tgl_selesai">
-            <button type="submit" name="filter_tgl">Filter</button>
+            <button type="submit" name="filter_tgl"><i class="fa fa-filter"></i> Filter</button>
         </form>
         <table>
             <thead>
@@ -1950,42 +1931,29 @@ function semua ($koneksi,$start_from, $records_per_page)
                     <th>Alamat</th>
                     <th>Tanggal</th>
                     <th>Proposal</th>
-                    <th id="action"></th>Actions</th>
+                    <th id="action">Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">
                 <?php
-                $records_per_page = 5;
-                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                $start_from = ($current_page - 1) * $records_per_page;
-                if(isset($_GET['filter_tgl'])){
-                    $mulai=$_GET['tgl_mulai'];
-                    $selesai=$_GET['tgl_selesai'];
-                    if ($mulai!=null || $selesai!=null){
-                        tanggal($koneksi, $mulai,$selesai, $start_from, $records_per_page);
-                    }else{
-                        semua($koneksi,$start_from, $records_per_page);
+                if (isset($_GET['filter_tgl'])) {
+                    $mulai = $_GET['tgl_mulai'];
+                    $selesai = $_GET['tgl_selesai'];
+                    if ($mulai != null || $selesai != null) {
+                        tanggal($koneksi, $mulai, $selesai);
+                    } else {
+                        semua($koneksi);
                     }
-                    
-                }
-                else if (isset($_GET['search'])) {
+
+                } else if (isset($_GET['search'])) {
                     $searchquery = $_GET['search'];
-                    cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
+                    cari_nama($koneksi, $searchquery);
                 } else {
-                    semua($koneksi,$start_from, $records_per_page);
+                    semua($koneksi);
                 }
                 ?>
             </tbody>
         </table>
-        <div id="page-links">
-            <?php
-            $total_records = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_pemesanan FROM pemesanan"));
-            $total_pages = ceil($total_records / $records_per_page);
-            for ($i = 1; $i <= $total_pages; $i++) {
-                echo '<a href="?page=' . $i . '">' . $i . '</a> ';
-            }
-            ?>
-        </div>
     </div>
 
     <script src='https://unpkg.com/feather-icons'></script>
