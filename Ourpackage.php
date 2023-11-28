@@ -778,9 +778,9 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                                         ?>
                                         <li><strong>
                                                 <div class="input-container">
-                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="nama" value="<?php echo $namaunlimited; ?>" readonly>
                                                     <input type="text" id="harga"
-                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>"
                                                         readonly>
                                                 </div>
                                             </strong></li>
@@ -837,9 +837,9 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                                         ?>
                                         <li><strong>
                                                 <div class="input-container">
-                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="nama" value="<?php echo $namaunlimited; ?>" readonly>
                                                     <input type="text" id="harga"
-                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>"
                                                         readonly>
                                                 </div>
                                             </strong></li>
@@ -872,9 +872,9 @@ $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
                                         ?>
                                         <li><strong>
                                                 <div class="input-container">
-                                                    <input type="text" id="nama" value="<?php echo $namaquota; ?>" readonly>
+                                                    <input type="text" id="nama" value="<?php echo $namaunlimited; ?>" readonly>
                                                     <input type="text" id="harga"
-                                                        value="<?php echo 'Rp. ' . number_format($hargaquota, 0, ',', '.'); ?>"
+                                                        value="<?php echo 'Rp. ' . number_format($hargaunlimited, 0, ',', '.'); ?>"
                                                         readonly>
                                                 </div>
                                             </strong></li>
