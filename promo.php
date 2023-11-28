@@ -144,7 +144,7 @@ if (isset($_POST['submit'])) {
             box-shadow: none;
         }
 
-        button, a {
+        button {
             background-color: #131313;
             color: #fff;
             border: none;
@@ -152,6 +152,7 @@ if (isset($_POST['submit'])) {
             padding: 12px 20px;
             cursor: pointer;
             width: 100%;
+            font-size: 16px;
             font-weight: 800;
             box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
             transition: background-color 0.3s;
@@ -174,11 +175,30 @@ if (isset($_POST['submit'])) {
         .submit-button {
             background-color: #4CAF50;
             margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-batal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-batal a {
+            background: #000;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
         }
 
         .batal-button {
-            background: #000;
-            margin-top: 50px;
+            width: 450px;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
         }
 
         .checkbox-group {
@@ -416,7 +436,9 @@ if (isset($_POST['submit'])) {
                 <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
                 </div>
                 <button class="submit-button" id="submit" type="submit" name="submit">Pesan</button>
-                <a href="Dashboard.php" class="batal-button" id="batal">Batal</a>
+                <div class="btn-batal" >
+                    <a href="Dashboard.php" class="batal-button" id="batal">Batal</a>
+                </div>
             </div>
         </div>
         </div>
