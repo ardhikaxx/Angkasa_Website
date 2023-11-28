@@ -1950,7 +1950,7 @@ function semua ($koneksi,$start_from, $records_per_page)
                     <th>Alamat</th>
                     <th>Tanggal</th>
                     <th>Proposal</th>
-                    <th id="action"></th>Actions</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="tabel-akun">
