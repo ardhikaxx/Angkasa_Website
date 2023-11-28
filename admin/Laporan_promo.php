@@ -12,7 +12,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
     $query = "SELECT pemesanan.id_pemesanan, customer.nama_cust, customer.no_hp, pemesanan.alamat_acara, pemesanan.tanggal_acara, pemesanan.id_promo, promo.nama_promo, promo.harga_promo
     FROM customer JOIN pemesanan ON customer.id_customer = pemesanan.id_customer JOIN promo ON pemesanan.id_promo = promo.id_promo
-    WHERE pemesanan.id_promo IS NOT NULL WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    WHERE pemesanan.id_promo IS NOT NULL and nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
     $no = $start_from + 1;
@@ -42,7 +42,7 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 <?php echo $namapromo;?>
             </td>
             <td>
-                <?php echo $hargapromo;?>
+                <?php echo "Rp. " . number_format($hargapromo, 0, ',', '.'); ?>
             </td>
         </tr>
         <?php

@@ -11,7 +11,7 @@ if (!$koneksi) {
 function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
 {
     $query = " SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE nama_cust LIKE '%$nama_cari%' LIMIT $start_from, $records_per_page";
+    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE nama_cust LIKE '%$nama_cari%' and pemesanan.proposal is not null LIMIT $start_from, $records_per_page";
     $result = mysqli_query($koneksi, $query);
 
     $no = $start_from + 1;
@@ -49,6 +49,94 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
         </tr>
         <?php
         $no++;
+    }
+}
+function tanggal ($koneksi, $mulai,$selesai, $start_from, $records_per_page)
+{
+    $query = " SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
+    FROM customer JOIN pemesanan ON customer.id_customer=pemesanan.id_customer WHERE pemesanan.tanggal_acara BETWEEN '$mulai' and '$selesai' and pemesanan.proposal is not null LIMIT $start_from, $records_per_page";
+    $result = mysqli_query($koneksi, $query);
+
+    $no = $start_from + 1;
+
+    while ($row = mysqli_fetch_array($result)) {
+        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
+        ?>
+        <tr>
+            <td>
+                <?php echo $no; ?>
+            </td>
+            <td>
+                <?php echo $namalengkapcustomer; ?>
+            </td>
+            <td>
+                <?php echo $teleponcustomer; ?>
+            </td>
+            <td>
+                <?php echo $alamatacara; ?>
+            </td>
+            <td>
+                <?php echo $tanggalacara; ?>
+            </td>
+            <td>
+                <?php echo $proposal; ?>
+            </td>
+            <td>
+            <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
+            </td>
+        </tr>
+        <?php
+        $no++;
+    }
+}
+function semua ($koneksi,$start_from, $records_per_page)
+{
+    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
+                                FROM customer 
+                                JOIN pemesanan ON customer.id_customer=pemesanan.id_customer 
+                                WHERE pemesanan.proposal IS NOT NULL 
+                                LIMIT $start_from, $records_per_page";
+
+                    $result = mysqli_query($koneksi, $query);
+                    $no = $start_from + 1;
+                    while ($row = mysqli_fetch_array($result)) {
+                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
+                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
+                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
+                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
+                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
+                        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $no; ?>
+                            </td>
+                            <td>
+                                <?php echo $namalengkapcustomer; ?>
+                            </td>
+                            <td>
+                                <?php echo $teleponcustomer; ?>
+                            </td>
+                            <td>
+                                <?php echo $alamatacara;?>
+                            </td>
+                            <td>
+                                <?php echo $tanggalacara; ?>
+                            </td>
+                            <td>
+                                <?php echo $proposal; ?>
+                            </td>
+                            <td>
+                                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
+                            </td>
+                        </tr>
+                        <?php
+                        $no++;
     }
 }
 ?>
@@ -1827,6 +1915,9 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
             <button class="search" type="submit">
                 <i class="fas fa-search search-icon"></i> Cari
             </button>
+            <input type="date" name="tgl_mulai">
+            <input type="date" name="tgl_selesai">
+            <button type="submit" name="filter_tgl">Filter</button>
         </form>
         <table>
             <thead>
@@ -1845,55 +1936,21 @@ function cari_nama($koneksi, $nama_cari, $start_from, $records_per_page)
                 $records_per_page = 5;
                 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
                 $start_from = ($current_page - 1) * $records_per_page;
-                if (isset($_GET['search'])) {
+                if(isset($_GET['filter_tgl'])){
+                    $mulai=$_GET['tgl_mulai'];
+                    $selesai=$_GET['tgl_selesai'];
+                    if ($mulai!=null || $selesai!=null){
+                        tanggal($koneksi, $mulai,$selesai, $start_from, $records_per_page);
+                    }else{
+                        semua($koneksi,$start_from, $records_per_page);
+                    }
+                    
+                }
+                else if (isset($_GET['search'])) {
                     $searchquery = $_GET['search'];
                     cari_nama($koneksi, $searchquery, $start_from, $records_per_page);
                 } else {
-                    $current_month = date('m');
-                    $current_year = date('Y');
-
-                    $query = "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal
-                                FROM customer 
-                                JOIN pemesanan ON customer.id_customer=pemesanan.id_customer 
-                                WHERE pemesanan.proposal IS NOT NULL 
-                                LIMIT $start_from, $records_per_page";
-
-                    $result = mysqli_query($koneksi, $query);
-                    $no = $start_from + 1;
-                    while ($row = mysqli_fetch_array($result)) {
-                        $id = isset($row['id_pemesanan']) ? $row['id_pemesanan'] : '';
-                        $namalengkapcustomer = isset($row['nama_cust']) ? $row['nama_cust'] : '';
-                        $teleponcustomer = isset($row['no_hp']) ? $row['no_hp'] : '';
-                        $alamatacara = isset($row['alamat_acara']) ? $row['alamat_acara'] : '';
-                        $tanggalacara = isset($row['tanggal_acara']) ? $row['tanggal_acara'] : '';
-                        $proposal = isset($row['proposal']) ? $row['proposal'] : '';
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $no; ?>
-                            </td>
-                            <td>
-                                <?php echo $namalengkapcustomer; ?>
-                            </td>
-                            <td>
-                                <?php echo $teleponcustomer; ?>
-                            </td>
-                            <td>
-                                <?php echo $alamatacara;?>
-                            </td>
-                            <td>
-                                <?php echo $tanggalacara; ?>
-                            </td>
-                            <td>
-                                <?php echo $proposal; ?>
-                            </td>
-                            <td>
-                                <a href="proposal.php?id_pemesanan=<?php echo $id; ?>" class="btn-info"><i class="fa fa-info-circle"></i> Info</a>
-                            </td>
-                        </tr>
-                        <?php
-                        $no++;
-                    }
+                    semua($koneksi,$start_from, $records_per_page);
                 }
                 ?>
             </tbody>
