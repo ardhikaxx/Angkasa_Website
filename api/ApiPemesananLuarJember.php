@@ -3,7 +3,7 @@
 include 'koneksi.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    $data = mysqli_query($koneksi, "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,
+    $data = mysqli_query($koneksi, "SELECT pemesanan.id_pemesanan,customer.nama_cust,pemesanan.status,customer.no_hp,
     pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.nama_package,layout.id_layout,bukti_bayar,layout.nama_layout,
     COALESCE(quota.id_quota, '') AS id_quota,COALESCE(quota.nama_quota, '') AS nama_quota,COALESCE(unlimited.id_unlimited, '') AS id_unlimited,COALESCE(unlimited.nama_unlimited, '') AS nama_unlimited,pemesanan.proposal 
     FROM pemesanan JOIN customer ON pemesanan.id_customer = customer.id_customer JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
