@@ -1,9 +1,9 @@
 <?php
 class koneksi {
     private $host = "localhost";
-    private $user = "root";
-    private $pass = "";
-    private $db = "angkasa";
+    private $user = "tifbmyho_angkasa";
+    private $pass = "@JTIpolije2023";
+    private $db = "tifbmyho_angkasa";
     protected $koneksi;
 
     public function __construct() {

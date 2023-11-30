@@ -1,5 +1,5 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+$koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 
 if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);

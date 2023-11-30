@@ -1,5 +1,5 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+$koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: /Angkasa_Website/login.php");
@@ -152,7 +152,7 @@ if (!$koneksi) {
             <div class="segment">
                 <h1>Edit Page Quota</h1>
                 <?php
-                $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+                $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
                 $idquota = isset($_GET['id']) ? $_GET['id'] : null;
                 $query = mysqli_query($koneksi, "SELECT * FROM quota where id_quota='$idquota'");
                 $data = mysqli_fetch_array($query);
