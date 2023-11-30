@@ -1615,7 +1615,7 @@ if (isset($_GET['successMessage'])) {
             width: 120px;
             height: 120px;
             margin-top: 20px;
-            background-color: #00C0EF;
+            background-color: #5cd045;
             color: #fff;
             border-radius: 15px;
             text-align: center;
@@ -1628,7 +1628,7 @@ if (isset($_GET['successMessage'])) {
             width: 120px;
             height: 120px;
             margin-top: 20px;
-            background-color: #00A65A;
+            background: rgb(255, 57, 57, 1);
             color: #fff;
             border-radius: 15px;
             text-align: center;
@@ -1641,7 +1641,7 @@ if (isset($_GET['successMessage'])) {
             width: 120px;
             height: 120px;
             margin-top: 20px;
-            background-color: #DD4B39;
+            background-color: #2499ff;
             color: #fff;
             border-radius: 15px;
             text-align: center;
@@ -2036,16 +2036,16 @@ if (isset($_GET['successMessage'])) {
                         label: "Jumlah Pesanan",
                         data: packageData.data,
                         backgroundColor: [
-                            'rgba(0, 192, 239, 1)',
-                            'rgba(221, 75, 57, 1)',
-                            'rgba(0, 166, 90, 1)',
-                            'rgba(243, 156, 18, 1)'
+                            'rgba(36, 153, 255, 1)',
+                            'rgb(255, 57, 57, 1)',
+                            'rgba(92, 208, 69, 1)',
+                            'rgba(255, 219, 12, 1)'
                         ],
                         borderColor: [
-                            'rgba(0, 192, 239, 1)',
-                            'rgba(221, 75, 57, 1)',
-                            'rgba(0, 166, 90, 1)',
-                            'rgba(243, 156, 18, 1)'
+                            'rgba(36, 153, 255, 1)',
+                            'rgb(255, 57, 57, 1)',
+                            'rgba(92, 208, 69, 1)',
+                            'rgba(255, 219, 12, 1)'
                         ],
                         borderWidth: 0,
                         borderRadius: 4,
