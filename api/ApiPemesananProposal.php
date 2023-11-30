@@ -4,7 +4,7 @@ include 'koneksi.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $data = mysqli_query($koneksi, "SELECT pemesanan.id_pemesanan,customer.nama_cust,customer.no_hp,
-    pemesanan.alamat_acara,pemesanan.tanggal_acara,pemesanan.proposal 
+    pemesanan.alamat_acara,pemesanan.status,pemesanan.tanggal_acara,pemesanan.proposal 
     FROM pemesanan LEFT JOIN customer ON pemesanan.id_customer = customer.id_customer LEFT JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan 
     LEFT JOIN layout ON detail_pemesanan.id_layout = layout.id_layout 
     LEFT JOIN quota ON detail_pemesanan.id_quota = quota.id_quota 
