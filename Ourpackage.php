@@ -596,21 +596,21 @@ $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "ti
 </head>
 
 <body>
-    <div class="navbar">
-        <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
+<div class="navbar">
+        <a class="navbar-logo" href="Dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php" id="Home">Home</a></li>
+            <li><a href="Dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
                 <a href="javascript:void(0)" id="Pemesanan" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
-                    <a href="daerahjember.php">Daerah Jember</a>
-                    <a href="diluarjember.php">Diluar Jember</a>
-                    <a href="sponsor.php">Sponsor</a>
+                    <a href="./daerahjember.php">Daerah Jember</a>
+                    <a href="./diluarjember.php">Diluar Jember</a>
+                    <a href="./sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php" id="Our-Package" class="active-link">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
+            <li><a href="Ourpackage.php" id="Our-Package" class="active-link">Our Package</a></li>
+            <li><a href="Gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="Tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>

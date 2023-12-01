@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(":email", $email);
 
             if ($stmt->execute()) {
-                echo '<script>window.location.href = "Login.php?successMessage=Password+Baru+Berhasil+Disimpan!";</script>';
+                echo '<script>window.location.href = "./Login.php?successMessage=Password+Baru+Berhasil+Disimpan!";</script>';
             } else {
-                echo '<script>window.location.href = "lupapass.php?failedMessage=Gagal+Mengupdate+Password!";</script>';
+                echo '<script>window.location.href = "./lupapass.php?failedMessage=Gagal+Mengupdate+Password!";</script>';
             }
         } else {
-            echo '<script>window.location.href = "lupapass.php?failedMessage=Password+Baru+dan+Konfirmasi+Password+Tidak+Cocok!";</script>';
+            echo '<script>window.location.href = "./lupapass.php?failedMessage=Password+Baru+dan+Konfirmasi+Password+Tidak+Cocok!";</script>';
         }
     } else {
         echo '<script>alert("Data POST tidak lengkap.");</script>';

@@ -2,7 +2,7 @@
 $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
+    header("Location: ../Login.php");
     exit;
 }
 if (!$koneksi) {
@@ -28,3 +28,16 @@ while($row = mysqli_fetch_array($result)) {
 
 mysqli_close($koneksi);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../assets/Logo Web.png">
+    <title>Angkasa | Proposal Page</title>
+</head>
+<body>
+    
+</body>
+</html>

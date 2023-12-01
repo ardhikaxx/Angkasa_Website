@@ -2,7 +2,7 @@
 $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
+    header("Location: ../Login.php");
     exit;
 }
 if (!$koneksi) {
@@ -16,7 +16,7 @@ if (!$koneksi) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
+    <link rel="icon" type="image/png" href="../assets/Logo Web.png">
     <title>Angkasa | Edit Page</title>
     <style>
         body {
@@ -184,7 +184,7 @@ if (!$koneksi) {
             <div class="segment">
                 <h1>Edit Page</h1>
                 <?php
-                $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+                $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 
                 if (isset($_POST['simpan'])) {
                     $userMail = $_POST['txt_email'];
@@ -198,7 +198,7 @@ if (!$koneksi) {
                     $result = mysqli_query($koneksi, $query);
                     $existingData = mysqli_fetch_array($result);
                     if ($existingData['nama_lengkap'] == $userName && $existingData['email'] == $userMail && $existingData['no_hp'] == $userNohp  && $existingData['jabatan']==$userjabatan) {
-                        echo '<script>window.location.href = "settings.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
+                        echo '<script>window.location.href = "./settings.php?NoChageMessage=Tidak Ada Pembaruan Data";</script>';
                     } else {
 
                     $query = "UPDATE user SET nama_lengkap='$userName', email='$userMail', no_hp='$userNohp',jabatan='$userjabatan' WHERE id_user='$id'";

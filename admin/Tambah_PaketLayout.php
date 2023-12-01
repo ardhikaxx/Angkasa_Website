@@ -2,7 +2,7 @@
 $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
+    header("Location: ../Login.php");
     exit;
 }
 if ($koneksi->connect_error) {
@@ -48,7 +48,7 @@ if (isset($_POST['tambah'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
+    <link rel="icon" type="image/png" href="../assets/Logo Web.png">
     <title>Angkasa | Tambah Page</title>
     <style>
         body {

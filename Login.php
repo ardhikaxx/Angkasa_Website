@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $password = $_POST['txt_pass'];
 
     if (!empty(trim($email)) && !empty(trim($password))) {
-        $koneksi = mysqli_connect("localhost", "root", "", "angkasa");
+        $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 
         $query = "SELECT * FROM user WHERE email = ? AND password = ?";
         $stmt = mysqli_prepare($koneksi, $query);
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['user'] = $userRow['nama_lengkap'];
                 $_SESSION['login_attempts'] = 0; 
                 $redirectMessage = 'Login berhasil! Selamat datang, ' . urlencode($userRow['nama_lengkap']) . '!';
-                header("Location: ./admin/dashboard-admin.php?successMessage=" . $redirectMessage);
+                header("Location: ./admin/Dashboard-admin.php?successMessage=" . $redirectMessage);
             } else {
                 $error = '("Karyawan Tidak Memiliki Akses Masuk")';
             }
@@ -406,7 +406,7 @@ if (isset($_POST['submit'])) {
     <div class="right-side">
         <h1 data-aos="fade-down" data-aos-easing="ease" data-aos-duration="700">Hallo, Admin!</h1>
         <p data-aos="fade-down" data-aos-easing="ease" data-aos-duration="500">Selamat datang kembali ke pusat kendali Angkasa Photobooth</p>
-        <a href="dashboard.php" class="dashboard-button" data-aos="fade-down" data-aos-easing="ease"
+        <a href="Dashboard.php" class="dashboard-button" data-aos="fade-down" data-aos-easing="ease"
             data-aos-duration="300">Dashboard</a>
     </div>
 

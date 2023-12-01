@@ -437,7 +437,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <button class="submit-button" id="submit" type="submit" name="submit" disabled>Pesan</button>
                 <div class="btn-batal" >
-                    <a href="Dashboard.php" class="batal-button" id="batal">Batal</a>
+                    <a href="./Dashboard.php" class="batal-button" id="batal">Batal</a>
                 </div>
             </div>
         </div>

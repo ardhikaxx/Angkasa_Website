@@ -2,7 +2,7 @@
 $koneksi = mysqli_connect("localhost", "tifbmyho_angkasa", "@JTIpolije2023", "tifbmyho_angkasa");
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: /Angkasa_Website/login.php");
+    header("Location: ../Login.php");
     exit;
 }
 if (!$koneksi) {
@@ -20,7 +20,7 @@ if (!$koneksi) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="/Angkasa_Website/assets/Logo Web.png">
+    <link rel="icon" type="image/png" href="../assets/Logo Web.png">
     <style>
         body {
             padding: 0;
@@ -2164,11 +2164,11 @@ if (!$koneksi) {
 </head>
 
 <body>
-    <nav nav class="navbar">
+    <nav class="navbar">
         <img src="assets/Logo Angkasa Photobooth.png" alt="Logo">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Dashboard</span></a>
+                <a href="Dashboard-admin.php" class="navbar__link"><i data-feather="home"></i><span>Dashboard</span></a>
             </li>
             <li class="navbar__item">
                 <a href="register.php" class="navbar__link"><i data-feather="users"></i><span>Register</span></a>
@@ -2183,12 +2183,10 @@ if (!$koneksi) {
                 <a href="Laporan_promo.php" class="navbar__link"><i data-feather="percent"></i><span>Promo</span></a>
             </li>
             <li class="navbar__item">
-                <a href="settings.php" class="navbar__link" id="settings"><i
-                        data-feather="settings"></i><span>Pengaturan</span></a>
+                <a href="settings.php" class="navbar__link" id="settings"><i data-feather="settings"></i><span>Pengaturan</span></a>
             </li>
             <li class="navbar__item">
-                <a href="Paket_layout.php" class="navbar__link" id="settings"><i
-                        data-feather="plus-circle"></i><span>Paket Layout</span></a>
+                <a href="Paket_layout.php" class="navbar__link" id="settings"><i data-feather="plus-circle"></i><span>Paket Layout</span></a>
             </li>
             <li class="navbar__item">
                 <a href="#" class="navbar__link" id="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
@@ -2477,7 +2475,7 @@ if (!$koneksi) {
         });
 
         confirmLogoutBtn.addEventListener('click', function () {
-            window.location.href = '/Angkasa_Website/logout.php';
+            window.location.href = '../logout.php';
         });
     </script>
 

@@ -1056,20 +1056,20 @@ if (!$koneksi) {
 
 <body>
     <div class="navbar">
-        <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
+        <a class="navbar-logo" href="Dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php" id="Home" class="active-link">Home</a></li>
+            <li><a href="Dashboard.php" id="Home" class="active-link">Home</a></li>
             <li class="dropdown">
                 <a href="javascript:void(0)" id="Pemesanan" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
-                    <a href="daerahjember.php">Daerah Jember</a>
-                    <a href="diluarjember.php">Diluar Jember</a>
-                    <a href="sponsor.php">Sponsor</a>
+                    <a href="./daerahjember.php">Daerah Jember</a>
+                    <a href="./diluarjember.php">Diluar Jember</a>
+                    <a href="./sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
+            <li><a href="Ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="Gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="Tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
@@ -1148,9 +1148,8 @@ if (!$koneksi) {
                 <div class="header-promo">
                     <h1>Promo Bulan Ini</h1>
                     <?php
-                    $id_promo = date('m');
-                    $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = '$id_promo'";
-
+                    $currentMonth = date('m');
+                    $query = "SELECT nama_promo, harga_promo FROM promo WHERE id_promo = '$currentMonth'";
                     $stmt = mysqli_query($koneksi, $query);
                     $data = mysqli_fetch_object($stmt);
                     ?>
@@ -1326,21 +1325,19 @@ if (!$koneksi) {
     </script>
 
     <script>
-        // Fungsi untuk memeriksa panjang nama dan menangani tampilan
         function cekPanjangNama() {
             var inputElement = document.getElementById('paket-promo');
             var namaPromo = inputElement.value;
             var containerElement = document.getElementById('container');
             var namaPanjangElement = document.getElementById('nama-promo-panjang');
 
-            // Tentukan panjang maksimum yang diizinkan (misalnya, 10 karakter)
             var panjangMaksimum = 10;
 
             if (namaPromo.length > panjangMaksimum) {
-                inputElement.style.display = 'none'; // Sembunyikan input
-                namaPanjangElement.innerHTML = namaPromo; // Tampilkan nama panjang
+                inputElement.style.display = 'none';
+                namaPanjangElement.innerHTML = namaPromo;
             } else {
-                inputElement.style.display = 'block'; // Tampilkan input jika tidak panjang
+                inputElement.style.display = 'block';
                 namaPanjangElement.innerHTML = '';
             }
         }

@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
 
 
         if (mysqli_num_rows($check_date_result) > 0) {
-            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            header("Location: ./daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
             exit();
         } else {
             $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 
                     if ($result_detail_pemesanan) {
                         $koneksi->commit();
-                        header("Location: Dashboard.php?successMessage=Pemesanan Berhasil.");
+                        header("Location: ./Dashboard.php?successMessage=Pemesanan Berhasil.");
                         exit();
                     } else {
                         $conn->rollback();
@@ -434,20 +434,20 @@ if (isset($_POST['submit'])) {
 
 <body>
     <div class="navbar">
-        <a class="navbar-logo" href="dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
+        <a class="navbar-logo" href="Dashboard.php"><img src="assets/Logo Angkasa Photobooth.png" alt="Logo"></a>
         <ul class="navbar-menu">
-            <li><a href="dashboard.php" id="Home">Home</a></li>
+            <li><a href="Dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" id="Pemesanan" class="dropbtn active-link">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="active-link" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
-                    <a href="daerahjember.php">Daerah Jember</a>
-                    <a href="diluarjember.php">Diluar Jember</a>
-                    <a href="sponsor.php">Sponsor</a>
+                    <a href="./daerahjember.php">Daerah Jember</a>
+                    <a href="./diluarjember.php">Diluar Jember</a>
+                    <a href="./sponsor.php">Sponsor</a>
                 </div>
             </li>
-            <li><a href="ourpackage.php" id="Our-Package">Our Package</a></li>
-            <li><a href="gallery.php" id="Gallery">Gallery</a></li>
-            <li><a href="tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
+            <li><a href="Ourpackage.php" id="Our-Package">Our Package</a></li>
+            <li><a href="Gallery.php" id="Gallery">Gallery</a></li>
+            <li><a href="Tentang.php" id="Tentang-Kami">Tentang Kami</a></li>
         </ul>
         <a class="admin-link" href="Login.php">Anda Admin?</a>
     </div>
