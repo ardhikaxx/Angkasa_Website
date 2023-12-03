@@ -7,7 +7,7 @@ if ($koneksi->connect_error) {
 if (isset($_POST['submit'])) {
     $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
     $namacustomer = isset($_POST['name']) ? $_POST['name'] : '';
-    $nohp = isset($_POST['phone']) ? $_POST['phone'] : '';
+    $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
     $alamatacara = isset($_POST['address']) ? $_POST['address'] : '';
     $tanggalacara = isset($_POST['date']) ? $_POST['date'] : '';
     $pilihanpackage = isset($_POST['txt_package']) ? $_POST['txt_package'] : '';
