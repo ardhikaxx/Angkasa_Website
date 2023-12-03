@@ -1164,7 +1164,7 @@ if (!$koneksi) {
                 </div>
             </div>
             <div class="btn-promo">
-                <a href="promo.php?id=<?php echo $id_promo; ?>">Pesan Sekarang</a>
+                <a href="promo.php?id=<?php echo $currentMonth; ?>">Pesan Sekarang</a>
             </div>
         </div>
     </div>
