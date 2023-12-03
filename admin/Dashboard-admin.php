@@ -2042,13 +2042,13 @@ if (isset($_GET['successMessage'])) {
                             'rgba(36, 153, 255, 1)',
                             'rgb(255, 57, 57, 1)',
                             'rgba(92, 208, 69, 1)',
-                            'rgba(255, 219, 12, 1)'
+                            'rgba(255, 227, 66, 1)'
                         ],
                         borderColor: [
                             'rgba(36, 153, 255, 1)',
                             'rgb(255, 57, 57, 1)',
                             'rgba(92, 208, 69, 1)',
-                            'rgba(255, 219, 12, 1)'
+                            'rgba(255, 227, 66, 1)'
                         ],
                         borderWidth: 0,
                         borderRadius: 4,
