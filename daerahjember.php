@@ -968,10 +968,10 @@ function upload()
             nomorRekening.parentNode.classList.add("hidden");
 
             if (paymentMethod === "Dana") {
-                nomorDana.innerHTML = "Nomor Dana (Yanuar Ardhika): 085933648537";
+                nomorDana.innerHTML = "Nomor Dana (ERIK): 081234567890";
                 nomorDana.parentNode.classList.remove("hidden");
             } else if (paymentMethod === "Transfer Bank") {
-                nomorRekening.innerHTML = "Nomor Rekening Mandiri (YANUAR ARDHIKA): 1430026836864";
+                nomorRekening.innerHTML = "Nomor Rekening (ERIK): 1233344556677";
                 nomorRekening.parentNode.classList.remove("hidden");
             }
         }
