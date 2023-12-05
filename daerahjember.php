@@ -6,7 +6,7 @@ if ($koneksi->connect_error) {
 }
 
 if (isset($_POST['submit'])) {
-    $status=isset($_POST['txt_status']) ? $_POST['txt_status']:'';
+    $status = isset($_POST['txt_status']) ? $_POST['txt_status'] : '';
     $namacustomer = isset($_POST['txt_nama']) ? $_POST['txt_nama'] : '';
     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
@@ -367,6 +367,10 @@ function upload()
             display: none;
         }
 
+        .checkbox-container {
+            margin-left: 25px;
+        }
+
         .checkbox-group label {
             margin-bottom: -15px;
             cursor: pointer;
@@ -442,7 +446,7 @@ function upload()
             text-align: center;
             z-index: 999;
             border-radius: 15px;
-            top: -5%;
+            top: -4%;
             left: 50%;
             transform: translate(-50%) scale(0.2);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -507,7 +511,7 @@ function upload()
         .radio-quota-unlimited {
             display: flex;
             align-items: center;
-            margin-left: 110px;
+            margin-left: 135px;
             margin-top: -18px;
         }
 
@@ -567,7 +571,7 @@ function upload()
         <ul class="navbar-menu">
             <li><a href="Dashboard.php" id="Home">Home</a></li>
             <li class="dropdown">
-                <a href="javascript:void(0)" id="Pemesanan"  class="active-link" class="dropbtn">Pemesanan</a>
+                <a href="javascript:void(0)" id="Pemesanan" class="active-link" class="dropbtn">Pemesanan</a>
                 <div class="dropdown-content">
                     <a href="./daerahjember.php">Daerah Jember</a>
                     <a href="./diluarjember.php">Diluar Jember</a>
@@ -604,7 +608,8 @@ function upload()
                             placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
                     </div>
 
-                    <div class="toast" id="address-warning">Ubahlah alamat dengan menambahkan kata "Jember" agar lokasinya lebih jelas.</div>
+                    <div class="toast" id="address-warning">Ubahlah alamat dengan menambahkan kata "Jember" agar
+                        lokasinya lebih jelas.</div>
                     <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="txt_date" required>
@@ -616,7 +621,7 @@ function upload()
                     <h1>Pemesanan Didaerah Jember</h1>
                     <div class="input-container">
                         <label for="package">Package selection:</label>
-                        <select id="package" name="txt_package">
+                        <select id="package" name="txt_package" onchange="handlePackageChange()">
                             <option value="" disabled selected>Pilih Paket</option>
                             <option value="Self Photobox">Self Photobox</option>
                             <option value="Self Photo">Self Photo</option>
@@ -627,7 +632,7 @@ function upload()
 
                     <div class="input-container checkbox-group">
                         <h3>Pilih Layout:</h3>
-                        <div class="checkbox-container" id="checkbox">
+                        <div class="checkbox-container" id="checkbox" style="display: none;">
                             <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
                                 onclick="handleCheckboxClick(this)">
                             <label for="paperframe-4r">PaperFrame 4R</label>
@@ -785,6 +790,15 @@ function upload()
             var inputValue = event.target.value;
             var numericValue = inputValue.replace(/\D/g, '');
             event.target.value = numericValue;
+        }
+    </script>
+
+    <script>
+        function handlePackageChange() {
+            var packageSelect = document.getElementById("package");
+            var checkboxGroup = document.querySelector(".checkbox-container");
+
+            checkboxGroup.style.display = (packageSelect.value !== "") ? "block" : "none";
         }
     </script>
 

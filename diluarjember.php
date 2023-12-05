@@ -326,6 +326,10 @@ if (isset($_POST['submit'])) {
             display: none;
         }
 
+        .checkbox-container {
+            margin-left: 25px;
+        }
+
         .checkbox-group label {
             margin-bottom: -15px;
             cursor: pointer;
@@ -398,7 +402,7 @@ if (isset($_POST['submit'])) {
         .radio-quota-unlimited {
             display: flex;
             align-items: center;
-            margin-left: 110px;
+            margin-left: 135px;
             margin-top: -18px;
         }
 
@@ -483,7 +487,7 @@ if (isset($_POST['submit'])) {
                     <h1>Pemesanan Diluar Daerah Jember</h1>
                     <div class="input-container">
                         <label for="package">Package selection:</label>
-                        <select id="package" name="txt_package">
+                        <select id="package" name="txt_package" onchange="handlePackageChange()">
                             <option value="" disabled selected>Pilih Paket</option>
                             <option value="Self Photobox">Self Photobox</option>
                             <option value="Self Photo">Self Photo</option>
@@ -494,7 +498,7 @@ if (isset($_POST['submit'])) {
 
                     <div class="input-container checkbox-group">
                         <h3>Pilih Layout:</h3>
-                        <div class="checkbox-container" id="checkbox">
+                        <div class="checkbox-container" id="checkbox" style="display: none;">
                             <input type="checkbox" id="paperframe-4r" name="paket-layout[]" value="1"
                                 onclick="handleCheckboxClick(this)">
                             <label for="paperframe-4r">PaperFrame 4R</label>
@@ -616,6 +620,15 @@ if (isset($_POST['submit'])) {
             var inputValue = event.target.value;
             var numericValue = inputValue.replace(/\D/g, '');
             event.target.value = numericValue;
+        }
+    </script>
+
+    <script>
+        function handlePackageChange() {
+            var packageSelect = document.getElementById("package");
+            var checkboxGroup = document.querySelector(".checkbox-container");
+
+            checkboxGroup.style.display = (packageSelect.value !== "") ? "block" : "none";
         }
     </script>
 
