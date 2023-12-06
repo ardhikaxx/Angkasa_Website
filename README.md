@@ -24,19 +24,3 @@ Admin dapat dengan mudah mengelola dan menganalisis keseluruhan pemesanan melalu
 3. Insan Hidayah (E41220849)
 4. Nike Wulan Avrilia (E41220772)
 5. Yanuar Ardhika Rahmadhani (E41220665)
-
-Cara Menggunakan
-Pemesanan
-
-### 1. Pilih jenis pemesanan yang sesuai dengan lokasi acara Anda.
-- Isi formulir pemesanan dengan detail acara Anda.
-- Lakukan pembayaran sesuai dengan petunjuk yang diberikan.
-- Lupa Password
-
-### 2. Klik opsi "Lupa Password" pada halaman login.
-- Masukkan email terkait akun Anda.
-- Ikuti instruksi captcha untuk memastikan keamanan pemulihan password.
-
-### 3. Dashboard Admin
-- Login sebagai admin menggunakan akun yang telah ditentukan.
-- Analisis grafik bar pada dashboard untuk memahami tren pemesanan dan mengambil keputusan yang tepat.
