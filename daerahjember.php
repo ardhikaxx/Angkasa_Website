@@ -91,7 +91,7 @@ function upload()
         exit();
     }
 
-    if ($ukuranFile > 1000000) {
+    if ($ukuranFile > 2000000) {
         header("Location: daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
         exit();
     }
@@ -562,6 +562,15 @@ function upload()
             color: #999;
             cursor: not-allowed;
         }
+
+        .warning {
+            color: red;
+            font-size: 14px;
+            margin-top: -5px;
+            margin-left: 135px;
+            bottom: -15px;
+            left: 0;
+        }
     </style>
 </head>
 
@@ -768,6 +777,7 @@ function upload()
                         <label for="proof">Kirim Bukti Pembayaran:</label>
                         <input type="file" id="proof" name="gambar" required>
                     </div>
+                    <p class="warning">*Upload image maks 2 MB</p>
                     <button class="prev-button" id="prev-3">Kembali</button>
                     <button class="submit-button" id="submit" type="submit" name="submit" disabled>Pesan</button>
                 </div>
