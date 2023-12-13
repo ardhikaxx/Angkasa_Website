@@ -43,9 +43,6 @@ function cari_nama($koneksi, $nama_cari)
                 <?php echo $teleponcustomer; ?>
             </td>
             <td>
-                <?php echo $alamatacara; ?>
-            </td>
-            <td>
                 <?php echo $tanggalacara; ?>
             </td>
             <td>
@@ -100,9 +97,6 @@ function tanggal($koneksi, $mulai, $selesai)
                 <?php echo $teleponcustomer; ?>
             </td>
             <td>
-                <?php echo $alamatacara; ?>
-            </td>
-            <td>
                 <?php echo $tanggalacara; ?>
             </td>
             <td>
@@ -155,9 +149,6 @@ function semua($koneksi)
             </td>
             <td>
                 <?php echo $teleponcustomer; ?>
-            </td>
-            <td>
-                <?php echo $alamatacara; ?>
             </td>
             <td>
                 <?php echo $tanggalacara; ?>
@@ -280,7 +271,7 @@ function semua($koneksi)
 
         .navbar__menu {
             position: relative;
-            margin-top: 90px;
+            margin-top: 80px;
         }
 
         .navbar__item:last-child:before {
@@ -1958,7 +1949,6 @@ function semua($koneksi)
                     <th id="no">No</th>
                     <th>Nama Cust</th>
                     <th>No Hp</th>
-                    <th>Alamat</th>
                     <th>Tanggal</th>
                     <th>Package</th>
                     <th>Layout</th>

@@ -11,7 +11,6 @@ if (isset($_POST['submit'])) {
     $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
     $tanggalacara = isset($_POST['date']) ? $_POST['date'] : '';
 
-    // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
     $today = date("Y-m-d");
     if ($tanggalacara < $today) {
         header("Location: ./sponsor.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
@@ -422,12 +421,6 @@ function upload()
                     <label for="phone">Nomer Telepon:</label>
                     <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
                         oninput="validateNumberInput(event)" required>
-                </div>
-
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="txt_address"
-                        placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
                 </div>
 
                 <div class="input-container">

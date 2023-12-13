@@ -472,11 +472,6 @@ if (isset($_POST['submit'])) {
                             oninput="validateNumberInput(event)" required>
                     </div>
                     <div class="input-container">
-                        <label for="address">Alamat Acara:</label>
-                        <input type="text" id="address" name="address"
-                            placeholder="Contoh: Jl. Walikota Mustajab No.59, Surabaya" required>
-                    </div>
-                    <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="date" required>
                     </div>

@@ -426,15 +426,6 @@ if (isset($_POST['submit'])) {
                     <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
                         oninput="validateNumberInput(event)" required>
                 </div>
-
-                <div class="input-container">
-                    <label for="address">Alamat Acara:</label>
-                    <input type="text" id="address" name="txt_address"
-                        placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
-                </div>
-
-                <div class="toast" id="address-warning">Alamat harus mencantumkan nama alamat dengan kata "Jember".
-                </div>
                 <button class="submit-button" id="submit" type="submit" name="submit" disabled>Pesan</button>
                 <div class="btn-batal" >
                     <a href="./Dashboard.php" class="batal-button" id="batal">Batal</a>

@@ -118,7 +118,7 @@ if (isset($_GET['successMessage'])) {
 
         .navbar__menu {
             position: relative;
-            margin-top: 90px;
+            margin-top: 80px;
         }
 
         .navbar__item:last-child:before {

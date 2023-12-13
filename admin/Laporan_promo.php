@@ -36,9 +36,6 @@ function cari_nama($koneksi, $nama_cari)
                 <?php echo $teleponcustomer; ?>
             </td>
             <td>
-                <?php echo $alamatacara; ?>
-            </td>
-            <td>
                 <?php echo $namapromo;?>
             </td>
             <td>
@@ -150,7 +147,7 @@ function cari_nama($koneksi, $nama_cari)
 
         .navbar__menu {
             position: relative;
-            margin-top: 90px;
+            margin-top: 80px;
         }
 
         .navbar__item:last-child:before {
@@ -1660,7 +1657,7 @@ function cari_nama($koneksi, $nama_cari)
         }
 
         .tabel-laporan {
-            width: 1000px;
+            width: 850px;
             height: auto;
             margin: 0 auto;
             background-color: #EBECF0 0.5;
@@ -1670,7 +1667,7 @@ function cari_nama($koneksi, $nama_cari)
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
             margin-top: 20px;
-            margin-left: 170px;
+            margin-left: 230px;
         }
 
         .tabel-laporan h1 {
@@ -1808,7 +1805,6 @@ function cari_nama($koneksi, $nama_cari)
                     <th id="no">No</th>
                     <th>Nama Cust</th>
                     <th>No Hp</th>
-                    <th>Alamat</th>
                     <th>Nama Promo</th>
                     <th id="harga">Harga Promo</th>
                 </tr>
@@ -1845,9 +1841,6 @@ function cari_nama($koneksi, $nama_cari)
                             </td>
                             <td>
                                 <?php echo $teleponcustomer; ?>
-                            </td>
-                            <td>
-                                <?php echo $alamatacara; ?>
                             </td>
                             <td>
                                 <?php echo $namapromo;?>

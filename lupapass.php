@@ -89,7 +89,7 @@
         .captcha-box #captcha {
             background-image: url('assets/bgcaptcha.jpg');
             box-shadow: none;
-            color: #6C6C6C;
+            color: #595959;
             font-size: 24px;
             font-style: italic;
             font-weight: 550;

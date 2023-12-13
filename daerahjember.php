@@ -9,14 +9,12 @@ if (isset($_POST['submit'])) {
     $status = isset($_POST['txt_status']) ? $_POST['txt_status'] : '';
     $namacustomer = isset($_POST['txt_nama']) ? $_POST['txt_nama'] : '';
     $nohp = isset($_POST['txt_phone']) ? $_POST['txt_phone'] : '';
-    $alamatacara = isset($_POST['txt_address']) ? $_POST['txt_address'] : '';
     $tanggalacara = isset($_POST['txt_date']) ? $_POST['txt_date'] : '';
     $pilihanpackage = isset($_POST['txt_package']) ? $_POST['txt_package'] : '';
     $pilihpaketlayout = isset($_POST['paket-layout']) ? $_POST['paket-layout'] : '';
     $quota = isset($_POST['quota']) ? $_POST['quota'] : '';
     $unlimited = isset($_POST['unlimited']) ? $_POST['unlimited'] : '';
     $pilihanpembayaran = isset($_POST['txt_payment']) ? $_POST['txt_payment'] : '';
-    // Pengecekan apakah tanggal yang dipilih lebih kecil dari tanggal hari ini
     $today = date("Y-m-d");
     if ($tanggalacara < $today) {
         header("Location: daerahjember.php?WarningMessage=Anda tidak dapat memilih tanggal yang telah berlalu!");
@@ -24,12 +22,14 @@ if (isset($_POST['submit'])) {
     } else {
         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
         $check_date_result = mysqli_query($koneksi, $check_date_query);
+        $row = mysqli_fetch_assoc($check_date_result);
+        $jumlah_pemesanan = $row['jumlah_pemesanan'];
 
+        $batas_pemesanan = 2;
 
-
-        if (mysqli_num_rows($check_date_result) > 0) {
-            header("Location: daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
-            exit();
+        if ($jumlah_pemesanan <= $batas_pemesanan) {
+        header("Location: daerahjember.php?WarningMessage=Maaf tanggal tersebut sudah mencapai batas pemesanan!");
+        exit();
         } else {
             $gambar = upload();
             if (!$gambar) {
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
             }
         }
     }
-} else {
+}else {
     $error = "Gagal menyisipkan data ke tabel layout.";
 }
 function upload()
@@ -92,7 +92,7 @@ function upload()
     }
 
     if ($ukuranFile > 2000000) {
-        header("Location: daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
+        header("Location:  daerahjember.php?WarningMessage=ukuran gambar terlalu besar!");
         exit();
     }
     $namaFileBaru = uniqid();
@@ -571,6 +571,14 @@ function upload()
             bottom: -15px;
             left: 0;
         }
+
+        .warning-payment {
+            font-size: 14px;
+            margin-top: -5px;
+            margin-left: 135px;
+            bottom: -15px;
+            left: 0;
+        }
     </style>
 </head>
 
@@ -610,15 +618,6 @@ function upload()
                         <input type="tel" id="phone" name="txt_phone" placeholder="Contoh: 081222333444"
                             oninput="validateNumberInput(event)" required>
                     </div>
-
-                    <div class="input-container">
-                        <label for="address">Alamat Acara:</label>
-                        <input type="text" id="address" name="txt_address"
-                            placeholder="Contoh: Jl. Mastrip, Kec. Sumbersari, Jember" required>
-                    </div>
-
-                    <div class="toast" id="address-warning">Ubahlah alamat dengan menambahkan kata "Jember" agar
-                        lokasinya lebih jelas.</div>
                     <div class="input-container">
                         <label for="date">Tanggal Acara:</label>
                         <input type="date" id="date" name="txt_date" required>
@@ -764,6 +763,7 @@ function upload()
                             <option value="Transfer Bank">Transfer Bank</option>
                         </select>
                     </div>
+                    <p class="warning-payment">Note: Pembayaran DP minimal 20% dari harga pemesanan, untuk pembayaran pelunasan bisa pada hari acara</p>
 
                     <div id="danaDetails" class="hidden">
                         <p id="nomorDana"></p>
@@ -992,10 +992,10 @@ function upload()
             nomorRekening.parentNode.classList.add("hidden");
 
             if (paymentMethod === "Dana") {
-                nomorDana.innerHTML = "Nomor Dana (ERIK): 081234567890";
+                nomorDana.innerHTML = "Nomor Dana (ERICK): 087752874282";
                 nomorDana.parentNode.classList.remove("hidden");
             } else if (paymentMethod === "Transfer Bank") {
-                nomorRekening.innerHTML = "Nomor Rekening (ERIK): 1233344556677";
+                nomorRekening.innerHTML = "Nomor Rekening BCA (ERICK SUDIANTO): 0240695685";
                 nomorRekening.parentNode.classList.remove("hidden");
             }
         }
@@ -1026,30 +1026,11 @@ function upload()
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const addressInput = document.getElementById('address');
-            const addressWarning = document.getElementById('address-warning');
-            const nextButton = document.getElementById('next-1');
-
-            addressInput.addEventListener('blur', function () {
-                const addressValue = addressInput.value.toLowerCase();
-                if (!addressValue.includes('jember')) {
-                    addressWarning.style.display = 'inline-block';
-                    nextButton.disabled = true;
-                } else {
-                    addressWarning.style.display = 'none';
-                    nextButton.disabled = false;
-                }
-            });
-        });
-    </script>
-
-    <script>
         const nextButton1 = document.getElementById("next-1");
         const nextButton2 = document.getElementById("next-2");
         const nextButton3 = document.getElementById("submit");
 
-        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
+        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("date")];
         const step2Inputs = [document.getElementById("package")];
         const step3Inputs = [document.getElementById("payment"), document.getElementById("proof")];
 
