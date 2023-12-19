@@ -22,26 +22,15 @@ if (isset($_POST['submit'])) {
     } else {
         $check_date_query = "SELECT id_pemesanan FROM pemesanan WHERE tanggal_acara = '$tanggalacara'";
         $check_date_result = mysqli_query($koneksi, $check_date_query);
-        $row = mysqli_fetch_assoc($check_date_result);
-        $jumlah_pemesanan = $row['jumlah_pemesanan'];
-
-        $batas_pemesanan = 2;
-
-        if ($jumlah_pemesanan <= $batas_pemesanan) {
-        header("Location: daerahjember.php?WarningMessage=Maaf tanggal tersebut sudah mencapai batas pemesanan!");
-        exit();
+        if (mysqli_num_rows($check_date_result) > 0) {
+            header("Location: ./daerahjember.php?WarningMessage=Tanggal tersebut telah dipesan! Silakan pilih tanggal lain.");
+            exit();
         } else {
-            $gambar = upload();
-            if (!$gambar) {
-                return false;
-            }
-
-
             $query_customer = "INSERT INTO customer (id_customer, nama_cust, no_hp) VALUES ('', '$namacustomer', '$nohp')";
             $result_customer = mysqli_query($koneksi, $query_customer);
             if ($result_customer) {
                 $last_inserted_customer_id = mysqli_insert_id($koneksi);
-                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,metode_bayar, bukti_bayar,status) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage',  '$pilihanpembayaran', '$gambar','$status')";
+                $query_pemesanan = "INSERT INTO pemesanan (id_pemesanan,id_customer,alamat_acara, tanggal_acara, nama_package,status) VALUES ('','$last_inserted_customer_id','$alamatacara', '$tanggalacara', '$pilihanpackage','$status')";
                 $result_pemesanan = mysqli_query($koneksi, $query_pemesanan);
                 if ($result_pemesanan) {
                     $last_inserted_pemesanan_id = mysqli_insert_id($koneksi);
@@ -54,21 +43,19 @@ if (isset($_POST['submit'])) {
                             $result_detail_pemesanan = mysqli_query($koneksi, $query_detail_pemesanan);
                         }
                     }
-
                     if ($result_detail_pemesanan) {
                         $koneksi->commit();
-                        header("Location: Dashboard.php?successMessage=Pemesanan Berhasil.");
+                        header("Location: ./Dashboard.php?successMessage=Pemesanan Berhasil.");
                         exit();
                     } else {
                         $conn->rollback();
                         $error = "Pemesanan Gagal. Silahkan Coba Lagi Nanti.";
                     }
-
                 }
             }
         }
     }
-}else {
+} else {
     $error = "Gagal menyisipkan data ke tabel layout.";
 }
 function upload()

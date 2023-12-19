@@ -631,7 +631,7 @@ if (isset($_POST['submit'])) {
         const nextButton1 = document.getElementById("next-1");
         const nextButton2 = document.getElementById("submit");
 
-        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("address"), document.getElementById("date")];
+        const step1Inputs = [document.getElementById("name"), document.getElementById("phone"), document.getElementById("date")];
         const step2Inputs = [document.getElementById("package")];
 
         function isStepFormValid(inputs) {
